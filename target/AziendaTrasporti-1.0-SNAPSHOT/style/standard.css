@@ -1,0 +1,13 @@
+body {
+
+    font-family: sans-serif;
+    background: #003300;
+    h2 { color: #ffff00; }
+    h3 { color: #ffffff }
+    hr { border: 1px solid #bb8800 }
+    h1 {
+
+        color: #ffffff;
+        font-size: 55px;
+    }
+}
