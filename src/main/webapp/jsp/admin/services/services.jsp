@@ -1,7 +1,11 @@
+<%@ page import="ingweb.main.aziendatrasporti.mo.Service" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="ingweb.main.aziendatrasporti.mo.Worker" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <% //global variables
-    var numDep=6;
-    var numWorks=5;
+    var contextPath=request.getContextPath();
+    var serviceList=(ArrayList<Service>)request.getAttribute("serviceList");
+    var workerList=(ArrayList<Worker>)request.getAttribute("workerList");
     var startHour=5;
     var startMinute=0;
     var endHour=18;
@@ -10,8 +14,7 @@
 %>
 <html>
     <head>
-        <title>Gestione orari</title>
-        <link href="../../style/schedule.css" rel="stylesheet" type="text/css">
+        <title>Lista servizi</title>
         <script>
             function parseInt(array) { //parse string array as integer array
 
@@ -91,7 +94,7 @@
 
             function addTimeSlot() { //add new work in table
 
-                let depId=document.querySelector("#depList").querySelector(":checked").id;
+                let depId=document.querySelector("#depList").querySelector(":checked").value;
                 let startHour=document.querySelector("#startHour").querySelector(":checked").value.replace(":", "-");
                 let duration=document.querySelector("#endHour").querySelector(":checked").value.replace(":", "-");
                 let tableElement=document.querySelector("#table\\["+depId+"\\]\\["+startHour+"\\]");
@@ -143,7 +146,7 @@
                 removeWorksButton.addEventListener("click", clearTable);
                 startTimeLength.addEventListener("change", getDuration);
                 endTimeLength.addEventListener("focus", getDuration);
-                managePeople.addEventListener("click", function() { window.location.href="./people/people.jsp"; });
+                //managePeople.addEventListener("click", function() { window.location.href="./people/workers.jsp"; });
 
                 getDuration(); //initial data generation
             }
@@ -152,13 +155,10 @@
         </script>
     </head>
     <body>
-        <nav>
-            <input type="button" id="managePeople" value="Lista persone">
-        </nav>
         <form>
             <label for="depList">Selezionare dipendente: </label>
             <select name="depList" id="depList">
-                <% for (var index=0; index<numDep; index++) { %><option id="d<%= index %>">Dipendente <%= index %></option><% } %>
+                <% for (var worker: workerList) { %><option><%= worker.getName() %></option><% } %>
             </select><br/>
             <label for="startHour">Selezionare orario inizio servizio: </label>
             <select id="startHour">
@@ -170,8 +170,8 @@
             <select id="endHour"></select><br/>
             <label for="workName">Selezionare nome evento: </label>
             <select id="workName">
-                <% for (var workIndex=0; workIndex<numWorks; workIndex++) { %>
-                <option>Lavoro <%= workIndex %></option>
+                <% for (var service: serviceList) { %>
+                <option><%= service.getName() %></option>
                 <% } %>
             </select><br/><br/>
             <input type="button" value="Aggiungi evento" id="addTimeSlot">
@@ -179,19 +179,22 @@
         </form>
     <table>
         <tr>
-            <td colspan="<%= numDep+1 %>" id="tableTitle">
-                <label for="weekDay">Selezionare il giorno: </label>
-                <input type="date" id="weekDay">
+            <td colspan="<%= workerList.size()+1 %>">
+                <form name="dateForm">
+                    <label for="weekDay">Selezionare il giorno: </label>
+                    <input type="date" id="weekDay">
+                    <input type="button" id="searchDate" name="searchDate" value="Ricerca servizi">
+                </form>
             </td>
         </tr>
         <tr>
             <td>Orario</td>
-            <% for (var index=0; index<numDep; index++) { %><td>Dipendente <%= index %></td><% } %>
+            <% for (var worker: workerList) { %><td><%= worker.getName() %></td><% } %>
         </tr>
         <% for (var minute=(startHour*60+startMinute); minute<=(endHour*60+endMinute); minute+=timeStep) { %>
         <tr>
             <td><%=minute/60%>:<%=minute%60%><%=(minute%60)==0 ? "0" : ""%></td>
-            <% for (var x=0; x<numDep; x++) { %><td id="table[d<%= x %>][<%=minute/60%>-<%=minute%60%><%=(minute%60)==0 ? "0" : ""%>]">---</td><% } %>
+            <% for (var worker: workerList) { %><td id="table[d<%= worker.getName() %>][<%=minute/60%>-<%=minute%60%><%=(minute%60)==0 ? "0" : ""%>]">---</td><% } %>
         </tr>
         <% } %>
     </table>

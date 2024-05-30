@@ -1,18 +1,12 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
-<html>
+<%@page session="false"%>
+<% String contextPath=request.getContextPath(); %>
+<!DOCTYPE HTML>
+<html lang="it-IT">
 <head>
-    <title>Home page</title>
-    <script>
-        window.addEventListener("load", function() {
-
-            let b=document.querySelector("#goLogin");
-            b.addEventListener("click", function() { window.location.href="jsp/login/login.jsp"; });
-        });
-    </script>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="0; url=<%= contextPath %>/Dispatcher">
+    <title>Page Redirection</title>
 </head>
-<body>
-<h1>Sito attualmente in costruzione</h1>
-<p>Questo sito è attualmente in costruzione.<br/>Sarà disponibile prima o poi :)</p>
-<input type="button" id="goLogin" value="Vai al login">
-</body>
+    <body>
+    </body>
 </html>

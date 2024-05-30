@@ -1,0 +1,25 @@
+input[type=checkbox]:disabled { pointer-events: none }
+input[type=checkbox]:checked { background-color: #008888; }
+input[type=checkbox]:hover { background-color: #006666; }
+input[type=checkbox]:active { background-color: #00aaaa; }
+input[type=checkbox]:checked::after {
+
+    font-weight: bold;
+    content: "✓";
+    padding-right: 0.15ex;
+}
+
+input[type=checkbox] {
+
+    appearance: initial;
+    width: 15px;
+    height: 15px;
+    margin: auto;
+    padding: initial;
+    background-color: #004444;
+    color: #ffffff;
+    border: 1px solid #444444;
+    font-size: 13px;
+    font-weight: normal;
+    border-radius: 2px;
+}
