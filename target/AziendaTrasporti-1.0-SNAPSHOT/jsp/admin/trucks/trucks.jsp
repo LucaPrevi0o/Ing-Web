@@ -1,7 +1,6 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="ingweb.main.aziendatrasporti.mo.License" %>
 <%@ page import="ingweb.main.aziendatrasporti.mo.Truck" %>
-<%@ page import="ingweb.main.aziendatrasporti.mo.Account" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%
     var truckList=(ArrayList<Truck>)request.getAttribute("truckList");
@@ -12,6 +11,7 @@
 <html>
     <head>
         <title>Lista mezzi</title>
+        <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/generalStyle.css">
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/dataTable.css">
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/checkbox.css">
         <script>

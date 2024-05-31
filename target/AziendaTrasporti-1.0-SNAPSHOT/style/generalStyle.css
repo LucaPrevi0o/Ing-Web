@@ -1,0 +1,12 @@
+h1, h3 { color: #ffffff }
+h2 { color: #ffff00 }
+body {
+
+    font-family: sans-serif;
+    background-color: #003300;
+}
+hr {
+
+    border: 1px solid #bb8800;
+    margin-bottom: 60px;
+}

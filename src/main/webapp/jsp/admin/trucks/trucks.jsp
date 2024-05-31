@@ -11,6 +11,7 @@
 <html>
     <head>
         <title>Lista mezzi</title>
+        <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/generalStyle.css">
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/dataTable.css">
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/checkbox.css">
         <script>

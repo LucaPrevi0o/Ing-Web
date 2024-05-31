@@ -4,6 +4,7 @@
 <html>
     <head>
         <title>Login</title>
+        <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/generalStyle.css">
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/loginForm.css">
         <script>
             window.addEventListener("load", function() {

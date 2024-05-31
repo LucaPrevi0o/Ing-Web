@@ -7,6 +7,7 @@
 <html>
     <head>
         <title>Home - <%= loggedAccount.getFullName().toUpperCase() %></title>
+        <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/generalStyle.css">
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/navMenu.css">
         <script>
             window.addEventListener("load", function() {
