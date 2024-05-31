@@ -8,7 +8,7 @@
 <html>
     <head>
         <title>Lista clienti</title>
-        <link rel="stylesheet" href="<%= request.getContextPath() %>/style/table.css"/>
+        <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/dataTable.css">
         <script>
             window.addEventListener("load", function() {
 

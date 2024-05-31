@@ -1,25 +1,19 @@
-input[type=checkbox]:disabled { pointer-events: none }
-input[type=checkbox]:checked { background-color: #008888; }
-input[type=checkbox]:hover { background-color: #006666; }
-input[type=checkbox]:active { background-color: #00aaaa; }
-input[type=checkbox]:checked::after {
-
-    font-weight: bold;
-    content: "✓";
-    padding-right: 0.15ex;
-}
-
 input[type=checkbox] {
 
-    appearance: initial;
+    appearance: unset;
+    display: inline-block;
     width: 15px;
     height: 15px;
-    margin: auto;
-    padding: initial;
-    background-color: #004444;
+    text-align: center;
+    font-size: 12px;
+    background-color: #006600;
     color: #ffffff;
-    border: 1px solid #444444;
-    font-size: 13px;
-    font-weight: normal;
-    border-radius: 2px;
 }
+
+input[type=checkbox]:disabled { pointer-events: none }
+input[type=checkbox]:checked::after { content: "✓" }
+input[type=checkbox]:checked { background-color: #006666 }
+input[type=checkbox]:hover { background-color: #008800 }
+input[type=checkbox]:active { background-color: #00aa00 }
+input[type=checkbox]:checked:hover { background-color: #008888 }
+input[type=checkbox]:checked:active { background-color: #00aaaa }

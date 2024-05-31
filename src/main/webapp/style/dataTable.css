@@ -1,0 +1,39 @@
+table {
+
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+    width: 80%;
+    border-collapse: separate;
+    text-align: center;
+    border: 1px double #bb8800;
+    background-color: #006600;
+    color: #ffffff;
+    td {
+
+        border-radius: 2px;
+        padding: 2px 3px;
+        border: 1px solid #ffff00;
+        background-color: #004444;
+    }
+
+    .firstRow td {
+
+        background-color: #008888;
+        font-weight: bold;
+    }
+
+    input {
+
+        border-radius: 2px;
+        height: 20px;
+        color: #ffffff;
+        font-size: 12px;
+        text-align: center;
+        background-color: #006600;
+        border: 1px solid #444444;
+    }
+
+    input:hover { background-color: #008800 }
+    input:active { background-color: #00aa00 }
+}

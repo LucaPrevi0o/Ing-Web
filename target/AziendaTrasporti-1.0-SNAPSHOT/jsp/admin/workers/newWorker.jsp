@@ -12,9 +12,6 @@
 <html>
     <head>
         <title>Nuovo dipendente</title>
-        <link rel="stylesheet" type="text/css" href="<%= contextPath %>/style/standard.css">
-        <link rel="stylesheet" type="text/css" href="<%= contextPath %>/style/form.css">
-        <link rel="stylesheet" type="text/css" href="<%= contextPath %>/style/checkbox.css">
         <script>
             window.addEventListener("load", function() {
 
@@ -57,15 +54,13 @@
             <input type="date" id="birthDate" name="birthDate" value="<%= worker==null ? "" : worker.getBirthDate() %>" required/><br/>
             <label for="telNumber">Numero di telefono</label><br>
             <input type="tel" id="telNumber" name="telNumber" placeholder="+39 XXX-XXXXXXX" pattern="^\\\+[0-9]{2} [0-9]{3}-[0-9]{7}$" title="Inserire un numero cellulare nel formato richiesto" value="<%= worker==null ? "" : worker.getTelNumber() %>" required><br/>
-            <table>
-                <tr>
-                    <td>Patenti</td>
-                    <% for (var license: licenseList) { %><td>
-                        <label for="<%= license.getCategory() %>"><%= license.getCategory() %></label>
-                        <input type="checkbox" name="license" id="<%= license.getCategory() %>" value="<%= license.getCategory() %>" <%= worker==null || !worker.getLicenses().contains(license) ? "" : "checked" %>>
-                    </td><% } %>
-                </tr>
-            </table><br/>
+            <label for="licenses">Patenti</label><br/>
+            <div id="licenses">
+                <% for (var license: licenseList) { %>
+                    <label for="<%= license.getCategory() %>"><%= license.getCategory() %></label>
+                    <input type="checkbox" name="license" id="<%= license.getCategory() %>" value="<%= license.getCategory() %>" <%= worker==null || !worker.getLicenses().contains(license) ? "" : "checked" %>>
+                <% } %>
+            </div>
             <div class="styled">
                 <input type="button" id="addButton" value="<%= worker==null ? "Aggiungi dipendente" : "Modifica dipendente"%>">
                 <input type="button" id="refreshButton" value="Torna alla lista autisti">

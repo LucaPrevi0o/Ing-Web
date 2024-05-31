@@ -4,8 +4,6 @@
 <%@ page import="ingweb.main.aziendatrasporti.mo.Account" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%
-    var contextPath=request.getContextPath();
-    var loggedAccount=(Account)request.getAttribute("loggedAccount");
     var truckList=(ArrayList<Truck>)request.getAttribute("truckList");
     if (truckList==null) truckList=new ArrayList<>();
     var licenseList=(ArrayList<License>)request.getAttribute("licenseList");
@@ -14,6 +12,8 @@
 <html>
     <head>
         <title>Lista mezzi</title>
+        <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/dataTable.css">
+        <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/checkbox.css">
         <script>
             window.addEventListener("load", function() {
 
@@ -64,9 +64,11 @@
         </script>
     </head>
     <body>
+        <%@ include file="/jsp/admin/welcome.jsp" %>
+        <hr/>
         <h1>Lista mezzi</h1>
         <table>
-            <tr>
+            <tr class="firstRow">
                 <td rowspan="2">Targa</td>
                 <td rowspan="2">Marca</td>
                 <td rowspan="2">Modello</td>
@@ -74,7 +76,7 @@
                 <td colspan="<%= licenseList.size() %>">Patenti</td>
                 <td rowspan="2" colspan="2">Azioni</td>
             </tr>
-            <tr><% for (var license: licenseList) { %><td><%= license.getCategory() %></td><% } %></tr>
+            <tr class="firstRow"><% for (var license: licenseList) { %><td><%= license.getCategory() %></td><% } %></tr>
             <% for (var truck: truckList) {
                 var licenses=truck.getNeededLicenses();
                 if (licenses==null) licenses=new ArrayList<>(); %>
@@ -89,14 +91,12 @@
                 </tr>
             <% } %>
         </table>
-        <form name="dataForm" action="<%= contextPath %>/Dispatcher" method="post">
+        <form name="dataForm" action="<%= request.getContextPath() %>/Dispatcher" method="post">
             <input type="button" id="newTruckButton" value="Nuovo mezzo">
             <input type="button" id="refreshButton" value="Aggiorna lista">
-            <input type="button" id="backButton" value="Torna alla home">
+            <input type="button" id="backButton" value="Chiudi tab">
             <input type="hidden" name="name">
             <input type="hidden" name="action">
-            <input type="hidden" name="username" value="<%= loggedAccount.getUsername() %>">
-            <input type="hidden" name="password" value="<%= loggedAccount.getPassword() %>">
         </form>
     </body>
 </html>
