@@ -9,6 +9,13 @@ import java.util.ArrayList;
 
 public class TruckDispatcher implements DispatchCollector {
 
+    private static void commonState(HttpServletRequest request, HttpServletResponse response) {
+
+        request.setAttribute("viewUrl", "/admin/trucks/trucks");
+        request.setAttribute("selectedTab", "trucks");
+        DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
+    }
+
     public static void getTrucks(HttpServletRequest request, HttpServletResponse response) {
 
         //get parameters passed by login page
@@ -28,9 +35,7 @@ public class TruckDispatcher implements DispatchCollector {
         request.setAttribute("truckList", truckList);
         request.setAttribute("licenseList", licenseList);
         request.setAttribute("loggedAccount", loggedAccount);
-        request.setAttribute("viewUrl", "/admin/trucks/trucks"); //set URL for forward view dispatch
-        System.out.println("truck dispatcher updating attributes");
-        DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
+        commonState(request, response);
     }
 
     public static void newTruck(HttpServletRequest request, HttpServletResponse response) {
@@ -46,8 +51,8 @@ public class TruckDispatcher implements DispatchCollector {
         dao.close();
         //DispatchCollector.commonView(request);
         request.setAttribute("licenseList", licenseList);
-        request.setAttribute("loggedAccount", loggedAccount);
         request.setAttribute("viewUrl", "/admin/trucks/newTruck");
+        request.setAttribute("loggedAccount", loggedAccount);
         DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
     }
 
@@ -85,9 +90,8 @@ public class TruckDispatcher implements DispatchCollector {
         dao.close();
         request.setAttribute("truckList", truckList);
         request.setAttribute("licenseList", licenseList);
-        request.setAttribute("viewUrl", "/admin/trucks/trucks");
         request.setAttribute("loggedAccount", loggedAccount);
-        DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
+        commonState(request, response);
     }
 
     public static void removeTruck(HttpServletRequest request, HttpServletResponse response) {
@@ -109,9 +113,7 @@ public class TruckDispatcher implements DispatchCollector {
         dao.close();
         request.setAttribute("truckList", truckList);
         request.setAttribute("licenseList", licenseList);
-        request.setAttribute("viewUrl", "/admin/trucks/trucks");
-        request.setAttribute("loggedAccount", loggedAccount);
-        DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
+        commonState(request, response);
     }
 
     public static void updateTruck(HttpServletRequest request, HttpServletResponse response) {
@@ -148,9 +150,8 @@ public class TruckDispatcher implements DispatchCollector {
         dao.close();
         request.setAttribute("truckList", truckList);
         request.setAttribute("licenseList", licenseList);
-        request.setAttribute("viewUrl", "/admin/trucks/trucks");
         request.setAttribute("loggedAccount", loggedAccount);
-        DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
+        commonState(request, response);
     }
 
     public static void editTruck(HttpServletRequest request, HttpServletResponse response) {
