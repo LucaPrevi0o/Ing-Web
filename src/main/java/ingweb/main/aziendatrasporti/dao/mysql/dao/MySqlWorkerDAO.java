@@ -41,26 +41,30 @@ public class MySqlWorkerDAO implements WorkerDAO {
 
     public MySqlWorkerDAO(Connection connection) { this.connection=connection; }
 
-    //return a list of every worker found on the database
     public ArrayList<Worker> findAll() {
 
-        var result=new ArrayList<Worker>(); //empty list
-        var query="select * from dipendente"; //SQL query to extract data
-        var workers=MySqlQueryManager.getResult(connection, query); //execute query on the database
-        var workersList=MySqlQueryManager.asList(workers, allColumns); //parse results
-        for (var item: workersList) { //add every element of the result set as new worker
+        var workers=new ArrayList<Worker>();
+        var newS="SELECT nome, cognome, codice_fiscale, data_nascita, numero_telefono, deleted, GROUP_CONCAT(patente) as patenti FROM dipendente \n" +
+                "\tINNER JOIN patenti_autista ON dipendente.codice_fiscale=patenti_autista.dipendente \n" +
+                "\tGROUP BY dipendente.codice_fiscale";
+        var res=MySqlQueryManager.getResult(connection, newS); //execute query on the database
+        var newArr=Arrays.copyOf(allColumns, allColumns.length+1);
+        newArr[newArr.length-1]="patenti";
+        var resList=MySqlQueryManager.asList(res, newArr); //parse results
+        for (var item: resList) {
 
-            //parse obtained result as correct data type
-            var worker=itemToObject(item);
-            if (!worker.isDeleted()) result.add(worker); //add worker to the result list if not set as deleted
+            var worker=new Worker(item[0], item[1], item[2], Date.valueOf(item[3]), item[4], item[5].equals("1"));
+            var licenses=new ArrayList<License>();
+            for (var license: item[6].split(",")) licenses.add(new License(license));
+            worker.setLicenses(licenses);
+            System.out.println(worker);
+            workers.add(worker);
         }
-
-        return result; //return list of valid workers
+        return workers; //return null if none is found
     }
 
     //return, if exists, the worker having a specified fiscal code
     public Worker findByFiscalCode(String fiscalCode) {
-
         var query="select * from dipendente where codice_fiscale='"+fiscalCode+"'"; //SQL query to extract data
         var res=MySqlQueryManager.getResult(connection, query); //execute query on the database
         var resList=MySqlQueryManager.asList(res, allColumns); //parse results
