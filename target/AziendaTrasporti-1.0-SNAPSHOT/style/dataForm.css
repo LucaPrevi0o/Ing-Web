@@ -1,0 +1,39 @@
+form {
+
+    padding: 10px;
+    width: 60%;
+    border-radius: 10px;
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #ffff00;
+    h1 {
+
+        color: #006600;
+        text-align: center;
+    }
+
+    table {
+
+        width: 80%;
+        input { width: 85% }
+    }
+
+    input {
+
+        border-radius: 5px;
+        height: 20px;
+        color: #ffffff;
+        font-size: 12px;
+        width: 10%;
+        text-align: center;
+        background-color: #006600;
+        border: 1px solid #444444;
+    }
+
+    input[readonly=""]:hover { background-color: #008800 }
+    input[readonly=""]:active { background-color: #00aa00 }
+    input:focus { background-color: #006666 }
+    input[readonly], input[readonly]:hover { background-color: #660000 }
+    input[readonly]:active, input[readonly]:focus { background-color: #880000 }
+}
