@@ -1,10 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="ingweb.main.aziendatrasporti.mo.ClientCompany" %>
-<%@ page import="ingweb.main.aziendatrasporti.mo.Account" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%
     var contextPath=request.getContextPath();
-    var loggedAccount=(Account)request.getAttribute("loggedAccount");
     var clientCompany=(ClientCompany)request.getAttribute("clientCompany");
 %>
 <html>
@@ -14,14 +12,7 @@
             window.addEventListener("load", function() {
 
                 let addButton=document.querySelector("#addButton");
-                let backButton=document.querySelector("#backButton");
                 let refreshButton=document.querySelector("#refreshButton");
-
-                backButton.addEventListener("click", function() {
-
-                    document.dataForm.action.value="LoginDispatcher.validate";
-                    document.dataForm.submit();
-                });
 
                 refreshButton.addEventListener("click", function() {
 
@@ -50,10 +41,7 @@
             <input type="text" id="manager" name="manager" placeholder="Responsabile" value="<%= clientCompany==null ? "" : clientCompany.getManager() %>" required><br/>
             <input type="button" id="addButton" value="<%= clientCompany==null ? "Aggiungi cliente" : "Modifica dati cliente"%>">
             <input type="button" id="refreshButton" value="Torna alla lista clienti">
-            <input type="button" id="backButton" value="Torna alla home">
             <input type="hidden" name="action" value="">
-            <input type="hidden" name="username" value="<%= loggedAccount.getUsername() %>">
-            <input type="hidden" name="password" value="<%= loggedAccount.getPassword() %>">
         </form>
     </body>
 </html>

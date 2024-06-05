@@ -6,7 +6,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%
     var contextPath=request.getContextPath();
-    var loggedAccount=(Account)request.getAttribute("loggedAccount");
     var truck=(Truck)request.getAttribute("truck");
     var licenseList=(ArrayList<License>)request.getAttribute("licenseList");
     if (licenseList==null) licenseList=new ArrayList<>();
@@ -18,14 +17,7 @@
             window.addEventListener("load", function() {
 
                 let addButton=document.querySelector("#addButton");
-                let backButton=document.querySelector("#backButton");
                 let refreshButton=document.querySelector("#refreshButton");
-
-                backButton.addEventListener("click", function() {
-
-                    document.dataForm.action.value="LoginDispatcher.validate";
-                    document.dataForm.submit();
-                });
 
                 refreshButton.addEventListener("click", function() {
 
@@ -61,10 +53,7 @@
             </table><br/>
             <input type="button" id="addButton" value="<%= truck==null ? "Aggiungi mezzo" : "Modifica mezzo"%>">
             <input type="button" id="refreshButton" value="Torna alla lista mezzi">
-            <input type="button" id="backButton" value="Torna alla home">
             <input type="hidden" name="action" value="">
-            <input type="hidden" name="username" value="<%= loggedAccount.getUsername() %>">
-            <input type="hidden" name="password" value="<%= loggedAccount.getPassword() %>">
         </form>
     </body>
 </html>
