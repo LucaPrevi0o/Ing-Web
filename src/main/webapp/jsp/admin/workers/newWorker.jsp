@@ -16,14 +16,7 @@
             window.addEventListener("load", function() {
 
                 let addButton=document.querySelector("#addButton");
-                let backButton=document.querySelector("#backButton");
                 let refreshButton=document.querySelector("#refreshButton");
-
-                backButton.addEventListener("click", function() {
-
-                    document.dataForm.action.value="LoginDispatcher.validate";
-                    document.dataForm.submit();
-                });
 
                 refreshButton.addEventListener("click", function() {
 
@@ -64,7 +57,6 @@
             <div class="styled">
                 <input type="button" id="addButton" value="<%= worker==null ? "Aggiungi dipendente" : "Modifica dipendente"%>">
                 <input type="button" id="refreshButton" value="Torna alla lista autisti">
-                <input type="button" id="backButton" value="Torna alla home">
             </div>
             <input type="hidden" name="action" value="">
         </form>

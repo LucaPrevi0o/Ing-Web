@@ -7,7 +7,6 @@
 %>
 <html>
     <head>
-        <title>Lista clienti</title>
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/generalStyle.css">
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/dataTable.css">
         <script>

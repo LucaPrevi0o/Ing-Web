@@ -27,26 +27,12 @@ public class MySqlWorkerDAO implements WorkerDAO {
         return s+"?";
     }
 
-    private Worker itemToObject(String[] item) {
-
-        var worker=new Worker(item[0], item[1], item[2], Date.valueOf(item[3]), item[4], item[5].equals("1"));
-        var query="select * from patenti_autista where dipendente='"+worker.getFiscalCode()+"'";
-        var licenses=MySqlQueryManager.getResult(connection, query);
-        var licensesList=MySqlQueryManager.asList(licenses, new String[]{"dipendente", "patente"});
-        var foundLicenses=new ArrayList<License>();
-        for (var license: licensesList) foundLicenses.add(new License(license[1]));
-        worker.setLicenses(foundLicenses);
-        return worker;
-    }
-
     public MySqlWorkerDAO(Connection connection) { this.connection=connection; }
 
     public ArrayList<Worker> findAll() {
 
         var workers=new ArrayList<Worker>();
-        var newS="SELECT nome, cognome, codice_fiscale, data_nascita, numero_telefono, deleted, GROUP_CONCAT(patente) as patenti FROM dipendente \n" +
-                "\tINNER JOIN patenti_autista ON dipendente.codice_fiscale=patenti_autista.dipendente \n" +
-                "\tGROUP BY dipendente.codice_fiscale";
+        var newS="SELECT dipendente.*, GROUP_CONCAT(patenti_autista.patente) AS 'patenti' FROM dipendente, patenti_autista WHERE dipendente.codice_fiscale=patenti_autista.dipendente GROUP BY dipendente.codice_fiscale";
         var res=MySqlQueryManager.getResult(connection, newS); //execute query on the database
         var newArr=Arrays.copyOf(allColumns, allColumns.length+1);
         newArr[newArr.length-1]="patenti";
@@ -65,16 +51,22 @@ public class MySqlWorkerDAO implements WorkerDAO {
 
     //return, if exists, the worker having a specified fiscal code
     public Worker findByFiscalCode(String fiscalCode) {
-        var query="select * from dipendente where codice_fiscale='"+fiscalCode+"'"; //SQL query to extract data
-        var res=MySqlQueryManager.getResult(connection, query); //execute query on the database
-        var resList=MySqlQueryManager.asList(res, allColumns); //parse results
-        if (!resList.isEmpty()) {
 
-            if (resList.size()>1) return null; //return null error value if list has more than 1 element
-            var item=resList.get(0); //get first (and only) instance of the list and return its value
-            return itemToObject(item);
+        var newS="SELECT dipendente.*, GROUP_CONCAT(patenti_autista.patente) AS 'patenti' FROM dipendente, patenti_autista WHERE dipendente.codice_fiscale=patenti_autista.dipendente AND dipendente.codice_fiscale='"+fiscalCode+"' GROUP BY dipendente.codice_fiscale";
+        var res=MySqlQueryManager.getResult(connection, newS); //execute query on the database
+        var newArr=Arrays.copyOf(allColumns, allColumns.length+1);
+        newArr[newArr.length-1]="patenti";
+        var resList=MySqlQueryManager.asList(res, newArr); //parse results
+        for (var item: resList) {
+
+            var worker=new Worker(item[0], item[1], item[2], Date.valueOf(item[3]), item[4], item[5].equals("1"));
+            var licenses=new ArrayList<License>();
+            for (var license: item[6].split(",")) licenses.add(new License(license));
+            worker.setLicenses(licenses);
+            System.out.println(worker);
+            return worker;
         }
-        return null; //return null if none is found
+        return null;
     }
 
     //insert a new account in the database passing login data
