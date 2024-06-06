@@ -19,6 +19,12 @@
                     document.tabForm.submit();
                 });
 
+                document.querySelector("#services").addEventListener("click", function() {
+
+                    document.querySelector("#action").value="ServiceDispatcher.getServices";
+                    document.tabForm.submit();
+                });
+
                 document.querySelector("#trucks").addEventListener("click", function() {
 
                     document.querySelector("#action").value="TruckDispatcher.getTrucks";
@@ -34,7 +40,7 @@
                 document.querySelector("#logout").addEventListener("click", function() {
 
                     document.querySelector("#action").value="LoginDispatcher.logout";
-                document.tabForm.submit();
+                    document.tabForm.submit();
                 });
             });
         </script>
@@ -45,7 +51,7 @@
         <nav>
             <form name="tabForm" action="<%= request.getContextPath() %>/Dispatcher" method="post">
                 <input type="button" id="workers" value="Visualizza lista autisti">
-                <!--input type="submit" id="services" value="Visualizza lista servizi"-->
+                <input type="button" id="services" value="Visualizza lista servizi">
                 <input type="button" id="trucks" value="Visualizza lista mezzi">
                 <input type="button" id="clients" value="Visualizza lista clienti">
                 <input type="button" id="logout" value="Torna al login">
