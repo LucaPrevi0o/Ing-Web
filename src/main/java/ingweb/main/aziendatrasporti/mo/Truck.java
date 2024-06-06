@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Truck implements ModelObject {
 
+    int code;
     String numberPlate;
     String brand;
     String model;
@@ -13,6 +14,7 @@ public class Truck implements ModelObject {
 
     public Truck(String numberPlate, String brand, String model, boolean available, boolean deleted) {
 
+        //this.code=code;
         this.numberPlate=numberPlate;
         this.brand=brand;
         this.model=model;
@@ -39,6 +41,9 @@ public class Truck implements ModelObject {
         if (((Truck)o).available!=this.available) return false;
         return ((Truck)o).deleted==this.deleted;
     }
+
+    public int getCode() { return this.code; }
+    public void setCode(int code) { this.code=code; }
 
     public String getNumberPlate() { return numberPlate; }
     public void setNumberPlate(String numberPlate) { this.numberPlate=numberPlate; }

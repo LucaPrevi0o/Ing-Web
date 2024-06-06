@@ -53,7 +53,7 @@ public class WorkerDispatcher implements DispatchCollector {
         //add new record in database if parameter list is full
         if (!name.isEmpty() && !surname.isEmpty() && !fiscalCode.isEmpty() && !birthDate.isEmpty() && !telNumber.isEmpty()) {
 
-            var worker=new Worker(name, surname, fiscalCode, Date.valueOf(birthDate), telNumber, false);
+            var worker=new Worker(0, name, surname, fiscalCode, Date.valueOf(birthDate), telNumber, false);
             worker.setLicenses(licenseList);
             workerDAO.addWorker(worker);
             licenseDAO.addLicensesByWorker(worker, licenseList);
@@ -115,6 +115,7 @@ public class WorkerDispatcher implements DispatchCollector {
         var workerDAO=dao.getWorkerDAO(); //get worker DAO implementation for the selected database
         var licenseDAO=dao.getLicenseDAO();
 
+        var code=request.getParameter("code");
         var name=request.getParameter("name");
         var surname=request.getParameter("surname");
         var fiscalCode=request.getParameter("fiscalCode");
@@ -126,9 +127,9 @@ public class WorkerDispatcher implements DispatchCollector {
         for (var license: licenses) licenseList.add(new License(license));
 
         //add new record in database if parameter list is full
-        if (!name.isEmpty() && !surname.isEmpty() && !fiscalCode.isEmpty() && !birthDate.isEmpty() && !telNumber.isEmpty()) {
+        if (!code.isEmpty() && !name.isEmpty() && !surname.isEmpty() && !fiscalCode.isEmpty() && !birthDate.isEmpty() && !telNumber.isEmpty()) {
 
-            var worker=new Worker(name, surname, fiscalCode, Date.valueOf(birthDate), telNumber, false);
+            var worker=new Worker(Integer.parseInt(code), name, surname, fiscalCode, Date.valueOf(birthDate), telNumber, false);
             worker.setLicenses(licenseList);
             workerDAO.updateWorker(worker);
             licenseDAO.updateLicensesByWorker(worker, licenseList);

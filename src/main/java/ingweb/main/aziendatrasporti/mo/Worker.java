@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class Worker implements ModelObject {
 
+    private int code;
     private String name;
     private String surname;
     private String fiscalCode;
@@ -13,8 +14,9 @@ public class Worker implements ModelObject {
     private ArrayList<License> licenses;
     private boolean deleted;
 
-    public Worker(String name, String surname, String fiscalCode, Date birthDate, String telNumber, boolean deleted) {
+    public Worker(int code, String name, String surname, String fiscalCode, Date birthDate, String telNumber, boolean deleted) {
 
+        this.code=code;
         this.name=name;
         this.surname=surname;
         this.fiscalCode=fiscalCode;
@@ -23,11 +25,12 @@ public class Worker implements ModelObject {
         this.deleted=deleted;
     }
 
-    public Object[] asList() { return new Object[]{name, surname, fiscalCode, birthDate, telNumber, deleted}; }
+    public Object[] asList() { return new Object[]{name, surname, fiscalCode, birthDate, telNumber}; }
 
     public boolean equals(Object o) {
 
         if (!(o instanceof Worker)) return false;
+        if (((Worker)o).code!=this.code) return false;
         if (!((Worker)o).name.equals(this.name)) return false;
         if (!((Worker)o).surname.equals(this.surname)) return false;
         if (!((Worker)o).fiscalCode.equals(this.fiscalCode)) return false;
@@ -43,6 +46,9 @@ public class Worker implements ModelObject {
         for (var license: licenses) res+="\""+license+"\" ";
         return res;
     }
+
+    public int getCode() { return this.code; }
+    public void setCode(int code) { this.code=code; }
 
     public String getName() { return name; }
     public void setName(String name) { this.name=name; }

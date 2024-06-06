@@ -44,15 +44,15 @@
             <table>
                 <tr>
                     <td><label for="name">Nome</label></td>
-                    <td colspan="<%= licenseList.size() %>"><input type="text" id="name" name="name" placeholder="Nome persona" value="<%= worker==null ? "" : worker.getName() %>" required/></td>
+                    <td colspan="<%= licenseList.size() %>"><input type="text" id="name" name="name" placeholder="Nome dipendente" value="<%= worker==null ? "" : worker.getName() %>" required/></td>
                 </tr>
                 <tr>
                     <td><label for="surname">Cognome</label></td>
-                    <td colspan="<%= licenseList.size() %>"><input type="text" id="surname" name="surname" placeholder="Cognome persona" value="<%= worker==null ? "" : worker.getSurname() %>" required/></td>
+                    <td colspan="<%= licenseList.size() %>"><input type="text" id="surname" name="surname" placeholder="Cognome dipendente" value="<%= worker==null ? "" : worker.getSurname() %>" required/></td>
                 </tr>
                 <tr>
-                    <td><label for="fiscalCode">Codice Fiscale</label></td>
-                    <td colspan="<%= licenseList.size() %>"><input type="text" id="fiscalCode" name="fiscalCode" placeholder="AAABBB00X00X000X" pattern="^[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}$" value="<%= worker==null ? "" : worker.getFiscalCode() %>" <%= worker==null ? "" : "readonly" %> required/></td>
+                    <td><label for="fiscalCode">Codice fiscale</label></td>
+                    <td colspan="<%= licenseList.size() %>"><input type="text" id="fiscalCode" name="fiscalCode" placeholder="AAABBB00X00X000X" pattern="^[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}$" value="<%= worker==null ? "" : worker.getFiscalCode() %>" required/></td>
                 </tr>
                 <tr>
                     <td><label for="birthDate">Data di nascita</label></td>
@@ -76,6 +76,7 @@
                 <input type="button" id="refreshButton" value="Torna alla lista autisti">
             </div>
             <input type="hidden" name="action" value="">
+            <input type="hidden" name="code" value="<%= worker==null ? "" : worker.getCode() %>">
         </form>
     </body>
 </html>

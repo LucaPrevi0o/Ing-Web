@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class MySqlTruckDAO implements TruckDAO {
 
     private final Connection connection;
-    private final String[] allColumns={"targa", "marca", "modello", "disponibile", "deleted"};
+    private final String[] allColumns={"codice", "targa", "marca", "modello", "disponibile", "deleted"};
 
     public MySqlTruckDAO(Connection connection) { this.connection=connection; }
 

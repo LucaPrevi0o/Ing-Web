@@ -7,9 +7,9 @@ import java.util.*;
 public interface WorkerDAO {
 
     public ArrayList<Worker> findAll();
+    public Worker findByCode(int code);
     public Worker findByFiscalCode(String fiscalCode);
     public void addWorker(Worker worker);
     public void removeWorker(Worker worker);
-    //public void updateWorker(Worker worker, Object... params);
     public void updateWorker(Worker worker);
 }
