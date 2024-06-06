@@ -12,10 +12,15 @@ import java.util.ArrayList;
 
 public class ServiceDispatcher implements DispatchCollector {
 
-    public static void getServices(HttpServletRequest request, HttpServletResponse response) {
+    private static void commonState(HttpServletRequest request, HttpServletResponse response) {
 
-        //get parameters passed by login page
-        var loggedAccount=DispatchCollector.getAccount(request, response);
+        request.setAttribute("viewUrl", "/admin/services/services");
+        request.setAttribute("selectedTab", "services");
+        request.setAttribute("loggedAccount", DispatchCollector.getAccount(request, response));
+        DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
+    }
+
+    public static void getServices(HttpServletRequest request, HttpServletResponse response) {
 
         var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
         var serviceDAO=dao.getServiceDAO();
@@ -28,9 +33,7 @@ public class ServiceDispatcher implements DispatchCollector {
         DispatchCollector.commonView(request);
         request.setAttribute("serviceList", serviceList);
         request.setAttribute("workerList", workerList);
-        request.setAttribute("viewUrl", "/admin/services/services"); //set URL for forward view dispatch
-        request.setAttribute("loggedAccount", loggedAccount);
-        DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
+        commonState(request, response);
     }
 
     public static void getResources(HttpServletRequest request, HttpServletResponse response) {

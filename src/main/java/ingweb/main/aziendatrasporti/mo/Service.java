@@ -57,6 +57,8 @@ public class Service implements ModelObject {
         return arr;
     }
 
+    public String toString() { return this.name+" ("+this.code+") - "+this.clientCompany+" - "+this.date+" - "+this.startTime+" ("+this.duration+") - "+this.firstDriver+", "+this.secondDriver+" - "+this.truck; }
+
     public int getCode() { return code; }
     public void setCode(int code) { this.code=code; }
 
