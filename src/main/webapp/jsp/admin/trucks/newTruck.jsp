@@ -2,7 +2,6 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="ingweb.main.aziendatrasporti.mo.License" %>
 <%@ page import="ingweb.main.aziendatrasporti.mo.Truck" %>
-<%@ page import="ingweb.main.aziendatrasporti.mo.Account" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%
     var contextPath=request.getContextPath();
@@ -13,6 +12,10 @@
 <html>
     <head>
         <title>Nuovo mezzo</title>
+        <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/generalStyle.css">
+        <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/dataTable.css">
+        <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/dataForm.css">
+        <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/checkbox.css">
         <script>
             window.addEventListener("load", function() {
 
@@ -36,24 +39,39 @@
     </head>
     <body>
         <form name="dataForm" action="<%= contextPath %>/Dispatcher" method="post">
-            <label for="numberPlate">Targa:</label>
-            <input type="text" id="numberPlate" name="numberPlate" placeholder="AA000AA" value="<%= truck==null ? "" : truck.getNumberPlate() %>" <%= truck==null ? "" : "readonly" %> required><br/>
-            <label for="brand">Marca:</label>
-            <input type="text" id="brand" name="brand" placeholder="Marca veicolo" value="<%= truck==null ? "" : truck.getBrand() %>" required><br/>
-            <label for="model">Modello:</label>
-            <input type="text" id="model" name="model" placeholder="Modello veicolo" value="<%= truck==null ? "" : truck.getModel() %>" required><br/>
-            <label for="available">Il mezzo è disponibile:</label>
-            <input type="checkbox" id="available" name="available" value="available" <%= truck==null || !truck.isAvailable() ? "" : "checked" %>>
+            <h1>Nuovo mezzo</h1>
+            <hr/>
             <table>
-                <tr><td colspan="<%= licenseList.size() %>">Patenti richieste</td></tr>
-                <tr><% for (var license: licenseList) { %><td>
-                    <input type="checkbox" name="license" id="<%= license.getCategory() %>" value="<%= license.getCategory() %>" <%= truck==null || !truck.getNeededLicenses().contains(license) ? "" : "checked" %>>
-                    <label for="<%= license.getCategory() %>"><%= license.getCategory() %></label></td>
-                <% } %></tr>
-            </table><br/>
-            <input type="button" id="addButton" value="<%= truck==null ? "Aggiungi mezzo" : "Modifica mezzo"%>">
-            <input type="button" id="refreshButton" value="Torna alla lista mezzi">
-            <input type="hidden" name="action" value="">
+                <tr>
+                    <td><label for="numberPlate">Targa</label></td>
+                    <td colspan="<%= licenseList.size() %>"><input type="text" id="numberPlate" name="numberPlate" placeholder="AA000AA" value="<%= truck==null ? "" : truck.getNumberPlate() %>" <%= truck==null ? "" : "readonly" %> required/></td>
+                </tr>
+                <tr>
+                    <td><label for="brand">Marca:</label></td>
+                    <td colspan="<%= licenseList.size() %>"><input type="text" id="brand" name="brand" placeholder="Marca veicolo" value="<%= truck==null ? "" : truck.getBrand() %>" required/></td>
+                </tr>
+                <tr>
+                    <td><label for="model">Modello:</label></td>
+                    <td colspan="<%= licenseList.size() %>"><input type="text" id="model" name="model" placeholder="Modello veicolo" value="<%= truck==null ? "" : truck.getModel() %>" required/></td>
+                </tr>
+                <tr>
+                    <td><label for="available">Il mezzo è disponibile:</label></td>
+                    <td colspan="<%= licenseList.size() %>"><input type="checkbox" id="available" name="available" value="available" <%= truck==null || !truck.isAvailable() ? "" : "checked" %>/></td>
+                </tr>
+                <tr>
+                    <td rowspan="2">Patenti richieste</td>
+                    <% for (var license: licenseList) { %><td>
+                        <label for="<%= license.getCategory() %>"><%= license.getCategory() %></label>
+                        <input type="checkbox" name="license" id="<%= license.getCategory() %>" value="<%= license.getCategory() %>" <%= truck==null || !truck.getNeededLicenses().contains(license) ? "" : "checked" %>/>
+                    </td><% } %>
+                </tr>
+            </table>
+            <br/>
+            <div class="styled">
+                <input type="button" id="addButton" value="<%= truck==null ? "Aggiungi mezzo" : "Modifica mezzo"%>"/>
+                <input type="button" id="refreshButton" value="Torna alla lista mezzi"/>
+                <input type="hidden" name="action" value=""/>
+            </div>
         </form>
     </body>
 </html>
