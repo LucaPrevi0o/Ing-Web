@@ -33,7 +33,6 @@ public class MySqlWorkerDAO implements WorkerDAO {
         var licenses=new ArrayList<License>();
         for (var license: item[7].split(",")) licenses.add(new License(license));
         worker.setLicenses(licenses);
-        System.out.println(worker);
         return worker;
     }
 

@@ -13,6 +13,7 @@ public class TruckDispatcher implements DispatchCollector {
 
         request.setAttribute("viewUrl", "/admin/trucks/trucks");
         request.setAttribute("selectedTab", "trucks");
+        request.setAttribute("loggedAccount", DispatchCollector.getAccount(request, response));
         DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
     }
 
@@ -22,9 +23,7 @@ public class TruckDispatcher implements DispatchCollector {
         var loggedAccount=DispatchCollector.getAccount(request, response);
 
         var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
-        System.out.println("truck dispatcher searching for attribute");
         var attribute=DispatchCollector.findByName("loggedAccount", DispatchCollector.getAllAttributes(request));
-        System.out.println("truck dispatcher sees logged account as "+attribute);
         var truckDAO=dao.getTruckDAO();
         var licenseDAO=dao.getLicenseDAO();
         var truckList=truckDAO.findAll();
@@ -34,14 +33,10 @@ public class TruckDispatcher implements DispatchCollector {
         dao.close();
         request.setAttribute("truckList", truckList);
         request.setAttribute("licenseList", licenseList);
-        request.setAttribute("loggedAccount", loggedAccount);
         commonState(request, response);
     }
 
     public static void newTruck(HttpServletRequest request, HttpServletResponse response) {
-
-        //get parameters passed by login page
-        var loggedAccount=DispatchCollector.getAccount(request, response);
 
         var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
         var licenseDAO=dao.getLicenseDAO();
@@ -49,17 +44,12 @@ public class TruckDispatcher implements DispatchCollector {
 
         dao.commit();
         dao.close();
-        //DispatchCollector.commonView(request);
         request.setAttribute("licenseList", licenseList);
         request.setAttribute("viewUrl", "/admin/trucks/newTruck");
-        request.setAttribute("loggedAccount", loggedAccount);
         DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
     }
 
     public static void addTruck(HttpServletRequest request, HttpServletResponse response) {
-
-        //get parameters passed by login page
-        var loggedAccount=DispatchCollector.getAccount(request, response);
 
         //get registered account list specifying DAO database implementation
         var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
@@ -77,7 +67,7 @@ public class TruckDispatcher implements DispatchCollector {
 
         if (!numberPlate.isEmpty() && !brand.isEmpty() && !model.isEmpty()) {
 
-            var truck=new Truck(numberPlate, brand, model, available!=null, false);
+            var truck=new Truck(0, numberPlate, brand, model, available!=null, false);
             truck.setNeededLicenses(licenseList);
             truckDAO.addTruck(truck);
             licenseDAO.addLicensesByTruck(truck, licenseList);
@@ -90,14 +80,10 @@ public class TruckDispatcher implements DispatchCollector {
         dao.close();
         request.setAttribute("truckList", truckList);
         request.setAttribute("licenseList", licenseList);
-        request.setAttribute("loggedAccount", loggedAccount);
         commonState(request, response);
     }
 
     public static void removeTruck(HttpServletRequest request, HttpServletResponse response) {
-
-        //get parameters passed by login page
-        var loggedAccount=DispatchCollector.getAccount(request, response);
 
         //get registered account list specifying DAO database implementation
         var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
@@ -118,14 +104,12 @@ public class TruckDispatcher implements DispatchCollector {
 
     public static void updateTruck(HttpServletRequest request, HttpServletResponse response) {
 
-        //get parameters passed by login page
-        var loggedAccount=DispatchCollector.getAccount(request, response);
-
         //get registered account list specifying DAO database implementation
         var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
         var truckDAO=dao.getTruckDAO();
         var licenseDAO=dao.getLicenseDAO();
 
+        var code=request.getParameter("code");
         var numberPlate=request.getParameter("numberPlate");
         var brand=request.getParameter("brand");
         var model=request.getParameter("model");
@@ -135,9 +119,9 @@ public class TruckDispatcher implements DispatchCollector {
         var licenseList=new ArrayList<License>();
         for (var license: licenses) licenseList.add(new License(license));
 
-        if (!numberPlate.isEmpty() && !brand.isEmpty() && !model.isEmpty()) {
+        if (!code.isEmpty() && !numberPlate.isEmpty() && !brand.isEmpty() && !model.isEmpty()) {
 
-            var truck=new Truck(numberPlate, brand, model, available!=null, false);
+            var truck=new Truck(Integer.parseInt(code), numberPlate, brand, model, available!=null, false);
             truck.setNeededLicenses(licenseList);
             truckDAO.updateTruck(truck);
             licenseDAO.updateLicensesByTruck(truck, licenseList);
@@ -150,14 +134,10 @@ public class TruckDispatcher implements DispatchCollector {
         dao.close();
         request.setAttribute("truckList", truckList);
         request.setAttribute("licenseList", licenseList);
-        request.setAttribute("loggedAccount", loggedAccount);
         commonState(request, response);
     }
 
     public static void editTruck(HttpServletRequest request, HttpServletResponse response) {
-
-        //get parameters passed by login page
-        var loggedAccount=DispatchCollector.getAccount(request, response);
 
         //get registered account list specifying DAO database implementation
         var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
@@ -174,7 +154,6 @@ public class TruckDispatcher implements DispatchCollector {
         request.setAttribute("truck", truck); //set list as new session attribute
         request.setAttribute("licenseList", licenseList);
         request.setAttribute("viewUrl", "/admin/trucks/newTruck"); //set URL for forward view dispatch
-        request.setAttribute("loggedAccount", loggedAccount);
         DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
     }
 }

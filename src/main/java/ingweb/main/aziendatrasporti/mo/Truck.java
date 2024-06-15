@@ -12,9 +12,9 @@ public class Truck implements ModelObject {
     ArrayList<License> neededLicenses=new ArrayList<>();
     boolean deleted;
 
-    public Truck(String numberPlate, String brand, String model, boolean available, boolean deleted) {
+    public Truck(int code, String numberPlate, String brand, String model, boolean available, boolean deleted) {
 
-        //this.code=code;
+        this.code=code;
         this.numberPlate=numberPlate;
         this.brand=brand;
         this.model=model;
@@ -22,7 +22,7 @@ public class Truck implements ModelObject {
         this.deleted=deleted;
     }
 
-    public Object[] asList() { return new Object[]{numberPlate, brand, model, available, deleted}; }
+    public Object[] asList() { return new Object[]{numberPlate, brand, model, available}; }
     public Object[] data() { return new Object[]{numberPlate, brand, model}; }
 
     public String toString() {

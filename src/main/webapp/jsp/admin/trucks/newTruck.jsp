@@ -44,18 +44,18 @@
             <table>
                 <tr>
                     <td><label for="numberPlate">Targa</label></td>
-                    <td colspan="<%= licenseList.size() %>"><input type="text" id="numberPlate" name="numberPlate" placeholder="AA000AA" value="<%= truck==null ? "" : truck.getNumberPlate() %>" <%= truck==null ? "" : "readonly" %> required/></td>
+                    <td colspan="<%= licenseList.size() %>"><input type="text" id="numberPlate" name="numberPlate" placeholder="AA000AA" value="<%= truck==null ? "" : truck.getNumberPlate() %>" required/></td>
                 </tr>
                 <tr>
-                    <td><label for="brand">Marca:</label></td>
+                    <td><label for="brand">Marca</label></td>
                     <td colspan="<%= licenseList.size() %>"><input type="text" id="brand" name="brand" placeholder="Marca veicolo" value="<%= truck==null ? "" : truck.getBrand() %>" required/></td>
                 </tr>
                 <tr>
-                    <td><label for="model">Modello:</label></td>
+                    <td><label for="model">Modello</label></td>
                     <td colspan="<%= licenseList.size() %>"><input type="text" id="model" name="model" placeholder="Modello veicolo" value="<%= truck==null ? "" : truck.getModel() %>" required/></td>
                 </tr>
                 <tr>
-                    <td><label for="available">Il mezzo è disponibile:</label></td>
+                    <td><label for="available">Disponibilità mezzo</label></td>
                     <td colspan="<%= licenseList.size() %>"><input type="checkbox" id="available" name="available" value="available" <%= truck==null || !truck.isAvailable() ? "" : "checked" %>/></td>
                 </tr>
                 <tr>
@@ -70,8 +70,9 @@
             <div class="styled">
                 <input type="button" id="addButton" value="<%= truck==null ? "Aggiungi mezzo" : "Modifica mezzo"%>"/>
                 <input type="button" id="refreshButton" value="Torna alla lista mezzi"/>
-                <input type="hidden" name="action" value=""/>
             </div>
+            <input type="hidden" name="action" value=""/>
+            <input type="hidden" name="code" value="<%= truck==null ? "" : truck.getCode() %>"/>
         </form>
     </body>
 </html>

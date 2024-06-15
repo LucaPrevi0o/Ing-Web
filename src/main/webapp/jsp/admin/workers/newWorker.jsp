@@ -11,7 +11,7 @@
 %>
 <html>
     <head>
-        <title>Nuovo dipendente</title>
+        <title>Nuovo autista</title>
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/generalStyle.css">
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/dataTable.css">
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/dataForm.css">
