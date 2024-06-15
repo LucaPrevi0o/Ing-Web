@@ -1,0 +1,24 @@
+<changelist name="Uncommitted_changes_before_Update_at_15_06_24,_10_46_[Changes]" date="1718441204367" recycled="false" toDelete="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_06_24,_10_46_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 15/06/24, 10:46 [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/ingweb/main/aziendatrasporti/mo/Truck.class" />
+    <option name="AFTER_PATH" value="target/classes/ingweb/main/aziendatrasporti/mo/Truck.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_06_24,_10_46_[Changes]/Truck.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/mo/Truck.class" />
+    <option name="AFTER_PATH" value="target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/mo/Truck.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_06_24,_10_46_[Changes]/Truck1.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/ingweb/main/aziendatrasporti/dao/WorkerDAO.class" />
+    <option name="AFTER_PATH" value="target/classes/ingweb/main/aziendatrasporti/dao/WorkerDAO.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_06_24,_10_46_[Changes]/WorkerDAO.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/WorkerDAO.class" />
+    <option name="AFTER_PATH" value="target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/WorkerDAO.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_06_24,_10_46_[Changes]/WorkerDAO1.class" />
+  </binary>
+</changelist>
