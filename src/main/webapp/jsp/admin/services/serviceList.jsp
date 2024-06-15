@@ -1,12 +1,9 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="ingweb.main.aziendatrasporti.mo.License" %>
-<%@ page import="ingweb.main.aziendatrasporti.mo.Truck" %>
+<%@ page import="ingweb.main.aziendatrasporti.mo.Service" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%
-    var truckList=(ArrayList<Truck>)request.getAttribute("truckList");
-    if (truckList==null) truckList=new ArrayList<>();
-    var licenseList=(ArrayList<License>)request.getAttribute("licenseList");
-    if (licenseList==null) licenseList=new ArrayList<>();
+    var serviceList=(ArrayList<Service>)request.getAttribute("serviceList");
+    if (serviceList==null) serviceList=new ArrayList<>();
 %>
 <html>
     <head>
@@ -18,13 +15,15 @@
 
                 let removeButtons=document.querySelectorAll("input[name='remove']");
                 let updateButtons=document.querySelectorAll("input[name='edit']");
+                let assignButtons=document.querySelectorAll("input[name='assign']");
                 let refreshButton=document.querySelector("#refreshButton");
-                let newWorkerButton=document.querySelector("#newTruckButton");
+                let newServiceButton=document.querySelector("#newServiceButton");
                 let backButton=document.querySelector("#backButton");
 
                 refreshButton.addEventListener("click", function() {
 
-                    document.dataForm.action.value="TruckDispatcher.getTrucks";
+                    console.log("ur mum is a pussy");
+                    document.dataForm.action.value="ServiceDispatcher.getServiceList";
                     document.dataForm.submit();
                 });
 
@@ -34,9 +33,9 @@
                     document.dataForm.submit();
                 });
 
-                newWorkerButton.addEventListener("click", function() {
+                newServiceButton.addEventListener("click", function() {
 
-                    document.dataForm.action.value="TruckDispatcher.newTruck";
+                    document.dataForm.action.value="ServiceDispatcher.newService";
                     document.dataForm.submit();
                 });
 
@@ -44,7 +43,7 @@
 
                     b.addEventListener("click", function() {
 
-                        document.dataForm.action.value="TruckDispatcher.removeTruck";
+                        document.dataForm.action.value="ServiceDispatcher.removeService";
                         document.dataForm.name.value=this.id;
                         document.dataForm.submit();
                     });
@@ -54,7 +53,17 @@
 
                     b.addEventListener("click", function() {
 
-                        document.dataForm.action.value="TruckDispatcher.editTruck";
+                        document.dataForm.action.value="ServiceDispatcher.editService";
+                        document.dataForm.name.value=this.id;
+                        document.dataForm.submit();
+                    });
+                });
+
+                assignButtons.forEach(b => {
+
+                    b.addEventListener("click", function() {
+
+                        document.dataForm.action.value="ServiceDispatcher.assignService";
                         document.dataForm.name.value=this.id;
                         document.dataForm.submit();
                     });
@@ -65,33 +74,26 @@
     <body>
         <%@ include file="/jsp/admin/welcome.jsp" %>
         <hr/>
-        <h1>Lista mezzi</h1>
+        <h1>Lista servizi</h1>
         <table>
             <tr class="firstRow">
-                <td rowspan="2">Targa</td>
-                <td rowspan="2">Marca</td>
-                <td rowspan="2">Modello</td>
-                <td rowspan="2">Disponibilità</td>
-                <td colspan="<%= licenseList.size() %>">Patenti</td>
-                <td rowspan="2" colspan="2">Azioni</td>
+                <td>Nome</td>
+                <td>Data</td>
+                <td>Orario inizio</td>
+                <td>Durata</td>
+                <td colspan="3">Azioni</td>
             </tr>
-            <tr class="firstRow"><% for (var license: licenseList) { %><td><%= license.getCategory() %></td><% } %></tr>
-            <% for (var truck: truckList) {
-                var licenses=truck.getNeededLicenses();
-                if (licenses==null) licenses=new ArrayList<>(); %>
-                <tr>
-                    <% for (var field: truck.asList()) if (!(field instanceof Boolean)) { %><td><%= field %></td><% } %>
-                    <td><input type="checkbox" <%= truck.isAvailable() ? "checked " : "" %> disabled></td>
-                    <% for (var license: licenseList) { %>
-                        <td><input type="checkbox" <%= licenses.contains(license) ? "checked" : "" %> disabled/></td>
-                    <% } %>
-                    <td><input type="button" id="<%= truck.getNumberPlate()+"."+truck.getBrand()+"."+truck.getModel()+"."+truck.isAvailable() %>" name="edit" value="Modifica"></td>
-                    <td><input type="button" id="r<%= truck.getNumberPlate() %>" name="remove" value="Rimuovi"></td>
-                </tr>
+            <% for (var service: serviceList) { %>
+            <tr>
+                <% for (var field: service.asList()) { %><td><%= field %></td><% } %>
+                <td><input type="button" id="<%= service.getName()+"."+service.getDate()+"."+service.getStartTime()+"."+service.getDuration() %>" name="edit" value="Modifica"></td>
+                <td><input type="button" id="a<%= service.getCode()%>" name="assign" value="Assegna servizio"></td>
+                <td><input type="button" id="r<%= service.getCode() %>" name="remove" value="Rimuovi"></td>
+            </tr>
             <% } %>
         </table>
         <form name="dataForm" action="<%= request.getContextPath() %>/Dispatcher" method="post">
-            <input type="button" id="newTruckButton" value="Nuovo mezzo">
+            <input type="button" id="newServiceButton" value="Nuovo servizio">
             <input type="button" id="refreshButton" value="Aggiorna lista">
             <input type="button" id="backButton" value="Chiudi tab">
             <input type="hidden" name="name">

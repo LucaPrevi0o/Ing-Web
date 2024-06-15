@@ -21,7 +21,7 @@
 
                 document.querySelector("#services").addEventListener("click", function() {
 
-                    document.querySelector("#action").value="ServiceDispatcher.getServices";
+                    document.querySelector("#action").value="ServiceDispatcher.getServiceList";
                     document.tabForm.submit();
                 });
 

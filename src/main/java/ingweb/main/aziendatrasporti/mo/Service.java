@@ -30,32 +30,17 @@ public class Service implements ModelObject {
         this.deleted=deleted;
     }
 
-    public Service(int code, String name, ClientCompany clientCompany, Date date, Time startTime, Time duration, boolean deleted) {
+    public Service(int code, String name, Date date, Time startTime, Time duration, boolean deleted) {
 
         this.code=code;
         this.name=name;
-        this.clientCompany=clientCompany;
         this.date=date;
         this.startTime=startTime;
         this.duration=duration;
         this.deleted=deleted;
     }
 
-    public Object[] asList() {
-
-        var arr=new Object[10];
-        arr[0]=code;
-        arr[1]=name;
-        arr[2]=clientCompany;
-        arr[3]=date;
-        arr[4]=startTime;
-        arr[5]=duration;
-        arr[6]=firstDriver;
-        arr[7]=secondDriver;
-        arr[8]=truck;
-        arr[9]=deleted;
-        return arr;
-    }
+    public Object[] asList() { return new Object[]{name, date, startTime, duration}; }
 
     public String toString() { return this.name+" ("+this.code+") - "+this.clientCompany+" - "+this.date+" - "+this.startTime+" ("+this.duration+") - "+this.firstDriver+", "+this.secondDriver+" - "+this.truck; }
 

@@ -80,7 +80,7 @@
                 var licenses=truck.getNeededLicenses();
                 if (licenses==null) licenses=new ArrayList<>(); %>
                 <tr>
-                    <% for (var field: truck.data()) { %><td><%= field %></td><% } %>
+                    <% for (var field: truck.asList()) if (!(field instanceof Boolean)) { %><td><%= field %></td><% } %>
                     <td><input type="checkbox" <%= truck.isAvailable() ? "checked " : "" %> disabled></td>
                     <% for (var license: licenseList) { %>
                         <td><input type="checkbox" <%= licenses.contains(license) ? "checked" : "" %> disabled/></td>

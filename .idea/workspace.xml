@@ -10,19 +10,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0bf709cf-d99c-4d00-90c1-2fc5a7108193" name="Changes" comment="started service management">
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/services/serviceList.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/TruckDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/TruckDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlTruckDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlTruckDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlWorkerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlWorkerDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dispatch/TruckDispatcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dispatch/TruckDispatcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/mo/Truck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/mo/Truck.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/trucks/newTruck.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/trucks/newTruck.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlTruckDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlTruckDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlWorkerDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlWorkerDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/mo/Truck.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/mo/Truck.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlTruckDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlTruckDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlWorkerDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlWorkerDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/mo/Truck.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/mo/Truck.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/Dispatcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/Dispatcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlServiceDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlServiceDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dispatch/ServiceDispatcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dispatch/ServiceDispatcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/mo/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/mo/Service.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/services/serviceAssignment.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/services/serviceAssignment.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/trucks/trucks.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/trucks/trucks.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/welcome.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/welcome.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/workers/workers.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/workers/workers.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlServiceDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlServiceDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dispatch/ServiceDispatcher.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dispatch/ServiceDispatcher.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/mo/Service.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/mo/Service.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/admin/services/serviceAssignment.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/admin/services/serviceAssignment.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/admin/trucks/trucks.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/admin/trucks/trucks.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/admin/welcome.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/admin/welcome.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/admin/workers/workers.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/admin/workers/workers.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlServiceDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlServiceDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dispatch/ServiceDispatcher.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dispatch/ServiceDispatcher.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/mo/Service.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/mo/Service.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -308,6 +315,8 @@
       <workItem from="1717768650701" duration="125000" />
       <workItem from="1717768821095" duration="6210000" />
       <workItem from="1718436922497" duration="3748000" />
+      <workItem from="1718453078745" duration="6682000" />
+      <workItem from="1718460588219" duration="2839000" />
     </task>
     <task id="LOCAL-00001" summary="new commit">
       <option name="closed" value="true" />

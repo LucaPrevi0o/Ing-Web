@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MySqlServiceDAO implements ServiceDAO {
 
@@ -34,16 +35,17 @@ public class MySqlServiceDAO implements ServiceDAO {
     public ArrayList<Service> findAll() {
 
         var services=new ArrayList<Service>();
-        var query="select * from servizio";
+        var query="select codice, nome, data, ora_inizio, durata, deleted from servizio";
         var res=MySqlQueryManager.getResult(connection, query); //execute query on the database
-        var resList=MySqlQueryManager.asList(res, allColumns); //parse results
+        var resList=MySqlQueryManager.asList(res, new String[]{"codice", "nome", "data", "ora_inizio", "durata", "deleted"}); //parse results
         for (var item: resList) { //add every element of the result set as new service
 
+            System.out.println(Arrays.toString(item));
             //parse obtained result as correct data type
-            var service=new Service(Integer.parseInt(item[0]), item[1], null, Date.valueOf(item[3]), Time.valueOf(item[4]), Time.valueOf(item[5]), null, null, null, item[9].equals("1"));
+            var service=new Service(Integer.parseInt(item[0]), item[1], Date.valueOf(item[2]), Time.valueOf(item[3]), Time.valueOf(item[4]), item[5].equals("1"));
             if (!service.isDeleted()) services.add(service); //add service to the result list if not set as deleted
         }
-
+        System.out.println(services.size());
         return services; //return list of valid services
     }
 
