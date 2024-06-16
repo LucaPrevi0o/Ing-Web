@@ -86,10 +86,6 @@ public class MySqlTruckDAO implements TruckDAO {
 
         var query="insert into mezzo ("+parseParams()+") values ("+addParams()+")"; //empty query
         System.out.println(query);
-        var params=new Object[truck.asList().length+1];
-        for (var i=0; i<params.length-1; i++) params[i]=truck.asList()[i];
-        params[params.length-1]=false;
-        System.out.println(Arrays.toString(params));
         MySqlQueryManager.execute(connection, query, truck.asList()); //execute insertion with parameters
     }
 
@@ -103,8 +99,8 @@ public class MySqlTruckDAO implements TruckDAO {
     public void updateTruck(Truck truck) {
 
         var query="update mezzo set ";
-        for (var i=1; i<allColumns.length-3; i++) query+=(allColumns[i]+"=?, ");
-        query+=(allColumns[allColumns.length-3]+"=? where codice = '"+truck.getCode()+"'");
+        for (var i=1; i<allColumns.length-2; i++) query+=(allColumns[i]+"=?, ");
+        query+=(allColumns[allColumns.length-2]+"=? where codice = '"+truck.getCode()+"'");
         MySqlQueryManager.execute(connection, query, truck.asList());
     }
 }

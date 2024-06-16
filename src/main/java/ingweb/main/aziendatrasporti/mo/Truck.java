@@ -22,8 +22,7 @@ public class Truck implements ModelObject {
         this.deleted=deleted;
     }
 
-    public Object[] asList() { return new Object[]{numberPlate, brand, model, available}; }
-    public Object[] data() { return new Object[]{numberPlate, brand, model}; }
+    public Object[] asList() { return new Object[]{numberPlate, brand, model, available, deleted}; }
 
     public String toString() {
 
