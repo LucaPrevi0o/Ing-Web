@@ -40,7 +40,17 @@ public class Service implements ModelObject {
         this.deleted=deleted;
     }
 
-    public Object[] asList() { return new Object[]{name, date, startTime, duration}; }
+    public Service(String name, Date date, Time startTime, Time duration, boolean deleted) {
+
+        this.name=name;
+        this.date=date;
+        this.startTime=startTime;
+        this.duration=duration;
+        this.deleted=deleted;
+    }
+
+    public Object[] asList() { return new Object[]{}; }
+    public Object[] data() { return new Object[]{name, date, startTime, duration, deleted}; }
 
     public String toString() { return this.name+" ("+this.code+") - "+this.clientCompany+" - "+this.date+" - "+this.startTime+" ("+this.duration+") - "+this.firstDriver+", "+this.secondDriver+" - "+this.truck; }
 
