@@ -35,6 +35,8 @@
     </head>
     <body>
         <form name="dataForm" action="<%= contextPath %>/Dispatcher" method="post">
+            <h1>Nuovo servizio</h1>
+            <hr/>
             <table>
                 <tr>
                     <td><label for="name">Nome</label></td>
