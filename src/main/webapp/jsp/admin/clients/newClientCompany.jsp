@@ -44,7 +44,7 @@
                 </tr>
                 <tr>
                     <td colspan="2"><label for="socialReason">Ragione sociale</label></td>
-                    <td><input type="text" id="socialReason" name="socialReason" placeholder="Ragione sociale" value="<%= clientCompany==null ? "" : clientCompany.getSocialReason() %>" <%= clientCompany==null ? "" : "readonly" %> required/></td>
+                    <td><input type="text" id="socialReason" name="socialReason" placeholder="Ragione sociale" value="<%= clientCompany==null ? "" : clientCompany.getSocialReason() %>" required/></td>
                 </tr>
                 <tr>
                     <td colspan="2"><label for="location">Sede</label></td>
