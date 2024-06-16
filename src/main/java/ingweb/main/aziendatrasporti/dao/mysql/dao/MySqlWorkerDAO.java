@@ -80,12 +80,7 @@ public class MySqlWorkerDAO implements WorkerDAO {
     public void addWorker(Worker worker) {
 
         var query="insert into dipendente ("+parseParams()+") values ("+addParams()+")"; //empty query
-        System.out.println(query);
-        var params=new Object[worker.asList().length+1];
-        for (var i=0; i<params.length-1; i++) params[i]=worker.asList()[i];
-        params[params.length-1]=false;
-        System.out.println(Arrays.toString(params));
-        MySqlQueryManager.execute(connection, query, params); //execute insertion with parameters
+        MySqlQueryManager.execute(connection, query, worker.asList()); //execute insertion with parameters
     }
 
     //remove account from database (setting the logic deletion true)

@@ -25,7 +25,7 @@ public class Worker implements ModelObject {
         this.deleted=deleted;
     }
 
-    public Object[] asList() { return new Object[]{name, surname, fiscalCode, birthDate, telNumber}; }
+    public Object[] asList() { return new Object[]{name, surname, fiscalCode, birthDate, telNumber, deleted}; }
 
     public boolean equals(Object o) {
 
