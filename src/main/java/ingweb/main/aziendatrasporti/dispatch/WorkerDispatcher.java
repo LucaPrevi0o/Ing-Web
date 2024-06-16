@@ -64,7 +64,6 @@ public class WorkerDispatcher implements DispatchCollector {
 
         dao.commit();
         dao.close();
-        DispatchCollector.commonView(request); //append every attribute in current session
         request.setAttribute("licenseList", licenseList);
         request.setAttribute("workerList", workerList);
         commonState(request, response);
@@ -72,19 +71,14 @@ public class WorkerDispatcher implements DispatchCollector {
 
     public static void newWorker(HttpServletRequest request, HttpServletResponse response) {
 
-        //get parameters passed by login page
-        var loggedAccount=DispatchCollector.getAccount(request, response);
-
         var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
         var licenseDAO=dao.getLicenseDAO();
         var licenseList=licenseDAO.findAll();
 
         dao.commit();
         dao.close();
-        DispatchCollector.commonView(request); //append every attribute in current session
         request.setAttribute("licenseList", licenseList);
         request.setAttribute("viewUrl", "/admin/workers/newWorker");
-        request.setAttribute("loggedAccount", loggedAccount);
         DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
     }
 
@@ -102,7 +96,6 @@ public class WorkerDispatcher implements DispatchCollector {
 
         dao.commit();
         dao.close();
-        DispatchCollector.commonView(request); //append every attribute in current session
         request.setAttribute("licenseList", licenseList);
         request.setAttribute("workerList", workerList);
         commonState(request, response);
@@ -140,16 +133,12 @@ public class WorkerDispatcher implements DispatchCollector {
 
         dao.commit();
         dao.close();
-        DispatchCollector.commonView(request); //append every attribute in current session
         request.setAttribute("licenseList", licenseList);
         request.setAttribute("workerList", workerList);
         commonState(request, response);
     }
 
     public static void editWorker(HttpServletRequest request, HttpServletResponse response) {
-
-        //get parameters passed by login page
-        var loggedAccount=DispatchCollector.getAccount(request, response);
 
         //get registered account list specifying DAO database implementation
         var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
@@ -163,11 +152,9 @@ public class WorkerDispatcher implements DispatchCollector {
 
         dao.commit();
         dao.close();
-        DispatchCollector.commonView(request); //append every attribute in current session
         request.setAttribute("worker", worker); //set list as new session attribute
         request.setAttribute("licenseList", licenseList);
         request.setAttribute("viewUrl", "/admin/workers/newWorker"); //set URL for forward view dispatch
-        request.setAttribute("loggedAccount", loggedAccount);
         DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
     }
 }

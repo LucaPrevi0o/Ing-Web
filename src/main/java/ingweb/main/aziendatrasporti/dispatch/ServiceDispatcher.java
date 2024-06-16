@@ -7,7 +7,6 @@ public class ServiceDispatcher implements DispatchCollector {
 
     private static void commonState(HttpServletRequest request, HttpServletResponse response) {
 
-        System.out.println("MOTHER FUCKING DEBUG");
         request.setAttribute("viewUrl", "/admin/services/serviceList");
         request.setAttribute("selectedTab", "services");
         request.setAttribute("loggedAccount", DispatchCollector.getAccount(request, response));
@@ -16,7 +15,6 @@ public class ServiceDispatcher implements DispatchCollector {
 
     public static void getServiceList(HttpServletRequest request, HttpServletResponse response) {
 
-        System.out.println("UR MUM A HOE");
         var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
         var serviceDAO=dao.getServiceDAO();
         var serviceList=serviceDAO.findAll();
@@ -25,5 +23,11 @@ public class ServiceDispatcher implements DispatchCollector {
         dao.close();
         request.setAttribute("serviceList", serviceList);
         commonState(request, response);
+    }
+
+    public static void addService(HttpServletRequest request, HttpServletResponse response) {
+
+        var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
+        var serviceDAO=dao.getServiceDAO();
     }
 }

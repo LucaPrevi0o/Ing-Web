@@ -11,25 +11,6 @@ import java.util.HashMap;
 
 public interface DispatchCollector {
 
-    static void commonView(HttpServletRequest request) { //return hashmap of set attributes in current session
-
-        System.out.println("common view got called yay");
-        var session=request.getSession(false); //get request session if already present
-
-        if (session!=null) { //if session is active, get attribute list
-
-            System.out.println("session exists");
-            var attributeNames=request.getAttributeNames(); //get all attribute names
-            System.out.println("session attribute names: "+attributeNames);
-            while (attributeNames.hasMoreElements()) { //for each key set corresponding value
-
-                var attributeName=attributeNames.nextElement();
-                System.out.println("New attribute! Key: "+attributeName);
-                request.setAttribute(attributeName, request.getAttribute(attributeName));
-            }
-        } else System.out.println("session not exists yet");
-    }
-
     static ArrayList<Object[]> getAllAttributes(HttpServletRequest session) {
 
         var attributes=new ArrayList<Object[]>();

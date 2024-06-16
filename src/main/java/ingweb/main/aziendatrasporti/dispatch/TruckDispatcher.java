@@ -19,9 +19,6 @@ public class TruckDispatcher implements DispatchCollector {
 
     public static void getTrucks(HttpServletRequest request, HttpServletResponse response) {
 
-        //get parameters passed by login page
-        var loggedAccount=DispatchCollector.getAccount(request, response);
-
         var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
         var attribute=DispatchCollector.findByName("loggedAccount", DispatchCollector.getAllAttributes(request));
         var truckDAO=dao.getTruckDAO();
