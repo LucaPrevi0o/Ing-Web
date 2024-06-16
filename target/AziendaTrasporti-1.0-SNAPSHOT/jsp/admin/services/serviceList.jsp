@@ -85,7 +85,7 @@
             </tr>
             <% for (var service: serviceList) { %>
             <tr>
-                <% for (var field: service.asList()) { %><td><%= field %></td><% } %>
+                <% for (var field: service.data()) if (!(field instanceof Boolean)) { %><td><%= field %></td><% } %>
                 <td><input type="button" id="<%= service.getName()+"."+service.getDate()+"."+service.getStartTime()+"."+service.getDuration() %>" name="edit" value="Modifica"></td>
                 <td><input type="button" id="a<%= service.getCode()%>" name="assign" value="Assegna servizio"></td>
                 <td><input type="button" id="r<%= service.getCode() %>" name="remove" value="Rimuovi"></td>
