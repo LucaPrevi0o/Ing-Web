@@ -6,12 +6,13 @@ import ingweb.main.aziendatrasporti.mo.ClientCompany;
 import ingweb.main.aziendatrasporti.mo.Worker;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.ArrayList;
 
 public class MySqlClientDAO implements ClientDAO {
 
     private final Connection connection;
-    private final String[] allColumns={"nome", "ragione_sociale", "sede", "responsabile", "deleted"};
+    private final String[] allColumns={"nome", "ragione_sociale", "sede", "nome_responsabile", "cf_responsabile", "datanascita_responsabile", "numerotelefono_responsabile", "deleted"};
 
     private String parseParams() {
 
@@ -38,7 +39,7 @@ public class MySqlClientDAO implements ClientDAO {
         for (var item: resList) { //add every element of the result set as new clientCompany
 
             //parse obtained result as correct data type
-            var clientCompany=new ClientCompany(item[0], item[1], item[2], item[3], item[4].equals("1"));
+            var clientCompany=new ClientCompany(item[0], item[1], item[2], item[3], item[4], Date.valueOf(item[5]), item[6], item[7].equals("1"));
             if (!clientCompany.isDeleted()) clients.add(clientCompany); //add clientCompany to the result list if not set as deleted
         }
 
@@ -54,7 +55,7 @@ public class MySqlClientDAO implements ClientDAO {
 
             if (resList.size()>1) return null; //return null error value if list has more than 1 element
             var item=resList.get(0); //get first (and only) instance of the list and return its value
-            return new ClientCompany(item[0], item[1], item[2], item[3], item[4].equals("1"));
+            return new ClientCompany(item[0], item[1], item[2], item[3], item[4], Date.valueOf(item[5]), item[6], item[7].equals("1"));
         }
         return null; //return null if none is found
     }

@@ -50,16 +50,22 @@
         <h1>Lista clienti</h1>
         <table>
             <tr class="firstRow">
+                <td rowspan="2">Nome</td>
+                <td rowspan="2">Ragione sociale</td>
+                <td rowspan="2">Sede</td>
+                <td colspan="4">Responsabile</td>
+                <td rowspan="2" colspan="2">Azioni</td>
+            </tr>
+            <tr class="firstRow">
                 <td>Nome</td>
-                <td>Ragione sociale</td>
-                <td>Sede</td>
-                <td>Responsabile</td>
-                <td colspan="2">Azioni</td>
+                <td>Codice fiscale</td>
+                <td>Data di nascita</td>
+                <td>Numero di teleono</td>
             </tr>
             <% for (var client: clientList) { %>
                 <tr>
                     <% for (var field: client.asList()) if (!(field instanceof Boolean)) { %><td><%= field %></td><% } %>
-                    <td><input type="button" id="<%= client.getName()+"."+client.getSocialReason()+"."+client.getLocation()+"."+client.getManager() %>" name="edit" value="Modifica"></td>
+                    <td><input type="button" id="<%= client.getName()+"."+client.getSocialReason()+"."+client.getLocation()+"."+client.getManagerName()+"."+client.getManagerFiscalCode()+"."+client.getManagerBirthDate()+"."+client.getManagerTelNumber() %>" name="edit" value="Modifica"></td>
                     <td><input type="button" id="r<%= client.getSocialReason() %>" name="remove" value="Rimuovi"></td>
                 </tr>
             <% } %>

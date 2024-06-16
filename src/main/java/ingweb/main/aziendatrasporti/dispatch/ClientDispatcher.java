@@ -4,6 +4,8 @@ import ingweb.main.aziendatrasporti.mo.ClientCompany;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import java.sql.Date;
+
 public class ClientDispatcher implements DispatchCollector {
 
     private static void commonState(HttpServletRequest request, HttpServletResponse response) {
@@ -41,12 +43,15 @@ public class ClientDispatcher implements DispatchCollector {
         var name=request.getParameter("name");
         var socialReason=request.getParameter("socialReason");
         var location=request.getParameter("location");
-        var manager=request.getParameter("manager");
+        var managerName=request.getParameter("managerName");
+        var managerFiscalCode=request.getParameter("managerFiscalCode");
+        var managerBirthDate=request.getParameter("managerBirthDate");
+        var managerTelNumber=request.getParameter("managerTelNumber");
 
         //add new record in database if parameter list is full
-        if (!name.isEmpty() && !socialReason.isEmpty() && !location.isEmpty() && !manager.isEmpty()) {
+        if (!name.isEmpty() && !socialReason.isEmpty() && !location.isEmpty() && !managerName.isEmpty()) {
 
-            var clientCompany=new ClientCompany(name, socialReason, location, manager, false);
+            var clientCompany=new ClientCompany(name, socialReason, location, managerName, managerFiscalCode, Date.valueOf(managerBirthDate), managerTelNumber, false);
             clientDAO.addClient(clientCompany);
         }
 
@@ -83,12 +88,15 @@ public class ClientDispatcher implements DispatchCollector {
         var name=request.getParameter("name");
         var socialReason=request.getParameter("socialReason");
         var location=request.getParameter("location");
-        var manager=request.getParameter("manager");
+        var managerName=request.getParameter("managerName");
+        var managerFiscalCode=request.getParameter("managerFiscalCode");
+        var managerBirthDate=request.getParameter("managerBirthDate");
+        var managerTelNumber=request.getParameter("managerTelNumber");
 
         //add new record in database if parameter list is full
-        if (!name.isEmpty() && !socialReason.isEmpty() && !location.isEmpty() && !manager.isEmpty()) {
+        if (!name.isEmpty() && !socialReason.isEmpty() && !location.isEmpty() && !managerName.isEmpty()) {
 
-            var clientCompany=new ClientCompany(name, socialReason, location, manager, false);
+            var clientCompany=new ClientCompany(name, socialReason, location, managerName, managerFiscalCode, Date.valueOf(managerBirthDate), managerTelNumber, false);
             clientDAO.updateClient(clientCompany);
         }
 

@@ -35,24 +35,37 @@
     </head>
     <body>
         <form name="dataForm" action="<%= contextPath %>/Dispatcher" method="post">
-            <h1>Nuovo servizio</h1>
+            <h1>Nuovo cliente</h1>
             <hr/>
             <table>
                 <tr>
-                    <td><label for="name">Nome</label></td>
+                    <td colspan="2"><label for="name">Nome</label></td>
                     <td><input type="text" id="name" name="name" placeholder="Nome persona" value="<%= clientCompany==null ? "" : clientCompany.getName() %>" required/></td>
                 </tr>
                 <tr>
-                    <td><label for="socialReason">Ragione sociale</label></td>
+                    <td colspan="2"><label for="socialReason">Ragione sociale</label></td>
                     <td><input type="text" id="socialReason" name="socialReason" placeholder="Ragione sociale" value="<%= clientCompany==null ? "" : clientCompany.getSocialReason() %>" <%= clientCompany==null ? "" : "readonly" %> required/></td>
                 </tr>
                 <tr>
-                    <td><label for="location">Sede</label></td>
+                    <td colspan="2"><label for="location">Sede</label></td>
                     <td><input type="text" id="location" name="location" placeholder="Nome persona" value="<%= clientCompany==null ? "" : clientCompany.getLocation() %>" required/></td>
                 </tr>
+                <tr><td rowspan="5">Responsabile</td></tr>
                 <tr>
-                    <td><label for="manager">Responsabile</label></td>
-                    <td><input type="text" id="manager" name="manager" placeholder="Responsabile" value="<%= clientCompany==null ? "" : clientCompany.getManager() %>" required/></td>
+                    <td><label for="managerName">Nome</label></td>
+                    <td><input type="text" id="managerName" name="managerName" placeholder="Nome responsabile" value="<%= clientCompany==null ? "" : clientCompany.getManagerName() %>" required></td>
+                </tr>
+                <tr>
+                    <td><label for="managerFiscalCode">Codice fiscale</label></td>
+                    <td><input type="text" id="managerFiscalCode" name="managerFiscalCode" placeholder="BBBAAA00A00A000A" value="<%= clientCompany==null ? "" : clientCompany.getManagerFiscalCode() %>" required></td>
+                </tr>
+                <tr>
+                    <td><label for="managerBirthDate">Data di nascita</label></td>
+                    <td><input type="date" id="managerBirthDate" name="managerBirthDate" value="<%= clientCompany==null ? "" : clientCompany.getManagerBirthDate() %>" required></td>
+                </tr>
+                <tr>
+                    <td><label for="managerTelNumber">Numero di telefono</label></td>
+                    <td><input type="text" id="managerTelNumber" name="managerTelNumber" placeholder="+39 XXX-XXXXXXX" value="<%= clientCompany==null ? "" : clientCompany.getManagerTelNumber() %>" required></td>
                 </tr>
             </table>
             <br/>
