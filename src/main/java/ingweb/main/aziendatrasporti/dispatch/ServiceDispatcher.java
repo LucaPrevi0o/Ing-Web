@@ -25,9 +25,14 @@ public class ServiceDispatcher implements DispatchCollector {
         commonState(request, response);
     }
 
-    public static void addService(HttpServletRequest request, HttpServletResponse response) {
+    public static void newService(HttpServletRequest request, HttpServletResponse response) {
 
         var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
-        var serviceDAO=dao.getServiceDAO();
+        var licenseDAO=dao.getLicenseDAO();
+        var licenseList=licenseDAO.findAll();
+
+        request.setAttribute("licenseList", licenseList);
+        request.setAttribute("viewUrl", "/admin/services/newService");
+        DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
     }
 }
