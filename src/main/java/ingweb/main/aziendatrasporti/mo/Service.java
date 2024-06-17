@@ -3,6 +3,7 @@ package ingweb.main.aziendatrasporti.mo;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Service implements ModelObject {
 
@@ -47,6 +48,20 @@ public class Service implements ModelObject {
         this.startTime=startTime;
         this.duration=duration;
         this.deleted=deleted;
+    }
+
+    public boolean equals(Object o) {
+
+        if (!(o instanceof Service)) return false;
+        if (((Service)o).code!=this.code) return false;
+        if (!((Service)o).name.equals(this.name)) return false;
+        if (!((Service)o).clientCompany.equals(this.clientCompany)) return false;
+        if (!((Service)o).date.equals(this.date)) return false;
+        if (!((Service)o).startTime.equals(this.startTime)) return false;
+        if (!((Service)o).duration.equals(this.duration)) return false;
+        if (!((Service)o).firstDriver.equals(this.firstDriver)) return false;
+        if (!((Service)o).secondDriver.equals(this.secondDriver)) return false;
+        return ((Service)o).deleted==this.deleted;
     }
 
     public Object[] asList() { return new Object[]{}; }

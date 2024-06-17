@@ -4,7 +4,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%
     var contextPath=request.getContextPath();
-    var service =(Service)request.getAttribute("service");
+    var service=(Service)request.getAttribute("service");
     var licenseList=(ArrayList<License>)request.getAttribute("licenseList");
     if (licenseList==null) licenseList=new ArrayList<>();
 %>

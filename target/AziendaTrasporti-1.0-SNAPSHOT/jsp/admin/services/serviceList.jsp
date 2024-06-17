@@ -1,9 +1,12 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="ingweb.main.aziendatrasporti.mo.Service" %>
+<%@ page import="ingweb.main.aziendatrasporti.mo.License" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%
     var serviceList=(ArrayList<Service>)request.getAttribute("serviceList");
     if (serviceList==null) serviceList=new ArrayList<>();
+    var licenseList=(ArrayList<License>)request.getAttribute("licenseList");
+    if (licenseList==null) licenseList=new ArrayList<>();
 %>
 <html>
     <head>
@@ -43,7 +46,7 @@
                     b.addEventListener("click", function() {
 
                         document.dataForm.action.value="ServiceDispatcher.removeService";
-                        document.dataForm.name.value=this.id;
+                        document.dataForm.code.value=this.id;
                         document.dataForm.submit();
                     });
                 });
@@ -53,7 +56,7 @@
                     b.addEventListener("click", function() {
 
                         document.dataForm.action.value="ServiceDispatcher.editService";
-                        document.dataForm.name.value=this.id;
+                        document.dataForm.code.value=this.id;
                         document.dataForm.submit();
                     });
                 });
@@ -63,7 +66,7 @@
                     b.addEventListener("click", function() {
 
                         document.dataForm.action.value="ServiceDispatcher.assignService";
-                        document.dataForm.name.value=this.id;
+                        document.dataForm.code.value=this.id;
                         document.dataForm.submit();
                     });
                 });
@@ -76,26 +79,35 @@
         <h1>Lista servizi</h1>
         <table>
             <tr class="firstRow">
-                <td>Nome</td>
-                <td>Data</td>
-                <td>Orario inizio</td>
-                <td>Durata</td>
-                <td colspan="3">Azioni</td>
+                <td rowspan="2">Nome</td>
+                <td rowspan="2">Data</td>
+                <td rowspan="2">Orario inizio</td>
+                <td rowspan="2">Durata</td>
+                <td colspan="<%= licenseList.size() %>">Patenti</td>
+                <td rowspan="2" colspan="3">Azioni</td>
             </tr>
-            <% for (var service: serviceList) { %>
-            <tr>
-                <% for (var field: service.data()) if (!(field instanceof Boolean)) { %><td><%= field %></td><% } %>
-                <td><input type="button" id="<%= service.getName()+"."+service.getDate()+"."+service.getStartTime()+"."+service.getDuration() %>" name="edit" value="Modifica"></td>
-                <td><input type="button" id="a<%= service.getCode()%>" name="assign" value="Assegna servizio"></td>
-                <td><input type="button" id="r<%= service.getCode() %>" name="remove" value="Rimuovi"></td>
-            </tr>
+            <tr class="firstRow"><% for (var license: licenseList) { %><td><%= license.getCategory() %></td><% } %></tr>
+            <% for (var service: serviceList) {
+                var licenses=service.getValidLicenses();
+                if (licenses==null) licenses=new ArrayList<>(); %>
+                <tr>
+                    <% for (var field: service.data()) if (!(field instanceof Boolean)) { %><td><%= field %></td><% } %>
+                    <% for (var license: licenseList) { %>
+                        <td><input type="checkbox" <%= licenses.contains(license) ? "checked" : "" %> disabled/></td>
+                    <% } %>
+                    <td><input type="button" id="<%= service.getCode() %>" name="edit" value="Modifica"></td>
+                    <td><input type="button" id="<%= service.getCode()%>" name="assign" value="Assegna servizio"></td>
+                    <td><input type="button" id="<%= service.getCode() %>" name="remove" value="Rimuovi"></td>
+                </tr>
             <% } %>
         </table>
         <form name="dataForm" action="<%= request.getContextPath() %>/Dispatcher" method="post">
-            <input type="button" id="newServiceButton" value="Nuovo servizio">
-            <input type="button" id="refreshButton" value="Aggiorna lista">
-            <input type="button" id="backButton" value="Chiudi tab">
-            <input type="hidden" name="name">
+            <div class="styled">
+                <input type="button" id="newServiceButton" value="Nuovo servizio">
+                <input type="button" id="refreshButton" value="Aggiorna lista">
+                <input type="button" id="backButton" value="Chiudi tab">
+            </div>
+            <input type="hidden" name="code">
             <input type="hidden" name="action">
         </form>
     </body>

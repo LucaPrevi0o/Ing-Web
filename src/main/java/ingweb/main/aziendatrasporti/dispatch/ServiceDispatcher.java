@@ -24,11 +24,14 @@ public class ServiceDispatcher implements DispatchCollector {
 
         var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
         var serviceDAO=dao.getServiceDAO();
+        var licenseDAO=dao.getLicenseDAO();
+        var licenseList=licenseDAO.findAll();
         var serviceList=serviceDAO.findAll();
 
         dao.commit();
         dao.close();
         request.setAttribute("serviceList", serviceList);
+        request.setAttribute("licenseList", licenseList);
         commonState(request, response);
     }
 
@@ -63,8 +66,8 @@ public class ServiceDispatcher implements DispatchCollector {
         if (!name.isEmpty() && !date.isEmpty() && !startTime.isEmpty() && !duration.isEmpty()) {
 
             var service=new Service(name, Date.valueOf(date), Time.valueOf(startTime), Time.valueOf(duration), false);
-            service.setValidLicenses(licenseList);
             serviceDAO.addService(service);
+            service=serviceDAO.findByDateStartTimeAndDuration(service.getDate(), service.getStartTime(), service.getDuration());
             licenseDAO.addLicensesByService(service, licenseList);
         }
 
@@ -84,7 +87,7 @@ public class ServiceDispatcher implements DispatchCollector {
         var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
         var serviceDAO=dao.getServiceDAO(); //get worker DAO implementation for the selected database
         var licenseDAO=dao.getLicenseDAO();
-        var code=request.getParameter("name").substring(1);
+        var code=request.getParameter("code");
         serviceDAO.removeService(serviceDAO.findByCode(Integer.parseInt(code)));
 
         var serviceList=serviceDAO.findAll(); //return account list filtered by admin level
@@ -95,5 +98,61 @@ public class ServiceDispatcher implements DispatchCollector {
         request.setAttribute("licenseList", licenseList);
         request.setAttribute("serviceList", serviceList);
         commonState(request, response);
+    }
+
+    public static void updateService(HttpServletRequest request, HttpServletResponse response) {
+
+        //get registered account list specifying DAO database implementation
+        var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
+        var serviceDAO=dao.getServiceDAO(); //get worker DAO implementation for the selected database
+        var licenseDAO=dao.getLicenseDAO();
+
+        var code=request.getParameter("code");
+        var name=request.getParameter("name");
+        var date=request.getParameter("date");
+        var startTime=request.getParameter("startTime");
+        var duration=request.getParameter("duration");
+        var licenses=request.getParameterValues("license");
+
+        var licenseList=new ArrayList<License>();
+        for (var license: licenses) licenseList.add(new License(license));
+
+        //add new record in database if parameter list is full
+        if (!name.isEmpty() && !date.isEmpty() && !startTime.isEmpty() && !duration.isEmpty()) {
+
+            var service=new Service(name, Date.valueOf(date), Time.valueOf(startTime), Time.valueOf(duration), false);
+            service.setCode(Integer.parseInt(code));
+            service.setValidLicenses(licenseList);
+            serviceDAO.updateService(service);
+            licenseDAO.updateLicensesByService(service, licenseList);
+        }
+
+        var serviceList=serviceDAO.findAll(); //return account list filtered by admin level
+        licenseList=licenseDAO.findAll();
+
+        dao.commit();
+        dao.close();
+        request.setAttribute("licenseList", licenseList);
+        request.setAttribute("serviceList", serviceList);
+        commonState(request, response);
+    }
+
+    public static void editService(HttpServletRequest request, HttpServletResponse response) {
+
+        //get registered account list specifying DAO database implementation
+        var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
+        var serviceDAO=dao.getServiceDAO(); //get service DAO implementation for the selected database
+        var licenseDAO=dao.getLicenseDAO();
+        var licenseList=licenseDAO.findAll();
+
+        var code=request.getParameter("code");
+        var service=serviceDAO.findByCode(Integer.parseInt(code));
+
+        dao.commit();
+        dao.close();
+        request.setAttribute("service", service); //set list as new session attribute
+        request.setAttribute("licenseList", licenseList);
+        request.setAttribute("viewUrl", "/admin/services/newService"); //set URL for forward view dispatch
+        DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
     }
 }

@@ -54,7 +54,7 @@ public class MySqlLicenseDAO implements LicenseDAO {
         for (var license: licenses) {
 
             var query="insert into patenti_autista (dipendente, patente) values (?, ?)";
-            Object[] params=new Object[] {worker.getFiscalCode(), license.getCategory()};
+            var params=new Object[] {worker.getFiscalCode(), license.getCategory()};
             MySqlQueryManager.execute(connection, query, params);
         }
     }
@@ -63,12 +63,7 @@ public class MySqlLicenseDAO implements LicenseDAO {
 
         var query="delete from patenti_autista where dipendente=?";
         MySqlQueryManager.execute(connection, query, new Object[]{worker.getFiscalCode()});
-        for (var license: licenses) {
-
-            query="insert into patenti_autista (dipendente, patente) values (?, ?)";
-            Object[] params=new Object[] {worker.getFiscalCode(), license.getCategory()};
-            MySqlQueryManager.execute(connection, query, params);
-        }
+        addLicensesByWorker(worker, licenses);
     }
 
     public void addLicensesByTruck(Truck truck, ArrayList<License> licenses) {
@@ -76,7 +71,7 @@ public class MySqlLicenseDAO implements LicenseDAO {
         for (var license: licenses) {
 
             var query="insert into patenti_mezzo (targa, patente) values (?, ?)";
-            Object[] params=new Object[]{truck.getNumberPlate(), license.getCategory()};
+            var params=new Object[]{truck.getNumberPlate(), license.getCategory()};
             MySqlQueryManager.execute(connection, query, params);
         }
     }
@@ -93,8 +88,15 @@ public class MySqlLicenseDAO implements LicenseDAO {
         for (var license: licenses) {
 
             var query="insert into patenti_servizio (servizio, patente) values (?, ?)";
-            Object[] params=new Object[]{service.getCode(), license.getCategory()};
+            var params=new Object[]{service.getCode(), license.getCategory()};
             MySqlQueryManager.execute(connection, query, params);
         }
+    }
+
+    public void updateLicensesByService(Service service, ArrayList<License> licenses) {
+
+        var query="delete from patenti_servizio where servizio=?";
+        MySqlQueryManager.execute(connection, query, new Object[]{service.getCode()});
+        addLicensesByService(service, licenses);
     }
 }
