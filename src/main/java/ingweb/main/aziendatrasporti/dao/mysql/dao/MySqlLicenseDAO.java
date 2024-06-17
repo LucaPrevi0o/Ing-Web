@@ -29,6 +29,16 @@ public class MySqlLicenseDAO implements LicenseDAO {
         return licenses; //return list of valid services
     }
 
+    public ArrayList<License> findAllByService(Service service) {
+
+        ArrayList<License> licenses=new ArrayList<>();
+        var query="select * from patenti_servizio where servizio='"+service.getCode()+"'";
+        var res= MySqlQueryManager.getResult(connection, query); //execute query on the database
+        var resList=MySqlQueryManager.asList(res, allColumns); //parse results
+        for (var item: resList) licenses.add(new License(item[0])); //add license to list
+        return licenses; //return list of valid services
+    }
+
     public ArrayList<License> findAllByTruck(String numberPlate) {
 
         ArrayList<License> licenses=new ArrayList<>();

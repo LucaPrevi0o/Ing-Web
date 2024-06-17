@@ -2,16 +2,10 @@ package ingweb.main.aziendatrasporti.dao.mysql.dao;
 
 import ingweb.main.aziendatrasporti.dao.TruckDAO;
 import ingweb.main.aziendatrasporti.dao.mysql.MySqlQueryManager;
-import ingweb.main.aziendatrasporti.dispatch.DispatchCollector;
 import ingweb.main.aziendatrasporti.mo.License;
-import ingweb.main.aziendatrasporti.mo.Service;
 import ingweb.main.aziendatrasporti.mo.Truck;
-import ingweb.main.aziendatrasporti.mo.Worker;
-
 import java.sql.Connection;
-import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MySqlTruckDAO implements TruckDAO {
 
@@ -54,6 +48,25 @@ public class MySqlTruckDAO implements TruckDAO {
             //parse obtained result as correct data type
             var truck=getTruck(item);
             if (!truck.isDeleted()) result.add(truck); //add worker to the result list if not set as deleted
+        }
+
+        return result; //return list of valid trucks
+    }
+
+    public ArrayList<Truck> findAllByLicenses(ArrayList<License> licenses) {
+
+        var result=new ArrayList<Truck>(); //empty list
+        for (var license: licenses) {
+
+            var query="select mezzo.*, group_concat(patenti_mezzo.patente) as '"+allColumns[allColumns.length-1]+"' from mezzo join patenti_mezzo on codice=targa where patenti_servizio.patente='"+license.getCategory()+"'";
+            var trucks=MySqlQueryManager.getResult(connection, query); //execute query on the database
+            var trucksList=MySqlQueryManager.asList(trucks, allColumns); //parse results
+            for (var item: trucksList) { //add every element of the result set as new worker
+
+                //parse obtained result as correct data type
+                var truck=getTruck(item);
+                if (!truck.isDeleted()) result.add(truck); //add worker to the result list if not set as deleted
+            }
         }
 
         return result; //return list of valid trucks
