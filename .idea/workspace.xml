@@ -9,8 +9,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0bf709cf-d99c-4d00-90c1-2fc5a7108193" name="Changes" comment="fixed client pages to work with updated database">
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/clients/newClientCompany.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/clients/newClientCompany.jsp" afterDir="false" />
+    <list default="true" id="0bf709cf-d99c-4d00-90c1-2fc5a7108193" name="Changes" comment="fixed little screen view with wider nav buttons">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/ServiceDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/ServiceDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlServiceDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlServiceDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dispatch/ClientDispatcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dispatch/ClientDispatcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dispatch/ServiceDispatcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dispatch/ServiceDispatcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/services/serviceList.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/services/serviceList.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlServiceDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlServiceDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dispatch/ClientDispatcher.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dispatch/ClientDispatcher.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dispatch/ServiceDispatcher.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dispatch/ServiceDispatcher.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/admin/services/serviceList.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/admin/services/serviceList.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlServiceDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlServiceDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dispatch/ClientDispatcher.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dispatch/ClientDispatcher.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dispatch/ServiceDispatcher.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dispatch/ServiceDispatcher.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -298,7 +310,7 @@
       <workItem from="1717768650701" duration="125000" />
       <workItem from="1717768821095" duration="6210000" />
       <workItem from="1718436922497" duration="4254000" />
-      <workItem from="1718529605857" duration="5639000" />
+      <workItem from="1718529605857" duration="14954000" />
     </task>
     <task id="LOCAL-00001" summary="new commit">
       <option name="closed" value="true" />
@@ -524,7 +536,47 @@
       <option name="project" value="LOCAL" />
       <updated>1718541001078</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="allowing key field to be updated from edit page">
+      <option name="closed" value="true" />
+      <created>1718541154126</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1718541154126</updated>
+    </task>
+    <task id="LOCAL-00030" summary="added sticky nav menu for easier navigation">
+      <option name="closed" value="true" />
+      <created>1718546437281</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1718546437281</updated>
+    </task>
+    <task id="LOCAL-00031" summary="added sticky nav menu for easier navigation">
+      <option name="closed" value="true" />
+      <created>1718546481326</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1718546481326</updated>
+    </task>
+    <task id="LOCAL-00032" summary="added sticky nav menu for easier navigation">
+      <option name="closed" value="true" />
+      <created>1718546486961</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1718546486961</updated>
+    </task>
+    <task id="LOCAL-00033" summary="fixed little screen view with wider nav buttons">
+      <option name="closed" value="true" />
+      <created>1718546877082</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1718546877082</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -553,7 +605,10 @@
     <MESSAGE value="fixed worker data insertion and management" />
     <MESSAGE value="fixed service list page" />
     <MESSAGE value="fixed client pages to work with updated database" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed client pages to work with updated database" />
+    <MESSAGE value="allowing key field to be updated from edit page" />
+    <MESSAGE value="added sticky nav menu for easier navigation" />
+    <MESSAGE value="fixed little screen view with wider nav buttons" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed little screen view with wider nav buttons" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -3,7 +3,9 @@ package ingweb.main.aziendatrasporti.dao.mysql.dao;
 import ingweb.main.aziendatrasporti.dao.ServiceDAO;
 import ingweb.main.aziendatrasporti.dao.mysql.MySqlQueryManager;
 import ingweb.main.aziendatrasporti.mo.ClientCompany;
+import ingweb.main.aziendatrasporti.mo.License;
 import ingweb.main.aziendatrasporti.mo.Service;
+import ingweb.main.aziendatrasporti.mo.Worker;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -30,6 +32,11 @@ public class MySqlServiceDAO implements ServiceDAO {
         return s+"?";
     }
 
+    private Service getService(String[] item) {
+
+        return new Service(Integer.parseInt(item[0]), item[1], Date.valueOf(item[2]), Time.valueOf(item[3]), Time.valueOf(item[4]), item[5].equals("1"));
+    }
+
     public MySqlServiceDAO(Connection connection) { this.connection=connection; }
 
     public ArrayList<Service> findAll() {
@@ -49,16 +56,13 @@ public class MySqlServiceDAO implements ServiceDAO {
 
     public Service findByCode(int code) {
 
-        var query="select * from servizio where codice="+code;
+        var query="select codice, nome, data, ora_inizio, durata, deleted from servizio";
         var res=MySqlQueryManager.getResult(connection, query); //execute query on the database
-        var resList=MySqlQueryManager.asList(res, allColumns); //parse results
-        if (!resList.isEmpty()) {
-
-            if (resList.size()>1) return null; //return null error value if list has more than 1 element
-            var item=resList.get(0); //get first (and only) instance of the list and return its value
-            var service=new Service(Integer.parseInt(item[0]), item[1], Date.valueOf(item[2]), Time.valueOf(item[3]), Time.valueOf(item[4]), item[5].equals("1"));
-        }
-        return null; //return null if none is found
+        var resList=MySqlQueryManager.asList(res, new String[]{"codice", "nome", "data", "ora_inizio", "durata", "deleted"}); //parse results
+        if (resList.size()!=1) return null;
+        var item=resList.get(0);
+        var service=getService(item);
+        return (service.isDeleted() ? null : service);
     }
 
     public ArrayList<Service> findByClientCompany(ClientCompany clientCompany) {
@@ -96,7 +100,12 @@ public class MySqlServiceDAO implements ServiceDAO {
     public void addService(Service service) {
 
         var query="insert into servizio (nome, data, ora_inizio, durata, deleted) values (?, ?, ?, ?, ?)";
-        System.out.println(Arrays.toString(service.data()));
         MySqlQueryManager.execute(connection, query, service.data());
+    }
+
+    public void removeService(Service service) {
+
+        var query="update servizio set deleted=1 where (codice = ?)";
+        MySqlQueryManager.execute(connection, query, new Object[]{service.getCode()});
     }
 }

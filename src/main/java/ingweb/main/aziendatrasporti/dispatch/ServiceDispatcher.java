@@ -45,7 +45,6 @@ public class ServiceDispatcher implements DispatchCollector {
 
     public static void addService(HttpServletRequest request, HttpServletResponse response) {
 
-        System.out.println("debug");
         //get registered account list specifying DAO database implementation
         var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
         var serviceDAO=dao.getServiceDAO(); //get worker DAO implementation for the selected database
@@ -57,16 +56,12 @@ public class ServiceDispatcher implements DispatchCollector {
         var duration=request.getParameter("duration")+":00";
         var licenses=request.getParameterValues("license");
 
-        System.out.println("debug 2");
-
         var licenseList=new ArrayList<License>();
         for (var license: licenses) licenseList.add(new License(license));
 
         //add new record in database if parameter list is full
         if (!name.isEmpty() && !date.isEmpty() && !startTime.isEmpty() && !duration.isEmpty()) {
 
-            System.out.println("debug 3");
-            System.out.println(name+" - "+date+" - "+startTime+" - "+duration);
             var service=new Service(name, Date.valueOf(date), Time.valueOf(startTime), Time.valueOf(duration), false);
             System.out.println(service);
             service.setValidLicenses(licenseList);
@@ -76,6 +71,25 @@ public class ServiceDispatcher implements DispatchCollector {
 
         var serviceList=serviceDAO.findAll(); //return account list filtered by admin level
         licenseList=licenseDAO.findAll();
+
+        dao.commit();
+        dao.close();
+        request.setAttribute("licenseList", licenseList);
+        request.setAttribute("serviceList", serviceList);
+        commonState(request, response);
+    }
+
+    public static void removeService(HttpServletRequest request, HttpServletResponse response) {
+
+        //get registered account list specifying DAO database implementation
+        var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
+        var serviceDAO=dao.getServiceDAO(); //get worker DAO implementation for the selected database
+        var licenseDAO=dao.getLicenseDAO();
+        var code=request.getParameter("name").substring(1);
+        serviceDAO.removeService(serviceDAO.findByCode(Integer.parseInt(code)));
+
+        var serviceList=serviceDAO.findAll(); //return account list filtered by admin level
+        var licenseList=licenseDAO.findAll();
 
         dao.commit();
         dao.close();

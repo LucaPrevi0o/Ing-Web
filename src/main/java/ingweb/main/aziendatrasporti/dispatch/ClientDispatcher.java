@@ -117,7 +117,6 @@ public class ClientDispatcher implements DispatchCollector {
         var name=request.getParameter("name");
         var data=name.split("\\.");
         var clientCompany=clientDAO.findBySocialReason(data[1]);
-        System.out.println(clientCompany);
 
         dao.commit();
         dao.close();

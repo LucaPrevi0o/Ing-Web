@@ -22,7 +22,6 @@
 
                 refreshButton.addEventListener("click", function() {
 
-                    console.log("ur mum is a pussy");
                     document.dataForm.action.value="ServiceDispatcher.getServiceList";
                     document.dataForm.submit();
                 });

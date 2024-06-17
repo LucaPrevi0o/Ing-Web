@@ -12,5 +12,5 @@ public interface ServiceDAO {
     public ArrayList<Service> findByClientCompany(ClientCompany clientCompany);
     public ArrayList<Service> findByDate(Date date);
     public void addService(Service service);
-    //public void updateService(Service service, Object... params);
+    public void removeService(Service service);
 }
