@@ -93,8 +93,8 @@ public class MySqlWorkerDAO implements WorkerDAO {
     public void updateWorker(Worker worker) {
 
         var query="update dipendente set ";
-        for (var i=1; i<allColumns.length-3; i++) query+=(allColumns[i]+"=?, ");
-        query+=(allColumns[allColumns.length-3]+"=? where codice = '"+worker.getCode()+"'");
+        for (var i=1; i<allColumns.length-2; i++) query+=(allColumns[i]+"=?, ");
+        query+=(allColumns[allColumns.length-2]+"=? where codice = '"+worker.getCode()+"'");
         MySqlQueryManager.execute(connection, query, worker.asList());
     }
 }

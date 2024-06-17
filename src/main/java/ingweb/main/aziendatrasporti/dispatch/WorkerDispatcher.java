@@ -53,7 +53,7 @@ public class WorkerDispatcher implements DispatchCollector {
         //add new record in database if parameter list is full
         if (!name.isEmpty() && !surname.isEmpty() && !fiscalCode.isEmpty() && !birthDate.isEmpty() && !telNumber.isEmpty()) {
 
-            var worker=new Worker(0, name, surname, fiscalCode, Date.valueOf(birthDate), telNumber, false);
+            var worker=new Worker(name, surname, fiscalCode, Date.valueOf(birthDate), telNumber, false);
             worker.setLicenses(licenseList);
             workerDAO.addWorker(worker);
             licenseDAO.addLicensesByWorker(worker, licenseList);
@@ -89,8 +89,8 @@ public class WorkerDispatcher implements DispatchCollector {
         var workerDAO=dao.getWorkerDAO(); //get worker DAO implementation for the selected database
         var licenseDAO=dao.getLicenseDAO();
 
-        var fiscalCode=request.getParameter("name").substring(1);
-        workerDAO.removeWorker(workerDAO.findByFiscalCode(fiscalCode));
+        var code=request.getParameter("name");
+        workerDAO.removeWorker(workerDAO.findByCode(Integer.parseInt(code)));
         var workerList=workerDAO.findAll();
         var licenseList=licenseDAO.findAll();
 
@@ -120,9 +120,10 @@ public class WorkerDispatcher implements DispatchCollector {
         for (var license: licenses) licenseList.add(new License(license));
 
         //add new record in database if parameter list is full
-        if (!code.isEmpty() && !name.isEmpty() && !surname.isEmpty() && !fiscalCode.isEmpty() && !birthDate.isEmpty() && !telNumber.isEmpty()) {
+        if (!name.isEmpty() && !surname.isEmpty() && !fiscalCode.isEmpty() && !birthDate.isEmpty() && !telNumber.isEmpty()) {
 
-            var worker=new Worker(Integer.parseInt(code), name, surname, fiscalCode, Date.valueOf(birthDate), telNumber, false);
+            var worker=new Worker(name, surname, fiscalCode, Date.valueOf(birthDate), telNumber, false);
+            worker.setCode(Integer.parseInt(code));
             worker.setLicenses(licenseList);
             workerDAO.updateWorker(worker);
             licenseDAO.updateLicensesByWorker(worker, licenseList);
@@ -147,8 +148,7 @@ public class WorkerDispatcher implements DispatchCollector {
         var licenseList=licenseDAO.findAll();
 
         var name=request.getParameter("name");
-        var data=name.split("\\.");
-        var worker=workerDAO.findByFiscalCode(data[2]);
+        var worker=workerDAO.findByCode(Integer.parseInt(name));
 
         dao.commit();
         dao.close();

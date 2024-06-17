@@ -25,6 +25,16 @@ public class Worker implements ModelObject {
         this.deleted=deleted;
     }
 
+    public Worker(String name, String surname, String fiscalCode, Date birthDate, String telNumber, boolean deleted) {
+
+        this.name=name;
+        this.surname=surname;
+        this.fiscalCode=fiscalCode;
+        this.birthDate=birthDate;
+        this.telNumber=telNumber;
+        this.deleted=deleted;
+    }
+
     public Object[] asList() { return new Object[]{name, surname, fiscalCode, birthDate, telNumber, deleted}; }
 
     public boolean equals(Object o) {
