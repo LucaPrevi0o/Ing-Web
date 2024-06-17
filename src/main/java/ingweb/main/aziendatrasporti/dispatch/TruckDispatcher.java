@@ -20,7 +20,6 @@ public class TruckDispatcher implements DispatchCollector {
     public static void getTrucks(HttpServletRequest request, HttpServletResponse response) {
 
         var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
-        var attribute=DispatchCollector.findByName("loggedAccount", DispatchCollector.getAllAttributes(request));
         var truckDAO=dao.getTruckDAO();
         var licenseDAO=dao.getLicenseDAO();
         var truckList=truckDAO.findAll();
@@ -64,7 +63,7 @@ public class TruckDispatcher implements DispatchCollector {
 
         if (!numberPlate.isEmpty() && !brand.isEmpty() && !model.isEmpty()) {
 
-            var truck=new Truck(0, numberPlate, brand, model, available!=null, false);
+            var truck=new Truck(numberPlate, brand, model, available!=null, false);
             truck.setNeededLicenses(licenseList);
             truckDAO.addTruck(truck);
             licenseDAO.addLicensesByTruck(truck, licenseList);
@@ -86,9 +85,9 @@ public class TruckDispatcher implements DispatchCollector {
         var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
         var truckDAO=dao.getTruckDAO();
         var licenseDAO=dao.getLicenseDAO();
-        var numberPlate=request.getParameter("name").substring(1);
+        var code=request.getParameter("code");
 
-        truckDAO.removeTruck(truckDAO.findByNumberPlate(numberPlate));
+        truckDAO.removeTruck(truckDAO.findByCode(Integer.parseInt(code)));
         var truckList=truckDAO.findAll();
         var licenseList=licenseDAO.findAll();
 
@@ -118,7 +117,8 @@ public class TruckDispatcher implements DispatchCollector {
 
         if (!code.isEmpty() && !numberPlate.isEmpty() && !brand.isEmpty() && !model.isEmpty()) {
 
-            var truck=new Truck(Integer.parseInt(code), numberPlate, brand, model, available!=null, false);
+            var truck=new Truck(numberPlate, brand, model, available!=null, false);
+            truck.setCode(Integer.parseInt(code));
             truck.setNeededLicenses(licenseList);
             truckDAO.updateTruck(truck);
             licenseDAO.updateLicensesByTruck(truck, licenseList);
@@ -142,9 +142,9 @@ public class TruckDispatcher implements DispatchCollector {
         var licenseDAO=dao.getLicenseDAO();
         var licenseList=licenseDAO.findAll();
 
-        var name=request.getParameter("name");
-        var data=name.split("\\.");
-        var truck=truckDAO.findByNumberPlate(data[0]);
+        var code=request.getParameter("code");
+        System.out.println(code);
+        var truck=truckDAO.findByCode(Integer.parseInt(code));
 
         dao.commit();
         dao.close();

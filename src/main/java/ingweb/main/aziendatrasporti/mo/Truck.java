@@ -12,6 +12,15 @@ public class Truck implements ModelObject {
     ArrayList<License> neededLicenses=new ArrayList<>();
     boolean deleted;
 
+    public Truck(String numberPlate, String brand, String model, boolean available, boolean deleted) {
+
+        this.numberPlate=numberPlate;
+        this.brand=brand;
+        this.model=model;
+        this.available=available;
+        this.deleted=deleted;
+    }
+
     public Truck(int code, String numberPlate, String brand, String model, boolean available, boolean deleted) {
 
         this.code=code;

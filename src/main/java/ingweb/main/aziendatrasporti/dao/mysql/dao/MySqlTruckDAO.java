@@ -85,7 +85,6 @@ public class MySqlTruckDAO implements TruckDAO {
     public void addTruck(Truck truck) {
 
         var query="insert into mezzo ("+parseParams()+") values ("+addParams()+")"; //empty query
-        System.out.println(query);
         MySqlQueryManager.execute(connection, query, truck.asList()); //execute insertion with parameters
     }
 

@@ -10,7 +10,6 @@
 %>
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/generalStyle.css">
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/dataTable.css">
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/checkbox.css">
         <script>
@@ -45,7 +44,7 @@
                     b.addEventListener("click", function() {
 
                         document.dataForm.action.value="TruckDispatcher.removeTruck";
-                        document.dataForm.name.value=this.id;
+                        document.dataForm.code.value=this.id;
                         document.dataForm.submit();
                     });
                 });
@@ -55,7 +54,7 @@
                     b.addEventListener("click", function() {
 
                         document.dataForm.action.value="TruckDispatcher.editTruck";
-                        document.dataForm.name.value=this.id;
+                        document.dataForm.code.value=this.id;
                         document.dataForm.submit();
                     });
                 });
@@ -85,16 +84,18 @@
                     <% for (var license: licenseList) { %>
                         <td><input type="checkbox" <%= licenses.contains(license) ? "checked" : "" %> disabled/></td>
                     <% } %>
-                    <td><input type="button" id="<%= truck.getNumberPlate()+"."+truck.getBrand()+"."+truck.getModel()+"."+truck.isAvailable() %>" name="edit" value="Modifica"></td>
-                    <td><input type="button" id="r<%= truck.getNumberPlate() %>" name="remove" value="Rimuovi"></td>
+                    <td><input type="button" id="<%= truck.getCode() %>" name="edit" value="Modifica"></td>
+                    <td><input type="button" id="<%= truck.getCode() %>" name="remove" value="Rimuovi"></td>
                 </tr>
             <% } %>
         </table>
         <form name="dataForm" action="<%= request.getContextPath() %>/Dispatcher" method="post">
-            <input type="button" id="newTruckButton" value="Nuovo mezzo">
-            <input type="button" id="refreshButton" value="Aggiorna lista">
-            <input type="button" id="backButton" value="Chiudi tab">
-            <input type="hidden" name="name">
+            <div class="styled">
+                <input type="button" id="newTruckButton" value="Nuovo mezzo">
+                <input type="button" id="refreshButton" value="Aggiorna lista">
+                <input type="button" id="backButton" value="Chiudi tab">
+            </div>
+            <input type="hidden" name="code">
             <input type="hidden" name="action">
         </form>
     </body>
