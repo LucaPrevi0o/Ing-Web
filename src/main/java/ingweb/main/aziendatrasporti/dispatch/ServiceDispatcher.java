@@ -63,7 +63,6 @@ public class ServiceDispatcher implements DispatchCollector {
         if (!name.isEmpty() && !date.isEmpty() && !startTime.isEmpty() && !duration.isEmpty()) {
 
             var service=new Service(name, Date.valueOf(date), Time.valueOf(startTime), Time.valueOf(duration), false);
-            System.out.println(service);
             service.setValidLicenses(licenseList);
             serviceDAO.addService(service);
             licenseDAO.addLicensesByService(service, licenseList);
