@@ -89,7 +89,7 @@ public class WorkerDispatcher implements DispatchCollector {
         var workerDAO=dao.getWorkerDAO(); //get worker DAO implementation for the selected database
         var licenseDAO=dao.getLicenseDAO();
 
-        var code=request.getParameter("name");
+        var code=request.getParameter("code");
         workerDAO.removeWorker(workerDAO.findByCode(Integer.parseInt(code)));
         var workerList=workerDAO.findAll();
         var licenseList=licenseDAO.findAll();
@@ -147,7 +147,7 @@ public class WorkerDispatcher implements DispatchCollector {
         var licenseDAO=dao.getLicenseDAO();
         var licenseList=licenseDAO.findAll();
 
-        var name=request.getParameter("name");
+        var name=request.getParameter("code");
         var worker=workerDAO.findByCode(Integer.parseInt(name));
 
         dao.commit();

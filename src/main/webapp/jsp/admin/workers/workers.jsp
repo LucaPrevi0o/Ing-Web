@@ -44,7 +44,7 @@
                     b.addEventListener("click", function() {
 
                         document.dataForm.action.value="WorkerDispatcher.removeWorker";
-                        document.dataForm.name.value=this.id;
+                        document.dataForm.code.value=this.id;
                         document.dataForm.submit();
                     });
                 });
@@ -54,7 +54,7 @@
                     b.addEventListener("click", function() {
 
                         document.dataForm.action.value="WorkerDispatcher.editWorker";
-                        document.dataForm.name.value=this.id;
+                        document.dataForm.code.value=this.id;
                         document.dataForm.submit();
                     });
                 });
@@ -93,7 +93,7 @@
                 <input type="button" id="refreshButton" value="Aggiorna lista">
                 <input type="button" id="backButton" value="Chiudi tab">
             </div>
-            <input type="hidden" name="name">
+            <input type="hidden" name="code">
             <input type="hidden" name="action">
         </form>
     </body>
