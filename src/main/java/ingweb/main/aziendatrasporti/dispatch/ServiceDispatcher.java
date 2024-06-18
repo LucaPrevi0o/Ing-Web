@@ -25,6 +25,7 @@ public class ServiceDispatcher implements DispatchCollector {
         var licenseDAO=dao.getLicenseDAO();
         var licenseList=licenseDAO.findAll();
         var serviceList=serviceDAO.findAllData();
+        System.out.println(serviceList.get(0));
 
         dao.commit();
         dao.close();
@@ -63,7 +64,6 @@ public class ServiceDispatcher implements DispatchCollector {
         var licenses=request.getParameterValues("license");
 
         var client=clientDAO.findByCode(Integer.parseInt(clientCompany));
-        System.out.println(client);
         var licenseList=new ArrayList<License>();
         for (var license: licenses) licenseList.add(new License(license));
 
@@ -72,7 +72,6 @@ public class ServiceDispatcher implements DispatchCollector {
 
             var service=new Service(name, Date.valueOf(date), Time.valueOf(startTime), Time.valueOf(duration), false);
             service.setClientCompany(client);
-            System.out.println(service);
             serviceDAO.addService(service);
             service=serviceDAO.findDataByDateStartTimeAndDuration(service.getDate(), service.getStartTime(), service.getDuration());
             licenseDAO.addLicensesByService(service, licenseList);
@@ -130,9 +129,7 @@ public class ServiceDispatcher implements DispatchCollector {
         //add new record in database if parameter list is full
         if (!name.isEmpty() && !date.isEmpty() && !startTime.isEmpty() && !duration.isEmpty()) {
 
-            var service=new Service(name, Date.valueOf(date), Time.valueOf(startTime), Time.valueOf(duration), false);
-            service.setClientCompany(client);
-            service.setCode(Integer.parseInt(code));
+            var service=new Service(Integer.parseInt(code), name, client, Date.valueOf(date), Time.valueOf(startTime), Time.valueOf(duration), false);
             service.setValidLicenses(licenseList);
             serviceDAO.updateService(service);
             licenseDAO.updateLicensesByService(service, licenseList);
@@ -154,7 +151,9 @@ public class ServiceDispatcher implements DispatchCollector {
         var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
         var serviceDAO=dao.getServiceDAO(); //get service DAO implementation for the selected database
         var licenseDAO=dao.getLicenseDAO();
+        var clientDAO=dao.getClientDAO();
         var licenseList=licenseDAO.findAll();
+        var clientList=clientDAO.findAll();
 
         var code=request.getParameter("code");
         var service=serviceDAO.findDataByCode(Integer.parseInt(code));
@@ -163,6 +162,7 @@ public class ServiceDispatcher implements DispatchCollector {
         dao.close();
         request.setAttribute("service", service); //set list as new session attribute
         request.setAttribute("licenseList", licenseList);
+        request.setAttribute("clientList", clientList);
         request.setAttribute("viewUrl", "/admin/services/newService"); //set URL for forward view dispatch
         DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
     }
@@ -180,7 +180,7 @@ public class ServiceDispatcher implements DispatchCollector {
         var workerList=workerDAO.findAllByLicenses(service.getValidLicenses());
         var truckList=truckDAO.findAllByLicenses(service.getValidLicenses());
 
-        request.setAttribute("serviceList", service);
+        request.setAttribute("service", service);
         request.setAttribute("workerList", workerList);
         request.setAttribute("truckList", truckList);
         request.setAttribute("viewUrl", "/admin/services/serviceAssignment"); //set URL for forward view dispatch

@@ -47,7 +47,7 @@
             <table>
                 <tr>
                     <td><label for="name">Nome</label></td>
-                    <td colspan="<%= licenseList.size() %>"><input type="text" id="name" name="name" placeholder="Nome dipendente" value="<%= service==null ? "" : service.getName() %>" required/></td>
+                    <td colspan="<%= licenseList.size() %>"><input type="text" id="name" name="name" placeholder="Nome servizio" value="<%= service==null ? "" : service.getName() %>" required/></td>
                 </tr>
                 <tr>
                     <td><label for="clientCompany">Cliente</label></td>
@@ -72,9 +72,9 @@
                 <tr>
                     <td rowspan="2">Patenti necessarie</td>
                     <% for (var license: licenseList) { %><td>
-                    <label for="<%= license.getCategory() %>"><%= license.getCategory() %></label>
-                    <input type="checkbox" name="license" id="<%= license.getCategory() %>" value="<%= license.getCategory() %>" <%= service ==null || !service.getValidLicenses().contains(license) ? "" : "checked" %>/>
-                </td><% } %>
+                        <label for="<%= license.getCategory() %>"><%= license.getCategory() %></label>
+                        <input type="checkbox" name="license" id="<%= license.getCategory() %>" value="<%= license.getCategory() %>" <%= service ==null || !service.getValidLicenses().contains(license) ? "" : "checked" %>/>
+                    </td><% } %>
                 </tr>
             </table>
             <br/>

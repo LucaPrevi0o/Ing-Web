@@ -9,22 +9,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0bf709cf-d99c-4d00-90c1-2fc5a7108193" name="Changes" comment="added form for service assignment">
+    <list default="true" id="0bf709cf-d99c-4d00-90c1-2fc5a7108193" name="Changes" comment="added client company insertion for services">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/ClientDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/ClientDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlClientDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlClientDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/ServiceDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/ServiceDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlLicenseDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlLicenseDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlServiceDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlServiceDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dispatch/ClientDispatcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dispatch/ClientDispatcher.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dispatch/ServiceDispatcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dispatch/ServiceDispatcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/mo/ClientCompany.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/mo/ClientCompany.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/mo/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/mo/Service.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/clients/clientCompanies.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/clients/clientCompanies.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/services/newService.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/services/newService.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/services/serviceAssignment.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/services/serviceAssignment.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/services/serviceList.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/services/serviceList.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dispatch/ServiceDispatcher.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dispatch/ServiceDispatcher.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/admin/services/serviceAssignment.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/admin/services/serviceAssignment.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dispatch/ServiceDispatcher.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dispatch/ServiceDispatcher.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -314,7 +308,8 @@
       <workItem from="1718436922497" duration="4254000" />
       <workItem from="1718529605857" duration="29532000" />
       <workItem from="1718635046523" duration="1259000" />
-      <workItem from="1718693026225" duration="10448000" />
+      <workItem from="1718693026225" duration="10890000" />
+      <workItem from="1718714914016" duration="7450000" />
     </task>
     <task id="LOCAL-00001" summary="new commit">
       <option name="closed" value="true" />
@@ -660,7 +655,15 @@
       <option name="project" value="LOCAL" />
       <updated>1718698263603</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="added client company insertion for services">
+      <option name="closed" value="true" />
+      <created>1718703899983</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1718703899983</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -670,7 +673,6 @@
     <option featureType="com.intellij.fileTypeFactory" implementationName="*.inc" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="css formatted worker insertion with tables" />
     <MESSAGE value="finished form formatting for insertions" />
     <MESSAGE value="started service list almost from scratch" />
     <MESSAGE value="need to get data only from name with single query" />
@@ -695,7 +697,8 @@
     <MESSAGE value="working prototype for service assignment" />
     <MESSAGE value="styled select menu, added second worker selection" />
     <MESSAGE value="added form for service assignment" />
-    <option name="LAST_COMMIT_MESSAGE" value="added form for service assignment" />
+    <MESSAGE value="added client company insertion for services" />
+    <option name="LAST_COMMIT_MESSAGE" value="added client company insertion for services" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

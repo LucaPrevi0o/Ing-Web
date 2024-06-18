@@ -95,6 +95,7 @@ public class MySqlLicenseDAO implements LicenseDAO {
 
     public void addLicensesByService(Service service, ArrayList<License> licenses) {
 
+        System.out.println(service);
         for (var license: licenses) {
 
             var query="insert into patenti_servizio (servizio, patente) values (?, ?)";

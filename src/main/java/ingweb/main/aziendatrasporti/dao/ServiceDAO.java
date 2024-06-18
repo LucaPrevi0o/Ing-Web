@@ -9,11 +9,8 @@ import java.util.ArrayList;
 public interface ServiceDAO {
 
     public ArrayList<Service> findAllData();
-    public ArrayList<Service> findAllNotAssigned();
     public Service findDataByCode(int code);
     public Service findDataByDateStartTimeAndDuration(Date date, Time startTime, Time duration);
-    public ArrayList<Service> findByClientCompany(ClientCompany clientCompany);
-    public ArrayList<Service> findByDate(Date date);
     public void addService(Service service);
     public void removeService(Service service);
     public void updateService(Service service);

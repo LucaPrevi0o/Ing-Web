@@ -3,7 +3,6 @@ package ingweb.main.aziendatrasporti.mo;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Service implements ModelObject {
 
@@ -17,17 +16,12 @@ public class Service implements ModelObject {
     ArrayList<License> validLicenses;
     boolean deleted;
 
-    public Service(int code, String name, ClientCompany clientCompany, Date date, Time startTime, Time duration, Worker firstDriver, Worker secondDriver, Truck truck, boolean deleted) {
+    public Service(String name, Date date, Time startTime, Time duration, boolean deleted) {
 
-        this.code=code;
         this.name=name;
-        this.clientCompany=clientCompany;
         this.date=date;
         this.startTime=startTime;
         this.duration=duration;
-        this.firstDriver=firstDriver;
-        this.secondDriver=secondDriver;
-        this.truck=truck;
         this.deleted=deleted;
     }
 
@@ -41,9 +35,11 @@ public class Service implements ModelObject {
         this.deleted=deleted;
     }
 
-    public Service(String name, Date date, Time startTime, Time duration, boolean deleted) {
+    public Service(int code, String name, ClientCompany clientCompany, Date date, Time startTime, Time duration, boolean deleted) {
 
+        this.code=code;
         this.name=name;
+        this.clientCompany=clientCompany;
         this.date=date;
         this.startTime=startTime;
         this.duration=duration;
@@ -65,7 +61,7 @@ public class Service implements ModelObject {
     }
 
     public Object[] asList() { return new Object[]{}; }
-    public Object[] data() { return new Object[]{name, clientCompany.getSocialReason(), date, startTime, duration, deleted}; }
+    public Object[] data() { return new Object[]{this.name, (this.clientCompany==null ? null : this.clientCompany.getSocialReason()), this.date, this.startTime, this.duration, this.deleted}; }
 
     public String toString() { return this.name+" ("+this.code+") - ["+this.clientCompany+"] - "+this.date+" - "+this.startTime+" ("+this.duration+") - "+this.firstDriver+", "+this.secondDriver+" - "+this.truck; }
 

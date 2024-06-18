@@ -5,7 +5,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%
     var contextPath=request.getContextPath();
-    var service=(Service)request.getAttribute("serviceList");
+    var service=(Service)request.getAttribute("service");
     var workerList=(ArrayList<Worker>)request.getAttribute("workerList");
     var truckList=(ArrayList<Truck>)request.getAttribute("truckList");
 %>
