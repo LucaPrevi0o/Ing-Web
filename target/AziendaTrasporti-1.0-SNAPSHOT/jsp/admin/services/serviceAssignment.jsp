@@ -14,6 +14,7 @@
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/generalStyle.css">
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/dataTable.css">
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/checkbox.css">
+        <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/select.css">
     </head>
     <body>
         <table>
@@ -30,6 +31,15 @@
                 <td><label for="selectedWorker">Selezione autista</label></td>
                 <td>
                     <select id="selectedWorker" name="selectedWorker">
+                        <% for (var worker: workerList) { %><option value="<%= worker.getCode() %>"><%= worker.display() %></option><% }%>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="secondWorker">Selezione secondo autista</label></td>
+                <td>
+                    <select id="secondWorker" name="secondWorker">
+                        <option value="none">-- Selezionare secondo autista -- </option>
                         <% for (var worker: workerList) { %><option value="<%= worker.getCode() %>"><%= worker.display() %></option><% }%>
                     </select>
                 </td>
