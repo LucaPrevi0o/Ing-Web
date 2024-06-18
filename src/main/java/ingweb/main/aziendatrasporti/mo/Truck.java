@@ -40,6 +40,8 @@ public class Truck implements ModelObject {
         return res;
     }
 
+    public String display() { return this.numberPlate+": "+this.brand+" "+this.model; }
+
     public boolean equals(Object o) {
 
         if (!(o instanceof Truck)) return false;

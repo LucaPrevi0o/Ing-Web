@@ -57,6 +57,8 @@ public class Worker implements ModelObject {
         return res;
     }
 
+    public String display() { return this.name+" "+this.surname+" ("+this.fiscalCode+")"; }
+
     public int getCode() { return this.code; }
     public void setCode(int code) { this.code=code; }
 

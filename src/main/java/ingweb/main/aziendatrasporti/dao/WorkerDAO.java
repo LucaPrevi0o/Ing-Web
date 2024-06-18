@@ -1,5 +1,6 @@
 package ingweb.main.aziendatrasporti.dao;
 
+import ingweb.main.aziendatrasporti.mo.License;
 import ingweb.main.aziendatrasporti.mo.Worker;
 import java.util.*;
 
@@ -8,6 +9,7 @@ public interface WorkerDAO {
 
     public ArrayList<Worker> findAll();
     public Worker findByCode(int code);
+    public ArrayList<Worker> findAllByLicenses(ArrayList<License> licenses);
     public Worker findByFiscalCode(String fiscalCode);
     public void addWorker(Worker worker);
     public void removeWorker(Worker worker);

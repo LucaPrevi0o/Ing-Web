@@ -3,6 +3,7 @@ package ingweb.main.aziendatrasporti.dao.mysql.dao;
 import ingweb.main.aziendatrasporti.dao.WorkerDAO;
 import ingweb.main.aziendatrasporti.dao.mysql.MySqlQueryManager;
 import ingweb.main.aziendatrasporti.mo.License;
+import ingweb.main.aziendatrasporti.mo.Truck;
 import ingweb.main.aziendatrasporti.mo.Worker;
 import java.sql.*;
 import java.sql.Date;
@@ -50,6 +51,25 @@ public class MySqlWorkerDAO implements WorkerDAO {
             if (!worker.isDeleted()) workers.add(worker);
         }
         return workers; //return null if none is found
+    }
+
+    public ArrayList<Worker> findAllByLicenses(ArrayList<License> licenses) {
+
+        var result=new ArrayList<Worker>(); //empty list
+        for (var license: licenses) {
+
+            var query="select dipendente.*, group_concat(patenti_autista.patente) as '"+allColumns[allColumns.length-1]+"' from dipendente join patenti_autista on dipendente.codice_fiscale=patenti_autista.dipendente where patenti_autista.patente='"+license.getCategory()+"' group by dipendente.codice_fiscale";
+            var workers=MySqlQueryManager.getResult(connection, query); //execute query on the database
+            var workerList=MySqlQueryManager.asList(workers, allColumns); //parse results
+            for (var item: workerList) { //add every element of the result set as new worker
+
+                //parse obtained result as correct data type
+                var worker=getWorker(item);
+                if (!worker.isDeleted()) result.add(worker); //add worker to the result list if not set as deleted
+            }
+        }
+
+        return result; //return list of valid trucks
     }
 
     //return, if exists, the worker having a specified fiscal code

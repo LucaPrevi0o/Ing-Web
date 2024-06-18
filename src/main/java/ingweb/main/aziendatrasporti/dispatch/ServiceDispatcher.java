@@ -163,14 +163,16 @@ public class ServiceDispatcher implements DispatchCollector {
         var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
         var serviceDAO=dao.getServiceDAO(); //get service DAO implementation for the selected database
         var workerDAO=dao.getWorkerDAO();
-        var licenseDAO=dao.getLicenseDAO();
         var truckDAO=dao.getTruckDAO();
-        var serviceList=serviceDAO.findAllNotAssigned();
-        var licenses=new ArrayList<ArrayList<License>>();
-        var workers=new ArrayList<ArrayList<Worker>>();
-        for (var service: serviceList) licenses.add(service.getValidLicenses());
-        //var trucks=truckDAO.findAllByLicenses(licenses);
 
+        var code=request.getParameter("code");
+        var service=serviceDAO.findDataByCode(Integer.parseInt(code));
+        var workerList=workerDAO.findAllByLicenses(service.getValidLicenses());
+        var truckList=truckDAO.findAllByLicenses(service.getValidLicenses());
+
+        request.setAttribute("serviceList", service);
+        request.setAttribute("workerList", workerList);
+        request.setAttribute("truckList", truckList);
         request.setAttribute("viewUrl", "/admin/services/serviceAssignment"); //set URL for forward view dispatch
         DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
     }
