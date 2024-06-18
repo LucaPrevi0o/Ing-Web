@@ -12,23 +12,28 @@ import java.util.ArrayList;
 public class MySqlClientDAO implements ClientDAO {
 
     private final Connection connection;
-    private final String[] allColumns={"nome", "ragione_sociale", "sede", "nome_responsabile", "cf_responsabile", "datanascita_responsabile", "numerotelefono_responsabile", "deleted"};
+    private final String[] allColumns={"codice", "nome", "ragione_sociale", "sede", "nome_responsabile", "cf_responsabile", "datanascita_responsabile", "numerotelefono_responsabile", "deleted"};
 
     private String parseParams() {
 
         var s="";
-        for (var i=0; i<allColumns.length-1; i++) s+=(allColumns[i]+", ");
+        for (var i=1; i<allColumns.length-1; i++) s+=(allColumns[i]+", ");
         return s+allColumns[allColumns.length-1];
     }
 
     private String addParams() {
 
         var s="";
-        for (var i=0; i<allColumns.length-1; i++) s+="?, ";
+        for (var i=1; i<allColumns.length-1; i++) s+="?, ";
         return s+"?";
     }
 
     public MySqlClientDAO(Connection connection) { this.connection=connection; }
+
+    public ClientCompany getClient(String[] item) {
+
+        return new ClientCompany(Integer.parseInt(item[0]), item[1], item[2], item[3], item[4], item[5], Date.valueOf(item[6]), item[7], item[8].equals("1"));
+    }
 
     public ArrayList<ClientCompany> findAll() {
 
@@ -39,11 +44,22 @@ public class MySqlClientDAO implements ClientDAO {
         for (var item: resList) { //add every element of the result set as new clientCompany
 
             //parse obtained result as correct data type
-            var clientCompany=new ClientCompany(item[0], item[1], item[2], item[3], item[4], Date.valueOf(item[5]), item[6], item[7].equals("1"));
+            var clientCompany=getClient(item);
             if (!clientCompany.isDeleted()) clients.add(clientCompany); //add clientCompany to the result list if not set as deleted
         }
 
         return clients; //return list of valid services
+    }
+
+    public ClientCompany findByCode(int code) {
+
+        var query="select * from azienda_cliente where codice='"+code+"'";
+        var res=MySqlQueryManager.getResult(connection, query); //execute query on the database
+        var resList=MySqlQueryManager.asList(res, allColumns); //parse results
+        if (resList.size()!=1) return null;
+        var item=resList.get(0);
+        var clientCompany=getClient(item);
+        return (clientCompany.isDeleted() ? null : clientCompany);
     }
 
     public ClientCompany findBySocialReason(String socialReason) {
@@ -51,13 +67,10 @@ public class MySqlClientDAO implements ClientDAO {
         var query="select * from azienda_cliente where ragione_sociale='"+socialReason+"'";
         var res=MySqlQueryManager.getResult(connection, query); //execute query on the database
         var resList=MySqlQueryManager.asList(res, allColumns); //parse results
-        if (!resList.isEmpty()) {
-
-            if (resList.size()>1) return null; //return null error value if list has more than 1 element
-            var item=resList.get(0); //get first (and only) instance of the list and return its value
-            return new ClientCompany(item[0], item[1], item[2], item[3], item[4], Date.valueOf(item[5]), item[6], item[7].equals("1"));
-        }
-        return null; //return null if none is found
+        if (resList.size()!=1) return null;
+        var item=resList.get(0);
+        var clientCompany=getClient(item);
+        return (clientCompany.isDeleted() ? null : clientCompany);
     }
 
     public void addClient(ClientCompany client) {
@@ -69,16 +82,16 @@ public class MySqlClientDAO implements ClientDAO {
     //remove account from database (setting the logic deletion true)
     public void removeClient(ClientCompany clientCompany) {
 
-        var query="update azienda_cliente set deleted=1 where (ragione_sociale = ?)"; //empty query
-        MySqlQueryManager.execute(connection, query, new Object[]{clientCompany.getSocialReason()}); //execute update with parameters
+        var query="update azienda_cliente set deleted=1 where (codice = ?)"; //empty query
+        MySqlQueryManager.execute(connection, query, new Object[]{clientCompany.getCode()}); //execute update with parameters
     }
 
-    public void updateClient(ClientCompany worker) {
+    public void updateClient(ClientCompany clientCompany) {
 
-        var params=worker.asList();
+        var params=clientCompany.asList();
         var query="update azienda_cliente set ";
         for (var i=0; i<params.length-1; i++) query+=(allColumns[i]+"=?, ");
-        query+=(allColumns[allColumns.length-1]+"=? where (ragione_sociale = '"+worker.getSocialReason()+"')");
+        query+=(allColumns[allColumns.length-1]+"=? where (codice = '"+clientCompany.getCode()+"')");
         MySqlQueryManager.execute(connection, query, params);
     }
 }

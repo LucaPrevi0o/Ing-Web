@@ -14,34 +14,35 @@ import java.util.Arrays;
 public class MySqlServiceDAO implements ServiceDAO {
 
     private final Connection connection;
-    private final String[] data={"codice", "nome", "data", "ora_inizio", "durata", "deleted", "patenti"};
+    private final String[] data={"codice", "nome", "cliente", "data", "ora_inizio", "durata", "deleted", "patenti"};
+    private final String[] shortData={"codice", "nome", "data", "ora_inizio", "durata", "deleted"};
     private final String[] allColumns={"codice", "nome", "cliente", "data", "ora_inizio", "durata", "primo_autista", "secondo_autista", "targa_mezzo", "deleted"};
+
+    private String parseShortData() {
+
+        var s="";
+        for (var i=0; i<shortData.length-1; i++) s+=shortData[i]+", ";
+        return s+shortData[shortData.length-1];
+    }
+
+    private String addShortData() {
+
+        var s="";
+        for (var i=0; i<shortData.length-1; i++) s+="?, ";
+        return s+"?";
+    }
 
     private String parseData() {
 
         var s="";
-        for (var i=0; i<data.length-2; i++) s+=data[i]+", ";
+        for (var i=1; i<data.length-2; i++) s+=data[i]+", ";
         return s+data[data.length-2];
     }
 
     private String addData() {
 
         var s="";
-        for (var i=1; i<data.length-1; i++) s+="?, ";
-        return s+"?";
-    }
-
-    private String parseParams() {
-
-        var s="";
-        for (var i=1; i<allColumns.length-1; i++) s+=allColumns[i]+", ";
-        return s+allColumns[allColumns.length-1];
-    }
-
-    private String addParams() {
-
-        var s="";
-        for (var i=1; i<allColumns.length-1; i++) s+="?, ";
+        for (var i=1; i<data.length-2; i++) s+="?, ";
         return s+"?";
     }
 
@@ -59,9 +60,9 @@ public class MySqlServiceDAO implements ServiceDAO {
     public ArrayList<Service> findAllData() {
 
         var services=new ArrayList<Service>();
-        var query="select "+parseData()+", group_concat(patenti_servizio.patente) as "+data[data.length-1]+" from servizio, patenti_servizio where codice=servizio group by servizio.codice";
+        var query="select "+parseShortData()+", group_concat(patenti_servizio.patente) as "+data[data.length-1]+" from servizio, patenti_servizio where codice=servizio group by servizio.codice";
         var res=MySqlQueryManager.getResult(connection, query); //execute query on the database
-        var resList=MySqlQueryManager.asList(res, data); //parse results
+        var resList=MySqlQueryManager.asList(res, shortData); //parse results
         for (var item: resList) { //add every element of the result set as new service
 
             var service=getService(item);
@@ -86,9 +87,9 @@ public class MySqlServiceDAO implements ServiceDAO {
 
     public Service findDataByCode(int code) {
 
-        var query="select "+parseData()+", group_concat(patenti_servizio.patente) as "+data[data.length-1]+" from servizio, patenti_servizio where codice=servizio and servizio.codice='"+code+"' group by servizio.codice";
+        var query="select "+parseShortData()+", group_concat(patenti_servizio.patente) as "+data[data.length-1]+" from servizio, patenti_servizio where codice=servizio and servizio.codice='"+code+"' group by servizio.codice";
         var res=MySqlQueryManager.getResult(connection, query); //execute query on the database
-        var resList=MySqlQueryManager.asList(res, data); //parse results
+        var resList=MySqlQueryManager.asList(res, shortData); //parse results
         if (resList.size()!=1) return null;
         var item=resList.get(0);
         var service=getService(item);
@@ -97,21 +98,21 @@ public class MySqlServiceDAO implements ServiceDAO {
 
     public Service findDataByDateStartTimeAndDuration(Date date, Time startTime, Time duration) {
 
-        var query="select "+parseData()+" from servizio where data='"+date+"' and ora_inizio='"+startTime+"' and durata='"+duration+"'";
+        var query="select "+parseShortData()+" from servizio where data='"+date+"' and ora_inizio='"+startTime+"' and durata='"+duration+"'";
         var res=MySqlQueryManager.getResult(connection, query); //execute query on the database
-        var resList=MySqlQueryManager.asList(res, new String[]{"codice", "nome", "data", "ora_inizio", "durata", "deleted"}); //parse results
+        var resList=MySqlQueryManager.asList(res, shortData); //parse results
         if (resList.size()!=1) return null;
         var item=resList.get(0);
-        var service=new Service(Integer.parseInt(item[0]), item[1], Date.valueOf(item[2]), Time.valueOf(item[3]), Time.valueOf(item[4]), item[5].equals("1"));
+        var service=getService(item);
         return (service.isDeleted() ? null : service);
     }
 
     public ArrayList<Service> findByClientCompany(ClientCompany clientCompany) {
 
         var services=new ArrayList<Service>();
-        var query="select codice, nome, data, ora_inizio, durata, deleted, group_concat(patenti_servizio.patente) as patenti from servizio, patenti_servizio where codice=servizio and servizio.cliente='"+clientCompany+"' group by servizio.codice";
+        var query="select "+parseShortData()+", group_concat(patenti_servizio.patente) as patenti from servizio, patenti_servizio where codice=servizio and servizio.cliente='"+clientCompany+"' group by servizio.codice";
         var res=MySqlQueryManager.getResult(connection, query); //execute query on the database
-        var resList=MySqlQueryManager.asList(res, new String[]{"codice", "nome", "data", "ora_inizio", "durata", "deleted", "patenti"}); //parse results
+        var resList=MySqlQueryManager.asList(res, shortData); //parse results
         for (var item: resList) { //add every element of the result set as new service
 
             var service=getService(item);
@@ -125,7 +126,7 @@ public class MySqlServiceDAO implements ServiceDAO {
         var services=new ArrayList<Service>();
         var query="select "+parseData()+", group_concat(patenti_servizio.patente) as "+data[data.length-1]+" from servizio, patenti_servizio where codice=servizio and servizio.data='"+date+"' group by servizio.codice";
         var res=MySqlQueryManager.getResult(connection, query); //execute query on the database
-        var resList=MySqlQueryManager.asList(res, new String[]{"codice", "nome", "data", "ora_inizio", "durata", "deleted", "patenti"}); //parse results
+        var resList=MySqlQueryManager.asList(res, data); //parse results
         for (var item: resList) { //add every element of the result set as new service
 
             var service=getService(item);
@@ -136,7 +137,8 @@ public class MySqlServiceDAO implements ServiceDAO {
 
     public void addService(Service service) {
 
-        var query="insert into servizio "+parseData()+" values ("+addData()+")";
+        var query="insert into servizio ("+parseData()+") values ("+addData()+")";
+        System.out.println(query);
         MySqlQueryManager.execute(connection, query, service.data());
     }
 

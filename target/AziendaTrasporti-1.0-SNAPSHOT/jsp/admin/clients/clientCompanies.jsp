@@ -27,7 +27,7 @@
                     b.addEventListener("click", function() {
 
                         document.dataForm.action.value="ClientDispatcher.removeClient";
-                        document.dataForm.name.value=this.id;
+                        document.dataForm.code.value=this.id;
                         document.dataForm.submit();
                     });
                 });
@@ -37,7 +37,7 @@
                     b.addEventListener("click", function() {
 
                         document.dataForm.action.value="ClientDispatcher.editClient";
-                        document.dataForm.name.value=this.id;
+                        document.dataForm.code.value=this.id;
                         document.dataForm.submit();
                     });
                 });
@@ -65,8 +65,8 @@
             <% for (var client: clientList) { %>
                 <tr>
                     <% for (var field: client.asList()) if (!(field instanceof Boolean)) { %><td><%= field %></td><% } %>
-                    <td><input type="button" id="<%= client.getName()+"."+client.getSocialReason()+"."+client.getLocation()+"."+client.getManagerName()+"."+client.getManagerFiscalCode()+"."+client.getManagerBirthDate()+"."+client.getManagerTelNumber() %>" name="edit" value="Modifica"></td>
-                    <td><input type="button" id="r<%= client.getSocialReason() %>" name="remove" value="Rimuovi"></td>
+                    <td><input type="button" id="<%= client.getCode() %>" name="edit" value="Modifica"></td>
+                    <td><input type="button" id="r<%= client.getCode() %>" name="remove" value="Rimuovi"></td>
                 </tr>
             <% } %>
         </table>
@@ -76,7 +76,7 @@
                 <input type="submit" id="refreshButton" value="Aggiorna lista">
                 <input type="submit" id="backButton" value="Chiudi tab">
             </div>
-            <input type="hidden" name="name">
+            <input type="hidden" name="code">
             <input type="hidden" name="action">
         </form>
     </body>

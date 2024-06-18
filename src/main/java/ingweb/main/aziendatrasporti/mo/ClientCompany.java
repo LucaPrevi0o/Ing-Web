@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class ClientCompany implements ModelObject {
 
+    int code;
     String name;
     String socialReason;
     String location;
@@ -25,9 +26,27 @@ public class ClientCompany implements ModelObject {
         this.deleted=deleted;
     }
 
+    public ClientCompany(int code, String name, String socialReason, String location, String managerName, String managerFiscalCode, Date managerBirthDate, String managerTelNumber, boolean deleted) {
+
+        this.code=code;
+        this.name=name;
+        this.socialReason=socialReason;
+        this.location=location;
+        this.managerName=managerName;
+        this.managerFiscalCode=managerFiscalCode;
+        this.managerBirthDate=managerBirthDate;
+        this.managerTelNumber=managerTelNumber;
+        this.deleted=deleted;
+    }
+
     public String toString() { return name+" ("+socialReason+") - "+location+": "+managerName+" ("+managerFiscalCode+"), "+managerBirthDate+" - "+managerTelNumber; }
 
+    public String display() { return this.name+" ("+this.socialReason+")"; }
+
     public Object[] asList() { return new Object[] {name, socialReason, location, managerName, managerFiscalCode, managerBirthDate, managerTelNumber, deleted}; }
+
+    public int getCode() { return this.code; }
+    public void setCode(int code) { this.code=code; }
 
     public String getName() { return name; }
     public void setName(String name) { this.name=name; }

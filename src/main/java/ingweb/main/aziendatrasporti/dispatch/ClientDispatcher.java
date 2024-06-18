@@ -68,9 +68,9 @@ public class ClientDispatcher implements DispatchCollector {
         //get registered account list specifying DAO database implementation
         var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
         var clientDAO=dao.getClientDAO(); //get worker DAO implementation for the selected database
-        var socialReason=request.getParameter("name").substring(1);
+        var code=request.getParameter("code");
 
-        clientDAO.removeClient(clientDAO.findBySocialReason(socialReason));
+        clientDAO.removeClient(clientDAO.findByCode(Integer.parseInt(code)));
         var clientList=clientDAO.findAll();
 
         dao.commit();
@@ -85,6 +85,7 @@ public class ClientDispatcher implements DispatchCollector {
         var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
         var clientDAO=dao.getClientDAO(); //get worker DAO implementation for the selected database
 
+        var code=request.getParameter("code");
         var name=request.getParameter("name");
         var socialReason=request.getParameter("socialReason");
         var location=request.getParameter("location");
@@ -94,9 +95,10 @@ public class ClientDispatcher implements DispatchCollector {
         var managerTelNumber=request.getParameter("managerTelNumber");
 
         //add new record in database if parameter list is full
-        if (!name.isEmpty() && !socialReason.isEmpty() && !location.isEmpty() && !managerName.isEmpty()) {
+        if (!name.isEmpty() && !socialReason.isEmpty() && !location.isEmpty() && !managerName.isEmpty() && !managerFiscalCode.isEmpty() && !managerBirthDate.isEmpty() && !managerTelNumber.isEmpty()) {
 
             var clientCompany=new ClientCompany(name, socialReason, location, managerName, managerFiscalCode, Date.valueOf(managerBirthDate), managerTelNumber, false);
+            clientCompany.setCode(Integer.parseInt(code));
             clientDAO.updateClient(clientCompany);
         }
 
@@ -114,9 +116,8 @@ public class ClientDispatcher implements DispatchCollector {
         var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
         var clientDAO=dao.getClientDAO();
 
-        var name=request.getParameter("name");
-        var data=name.split("\\.");
-        var clientCompany=clientDAO.findBySocialReason(data[1]);
+        var name=request.getParameter("code");
+        var clientCompany=clientDAO.findByCode(Integer.parseInt(name));
 
         dao.commit();
         dao.close();

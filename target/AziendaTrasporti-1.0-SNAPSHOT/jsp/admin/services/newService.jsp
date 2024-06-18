@@ -1,12 +1,15 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="ingweb.main.aziendatrasporti.mo.License" %>
 <%@ page import="ingweb.main.aziendatrasporti.mo.Service" %>
+<%@ page import="ingweb.main.aziendatrasporti.mo.ClientCompany" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%
     var contextPath=request.getContextPath();
     var service=(Service)request.getAttribute("service");
     var licenseList=(ArrayList<License>)request.getAttribute("licenseList");
     if (licenseList==null) licenseList=new ArrayList<>();
+    var clientList=(ArrayList<ClientCompany>)request.getAttribute("clientList");
+    if (clientList==null) clientList=new ArrayList<>();
 %>
 <html>
     <head>
@@ -15,6 +18,7 @@
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/dataTable.css">
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/dataForm.css">
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/checkbox.css">
+        <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/select.css">
         <script>
             window.addEventListener("load", function() {
 
@@ -44,6 +48,14 @@
                 <tr>
                     <td><label for="name">Nome</label></td>
                     <td colspan="<%= licenseList.size() %>"><input type="text" id="name" name="name" placeholder="Nome dipendente" value="<%= service==null ? "" : service.getName() %>" required/></td>
+                </tr>
+                <tr>
+                    <td><label for="clientCompany">Cliente</label></td>
+                    <td colspan="<%= licenseList.size() %>">
+                        <select id="clientCompany" name="clientCompany">
+                            <% for (var client: clientList) { %><option value="<%= client.getCode() %>"><%= client.display() %></option><% } %>
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <td><label for="date">Data</label></td>

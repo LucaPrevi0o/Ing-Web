@@ -23,7 +23,9 @@
             <h1>Assegnamento servizio</h1>
             <hr/>
             <table>
-                <tr class="firstRow"><td colspan="2"><%= service.getName() %></td></tr>
+                <tr class="firstRow"><td colspan="2">Servizio: <%= service.getName() %></td></tr>
+                <tr><td>Data</td><td><%= service.getDate() %></td></tr>
+                <tr><td>Cliente</td><td><%= service.getClientCompany() %></td></tr>
                 <tr>
                     <td><label for="selectedTruck">Selezione mezzo</label></td>
                     <td>

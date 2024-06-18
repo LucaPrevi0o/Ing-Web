@@ -2,11 +2,8 @@ package ingweb.main.aziendatrasporti.dispatch;
 
 import ingweb.main.aziendatrasporti.mo.License;
 import ingweb.main.aziendatrasporti.mo.Service;
-import ingweb.main.aziendatrasporti.mo.Truck;
-import ingweb.main.aziendatrasporti.mo.Worker;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
@@ -40,9 +37,12 @@ public class ServiceDispatcher implements DispatchCollector {
 
         var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
         var licenseDAO=dao.getLicenseDAO();
+        var clientDAO=dao.getClientDAO();
+        var clientList=clientDAO.findAll();
         var licenseList=licenseDAO.findAll();
 
         request.setAttribute("licenseList", licenseList);
+        request.setAttribute("clientList", clientList);
         request.setAttribute("viewUrl", "/admin/services/newService");
         DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
     }
@@ -52,21 +52,27 @@ public class ServiceDispatcher implements DispatchCollector {
         //get registered account list specifying DAO database implementation
         var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
         var serviceDAO=dao.getServiceDAO(); //get worker DAO implementation for the selected database
+        var clientDAO=dao.getClientDAO();
         var licenseDAO=dao.getLicenseDAO();
 
         var name=request.getParameter("name");
+        var clientCompany=request.getParameter("clientCompany");
         var date=request.getParameter("date");
         var startTime=request.getParameter("startTime")+":00";
         var duration=request.getParameter("duration")+":00";
         var licenses=request.getParameterValues("license");
 
+        var client=clientDAO.findByCode(Integer.parseInt(clientCompany));
+        System.out.println(client);
         var licenseList=new ArrayList<License>();
         for (var license: licenses) licenseList.add(new License(license));
 
         //add new record in database if parameter list is full
-        if (!name.isEmpty() && !date.isEmpty() && !startTime.isEmpty() && !duration.isEmpty()) {
+        if (!name.isEmpty() && !clientCompany.isEmpty() && !date.isEmpty() && !startTime.isEmpty() && !duration.isEmpty()) {
 
             var service=new Service(name, Date.valueOf(date), Time.valueOf(startTime), Time.valueOf(duration), false);
+            service.setClientCompany(client);
+            System.out.println(service);
             serviceDAO.addService(service);
             service=serviceDAO.findDataByDateStartTimeAndDuration(service.getDate(), service.getStartTime(), service.getDuration());
             licenseDAO.addLicensesByService(service, licenseList);
@@ -106,15 +112,18 @@ public class ServiceDispatcher implements DispatchCollector {
         //get registered account list specifying DAO database implementation
         var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
         var serviceDAO=dao.getServiceDAO(); //get worker DAO implementation for the selected database
+        var clientDAO=dao.getClientDAO();
         var licenseDAO=dao.getLicenseDAO();
 
         var code=request.getParameter("code");
         var name=request.getParameter("name");
+        var clientCompany=request.getParameter("clientCompany");
         var date=request.getParameter("date");
         var startTime=request.getParameter("startTime");
         var duration=request.getParameter("duration");
         var licenses=request.getParameterValues("license");
 
+        var client=clientDAO.findByCode(Integer.parseInt(clientCompany));
         var licenseList=new ArrayList<License>();
         for (var license: licenses) licenseList.add(new License(license));
 
@@ -122,6 +131,7 @@ public class ServiceDispatcher implements DispatchCollector {
         if (!name.isEmpty() && !date.isEmpty() && !startTime.isEmpty() && !duration.isEmpty()) {
 
             var service=new Service(name, Date.valueOf(date), Time.valueOf(startTime), Time.valueOf(duration), false);
+            service.setClientCompany(client);
             service.setCode(Integer.parseInt(code));
             service.setValidLicenses(licenseList);
             serviceDAO.updateService(service);
