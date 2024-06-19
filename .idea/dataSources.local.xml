@@ -35,17 +35,21 @@
         </introspection-scope>
       </schema-mapping>
     </data-source>
-    <data-source name="AZIENDA-TRASPORTI@localhost" uuid="8f177ed7-304d-4f1a-9ecd-0aec7f1c6eec">
-      <database-info product="MySQL" version="8.3.0" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-j-8.2.0 (Revision: 06a1f724497fd81c6a659131fda822c9e5085b6c)" dbms="MYSQL" exact-version="8.3.0" exact-driver-version="8.2">
+    <data-source name="azienda-trasporti@localhost" uuid="417ead44-ff17-464f-87c7-83a219dad63e">
+      <database-info product="MySQL" version="8.0.37-0ubuntu0.24.04.1" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-j-8.2.0 (Revision: 06a1f724497fd81c6a659131fda822c9e5085b6c)" dbms="MYSQL" exact-version="8.0.37" exact-driver-version="8.2">
         <extra-name-characters>#@</extra-name-characters>
         <identifier-quote-string>`</identifier-quote-string>
+        <jdbc-catalog-is-schema>true</jdbc-catalog-is-schema>
       </database-info>
-      <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
+      <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
       <secret-storage>master_key</secret-storage>
-      <user-name>LoginManager</user-name>
+      <user-name>luca</user-name>
       <schema-mapping>
         <introspection-scope>
-          <node kind="schema" qname="AZIENDA-TRASPORTI" />
+          <node kind="schema">
+            <name qname="azienda_trasporti" />
+            <name qname="aziendatrasportidb" />
+          </node>
         </introspection-scope>
       </schema-mapping>
     </data-source>

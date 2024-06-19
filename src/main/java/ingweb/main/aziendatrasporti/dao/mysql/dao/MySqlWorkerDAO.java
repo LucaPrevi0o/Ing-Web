@@ -42,7 +42,7 @@ public class MySqlWorkerDAO implements WorkerDAO {
     public ArrayList<Worker> findAll() {
 
         var workers=new ArrayList<Worker>();
-        var query="SELECT dipendente.*, GROUP_CONCAT(patenti_autista.patente) AS '"+allColumns[allColumns.length-1]+"' FROM dipendente, patenti_autista WHERE dipendente.codice_fiscale=patenti_autista.dipendente GROUP BY dipendente.codice_fiscale";
+        var query="SELECT dipendente.*, GROUP_CONCAT(patenti_autista.patente) AS '"+allColumns[allColumns.length-1]+"' FROM dipendente, patenti_autista WHERE dipendente.codice_fiscale=patenti_autista.dipendente GROUP BY dipendente.codice_fiscale ORDER BY dipendente.cognome, dipendente.nome";
         var res=MySqlQueryManager.getResult(connection, query); //execute query on the database
         var resList=MySqlQueryManager.asList(res, allColumns); //parse results
         for (var item: resList) {
@@ -58,7 +58,7 @@ public class MySqlWorkerDAO implements WorkerDAO {
         var result=new ArrayList<Worker>(); //empty list
         for (var license: licenses) {
 
-            var query="select dipendente.*, group_concat(patenti_autista.patente) as '"+allColumns[allColumns.length-1]+"' from dipendente join patenti_autista on dipendente.codice_fiscale=patenti_autista.dipendente where patenti_autista.patente='"+license.getCategory()+"' group by dipendente.codice_fiscale";
+            var query="select dipendente.*, group_concat(patenti_autista.patente) as '"+allColumns[allColumns.length-1]+"' from dipendente join patenti_autista on dipendente.codice_fiscale=patenti_autista.dipendente where patenti_autista.patente='"+license.getCategory()+"' group by dipendente.codice_fiscale ORDER BY dipendente.cognome, dipendente.nome";
             var workers=MySqlQueryManager.getResult(connection, query); //execute query on the database
             var workerList=MySqlQueryManager.asList(workers, allColumns); //parse results
             for (var item: workerList) { //add every element of the result set as new worker
@@ -75,7 +75,7 @@ public class MySqlWorkerDAO implements WorkerDAO {
     //return, if exists, the worker having a specified fiscal code
     public Worker findByCode(int code) {
 
-        var query="SELECT dipendente.*, GROUP_CONCAT(patenti_autista.patente) AS 'patenti' FROM dipendente, patenti_autista WHERE dipendente.codice_fiscale=patenti_autista.dipendente AND dipendente.codice='"+code+"' GROUP BY dipendente.codice_fiscale";
+        var query="SELECT dipendente.*, GROUP_CONCAT(patenti_autista.patente) AS 'patenti' FROM dipendente, patenti_autista WHERE dipendente.codice_fiscale=patenti_autista.dipendente AND dipendente.codice='"+code+"' GROUP BY dipendente.codice_fiscale ORDER BY dipendente.cognome, dipendente.nome";
         var res=MySqlQueryManager.getResult(connection, query); //execute query on the database
         var resList=MySqlQueryManager.asList(res, allColumns); //parse results
         if (resList.size()!=1) return null;
@@ -87,7 +87,7 @@ public class MySqlWorkerDAO implements WorkerDAO {
     //return, if exists, the worker having a specified fiscal code
     public Worker findByFiscalCode(String fiscalCode) {
 
-        var query="SELECT dipendente.*, GROUP_CONCAT(patenti_autista.patente) AS 'patenti' FROM dipendente, patenti_autista WHERE dipendente.codice_fiscale=patenti_autista.dipendente AND dipendente.codice_fiscale='"+fiscalCode+"' GROUP BY dipendente.codice_fiscale";
+        var query="SELECT dipendente.*, GROUP_CONCAT(patenti_autista.patente) AS 'patenti' FROM dipendente, patenti_autista WHERE dipendente.codice_fiscale=patenti_autista.dipendente AND dipendente.codice_fiscale='"+fiscalCode+"' GROUP BY dipendente.codice_fiscale ORDER BY dipendente.cognome, dipendente.nome";
         var res=MySqlQueryManager.getResult(connection, query); //execute query on the database
         var resList=MySqlQueryManager.asList(res, allColumns); //parse results
         if (resList.size()!=1) return null;
