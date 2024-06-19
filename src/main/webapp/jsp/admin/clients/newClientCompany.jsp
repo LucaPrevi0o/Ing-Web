@@ -9,6 +9,7 @@
     <head>
         <title><%= clientCompany==null ? "Nuovo cliente" : "Modifica dati cliente" %></title>
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/generalStyle.css">
+        <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/navMenu.css">
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/dataTable.css">
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/dataForm.css">
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/checkbox.css">
@@ -50,8 +51,8 @@
                     <td colspan="2"><label for="location">Sede</label></td>
                     <td><input type="text" id="location" name="location" placeholder="Sede principale" value="<%= clientCompany==null ? "" : clientCompany.getLocation() %>" required/></td>
                 </tr>
-                <tr><td rowspan="5">Responsabile</td></tr>
                 <tr>
+                    <td rowspan="4">Dati responsabile</td>
                     <td><label for="managerName">Nome</label></td>
                     <td><input type="text" id="managerName" name="managerName" placeholder="Nome responsabile" value="<%= clientCompany==null ? "" : clientCompany.getManagerName() %>" required/></td>
                 </tr>

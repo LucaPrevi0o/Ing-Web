@@ -52,6 +52,10 @@
                     </td>
                 </tr>
             </table>
+            <div class="styled">
+                <input type="button" name="assignService" value="Assegna servizio"/>
+                <input type="button" name="backButton" value="Torna alla lista servizi">
+            </div>
         </form>
     </body>
 </html>

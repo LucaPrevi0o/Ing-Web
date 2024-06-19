@@ -29,6 +29,7 @@ table {
 
         border-radius: 2px;
         height: 20px;
+        min-width: 1px;
         color: #ffffff;
         font-size: 12px;
         text-align: center;
