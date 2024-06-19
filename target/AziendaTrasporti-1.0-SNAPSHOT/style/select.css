@@ -2,11 +2,11 @@ select {
 
     appearance: unset;
     display: inline-block;
-    min-width: 250px;
+    min-width: 280px;
     width: fit-content;
     height: 20px;
-    border-radius: 1px;
-    text-align: left;
+    border-radius: 3px;
+    text-align: center;
     font-size: 12px;
     background-color: #006600;
     color: #ffffff;

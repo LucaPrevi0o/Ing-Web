@@ -7,7 +7,7 @@
 %>
 <html>
     <head>
-        <title>Nuovo cliente</title>
+        <title><%= clientCompany==null ? "Nuovo cliente" : "Modifica dati cliente" %></title>
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/generalStyle.css">
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/dataTable.css">
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/dataForm.css">
@@ -35,12 +35,12 @@
     </head>
     <body>
         <form name="dataForm" action="<%= contextPath %>/Dispatcher" method="post">
-            <h1>Nuovo cliente</h1>
+            <h1><%= clientCompany==null ? "Nuovo cliente" : "Modifica dati cliente" %></h1>
             <hr/>
             <table>
                 <tr>
                     <td colspan="2"><label for="name">Nome</label></td>
-                    <td><input type="text" id="name" name="name" placeholder="Nome persona" value="<%= clientCompany==null ? "" : clientCompany.getName() %>" required/></td>
+                    <td><input type="text" id="name" name="name" placeholder="Nome azienda" value="<%= clientCompany==null ? "" : clientCompany.getName() %>" required/></td>
                 </tr>
                 <tr>
                     <td colspan="2"><label for="socialReason">Ragione sociale</label></td>
@@ -48,32 +48,33 @@
                 </tr>
                 <tr>
                     <td colspan="2"><label for="location">Sede</label></td>
-                    <td><input type="text" id="location" name="location" placeholder="Nome persona" value="<%= clientCompany==null ? "" : clientCompany.getLocation() %>" required/></td>
+                    <td><input type="text" id="location" name="location" placeholder="Sede principale" value="<%= clientCompany==null ? "" : clientCompany.getLocation() %>" required/></td>
                 </tr>
                 <tr><td rowspan="5">Responsabile</td></tr>
                 <tr>
                     <td><label for="managerName">Nome</label></td>
-                    <td><input type="text" id="managerName" name="managerName" placeholder="Nome responsabile" value="<%= clientCompany==null ? "" : clientCompany.getManagerName() %>" required></td>
+                    <td><input type="text" id="managerName" name="managerName" placeholder="Nome responsabile" value="<%= clientCompany==null ? "" : clientCompany.getManagerName() %>" required/></td>
                 </tr>
                 <tr>
                     <td><label for="managerFiscalCode">Codice fiscale</label></td>
-                    <td><input type="text" id="managerFiscalCode" name="managerFiscalCode" placeholder="BBBAAA00A00A000A" value="<%= clientCompany==null ? "" : clientCompany.getManagerFiscalCode() %>" required></td>
+                    <td><input type="text" id="managerFiscalCode" name="managerFiscalCode" placeholder="BBBAAA00A00A000A" value="<%= clientCompany==null ? "" : clientCompany.getManagerFiscalCode() %>" required/></td>
                 </tr>
                 <tr>
                     <td><label for="managerBirthDate">Data di nascita</label></td>
-                    <td><input type="date" id="managerBirthDate" name="managerBirthDate" value="<%= clientCompany==null ? "" : clientCompany.getManagerBirthDate() %>" required></td>
+                    <td><input type="date" id="managerBirthDate" name="managerBirthDate" value="<%= clientCompany==null ? "" : clientCompany.getManagerBirthDate() %>" required/></td>
                 </tr>
                 <tr>
                     <td><label for="managerTelNumber">Numero di telefono</label></td>
-                    <td><input type="text" id="managerTelNumber" name="managerTelNumber" placeholder="+39 XXX-XXXXXXX" value="<%= clientCompany==null ? "" : clientCompany.getManagerTelNumber() %>" required></td>
+                    <td><input type="text" id="managerTelNumber" name="managerTelNumber" placeholder="+39 XXX-XXXXXXX" value="<%= clientCompany==null ? "" : clientCompany.getManagerTelNumber() %>" required/></td>
                 </tr>
             </table>
             <br/>
             <div class="styled">
-                <input type="button" id="addButton" value="<%= clientCompany==null ? "Aggiungi cliente" : "Modifica dati cliente"%>">
-                <input type="button" id="refreshButton" value="Torna alla lista clienti">
-                <input type="hidden" name="action" value="">
+                <input type="button" id="addButton" value="<%= clientCompany==null ? "Aggiungi cliente" : "Modifica dati cliente" %>"/>
+                <input type="button" id="refreshButton" value="Torna alla lista clienti"/>
             </div>
+            <input type="hidden" name="action" value=""/>
+            <input type="hidden" name="code"/>
         </form>
     </body>
 </html>

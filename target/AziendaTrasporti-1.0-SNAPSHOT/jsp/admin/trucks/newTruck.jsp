@@ -11,7 +11,7 @@
 %>
 <html>
     <head>
-        <title>Nuovo mezzo</title>
+        <title><%= truck==null ? "Nuovo mezzo" : "Modifica dati mezzo" %></title>
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/generalStyle.css">
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/dataTable.css">
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/dataForm.css">
@@ -39,7 +39,7 @@
     </head>
     <body>
         <form name="dataForm" action="<%= contextPath %>/Dispatcher" method="post">
-            <h1>Nuovo mezzo</h1>
+            <h1><%= truck==null ? "Nuovo mezzo" : "Modifica dati mezzo" %></h1>
             <hr/>
             <table>
                 <tr>

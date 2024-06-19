@@ -13,7 +13,7 @@
 %>
 <html>
     <head>
-        <title>Nuovo servizio</title>
+        <title><%= service==null ? "Nuovo servizio" : "Modifica dati servizio" %></title>
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/generalStyle.css">
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/dataTable.css">
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/dataForm.css">
@@ -42,7 +42,7 @@
     </head>
     <body>
         <form name="dataForm" action="<%= contextPath %>/Dispatcher" method="post">
-            <h1>Nuovo servizio</h1>
+            <h1><%= service==null ? "Nuovo servizio" : "Modifica dati servizio" %></h1>
             <hr/>
             <table>
                 <tr>
@@ -73,17 +73,17 @@
                     <td rowspan="2">Patenti necessarie</td>
                     <% for (var license: licenseList) { %><td>
                         <label for="<%= license.getCategory() %>"><%= license.getCategory() %></label>
-                        <input type="checkbox" name="license" id="<%= license.getCategory() %>" value="<%= license.getCategory() %>" <%= service ==null || !service.getValidLicenses().contains(license) ? "" : "checked" %>/>
+                        <input type="checkbox" name="license" id="<%= license.getCategory() %>" value="<%= license.getCategory() %>" <%= service==null || !service.getValidLicenses().contains(license) ? "" : "checked" %>/>
                     </td><% } %>
                 </tr>
             </table>
             <br/>
             <div class="styled">
-                <input type="button" id="addButton" value="<%= service==null ? "Aggiungi servizio" : "Modifica servizio"%>">
-                <input type="button" id="refreshButton" value="Torna alla lista servizi">
+                <input type="button" id="addButton" value="<%= service==null ? "Aggiungi servizio" : "Modifica servizio"%>"/>
+                <input type="button" id="refreshButton" value="Torna alla lista servizi"/>
             </div>
-            <input type="hidden" name="action" value="">
-            <input type="hidden" name="code" value="<%= service==null ? "" : service.getCode() %>">
+            <input type="hidden" name="action" value=""/>
+            <input type="hidden" name="code" value="<%= service==null ? "" : service.getCode() %>"/>
         </form>
     </body>
 </html>
