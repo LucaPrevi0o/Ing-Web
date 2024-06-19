@@ -1,6 +1,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="ingweb.main.aziendatrasporti.mo.Service" %>
 <%@ page import="ingweb.main.aziendatrasporti.mo.License" %>
+<%@ page import="ingweb.main.aziendatrasporti.mo.ClientCompany" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%
     var serviceList=(ArrayList<Service>)request.getAttribute("serviceList");
@@ -92,7 +93,7 @@
                 var licenses=service.getValidLicenses();
                 if (licenses==null) licenses=new ArrayList<>(); %>
                 <tr>
-                    <% for (var field: service.data()) if (!(field instanceof Boolean)) { %><td><%= field %></td><% } %>
+                    <% for (var field: service.data()) if (!(field instanceof Boolean)) { %><td><%= field instanceof ClientCompany ? ((ClientCompany)field).display() : field %></td><% } %>
                     <% for (var license: licenseList) { %>
                         <td><input type="checkbox" <%= licenses.contains(license) ? "checked" : "" %> disabled/></td>
                     <% } %>

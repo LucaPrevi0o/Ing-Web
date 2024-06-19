@@ -1,5 +1,7 @@
 package ingweb.main.aziendatrasporti.dao.mysql;
 
+import ingweb.main.aziendatrasporti.mo.ClientCompany;
+
 import java.sql.*;
 import java.sql.Date;
 import java.util.*;
@@ -73,12 +75,13 @@ public class MySqlQueryManager {
 
             var statement=connection.prepareStatement(sql); //new empty statement
             for (var index=0; index<params.length; index++)
-                if (params[index].getClass().equals(String.class)) statement.setString(index+1, (String)params[index]);
-                else if (params[index].getClass().equals(Integer.class)) statement.setInt(index+1, (Integer)params[index]);
-                else if (params[index].getClass().equals(Double.class)) statement.setDouble(index+1, (Double)params[index]);
-                else if (params[index].getClass().equals(Boolean.class)) statement.setBoolean(index+1, (Boolean)params[index]);
-                else if (params[index].getClass().equals(Date.class)) statement.setDate(index+1, (Date)params[index]);
-                else if (params[index].getClass().equals(Time.class)) statement.setTime(index+1, (Time)params[index]);
+                if (params[index] instanceof String) statement.setString(index+1, (String)params[index]);
+                else if (params[index] instanceof Integer) statement.setInt(index+1, (Integer)params[index]);
+                else if (params[index] instanceof Double) statement.setDouble(index+1, (Double)params[index]);
+                else if (params[index] instanceof Boolean) statement.setBoolean(index+1, (Boolean)params[index]);
+                else if (params[index] instanceof Date) statement.setDate(index+1, (Date)params[index]);
+                else if (params[index] instanceof Time) statement.setTime(index+1, (Time)params[index]);
+                else if (params[index] instanceof ClientCompany) statement.setString(index+1, ((ClientCompany)params[index]).getSocialReason());
             statement.executeUpdate(); //execute statement by query
         } catch (Exception e) { e.printStackTrace(); }
     }

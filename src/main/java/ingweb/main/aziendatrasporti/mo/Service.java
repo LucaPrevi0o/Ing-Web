@@ -61,7 +61,7 @@ public class Service implements ModelObject {
     }
 
     public Object[] asList() { return new Object[]{}; }
-    public Object[] data() { return new Object[]{this.name, (this.clientCompany==null ? null : this.clientCompany.getSocialReason()), this.date, this.startTime, this.duration, this.deleted}; }
+    public Object[] data() { return new Object[]{this.name, this.clientCompany, this.date, this.startTime, this.duration, this.deleted}; }
 
     public String toString() { return this.name+" ("+this.code+") - ["+this.clientCompany+"] - "+this.date+" - "+this.startTime+" ("+this.duration+") - "+this.firstDriver+", "+this.secondDriver+" - "+this.truck; }
 
