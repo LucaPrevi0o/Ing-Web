@@ -25,7 +25,6 @@ public class ServiceDispatcher implements DispatchCollector {
         var licenseDAO=dao.getLicenseDAO();
         var licenseList=licenseDAO.findAll();
         var serviceList=serviceDAO.findAllData();
-        System.out.println(serviceList.get(0));
 
         dao.commit();
         dao.close();
