@@ -46,6 +46,20 @@ public class Service implements ModelObject {
         this.deleted=deleted;
     }
 
+    public Service(int code, String name, ClientCompany clientCompany, Date date, Time startTime, Time duration, Worker firstDriver, Worker secondDriver, Truck truck, boolean deleted) {
+
+        this.code=code;
+        this.name=name;
+        this.clientCompany=clientCompany;
+        this.date=date;
+        this.startTime=startTime;
+        this.firstDriver=firstDriver;
+        this.secondDriver=secondDriver;
+        this.truck=truck;
+        this.duration=duration;
+        this.deleted=deleted;
+    }
+
     public boolean equals(Object o) {
 
         if (!(o instanceof Service)) return false;

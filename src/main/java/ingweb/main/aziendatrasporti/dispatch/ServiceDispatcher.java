@@ -24,12 +24,24 @@ public class ServiceDispatcher implements DispatchCollector {
         var serviceDAO=dao.getServiceDAO();
         var licenseDAO=dao.getLicenseDAO();
         var licenseList=licenseDAO.findAll();
-        var serviceList=serviceDAO.findAllData();
+        var serviceList=serviceDAO.findAllNotAssigned();
 
         dao.commit();
         dao.close();
         request.setAttribute("serviceList", serviceList);
         request.setAttribute("licenseList", licenseList);
+        commonState(request, response);
+    }
+
+    public static void getServices(HttpServletRequest request, HttpServletResponse response) {
+
+        var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
+        var serviceDAO=dao.getServiceDAO();
+        var serviceList=serviceDAO.findAllAssigned();
+
+        dao.commit();
+        dao.close();
+        request.setAttribute("serviceList", serviceList);
         commonState(request, response);
     }
 
@@ -72,11 +84,11 @@ public class ServiceDispatcher implements DispatchCollector {
             var service=new Service(name, Date.valueOf(date), Time.valueOf(startTime), Time.valueOf(duration), false);
             service.setClientCompany(client);
             serviceDAO.addService(service);
-            service=serviceDAO.findDataByDateStartTimeAndDuration(service.getDate(), service.getStartTime(), service.getDuration());
+            service=serviceDAO.findByDateStartTimeAndDuration(service.getDate(), service.getStartTime(), service.getDuration());
             licenseDAO.addLicensesByService(service, licenseList);
         }
 
-        var serviceList=serviceDAO.findAllData(); //return account list filtered by admin level
+        var serviceList=serviceDAO.findAllNotAssigned(); //return account list filtered by admin level
         licenseList=licenseDAO.findAll();
 
         dao.commit();
@@ -93,9 +105,9 @@ public class ServiceDispatcher implements DispatchCollector {
         var serviceDAO=dao.getServiceDAO(); //get worker DAO implementation for the selected database
         var licenseDAO=dao.getLicenseDAO();
         var code=request.getParameter("code");
-        serviceDAO.removeService(serviceDAO.findDataByCode(Integer.parseInt(code)));
+        serviceDAO.removeService(serviceDAO.findByCode(Integer.parseInt(code)));
 
-        var serviceList=serviceDAO.findAllData(); //return account list filtered by admin level
+        var serviceList=serviceDAO.findAllNotAssigned(); //return account list filtered by admin level
         var licenseList=licenseDAO.findAll();
 
         dao.commit();
@@ -134,7 +146,7 @@ public class ServiceDispatcher implements DispatchCollector {
             licenseDAO.updateLicensesByService(service, licenseList);
         }
 
-        var serviceList=serviceDAO.findAllData(); //return account list filtered by admin level
+        var serviceList=serviceDAO.findAllNotAssigned(); //return account list filtered by admin level
         licenseList=licenseDAO.findAll();
 
         dao.commit();
@@ -155,7 +167,7 @@ public class ServiceDispatcher implements DispatchCollector {
         var clientList=clientDAO.findAll();
 
         var code=request.getParameter("code");
-        var service=serviceDAO.findDataByCode(Integer.parseInt(code));
+        var service=serviceDAO.findByCode(Integer.parseInt(code));
 
         dao.commit();
         dao.close();
@@ -175,14 +187,51 @@ public class ServiceDispatcher implements DispatchCollector {
         var truckDAO=dao.getTruckDAO();
 
         var code=request.getParameter("code");
-        var service=serviceDAO.findDataByCode(Integer.parseInt(code));
+        var service=serviceDAO.findByCode(Integer.parseInt(code));
         var workerList=workerDAO.findAllByLicenses(service.getValidLicenses());
         var truckList=truckDAO.findAllByLicenses(service.getValidLicenses());
 
+        dao.commit();
+        dao.close();
         request.setAttribute("service", service);
         request.setAttribute("workerList", workerList);
         request.setAttribute("truckList", truckList);
         request.setAttribute("viewUrl", "/admin/services/serviceAssignment"); //set URL for forward view dispatch
         DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
+    }
+
+    public static void confirmService(HttpServletRequest request, HttpServletResponse response) {
+
+        //get registered account list specifying DAO database implementation
+        var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
+        var serviceDAO=dao.getServiceDAO(); //get service DAO implementation for the selected database
+        var workerDAO=dao.getWorkerDAO();
+        var truckDAO=dao.getTruckDAO();
+        var licenseDAO=dao.getLicenseDAO();
+
+        var code=request.getParameter("code");
+        var selectedTruck=request.getParameter("selectedTruck");
+        var selectedWorker=request.getParameter("selectedWorker");
+        var secondWorker=request.getParameter("secondWorker");
+
+        var service=serviceDAO.findByCode(Integer.parseInt(code));
+        var truck=truckDAO.findByCode(Integer.parseInt(selectedTruck));
+        var firstDriver=workerDAO.findByCode(Integer.parseInt(selectedWorker));
+        var secondDriver=(secondWorker.equals("none") ? null : workerDAO.findByCode(Integer.parseInt(secondWorker)));
+        System.out.println(secondDriver);
+
+        service.setFirstDriver(firstDriver);
+        service.setTruck(truck);
+        service.setSecondDriver(secondDriver);
+        System.out.println(service);
+        serviceDAO.assignService(service);
+        var licenseList=licenseDAO.findAll();
+        var serviceList=serviceDAO.findAllNotAssigned();
+
+        dao.commit();
+        dao.close();
+        request.setAttribute("serviceList", serviceList);
+        request.setAttribute("licenseList", licenseList);
+        commonState(request, response);
     }
 }

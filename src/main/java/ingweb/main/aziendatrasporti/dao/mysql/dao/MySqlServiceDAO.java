@@ -2,9 +2,8 @@ package ingweb.main.aziendatrasporti.dao.mysql.dao;
 
 import ingweb.main.aziendatrasporti.dao.ServiceDAO;
 import ingweb.main.aziendatrasporti.dao.mysql.MySqlQueryManager;
-import ingweb.main.aziendatrasporti.mo.ClientCompany;
-import ingweb.main.aziendatrasporti.mo.License;
-import ingweb.main.aziendatrasporti.mo.Service;
+import ingweb.main.aziendatrasporti.mo.*;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.Time;
@@ -15,8 +14,9 @@ public class MySqlServiceDAO implements ServiceDAO {
 
     private final Connection connection;
     private final String[] insertion={"nome", "cliente", "data", "ora_inizio", "durata", "deleted"};
-    private final String[] data={"codice", "nome", "cliente", "data", "ora_inizio", "durata", "deleted", "patenti", "nome_cliente"};
+    private final String[] data={"codice", "nome", "cliente", "data", "ora_inizio", "durata", "deleted"};
     private final String[] shortData={"codice", "nome", "data", "ora_inizio", "durata", "deleted"};
+    private final String[] allColumns={"codice", "nome", "cliente", "data", "ora_inizio", "durata", "primo_autista", "secondo_autista", "targa_mezzo", "deleted", "patenti"};
 
     private String parseInsertion() {
 
@@ -46,12 +46,32 @@ public class MySqlServiceDAO implements ServiceDAO {
         return s+"servizio."+data[data.length-3];
     }
 
+    private String parseAllColumns() {
+
+        var s="";
+        for (var i=0; i<allColumns.length-1; i++) s+=allColumns[i]+", ";
+        return s+allColumns[allColumns.length-1];
+    }
+
     private Service getService(String[] item) {
 
         var client=new ClientCompany(item[8], item[2], null, null, null, null, null, false);
         var service=new Service(Integer.parseInt(item[0]), item[1], client, Date.valueOf(item[3]), Time.valueOf(item[4]), Time.valueOf(item[5]), item[6].equals("1"));
         var licenses=new ArrayList<License>();
         for (var license: item[7].split(",")) licenses.add(new License(license));
+        service.setValidLicenses(licenses);
+        return service;
+    }
+
+    private Service getFullService(String[] item) {
+
+        var client=new ClientCompany(null, item[2], null, null, null, null, null, false);
+        var firstDriver=new Worker(null, null, item[6], null, null, false);
+        var secondDriver=new Worker(null, null, item[7], null, null, false);
+        var truck=new Truck(item[8], null, null, true, false);
+        var service=new Service(Integer.parseInt(item[0]), item[1], client, Date.valueOf(item[3]), Time.valueOf(item[4]), Time.valueOf(item[5]), firstDriver, secondDriver, truck, item[9].equals("1"));
+        var licenses=new ArrayList<License>();
+        for (var license: item[10].split(",")) licenses.add(new License(license));
         service.setValidLicenses(licenses);
         return service;
     }
@@ -63,11 +83,11 @@ public class MySqlServiceDAO implements ServiceDAO {
 
     public MySqlServiceDAO(Connection connection) { this.connection=connection; }
 
-    public ArrayList<Service> findAllData() {
+    public ArrayList<Service> findAllNotAssigned() {
 
         //does need client company and license list (to show in service list)
         var services=new ArrayList<Service>();
-        var query="select "+parseData()+", group_concat(patenti_servizio.patente) as "+data[data.length-2]+",azienda_cliente.nome as "+data[data.length-1]+" from servizio, patenti_servizio, azienda_cliente where servizio.codice=patenti_servizio.servizio and azienda_cliente.ragione_sociale=servizio.cliente group by servizio.codice";
+        var query="select "+parseData()+", group_concat(patenti_servizio.patente) as "+data[data.length-2]+",azienda_cliente.nome as "+data[data.length-1]+" from servizio, patenti_servizio, azienda_cliente where servizio.codice=patenti_servizio.servizio and azienda_cliente.ragione_sociale=servizio.cliente and targa_mezzo is null and primo_autista is null group by servizio.codice";
         System.out.println(query);
         var res=MySqlQueryManager.getResult(connection, query); //execute query on the database
         var resList=MySqlQueryManager.asList(res, data); //parse results
@@ -79,7 +99,23 @@ public class MySqlServiceDAO implements ServiceDAO {
         return services; //return list of valid services
     }
 
-    public Service findDataByCode(int code) {
+    public ArrayList<Service> findAllAssigned() {
+
+        //does need client company and license list (to show in service list)
+        var services=new ArrayList<Service>();
+        var query="select "+parseAllColumns()+", group_concat(patenti_servizio.patente) as "+allColumns[allColumns.length-2]+",azienda_cliente.nome as "+allColumns[allColumns.length-1]+" from servizio, patenti_servizio, azienda_cliente where servizio.codice=patenti_servizio.servizio and azienda_cliente.ragione_sociale=servizio.cliente and targa_mezzo is not null and primo_autista is not null group by servizio.codice";
+        System.out.println(query);
+        var res=MySqlQueryManager.getResult(connection, query); //execute query on the database
+        var resList=MySqlQueryManager.asList(res, data); //parse results
+        for (var item: resList) { //add every element of the result set as new service
+
+            var service=getFullService(item);
+            if (!service.isDeleted()) services.add(service); //add service to the result list if not set as deleted
+        }
+        return services; //return list of valid services
+    }
+
+    public Service findByCode(int code) {
 
         //does need client company and license list (to show in service list)
         var query="select "+parseData()+", group_concat(patenti_servizio.patente) as "+data[data.length-2]+", azienda_cliente.nome as "+data[data.length-1]+" from servizio, patenti_servizio, azienda_cliente where ragione_sociale=cliente and servizio.codice=servizio and servizio.codice='"+code+"' group by servizio.codice";
@@ -91,7 +127,7 @@ public class MySqlServiceDAO implements ServiceDAO {
         return (service.isDeleted() ? null : service);
     }
 
-    public Service findDataByDateStartTimeAndDuration(Date date, Time startTime, Time duration) {
+    public Service findByDateStartTimeAndDuration(Date date, Time startTime, Time duration) {
 
         //does not need client company
         var query="select "+parseShortData()+" from servizio where data='"+date+"' and ora_inizio='"+startTime+"' and durata='"+duration+"'";
@@ -122,5 +158,11 @@ public class MySqlServiceDAO implements ServiceDAO {
         //does need client company (to update data in db)
         var query="update servizio set nome=?, cliente=?, data=?, ora_inizio=?, durata=?, deleted=? where codice = '"+service.getCode()+"'";
         MySqlQueryManager.execute(connection, query, service.data());
+    }
+
+    public void assignService(Service service) {
+
+        var query="update servizio set targa_mezzo=?, primo_autista=?, secondo_autista=? where codice=?";
+        MySqlQueryManager.execute(connection, query, new Object[]{service.getTruck(), service.getFirstDriver(), service.getSecondDriver(), service.getCode()});
     }
 }

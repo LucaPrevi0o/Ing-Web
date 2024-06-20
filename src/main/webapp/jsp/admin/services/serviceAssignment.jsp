@@ -17,6 +17,29 @@
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/dataForm.css">
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/checkbox.css">
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/select.css">
+        <script>
+            function submitForm() {
+
+                document.dataForm.action.value="ServiceDispatcher.confirmService";
+                document.dataForm.submit();
+            }
+
+            window.addEventListener("load", function() {
+
+                let addButton=document.querySelector("#assignService");
+                let refreshButton=document.querySelector("#backButton");
+
+                window.addEventListener("keydown", function(e) { if (e.key==="Enter") submitForm(); });
+
+                refreshButton.addEventListener("click", function() {
+
+                    document.dataForm.action.value="ServiceDispatcher.getServiceList";
+                    document.dataForm.submit();
+                });
+
+                addButton.addEventListener("click", submitForm);
+            });
+        </script>
     </head>
     <body>
         <form name="dataForm" action="<%= request.getContextPath() %>/Servizi" method="post">
@@ -54,9 +77,11 @@
             </table>
             <br/>
             <div class="styled">
-                <input type="button" name="assignService" value="Assegna servizio"/>
-                <input type="button" name="backButton" value="Torna alla lista servizi">
+                <input type="button" id="assignService" name="assignService" value="Assegna servizio"/>
+                <input type="button" id="backButton" name="backButton" value="Torna alla lista servizi"/>
             </div>
+            <input type="hidden" name="code" value="<%= service.getCode() %>"/>
+            <input type="hidden" name="action">
         </form>
     </body>
 </html>

@@ -1,6 +1,8 @@
 package ingweb.main.aziendatrasporti.dao.mysql;
 
 import ingweb.main.aziendatrasporti.mo.ClientCompany;
+import ingweb.main.aziendatrasporti.mo.Truck;
+import ingweb.main.aziendatrasporti.mo.Worker;
 
 import java.sql.*;
 import java.sql.Date;
@@ -82,6 +84,9 @@ public class MySqlQueryManager {
                 else if (params[index] instanceof Date) statement.setDate(index+1, (Date)params[index]);
                 else if (params[index] instanceof Time) statement.setTime(index+1, (Time)params[index]);
                 else if (params[index] instanceof ClientCompany) statement.setString(index+1, ((ClientCompany)params[index]).getSocialReason());
+                else if (params[index] instanceof Truck) statement.setString(index+1, ((Truck)params[index]).getNumberPlate());
+                else if (params[index] instanceof Worker) statement.setString(index+1, ((Worker)params[index]).getFiscalCode());
+                else if (params[index]==null) statement.setNull(index+1, Types.VARCHAR);
             statement.executeUpdate(); //execute statement by query
         } catch (Exception e) { e.printStackTrace(); }
     }
