@@ -19,7 +19,7 @@
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/select.css">
     </head>
     <body>
-        <form name="dataForm" action="<%= contextPath %>/Dispatcher" method="post">
+        <form name="dataForm" action="<%= contextPath %>/Servizi" method="post">
             <h1>Assegnamento servizio</h1>
             <hr/>
             <table>

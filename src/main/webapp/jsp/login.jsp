@@ -27,7 +27,7 @@
             <h2>ACCESSO NON RIUSCITO</h2>
             <h3>L'utente inserito non è registrato.</h3>
         <% } } %>
-        <form name="loginForm" id="loginForm" action="<%= request.getContextPath() %>/Dispatcher" method="post">
+        <form name="loginForm" id="loginForm" action="<%= request.getContextPath() %>/Servizi" method="post">
             <h1>Accedi al portale</h1>
             <hr/>
             <input type="text" placeholder="Username" id="username" name="username" pattern="[a-z0-9]*" required><br/>

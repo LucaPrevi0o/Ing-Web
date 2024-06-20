@@ -70,7 +70,7 @@
                 </tr>
             <% } %>
         </table>
-        <form name="dataForm" action="<%= request.getContextPath() %>/Dispatcher" method="post">
+        <form name="dataForm" action="<%= request.getContextPath() %>/Servizi" method="post">
             <div class="styled">
                 <input type="submit" id="newClientButton" value="Nuovo cliente">
                 <input type="submit" id="refreshButton" value="Aggiorna lista">

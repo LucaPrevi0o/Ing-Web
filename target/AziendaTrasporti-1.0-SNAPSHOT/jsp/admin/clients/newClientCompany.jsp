@@ -35,7 +35,7 @@
         </script>
     </head>
     <body>
-        <form name="dataForm" action="<%= contextPath %>/Dispatcher" method="post">
+        <form name="dataForm" action="<%= contextPath %>/Servizi" method="post">
             <h1><%= clientCompany==null ? "Nuovo cliente" : "Modifica dati cliente" %></h1>
             <hr/>
             <table>

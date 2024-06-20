@@ -8,8 +8,8 @@ import jakarta.servlet.annotation.*;
 import jakarta.servlet.http.*;
 
 //servlet front dispatcher: used as a logical handler for different user interactions, allows
-@WebServlet(name="Dispatcher", urlPatterns={"/Dispatcher"})
-public class Dispatcher extends HttpServlet {
+@WebServlet(name="Servizi", urlPatterns={"/Servizi"})
+public class Servizi extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
 

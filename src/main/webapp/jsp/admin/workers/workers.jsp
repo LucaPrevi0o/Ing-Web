@@ -87,7 +87,7 @@
                 </tr>
             <% } %>
         </table>
-        <form name="dataForm" action="<%= request.getContextPath() %>/Dispatcher" method="post">
+        <form name="dataForm" action="<%= request.getContextPath() %>/Servizi" method="post">
             <div class="styled">
                 <input type="button" id="newWorkerButton" value="Nuovo autista">
                 <input type="button" id="refreshButton" value="Aggiorna lista">

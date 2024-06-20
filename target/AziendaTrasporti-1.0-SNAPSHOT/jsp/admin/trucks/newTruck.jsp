@@ -39,7 +39,7 @@
         </script>
     </head>
     <body>
-        <form name="dataForm" action="<%= contextPath %>/Dispatcher" method="post">
+        <form name="dataForm" action="<%= contextPath %>/Servizi" method="post">
             <h1><%= truck==null ? "Nuovo mezzo" : "Modifica dati mezzo" %></h1>
             <hr/>
             <table>

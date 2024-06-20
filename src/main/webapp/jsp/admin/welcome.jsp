@@ -49,7 +49,7 @@
         <h1>Benvenuto, <%= loggedAccount.getFullName() %></h1>
         <h2>Menu principale</h2>
         <nav class="sticky">
-            <form name="tabForm" action="<%= request.getContextPath() %>/Dispatcher" method="post">
+            <form name="tabForm" action="<%= request.getContextPath() %>/Servizi" method="post">
                 <input type="button" id="workers" value="Visualizza lista autisti">
                 <input type="button" id="services" value="Visualizza lista servizi">
                 <input type="button" id="trucks" value="Visualizza lista mezzi">
@@ -58,5 +58,6 @@
                 <input type="hidden" id="action" name="action">
             </form>
         </nav>
+        <% if (selectedTab==null) { %><h2>Seleziona una voce dal menu</h2><% } %>
     </body>
 </html>

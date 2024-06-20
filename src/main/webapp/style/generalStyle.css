@@ -1,11 +1,14 @@
 h1, h3 { color: #ffffff }
 h1 { font-size: 55px; }
-h2 { color: #ffff00 }
+h2, :link { color: #ffff00 }
+:link:visited { color: #008888 }
+:link:active { color: #00aa00 }
 body {
 
     font-family: sans-serif;
     background-color: #003300;
 }
+
 hr {
 
     border: 1px solid #bb8800;
