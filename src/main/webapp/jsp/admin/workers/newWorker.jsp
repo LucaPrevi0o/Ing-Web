@@ -4,7 +4,6 @@
 <%@ page import="ingweb.main.aziendatrasporti.mo.License" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%
-    var contextPath=request.getContextPath();
     var worker=(Worker)request.getAttribute("worker");
     var licenseList=(ArrayList<License>)request.getAttribute("licenseList");
     if (licenseList==null) licenseList=new ArrayList<>();
@@ -18,10 +17,19 @@
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/dataForm.css">
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/checkbox.css">
         <script>
+            function submitForm() {
+
+                if (document.querySelector("#addButton").value==="Aggiungi dipendente") document.dataForm.action.value="WorkerDispatcher.addWorker";
+                else document.dataForm.action.value="WorkerDispatcher.updateWorker";
+                document.dataForm.submit();
+            }
+
             window.addEventListener("load", function() {
 
                 let addButton=document.querySelector("#addButton");
                 let refreshButton=document.querySelector("#refreshButton");
+
+                window.addEventListener("keydown", function(e) { if (e.key==="Enter") submitForm(); });
 
                 refreshButton.addEventListener("click", function() {
 
@@ -29,17 +37,12 @@
                     document.dataForm.submit();
                 });
 
-                addButton.addEventListener("click", function() {
-
-                    if (document.querySelector("#addButton").value==="Aggiungi dipendente") document.dataForm.action.value="WorkerDispatcher.addWorker";
-                    else document.dataForm.action.value="WorkerDispatcher.updateWorker";
-                    document.dataForm.submit();
-                });
+                addButton.addEventListener("click", submitForm);
             });
         </script>
     </head>
     <body>
-        <form name="dataForm" action="<%= contextPath %>/Servizi" method="post">
+        <form name="dataForm" action="<%= request.getContextPath() %>/Servizi" method="post">
             <h1><%= worker==null ? "Nuovo autista" : "Modifica dati autista" %></h1>
             <hr/>
             <table>

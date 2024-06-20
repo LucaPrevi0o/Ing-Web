@@ -58,6 +58,6 @@
                 <input type="hidden" id="action" name="action">
             </form>
         </nav>
-        <% if (selectedTab==null) { %><h2>Seleziona una voce dal menu</h2><% } %>
+        <% if (selectedTab==null) { %><h3>Seleziona una voce dal menu</h3><% } %>
     </body>
 </html>
