@@ -56,7 +56,7 @@ public class WorkerDispatcher implements DispatchCollector {
         if (!name.isEmpty() && !surname.isEmpty() && !fiscalCode.isEmpty() && !birthDate.isEmpty() && !telNumber.isEmpty()) {
 
             var worker=new Worker(name, surname, fiscalCode, Date.valueOf(birthDate), telNumber, false);
-            var account=new Account(name.toLowerCase(), fiscalCode, name+" "+surname, false, false);
+            var account=new Account(fiscalCode, name.toLowerCase()+surname.toLowerCase(), name+" "+surname, false, false);
             accountDAO.addAccount(account);
             worker.setLicenses(licenseList);
             workerDAO.addWorker(worker);
@@ -92,16 +92,22 @@ public class WorkerDispatcher implements DispatchCollector {
 
         //get registered account list specifying DAO database implementation
         var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
+        var newDao=DispatchCollector.getMySqlDAO("aziendatrasportidb");
+        var accountDAO=newDao.getAccountDAO();
         var workerDAO=dao.getWorkerDAO(); //get worker DAO implementation for the selected database
         var licenseDAO=dao.getLicenseDAO();
 
         var code=request.getParameter("code");
-        workerDAO.removeWorker(workerDAO.findByCode(Integer.parseInt(code)));
+        var worker=workerDAO.findByCode(Integer.parseInt(code));
+        workerDAO.removeWorker(worker);
+        accountDAO.removeAccount(new Account(worker.getFiscalCode(), null, null, false, false));
         var workerList=workerDAO.findAll();
         var licenseList=licenseDAO.findAll();
 
         dao.commit();
         dao.close();
+        newDao.commit();
+        newDao.close();
         request.setAttribute("licenseList", licenseList);
         request.setAttribute("workerList", workerList);
         commonState(request, response);
@@ -149,15 +155,20 @@ public class WorkerDispatcher implements DispatchCollector {
 
         //get registered account list specifying DAO database implementation
         var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
+        var newDao=DispatchCollector.getMySqlDAO("aziendatrasportidb");
+        var accountDAO=newDao.getAccountDAO();
         var workerDAO=dao.getWorkerDAO(); //get worker DAO implementation for the selected database
         var licenseDAO=dao.getLicenseDAO();
         var licenseList=licenseDAO.findAll();
 
         var name=request.getParameter("code");
         var worker=workerDAO.findByCode(Integer.parseInt(name));
+        accountDAO.removeAccount(new Account(worker.getFiscalCode(), null, null, false, false));
 
         dao.commit();
         dao.close();
+        newDao.commit();
+        newDao.close();
         request.setAttribute("worker", worker); //set list as new session attribute
         request.setAttribute("licenseList", licenseList);
         request.setAttribute("viewUrl", "/admin/workers/newWorker"); //set URL for forward view dispatch

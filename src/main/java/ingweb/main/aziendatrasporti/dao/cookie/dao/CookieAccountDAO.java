@@ -37,6 +37,9 @@ public class CookieAccountDAO implements AccountDAO {
     }
 
     public void addAccount(Account account) {}
+    public void removeAccount(Account account) {}
+    public void updateAccount(Account account) {}
+
     public ArrayList<Account> findAll(boolean admin) { return null; }
     public Account findByUsernameAndPassword(String username, String password) { return null; }
     public Account findByUsername(String username) { return null; }
