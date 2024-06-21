@@ -3,20 +3,18 @@ package ingweb.main.aziendatrasporti.dao.mysql.dao;
 import ingweb.main.aziendatrasporti.dao.ServiceDAO;
 import ingweb.main.aziendatrasporti.dao.mysql.MySqlQueryManager;
 import ingweb.main.aziendatrasporti.mo.*;
-
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MySqlServiceDAO implements ServiceDAO {
 
     private final Connection connection;
     private final String[] insertion={"nome", "cliente", "data", "ora_inizio", "durata", "deleted"};
-    private final String[] data={"codice", "nome", "cliente", "data", "ora_inizio", "durata", "deleted"};
+    private final String[] data={"codice", "nome", "cliente", "data", "ora_inizio", "durata", "deleted", "patenti", "nome_cliente"};
     private final String[] shortData={"codice", "nome", "data", "ora_inizio", "durata", "deleted"};
-    private final String[] allColumns={"codice", "nome", "cliente", "data", "ora_inizio", "durata", "primo_autista", "secondo_autista", "targa_mezzo", "deleted", "patenti"};
+    private final String[] allColumns={"codice", "nome", "cliente", "data", "ora_inizio", "durata", "primo_autista", "secondo_autista", "targa_mezzo", "deleted", "nome_cliente"};
 
     private String parseInsertion() {
 
@@ -49,8 +47,8 @@ public class MySqlServiceDAO implements ServiceDAO {
     private String parseAllColumns() {
 
         var s="";
-        for (var i=0; i<allColumns.length-1; i++) s+=allColumns[i]+", ";
-        return s+allColumns[allColumns.length-1];
+        for (var i=0; i<allColumns.length-2; i++) s+="servizio."+allColumns[i]+", ";
+        return s+"servizio."+allColumns[allColumns.length-2];
     }
 
     private Service getService(String[] item) {
@@ -65,15 +63,14 @@ public class MySqlServiceDAO implements ServiceDAO {
 
     private Service getFullService(String[] item) {
 
-        var client=new ClientCompany(null, item[2], null, null, null, null, null, false);
+        var client=new ClientCompany(item[10], item[2], null, null, null, null, null, false);
         var firstDriver=new Worker(null, null, item[6], null, null, false);
+        firstDriver.setLicenses(new ArrayList<>());
         var secondDriver=new Worker(null, null, item[7], null, null, false);
+        secondDriver.setLicenses(new ArrayList<>());
         var truck=new Truck(item[8], null, null, true, false);
-        var service=new Service(Integer.parseInt(item[0]), item[1], client, Date.valueOf(item[3]), Time.valueOf(item[4]), Time.valueOf(item[5]), firstDriver, secondDriver, truck, item[9].equals("1"));
-        var licenses=new ArrayList<License>();
-        for (var license: item[10].split(",")) licenses.add(new License(license));
-        service.setValidLicenses(licenses);
-        return service;
+        truck.setNeededLicenses(new ArrayList<>());
+        return new Service(Integer.parseInt(item[0]), item[1], client, Date.valueOf(item[3]), Time.valueOf(item[4]), Time.valueOf(item[5]), firstDriver, secondDriver, truck, item[9].equals("1"));
     }
 
     private Service getShortService(String[] item) {
@@ -103,10 +100,10 @@ public class MySqlServiceDAO implements ServiceDAO {
 
         //does need client company and license list (to show in service list)
         var services=new ArrayList<Service>();
-        var query="select "+parseAllColumns()+", group_concat(patenti_servizio.patente) as "+allColumns[allColumns.length-2]+",azienda_cliente.nome as "+allColumns[allColumns.length-1]+" from servizio, patenti_servizio, azienda_cliente where servizio.codice=patenti_servizio.servizio and azienda_cliente.ragione_sociale=servizio.cliente and targa_mezzo is not null and primo_autista is not null group by servizio.codice";
+        var query="select "+parseAllColumns()+", azienda_cliente.nome as "+allColumns[allColumns.length-1]+" from servizio join azienda_cliente on servizio.cliente=azienda_cliente.ragione_sociale where targa_mezzo is not null and primo_autista is not null";
         System.out.println(query);
         var res=MySqlQueryManager.getResult(connection, query); //execute query on the database
-        var resList=MySqlQueryManager.asList(res, data); //parse results
+        var resList=MySqlQueryManager.asList(res, allColumns); //parse results
         for (var item: resList) { //add every element of the result set as new service
 
             var service=getFullService(item);

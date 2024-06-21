@@ -42,7 +42,9 @@ public class ServiceDispatcher implements DispatchCollector {
         dao.commit();
         dao.close();
         request.setAttribute("serviceList", serviceList);
-        commonState(request, response);
+        request.setAttribute("viewUrl", "/admin/services/assignedServices");
+        request.setAttribute("loggedAccount", DispatchCollector.getAccount(request, response));
+        DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
     }
 
     public static void newService(HttpServletRequest request, HttpServletResponse response) {

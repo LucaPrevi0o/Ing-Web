@@ -20,6 +20,7 @@
                 let removeButtons=document.querySelectorAll("input[name='remove']");
                 let updateButtons=document.querySelectorAll("input[name='edit']");
                 let assignButtons=document.querySelectorAll("input[name='assign']");
+                let assignedButton=document.querySelector("#assignedList");
                 let refreshButton=document.querySelector("#refreshButton");
                 let newServiceButton=document.querySelector("#newServiceButton");
                 let backButton=document.querySelector("#backButton");
@@ -39,6 +40,12 @@
                 newServiceButton.addEventListener("click", function() {
 
                     document.dataForm.action.value="ServiceDispatcher.newService";
+                    document.dataForm.submit();
+                });
+
+                assignedButton.addEventListener("click", function() {
+
+                    document.dataForm.action.value="ServiceDispatcher.getServices";
                     document.dataForm.submit();
                 });
 
@@ -102,6 +109,7 @@
                     <td><input type="button" id="<%= service.getCode() %>" name="remove" value="Rimuovi"></td>
                 </tr>
             <% } %>
+            <tr class="firstRow"><td colspan="<%= licenseList.size()+8 %>"><br/><input type="button" id="assignedList" value="Lista servizi in corso"><br/><br/></td></tr>
         </table>
         <form name="dataForm" action="<%= request.getContextPath() %>/Servizi" method="post">
             <div class="styled">
