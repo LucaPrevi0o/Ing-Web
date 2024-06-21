@@ -14,6 +14,7 @@
             window.addEventListener("load", function() {
 
                 let updateButtons=document.querySelectorAll("input[name='assign']");
+                let removeButtons=document.querySelectorAll("input[name='remove']");
                 let refreshButton=document.querySelector("#refreshButton");
                 let serviceListButton=document.querySelector("#newServiceButton");
                 let backButton=document.querySelector("#backButton");
@@ -45,6 +46,16 @@
                         document.dataForm.submit();
                     });
                 });
+
+                removeButtons.forEach(b => {
+
+                    b.addEventListener("click", function() {
+
+                        document.dataForm.action.value="ServiceDispatcher.deleteAssignment";
+                        document.dataForm.code.value=this.id;
+                        document.dataForm.submit();
+                    });
+                });
             });
         </script>
     </head>
@@ -62,7 +73,7 @@
                 <td>Primo autista</td>
                 <td>Secondo autista</td>
                 <td>Mezzo</td>
-                <td>Azioni</td>
+                <td colspan="2">Azioni</td>
             </tr>
             <% for (var service: serviceList) { %>
                 <tr>
@@ -72,6 +83,7 @@
                         (field instanceof Worker ? ((Worker)field).display() :
                         (field instanceof Truck ? ((Truck)field).display() : field)))) %></td><% } %>
                     <td><input type="button" id="<%= service.getCode() %>" name="assign" value="Modifica assegnamento"></td>
+                    <td><input type="button" id="<%= service.getCode() %>" name="remove" value="Rimuovi assegnamento"></td>
                 </tr>
             <% } %>
         </table>

@@ -47,7 +47,7 @@
     </head>
     <body>
         <h1>Benvenuto, <%= loggedAccount.getFullName() %></h1>
-        <h2>Menu principale</h2>
+        <h2>Menu di navigazione</h2>
         <nav class="sticky">
             <form name="tabForm" action="<%= request.getContextPath() %>/Servizi" method="post">
                 <input type="button" id="workers" value="Visualizza lista autisti">

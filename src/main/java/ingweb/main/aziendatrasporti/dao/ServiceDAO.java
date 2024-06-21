@@ -16,4 +16,5 @@ public interface ServiceDAO {
     public void removeService(Service service);
     public void updateService(Service service);
     public void assignService(Service service);
+    public void updateAssignment(Service service);
 }

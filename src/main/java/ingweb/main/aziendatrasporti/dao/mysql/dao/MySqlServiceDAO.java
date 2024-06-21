@@ -163,6 +163,12 @@ public class MySqlServiceDAO implements ServiceDAO {
         MySqlQueryManager.execute(connection, query, new Object[]{service.getCode()});
     }
 
+    public void updateAssignment(Service service) {
+
+        var query="update servizio set targa_mezzo=?, primo_autista=?, secondo_autista=? where codice=?";
+        MySqlQueryManager.execute(connection, query, new Object[]{service.getTruck(), service.getFirstDriver(), service.getSecondDriver(), service.getCode()});
+    }
+
     public void updateService(Service service) {
 
         //does need client company (to update data in db)

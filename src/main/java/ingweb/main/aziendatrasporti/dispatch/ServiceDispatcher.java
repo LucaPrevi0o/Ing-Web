@@ -181,6 +181,29 @@ public class ServiceDispatcher implements DispatchCollector {
         DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
     }
 
+    public static void deleteAssignment(HttpServletRequest request, HttpServletResponse response) {
+
+        //get registered account list specifying DAO database implementation
+        var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
+        var serviceDAO=dao.getServiceDAO(); //get service DAO implementation for the selected database
+        var code=request.getParameter("code");
+        var service=serviceDAO.findByCode(Integer.parseInt(code));
+
+        service.setTruck(null);
+        service.setFirstDriver(null);
+        service.setSecondDriver(null);
+        serviceDAO.updateAssignment(service);
+        var serviceList=serviceDAO.findAllAssigned();
+
+        dao.commit();
+        dao.close();
+        request.setAttribute("serviceList", serviceList);
+        request.setAttribute("selectedTab", "services");
+        request.setAttribute("loggedAccount", DispatchCollector.getAccount(request, response));
+        request.setAttribute("viewUrl", "/admin/services/assignedServices"); //set URL for forward view dispatch
+        DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
+    }
+
     public static void assignService(HttpServletRequest request, HttpServletResponse response) {
 
         //get registered account list specifying DAO database implementation
@@ -223,7 +246,9 @@ public class ServiceDispatcher implements DispatchCollector {
 
         service.setFirstDriver(firstDriver);
         service.setTruck(truck);
-        service.setSecondDriver(secondDriver);
+        truck.setAvailable(false);
+        truckDAO.updateTruck(truck);
+        if (secondDriver!=null && !firstDriver.equals(secondDriver)) service.setSecondDriver(secondDriver);
         serviceDAO.assignService(service);
         var serviceList=serviceDAO.findAllAssigned();
 
