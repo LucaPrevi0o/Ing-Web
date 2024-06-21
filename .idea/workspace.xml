@@ -9,11 +9,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0bf709cf-d99c-4d00-90c1-2fc5a7108193" name="Changes" comment="added control for empty form submission (wip)">
+    <list default="true" id="0bf709cf-d99c-4d00-90c1-2fc5a7108193" name="Changes" comment="solved empty form submission check">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/clients/newClientCompany.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/clients/newClientCompany.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/services/newService.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/services/newService.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/admin/services/newService.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/admin/services/newService.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/ServiceDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/ServiceDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlServiceDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlServiceDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlTruckDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlTruckDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dispatch/ServiceDispatcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dispatch/ServiceDispatcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/services/serviceAssignment.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/services/serviceAssignment.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -310,15 +312,7 @@
       <workItem from="1718865993514" duration="7121000" />
       <workItem from="1718892114140" duration="1359000" />
       <workItem from="1718958587156" duration="10138000" />
-      <workItem from="1718980435553" duration="361000" />
-    </task>
-    <task id="LOCAL-00008" summary="done some rebranching idk">
-      <option name="closed" value="true" />
-      <created>1717241139288</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1717241139288</updated>
+      <workItem from="1718980435553" duration="2602000" />
     </task>
     <task id="LOCAL-00009" summary="fixed query and button access">
       <option name="closed" value="true" />
@@ -704,7 +698,15 @@
       <option name="project" value="LOCAL" />
       <updated>1718968675910</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="solved empty form submission check">
+      <option name="closed" value="true" />
+      <created>1718980971671</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1718980971672</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -725,7 +727,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fixed client pages to work with updated database" />
     <MESSAGE value="allowing key field to be updated from edit page" />
     <MESSAGE value="added sticky nav menu for easier navigation" />
     <MESSAGE value="fixed little screen view with wider nav buttons" />
@@ -750,7 +751,8 @@
     <MESSAGE value="don't tell me im gonna lose everything bc of git" />
     <MESSAGE value="added assigned service list page" />
     <MESSAGE value="added control for empty form submission (wip)" />
-    <option name="LAST_COMMIT_MESSAGE" value="added control for empty form submission (wip)" />
+    <MESSAGE value="solved empty form submission check" />
+    <option name="LAST_COMMIT_MESSAGE" value="solved empty form submission check" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

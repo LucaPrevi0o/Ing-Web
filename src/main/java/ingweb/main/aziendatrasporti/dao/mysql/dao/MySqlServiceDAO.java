@@ -124,6 +124,19 @@ public class MySqlServiceDAO implements ServiceDAO {
         return (service.isDeleted() ? null : service);
     }
 
+    public Service findAssignedByCode(int code) {
+
+        //does need client company and license list (to show in service list)
+        var query="select "+parseAllColumns()+", azienda_cliente.nome as "+allColumns[allColumns.length-1]+" from servizio join azienda_cliente on servizio.cliente=azienda_cliente.ragione_sociale where servizio.codice='"+code+"'";
+        System.out.println(query);
+        var res=MySqlQueryManager.getResult(connection, query); //execute query on the database
+        var resList=MySqlQueryManager.asList(res, allColumns); //parse results
+        if (resList.size()!=1) return null;
+        var item=resList.get(0);
+        var service=getFullService(item);
+        return (service.isDeleted() ? null : service);
+    }
+
     public Service findByDateStartTimeAndDuration(Date date, Time startTime, Time duration) {
 
         //does not need client company

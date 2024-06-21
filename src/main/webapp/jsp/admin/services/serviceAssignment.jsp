@@ -20,8 +20,10 @@
         <script>
             function submitForm() {
 
+                let firstDriver=document.querySelector("#selectedWorker");
+                let secondDriver=document.querySelector("#secondWorker");
                 document.dataForm.action.value="ServiceDispatcher.confirmService";
-                document.dataForm.submit();
+                if (firstDriver!==secondDriver) document.dataForm.submit();
             }
 
             window.addEventListener("load", function() {

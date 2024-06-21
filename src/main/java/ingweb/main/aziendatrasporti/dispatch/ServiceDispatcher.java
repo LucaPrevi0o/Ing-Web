@@ -42,6 +42,7 @@ public class ServiceDispatcher implements DispatchCollector {
         dao.commit();
         dao.close();
         request.setAttribute("serviceList", serviceList);
+        request.setAttribute("selectedTab", "services");
         request.setAttribute("viewUrl", "/admin/services/assignedServices");
         request.setAttribute("loggedAccount", DispatchCollector.getAccount(request, response));
         DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
@@ -187,7 +188,6 @@ public class ServiceDispatcher implements DispatchCollector {
         var serviceDAO=dao.getServiceDAO(); //get service DAO implementation for the selected database
         var workerDAO=dao.getWorkerDAO();
         var truckDAO=dao.getTruckDAO();
-
         var code=request.getParameter("code");
         var service=serviceDAO.findByCode(Integer.parseInt(code));
         var workerList=workerDAO.findAllByLicenses(service.getValidLicenses());
@@ -198,6 +198,7 @@ public class ServiceDispatcher implements DispatchCollector {
         request.setAttribute("service", service);
         request.setAttribute("workerList", workerList);
         request.setAttribute("truckList", truckList);
+        request.setAttribute("selectedTab", "services");
         request.setAttribute("viewUrl", "/admin/services/serviceAssignment"); //set URL for forward view dispatch
         DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
     }
@@ -209,7 +210,6 @@ public class ServiceDispatcher implements DispatchCollector {
         var serviceDAO=dao.getServiceDAO(); //get service DAO implementation for the selected database
         var workerDAO=dao.getWorkerDAO();
         var truckDAO=dao.getTruckDAO();
-        var licenseDAO=dao.getLicenseDAO();
 
         var code=request.getParameter("code");
         var selectedTruck=request.getParameter("selectedTruck");
@@ -220,20 +220,19 @@ public class ServiceDispatcher implements DispatchCollector {
         var truck=truckDAO.findByCode(Integer.parseInt(selectedTruck));
         var firstDriver=workerDAO.findByCode(Integer.parseInt(selectedWorker));
         var secondDriver=(secondWorker.equals("none") ? null : workerDAO.findByCode(Integer.parseInt(secondWorker)));
-        System.out.println(secondDriver);
 
         service.setFirstDriver(firstDriver);
         service.setTruck(truck);
         service.setSecondDriver(secondDriver);
-        System.out.println(service);
         serviceDAO.assignService(service);
-        var licenseList=licenseDAO.findAll();
-        var serviceList=serviceDAO.findAllNotAssigned();
+        var serviceList=serviceDAO.findAllAssigned();
 
         dao.commit();
         dao.close();
         request.setAttribute("serviceList", serviceList);
-        request.setAttribute("licenseList", licenseList);
-        commonState(request, response);
+        request.setAttribute("selectedTab", "services");
+        request.setAttribute("loggedAccount", DispatchCollector.getAccount(request, response));
+        request.setAttribute("viewUrl", "/admin/services/assignedServices"); //set URL for forward view dispatch
+        DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
     }
 }

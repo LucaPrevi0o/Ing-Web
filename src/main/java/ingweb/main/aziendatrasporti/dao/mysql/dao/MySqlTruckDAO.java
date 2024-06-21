@@ -58,7 +58,7 @@ public class MySqlTruckDAO implements TruckDAO {
         var result=new ArrayList<Truck>(); //empty list
         for (var license: licenses) {
 
-            var query="select mezzo.*, group_concat(patenti_mezzo.patente) as '"+allColumns[allColumns.length-1]+"' from mezzo join patenti_mezzo on mezzo.targa=patenti_mezzo.targa where patenti_mezzo.patente='"+license.getCategory()+"' group by mezzo.targa";
+            var query="select mezzo.*, group_concat(patenti_mezzo.patente) as '"+allColumns[allColumns.length-1]+"' from mezzo join patenti_mezzo on mezzo.targa=patenti_mezzo.targa where mezzo.disponibile=1 and patenti_mezzo.patente='"+license.getCategory()+"' group by mezzo.targa";
             var trucks=MySqlQueryManager.getResult(connection, query); //execute query on the database
             var trucksList=MySqlQueryManager.asList(trucks, allColumns); //parse results
             for (var item: trucksList) { //add every element of the result set as new worker
