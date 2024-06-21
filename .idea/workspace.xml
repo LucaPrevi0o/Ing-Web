@@ -9,14 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0bf709cf-d99c-4d00-90c1-2fc5a7108193" name="Changes" comment="final bug fixing before release">
+    <list default="true" id="0bf709cf-d99c-4d00-90c1-2fc5a7108193" name="Changes" comment="added assignment deletion for services">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/ServiceDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/ServiceDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlServiceDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlServiceDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dispatch/ServiceDispatcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dispatch/ServiceDispatcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/services/assignedServices.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/services/assignedServices.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dispatch/ServiceDispatcher.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dispatch/ServiceDispatcher.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dispatch/ServiceDispatcher.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dispatch/ServiceDispatcher.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -313,15 +308,7 @@
       <workItem from="1718865993514" duration="7121000" />
       <workItem from="1718892114140" duration="1359000" />
       <workItem from="1718958587156" duration="10138000" />
-      <workItem from="1718980435553" duration="4668000" />
-    </task>
-    <task id="LOCAL-00010" summary="css formatted worker insertion with tables">
-      <option name="closed" value="true" />
-      <created>1717586144762</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1717586144762</updated>
+      <workItem from="1718980435553" duration="5559000" />
     </task>
     <task id="LOCAL-00011" summary="finished form formatting for insertions">
       <option name="closed" value="true" />
@@ -707,7 +694,15 @@
       <option name="project" value="LOCAL" />
       <updated>1718983573286</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="added assignment deletion for services">
+      <option name="closed" value="true" />
+      <created>1718985944021</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1718985944022</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -728,7 +723,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added sticky nav menu for easier navigation" />
     <MESSAGE value="fixed little screen view with wider nav buttons" />
     <MESSAGE value="added service deletion from list page" />
     <MESSAGE value="worker management is now based on code key" />
@@ -753,7 +747,8 @@
     <MESSAGE value="added control for empty form submission (wip)" />
     <MESSAGE value="solved empty form submission check" />
     <MESSAGE value="final bug fixing before release" />
-    <option name="LAST_COMMIT_MESSAGE" value="final bug fixing before release" />
+    <MESSAGE value="added assignment deletion for services" />
+    <option name="LAST_COMMIT_MESSAGE" value="added assignment deletion for services" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
