@@ -22,6 +22,7 @@
         <script>
             function submitForm() {
 
+                document.activeElement.blur();
                 let licenses=document.getElementsByName("license");
                 let formData=document.querySelectorAll(":required");
                 let i=0, j=0;
@@ -32,6 +33,7 @@
                 if (document.querySelector("#addButton").value==="Aggiungi servizio") document.dataForm.action.value="ServiceDispatcher.addService";
                 else document.dataForm.action.value="ServiceDispatcher.updateService";
                 if (submit) document.dataForm.submit();
+                else console.log("wtf");
             }
 
             window.addEventListener("load", function() {
@@ -63,7 +65,7 @@
                 <tr>
                     <td><label for="clientCompany">Cliente</label></td>
                     <td colspan="<%= licenseList.size() %>">
-                        <select id="clientCompany" name="clientCompany">
+                        <select id="clientCompany" name="clientCompany" required>
                             <% for (var client: clientList) { %><option value="<%= client.getCode() %>"><%= client.display() %></option><% } %>
                         </select>
                     </td>
