@@ -63,19 +63,18 @@ public class MySqlAccountDAO implements AccountDAO {
     public Account findLoggedAccount() { return null; }
 
     //insert a new account in the database passing login data
-    public void addAccount(String... params) {
+    public void addAccount(Account account) {
 
-        if (params.length!=3) return; //only 3 parameters are needed to insert a new account
-        var query="insert into accounts ("+parseParams()+") values (?, ?, ?, 0)"; //empty query
-        MySqlQueryManager.execute(connection, query, params); //execute insertion with parameters
+        System.out.println("test");
+        var query="insert into accounts ("+parseParams()+") values (?, ?, ?, ?, ?)"; //empty query
+        MySqlQueryManager.execute(connection, query, account.asList()); //execute insertion with parameters
     }
 
     //remove account from database (setting the logic deletion true)
     public void removeAccount(Account account) {
 
         var query="update accounts set deleted=1 where (usr = ?)"; //empty query
-        var params=new String[]{account.getUsername()}; //parameter string array
-        MySqlQueryManager.execute(connection, query, params); //execute update with parameters
+        MySqlQueryManager.execute(connection, query, new String[]{account.getUsername()}); //execute update with parameters
     }
 
     public void createAccount(Account account) {}

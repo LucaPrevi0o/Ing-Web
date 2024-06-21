@@ -1,5 +1,6 @@
 package ingweb.main.aziendatrasporti.dispatch;
 
+import ingweb.main.aziendatrasporti.mo.Account;
 import ingweb.main.aziendatrasporti.mo.License;
 import ingweb.main.aziendatrasporti.mo.Worker;
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,9 +38,10 @@ public class WorkerDispatcher implements DispatchCollector {
 
         //get registered account list specifying DAO database implementation
         var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
+        var newDao=DispatchCollector.getMySqlDAO("aziendatrasportidb");
+        var accountDAO=newDao.getAccountDAO();
         var workerDAO=dao.getWorkerDAO(); //get worker DAO implementation for the selected database
         var licenseDAO=dao.getLicenseDAO();
-        
         var name=request.getParameter("name");
         var surname=request.getParameter("surname");
         var fiscalCode=request.getParameter("fiscalCode");
@@ -54,6 +56,8 @@ public class WorkerDispatcher implements DispatchCollector {
         if (!name.isEmpty() && !surname.isEmpty() && !fiscalCode.isEmpty() && !birthDate.isEmpty() && !telNumber.isEmpty()) {
 
             var worker=new Worker(name, surname, fiscalCode, Date.valueOf(birthDate), telNumber, false);
+            var account=new Account(name.toLowerCase(), fiscalCode, name+" "+surname, false, false);
+            accountDAO.addAccount(account);
             worker.setLicenses(licenseList);
             workerDAO.addWorker(worker);
             licenseDAO.addLicensesByWorker(worker, licenseList);
@@ -64,6 +68,8 @@ public class WorkerDispatcher implements DispatchCollector {
 
         dao.commit();
         dao.close();
+        newDao.commit();
+        newDao.close();
         request.setAttribute("licenseList", licenseList);
         request.setAttribute("workerList", workerList);
         commonState(request, response);

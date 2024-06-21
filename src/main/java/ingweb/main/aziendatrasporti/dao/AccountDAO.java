@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public interface AccountDAO {
 
     public ArrayList<Account> findAll(boolean admin);
+    public void addAccount(Account account);
     public Account findByUsernameAndPassword(String username, String password);
     public Account findLoggedAccount();
     public Account findByUsername(String username);

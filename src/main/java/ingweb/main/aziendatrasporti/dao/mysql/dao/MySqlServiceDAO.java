@@ -112,6 +112,22 @@ public class MySqlServiceDAO implements ServiceDAO {
         return services; //return list of valid services
     }
 
+    public ArrayList<Service> findAllAssignedByFiscalCode(String fiscalCode) {
+
+        //does need client company and license list (to show in service list)
+        var services=new ArrayList<Service>();
+        var query="select "+parseAllColumns()+", azienda_cliente.nome as "+allColumns[allColumns.length-1]+" from servizio join azienda_cliente on servizio.cliente=azienda_cliente.ragione_sociale where targa_mezzo is not null and primo_autista is not null and (primo_autista='"+fiscalCode+"' or secondo_autista='"+fiscalCode+"') order by servizio.data asc";
+        System.out.println(query);
+        var res=MySqlQueryManager.getResult(connection, query); //execute query on the database
+        var resList=MySqlQueryManager.asList(res, allColumns); //parse results
+        for (var item: resList) { //add every element of the result set as new service
+
+            var service=getFullService(item);
+            if (!service.isDeleted()) services.add(service); //add service to the result list if not set as deleted
+        }
+        return services; //return list of valid services
+    }
+
     public Service findByCode(int code) {
 
         //does need client company and license list (to show in service list)

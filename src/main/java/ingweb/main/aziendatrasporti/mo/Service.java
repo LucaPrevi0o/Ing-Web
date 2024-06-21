@@ -74,6 +74,7 @@ public class Service implements ModelObject {
         return ((Service)o).deleted==this.deleted;
     }
 
+    public Object[] shortList() { return new Object[]{this.name, this.clientCompany, this.date, this.startTime, this.duration, this.truck, this.deleted}; }
     public Object[] asList() { return new Object[]{this.name, this.clientCompany, this.date, this.startTime, this.duration, this.firstDriver.getFiscalCode(), this.secondDriver.getFiscalCode(), this.truck.getNumberPlate(), this.deleted}; }
     public Object[] data() { return new Object[]{this.name, this.clientCompany, this.date, this.startTime, this.duration, this.deleted}; }
 

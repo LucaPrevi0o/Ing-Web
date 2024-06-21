@@ -9,7 +9,6 @@ public class Account implements ModelObject {
     private boolean deleted;
 
     public String toString() { return fullName+": "+username+"@"+password+" ("+admin+", "+deleted+")"; }
-
     public Object[] asList() { return new Object[] {username, password, fullName, admin, deleted}; }
 
     public Account(String username, String password, String fullName, boolean admin, boolean deleted) {
