@@ -22,9 +22,16 @@
         <script>
             function submitForm() {
 
+                let licenses=document.getElementsByName("license");
+                let formData=document.querySelectorAll(":required");
+                let i=0, j=0;
+                for (let l=0; l<licenses.length; l++) if (licenses[l].checked) i++;
+                for (let l=0; l<formData.length; l++) if (formData[l].value==="") j++;
+                let submit=(i!==0 && j===0);
+
                 if (document.querySelector("#addButton").value==="Aggiungi servizio") document.dataForm.action.value="ServiceDispatcher.addService";
                 else document.dataForm.action.value="ServiceDispatcher.updateService";
-                document.dataForm.submit();
+                if (submit) document.dataForm.submit();
             }
 
             window.addEventListener("load", function() {
