@@ -38,7 +38,7 @@ public class LoginDispatcher implements DispatchCollector {
             else {
 
                 request.setAttribute("viewUrl", "/worker/servicePage");
-                var pwd=(loggedAccount!=null ? loggedAccount.getPassword() : validatedAccount.getPassword());
+                var pwd=(loggedAccount!=null ? loggedAccount.getUsername() : validatedAccount.getUsername());
                 var serviceList=serviceDAO.findAllAssignedByFiscalCode(pwd);
                 request.setAttribute("serviceList", serviceList);
             }

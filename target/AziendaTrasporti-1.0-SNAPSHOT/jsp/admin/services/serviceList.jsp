@@ -93,7 +93,7 @@
                 <td rowspan="2">Orario inizio</td>
                 <td rowspan="2">Durata</td>
                 <td colspan="<%= licenseList.size() %>">Patenti</td>
-                <td rowspan="2" colspan="3">Azioni</td>
+                <td rowspan="2" colspan="3">Azioni - <input type="button" id="assignedList" value="Lista servizi in corso"></td>
             </tr>
             <tr class="firstRow"><% for (var license: licenseList) { %><td><%= license.getCategory() %></td><% } %></tr>
             <% for (var service: serviceList) {
@@ -109,7 +109,6 @@
                     <td><input type="button" id="<%= service.getCode() %>" name="remove" value="Rimuovi"></td>
                 </tr>
             <% } %>
-            <tr class="firstRow"><td colspan="<%= licenseList.size()+8 %>"><br/><input type="button" id="assignedList" value="Lista servizi in corso"><br/><br/></td></tr>
         </table>
         <form name="dataForm" action="<%= request.getContextPath() %>/Servizi" method="post">
             <div class="styled">

@@ -77,6 +77,12 @@ public class MySqlAccountDAO implements AccountDAO {
         MySqlQueryManager.execute(connection, query, new String[]{account.getUsername()}); //execute update with parameters
     }
 
+    public void updateAccount(Account account) {
+
+        var query="update accounts set usr=?, pwd=?, fullname=?, admin=?, deleted=? where usr='"+account.getUsername()+"'";
+        MySqlQueryManager.execute(connection, query, account.asList());
+    }
+
     public void createAccount(Account account) {}
     public void deleteAccount(Account account) {}
 }
