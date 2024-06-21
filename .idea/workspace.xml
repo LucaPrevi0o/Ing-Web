@@ -9,11 +9,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0bf709cf-d99c-4d00-90c1-2fc5a7108193" name="Changes" comment="added assigned service list page">
+    <list default="true" id="0bf709cf-d99c-4d00-90c1-2fc5a7108193" name="Changes" comment="added control for empty form submission (wip)">
+      <change afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/admin/services/assignedServices.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/clients/newClientCompany.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/clients/newClientCompany.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/services/newService.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/services/newService.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/trucks/newTruck.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/trucks/newTruck.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/workers/newWorker.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/workers/newWorker.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/admin/clients/newClientCompany.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/admin/clients/newClientCompany.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/admin/services/newService.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/admin/services/newService.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/admin/trucks/newTruck.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/admin/trucks/newTruck.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/admin/workers/newWorker.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/admin/workers/newWorker.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -309,15 +315,7 @@
       <workItem from="1718809207734" duration="2142000" />
       <workItem from="1718865993514" duration="7121000" />
       <workItem from="1718892114140" duration="1359000" />
-      <workItem from="1718958587156" duration="7126000" />
-    </task>
-    <task id="LOCAL-00006" summary="fixed css for trucks list">
-      <option name="closed" value="true" />
-      <created>1717235577632</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1717235577632</updated>
+      <workItem from="1718958587156" duration="7822000" />
     </task>
     <task id="LOCAL-00007" summary="modified findAll query with join on licenses">
       <option name="closed" value="true" />
@@ -703,7 +701,15 @@
       <option name="project" value="LOCAL" />
       <updated>1718959111610</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="added control for empty form submission (wip)">
+      <option name="closed" value="true" />
+      <created>1718968660836</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1718968660837</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -724,7 +730,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fixed service list page" />
     <MESSAGE value="fixed client pages to work with updated database" />
     <MESSAGE value="allowing key field to be updated from edit page" />
     <MESSAGE value="added sticky nav menu for easier navigation" />
@@ -749,7 +754,8 @@
     <MESSAGE value="added enter key form trigger in form submission" />
     <MESSAGE value="don't tell me im gonna lose everything bc of git" />
     <MESSAGE value="added assigned service list page" />
-    <option name="LAST_COMMIT_MESSAGE" value="added assigned service list page" />
+    <MESSAGE value="added control for empty form submission (wip)" />
+    <option name="LAST_COMMIT_MESSAGE" value="added control for empty form submission (wip)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
