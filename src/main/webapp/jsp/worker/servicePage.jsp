@@ -8,7 +8,7 @@
 %>
 <html>
     <head>
-        <title>Home - <%= loggedAccount.getFullName().toLowerCase() %></title>
+        <title>Home - <%= loggedAccount.getFullName().toUpperCase() %></title>
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/generalStyle.css">
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/navMenu.css">
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/dataTable.css">
@@ -34,7 +34,7 @@
         </script>
     </head>
     <body>
-        <h1>Benvenuto, <%= loggedAccount.getFullName().toUpperCase() %></h1>
+        <h1>Benvenuto, <%= loggedAccount.getFullName() %></h1>
         <h2>Visualizzazione programma di lavoro</h2>
         <hr/>
         <h1>Servizi in programma</h1>
