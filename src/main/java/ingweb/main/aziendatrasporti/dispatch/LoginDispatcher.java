@@ -48,7 +48,6 @@ public class LoginDispatcher implements DispatchCollector {
         }
 
         //set access as denied (account has no admin permission)
-        //if (!accountList.isEmpty() && accountList.contains(validatedAccount)) request.setAttribute("access", "not-permitted");
         if (validatedAccount!=null && validatedAccount.getUsername().equals(username) && !validatedAccount.getPassword().equals(password)) request.setAttribute("access", "denied");
         else request.setAttribute("access", "not-registered"); //username/password have no account related
         commonState(request, response);

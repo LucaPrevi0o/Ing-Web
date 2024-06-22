@@ -20,9 +20,6 @@
         <% if (access!=null) { if (access.equals("denied")) { %>
             <h2>ACCESSO NON RIUSCITO</h2>
             <h3>La password inserita non è corretta.</h3>
-        <% } else if (access.equals("not-permitted")) { %>
-            <h2>ACCESSO NON RIUSCITO</h2>
-            <h3>Accesso negato.</h3>
         <% } else if (access.equals("not-registered")) { %>
             <h2>ACCESSO NON RIUSCITO</h2>
             <h3>L'utente inserito non è registrato.</h3>

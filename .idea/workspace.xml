@@ -9,9 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0bf709cf-d99c-4d00-90c1-2fc5a7108193" name="Changes" comment="added profile deletion and updating in worker list">
+    <list default="true" id="0bf709cf-d99c-4d00-90c1-2fc5a7108193" name="Changes" comment="final fix in worker service page">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/worker/servicePage.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/worker/servicePage.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dispatch/LoginDispatcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dispatch/LoginDispatcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/login.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -310,15 +311,7 @@
       <workItem from="1718958587156" duration="10138000" />
       <workItem from="1718980435553" duration="6631000" />
       <workItem from="1718999059827" duration="6265000" />
-      <workItem from="1719040218879" duration="656000" />
-    </task>
-    <task id="LOCAL-00014" summary="started service management">
-      <option name="closed" value="true" />
-      <created>1717665025354</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1717665025354</updated>
+      <workItem from="1719040218879" duration="6036000" />
     </task>
     <task id="LOCAL-00015" summary="started service management">
       <option name="closed" value="true" />
@@ -704,7 +697,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719005393318</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="final fix in worker service page">
+      <option name="closed" value="true" />
+      <created>1719040986629</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1719040986631</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -725,7 +726,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="included service deletion from list page" />
     <MESSAGE value="updated attribute naming in workers management" />
     <MESSAGE value="updated truck management to work with code key" />
     <MESSAGE value="major rework for service and licenses management" />
@@ -750,7 +750,8 @@
     <MESSAGE value="added service list ordering by date" />
     <MESSAGE value="added worker login for personal service view" />
     <MESSAGE value="added profile deletion and updating in worker list" />
-    <option name="LAST_COMMIT_MESSAGE" value="added profile deletion and updating in worker list" />
+    <MESSAGE value="final fix in worker service page" />
+    <option name="LAST_COMMIT_MESSAGE" value="final fix in worker service page" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
