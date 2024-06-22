@@ -49,7 +49,7 @@
         </script>
     </head>
     <body>
-        <form name="dataForm" action="<%= request.getContextPath() %>/Servizi" method="get">
+        <form name="dataForm" action="<%= request.getContextPath() %>/Servizi" method="post">
             <h1><%= worker==null ? "Nuovo autista" : "Modifica dati autista" %></h1>
             <hr/>
             <table>
