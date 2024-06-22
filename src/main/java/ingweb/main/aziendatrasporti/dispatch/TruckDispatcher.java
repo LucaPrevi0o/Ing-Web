@@ -4,7 +4,6 @@ import ingweb.main.aziendatrasporti.mo.License;
 import ingweb.main.aziendatrasporti.mo.Truck;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import java.util.ArrayList;
 
 public class TruckDispatcher implements DispatchCollector {

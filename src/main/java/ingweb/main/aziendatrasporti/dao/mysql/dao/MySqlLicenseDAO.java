@@ -6,7 +6,6 @@ import ingweb.main.aziendatrasporti.mo.License;
 import ingweb.main.aziendatrasporti.mo.Service;
 import ingweb.main.aziendatrasporti.mo.Truck;
 import ingweb.main.aziendatrasporti.mo.Worker;
-
 import java.sql.Connection;
 import java.util.ArrayList;
 

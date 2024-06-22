@@ -4,10 +4,7 @@ import ingweb.main.aziendatrasporti.dao.DAOFactory;
 import ingweb.main.aziendatrasporti.mo.Account;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public interface DispatchCollector {
 

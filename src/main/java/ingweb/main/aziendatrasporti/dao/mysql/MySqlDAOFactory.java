@@ -2,7 +2,6 @@ package ingweb.main.aziendatrasporti.dao.mysql;
 
 import ingweb.main.aziendatrasporti.dao.*;
 import ingweb.main.aziendatrasporti.dao.mysql.dao.*;
-
 import java.sql.*;
 
 public class MySqlDAOFactory extends DAOFactory {

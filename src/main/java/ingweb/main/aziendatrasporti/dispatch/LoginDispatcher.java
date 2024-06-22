@@ -1,6 +1,5 @@
 package ingweb.main.aziendatrasporti.dispatch;
 
-import ingweb.main.aziendatrasporti.mo.Account;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 

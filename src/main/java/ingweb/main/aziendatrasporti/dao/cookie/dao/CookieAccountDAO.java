@@ -1,7 +1,6 @@
 package ingweb.main.aziendatrasporti.dao.cookie.dao;
 
 import ingweb.main.aziendatrasporti.dao.AccountDAO;
-import ingweb.main.aziendatrasporti.dao.DAOFactory;
 import ingweb.main.aziendatrasporti.dispatch.DispatchCollector;
 import ingweb.main.aziendatrasporti.mo.Account;
 import jakarta.servlet.http.Cookie;

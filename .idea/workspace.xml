@@ -9,8 +9,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0bf709cf-d99c-4d00-90c1-2fc5a7108193" name="Changes" comment="removed useless stuff from login page">
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/workers/newWorker.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/workers/newWorker.jsp" afterDir="false" />
+    <list default="true" id="0bf709cf-d99c-4d00-90c1-2fc5a7108193" name="Changes" comment="fixed some forms left in post">
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/cookie/dao/CookieAccountDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/cookie/dao/CookieAccountDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/MySqlDAOFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/MySqlDAOFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/MySqlQueryManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/MySqlQueryManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlClientDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlClientDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlLicenseDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlLicenseDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlWorkerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlWorkerDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dispatch/ClientDispatcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dispatch/ClientDispatcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dispatch/DispatchCollector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dispatch/DispatchCollector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dispatch/LoginDispatcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dispatch/LoginDispatcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dispatch/TruckDispatcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dispatch/TruckDispatcher.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -309,23 +318,7 @@
       <workItem from="1718958587156" duration="10138000" />
       <workItem from="1718980435553" duration="6631000" />
       <workItem from="1718999059827" duration="6265000" />
-      <workItem from="1719040218879" duration="6975000" />
-    </task>
-    <task id="LOCAL-00016" summary="fixed worker another time with code key">
-      <option name="closed" value="true" />
-      <created>1718441178569</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1718441178569</updated>
-    </task>
-    <task id="LOCAL-00017" summary="fixed branches">
-      <option name="closed" value="true" />
-      <created>1718528567945</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1718528567945</updated>
+      <workItem from="1719040218879" duration="8426000" />
     </task>
     <task id="LOCAL-00018" summary="fixed branches">
       <option name="closed" value="true" />
@@ -703,7 +696,23 @@
       <option name="project" value="LOCAL" />
       <updated>1719048732974</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="fixed some forms left in post">
+      <option name="closed" value="true" />
+      <created>1719049462780</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1719049462780</updated>
+    </task>
+    <task id="LOCAL-00066" summary="fixed some forms left in post">
+      <option name="closed" value="true" />
+      <created>1719049489029</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1719049489029</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -724,7 +733,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="updated truck management to work with code key" />
     <MESSAGE value="major rework for service and licenses management" />
     <MESSAGE value="initial commit for service assignment" />
     <MESSAGE value="working prototype for service assignment" />
@@ -749,7 +757,8 @@
     <MESSAGE value="added profile deletion and updating in worker list" />
     <MESSAGE value="final fix in worker service page" />
     <MESSAGE value="removed useless stuff from login page" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed useless stuff from login page" />
+    <MESSAGE value="fixed some forms left in post" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed some forms left in post" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

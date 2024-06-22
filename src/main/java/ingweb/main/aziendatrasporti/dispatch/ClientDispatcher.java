@@ -3,7 +3,6 @@ package ingweb.main.aziendatrasporti.dispatch;
 import ingweb.main.aziendatrasporti.mo.ClientCompany;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import java.sql.Date;
 
 public class ClientDispatcher implements DispatchCollector {
