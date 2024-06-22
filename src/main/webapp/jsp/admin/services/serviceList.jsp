@@ -27,25 +27,25 @@
 
                 refreshButton.addEventListener("click", function() {
 
-                    document.dataForm.action.value="ServiceDispatcher.getServiceList";
+                    document.dataForm.action.value="ServiceController.getServiceList";
                     document.dataForm.submit();
                 });
 
                 backButton.addEventListener("click", function() {
 
-                    document.dataForm.action.value="LoginDispatcher.validate";
+                    document.dataForm.action.value="LoginController.validate";
                     document.dataForm.submit();
                 });
 
                 newServiceButton.addEventListener("click", function() {
 
-                    document.dataForm.action.value="ServiceDispatcher.newService";
+                    document.dataForm.action.value="ServiceController.newService";
                     document.dataForm.submit();
                 });
 
                 assignedButton.addEventListener("click", function() {
 
-                    document.dataForm.action.value="ServiceDispatcher.getServices";
+                    document.dataForm.action.value="ServiceController.getServices";
                     document.dataForm.submit();
                 });
 
@@ -53,7 +53,7 @@
 
                     b.addEventListener("click", function() {
 
-                        document.dataForm.action.value="ServiceDispatcher.removeService";
+                        document.dataForm.action.value="ServiceController.removeService";
                         document.dataForm.code.value=this.id;
                         document.dataForm.submit();
                     });
@@ -63,7 +63,7 @@
 
                     b.addEventListener("click", function() {
 
-                        document.dataForm.action.value="ServiceDispatcher.editService";
+                        document.dataForm.action.value="ServiceController.editService";
                         document.dataForm.code.value=this.id;
                         document.dataForm.submit();
                     });
@@ -73,7 +73,7 @@
 
                     b.addEventListener("click", function() {
 
-                        document.dataForm.action.value="ServiceDispatcher.assignService";
+                        document.dataForm.action.value="ServiceController.assignService";
                         document.dataForm.code.value=this.id;
                         document.dataForm.submit();
                     });

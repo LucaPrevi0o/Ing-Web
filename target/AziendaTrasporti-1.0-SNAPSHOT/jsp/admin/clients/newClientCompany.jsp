@@ -17,8 +17,8 @@
                 let j=0;
                 for (let l=0; l<formData.length; l++) if (formData[l].value==="") j++;
 
-                if (document.querySelector("#addButton").value==="Aggiungi cliente") document.dataForm.action.value="ClientDispatcher.addClient";
-                else document.dataForm.action.value="ClientDispatcher.updateClient";
+                if (document.querySelector("#addButton").value==="Aggiungi cliente") document.dataForm.action.value="ClientController.addClient";
+                else document.dataForm.action.value="ClientController.updateClient";
                 if (j===0) document.dataForm.submit();
             }
 
@@ -31,7 +31,7 @@
 
                 refreshButton.addEventListener("click", function() {
 
-                    document.dataForm.action.value="ClientDispatcher.getClients";
+                    document.dataForm.action.value="ClientController.getClients";
                     document.dataForm.submit();
                 });
 

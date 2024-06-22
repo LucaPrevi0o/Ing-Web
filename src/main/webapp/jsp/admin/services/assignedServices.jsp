@@ -21,19 +21,19 @@
 
                 refreshButton.addEventListener("click", function() {
 
-                    document.dataForm.action.value="ServiceDispatcher.getServices";
+                    document.dataForm.action.value="ServiceController.getServices";
                     document.dataForm.submit();
                 });
 
                 backButton.addEventListener("click", function() {
 
-                    document.dataForm.action.value="LoginDispatcher.validate";
+                    document.dataForm.action.value="LoginController.validate";
                     document.dataForm.submit();
                 });
 
                 serviceListButton.addEventListener("click", function() {
 
-                    document.dataForm.action.value="ServiceDispatcher.getServiceList";
+                    document.dataForm.action.value="ServiceController.getServiceList";
                     document.dataForm.submit();
                 });
 
@@ -41,7 +41,7 @@
 
                     b.addEventListener("click", function() {
 
-                        document.dataForm.action.value="ServiceDispatcher.assignService";
+                        document.dataForm.action.value="ServiceController.assignService";
                         document.dataForm.code.value=this.id;
                         document.dataForm.submit();
                     });
@@ -51,7 +51,7 @@
 
                     b.addEventListener("click", function() {
 
-                        document.dataForm.action.value="ServiceDispatcher.deleteAssignment";
+                        document.dataForm.action.value="ServiceController.deleteAssignment";
                         document.dataForm.code.value=this.id;
                         document.dataForm.submit();
                     });

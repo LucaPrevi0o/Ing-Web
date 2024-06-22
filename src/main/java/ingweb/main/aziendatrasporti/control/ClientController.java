@@ -1,23 +1,22 @@
-package ingweb.main.aziendatrasporti.dispatch;
+package ingweb.main.aziendatrasporti.control;
 
 import ingweb.main.aziendatrasporti.mo.ClientCompany;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Date;
 
-public class ClientDispatcher implements DispatchCollector {
+public class ClientController implements Controller {
 
     private static void commonState(HttpServletRequest request, HttpServletResponse response) {
 
         request.setAttribute("viewUrl", "/admin/clients/clientCompanies"); //set URL for forward view dispatch
-        request.setAttribute("loggedAccount", DispatchCollector.getAccount(request, response));
+        request.setAttribute("loggedAccount", Controller.getLoggedAccount(request, response));
         request.setAttribute("selectedTab", "clients");
-        DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
     }
 
     public static void getClients(HttpServletRequest request, HttpServletResponse response) {
 
-        var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
+        var dao= Controller.getMySqlDAO("azienda_trasporti");
         var clientDAO=dao.getClientDAO();
         var clientList=clientDAO.findAll();
 
@@ -30,13 +29,12 @@ public class ClientDispatcher implements DispatchCollector {
     public static void newClient(HttpServletRequest request, HttpServletResponse response) {
 
         request.setAttribute("viewUrl", "/admin/clients/newClientCompany");
-        DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
     }
 
     public static void addClient(HttpServletRequest request, HttpServletResponse response) {
 
         //get registered account list specifying DAO database implementation
-        var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
+        var dao= Controller.getMySqlDAO("azienda_trasporti");
         var clientDAO=dao.getClientDAO(); //get worker DAO implementation for the selected database
 
         var name=request.getParameter("name");
@@ -65,7 +63,7 @@ public class ClientDispatcher implements DispatchCollector {
     public static void removeClient(HttpServletRequest request, HttpServletResponse response) {
 
         //get registered account list specifying DAO database implementation
-        var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
+        var dao= Controller.getMySqlDAO("azienda_trasporti");
         var clientDAO=dao.getClientDAO(); //get worker DAO implementation for the selected database
         var code=request.getParameter("code");
 
@@ -81,7 +79,7 @@ public class ClientDispatcher implements DispatchCollector {
     public static void updateClient(HttpServletRequest request, HttpServletResponse response) {
 
         //get registered account list specifying DAO database implementation
-        var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
+        var dao= Controller.getMySqlDAO("azienda_trasporti");
         var clientDAO=dao.getClientDAO(); //get worker DAO implementation for the selected database
 
         var code=request.getParameter("code");
@@ -112,7 +110,7 @@ public class ClientDispatcher implements DispatchCollector {
     public static void editClient(HttpServletRequest request, HttpServletResponse response) {
 
         //get registered account list specifying DAO database implementation
-        var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
+        var dao= Controller.getMySqlDAO("azienda_trasporti");
         var clientDAO=dao.getClientDAO();
 
         var name=request.getParameter("code");
@@ -122,6 +120,5 @@ public class ClientDispatcher implements DispatchCollector {
         dao.close();
         request.setAttribute("clientCompany", clientCompany); //set list as new session attribute
         request.setAttribute("viewUrl", "/admin/clients/newClientCompany"); //set URL for forward view dispatch
-        DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
     }
 }

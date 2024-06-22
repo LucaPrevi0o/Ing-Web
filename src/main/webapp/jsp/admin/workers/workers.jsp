@@ -23,19 +23,19 @@
 
                 refreshButton.addEventListener("click", function() {
 
-                    document.dataForm.action.value="WorkerDispatcher.getWorkers";
+                    document.dataForm.action.value="WorkerController.getWorkers";
                     document.dataForm.submit();
                 });
 
                 backButton.addEventListener("click", function() {
 
-                    document.dataForm.action.value="LoginDispatcher.validate";
+                    document.dataForm.action.value="LoginController.validate";
                     document.dataForm.submit();
                 });
 
                 newWorkerButton.addEventListener("click", function() {
 
-                    document.dataForm.action.value="WorkerDispatcher.newWorker";
+                    document.dataForm.action.value="WorkerController.newWorker";
                     document.dataForm.submit();
                 });
 
@@ -43,7 +43,7 @@
 
                     b.addEventListener("click", function() {
 
-                        document.dataForm.action.value="WorkerDispatcher.removeWorker";
+                        document.dataForm.action.value="WorkerController.removeWorker";
                         document.dataForm.code.value=this.id;
                         document.dataForm.submit();
                     });
@@ -53,7 +53,7 @@
 
                     b.addEventListener("click", function() {
 
-                        document.dataForm.action.value="WorkerDispatcher.editWorker";
+                        document.dataForm.action.value="WorkerController.editWorker";
                         document.dataForm.code.value=this.id;
                         document.dataForm.submit();
                     });

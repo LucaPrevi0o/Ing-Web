@@ -15,31 +15,31 @@
                 <% if (selectedTab!=null) { %> document.querySelector("#<%= selectedTab %>").classList.add("selected"); <% } %>
                 document.querySelector("#workers").addEventListener("click", function() {
 
-                    document.querySelector("#action").value="WorkerDispatcher.getWorkers";
+                    document.querySelector("#action").value="WorkerController.getWorkers";
                     document.tabForm.submit();
                 });
 
                 document.querySelector("#services").addEventListener("click", function() {
 
-                    document.querySelector("#action").value="ServiceDispatcher.getServiceList";
+                    document.querySelector("#action").value="ServiceController.getServiceList";
                     document.tabForm.submit();
                 });
 
                 document.querySelector("#trucks").addEventListener("click", function() {
 
-                    document.querySelector("#action").value="TruckDispatcher.getTrucks";
+                    document.querySelector("#action").value="TruckController.getTrucks";
                     document.tabForm.submit();
                 });
 
                 document.querySelector("#clients").addEventListener("click", function() {
 
-                    document.querySelector("#action").value="ClientDispatcher.getClients";
+                    document.querySelector("#action").value="ClientController.getClients";
                     document.tabForm.submit();
                 });
 
                 document.querySelector("#logout").addEventListener("click", function() {
 
-                    document.querySelector("#action").value="LoginDispatcher.logout";
+                    document.querySelector("#action").value="LoginController.logout";
                     document.tabForm.submit();
                 });
             });

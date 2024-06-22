@@ -23,19 +23,19 @@
 
                 refreshButton.addEventListener("click", function() {
 
-                    document.dataForm.action.value="TruckDispatcher.getTrucks";
+                    document.dataForm.action.value="TruckController.getTrucks";
                     document.dataForm.submit();
                 });
 
                 backButton.addEventListener("click", function() {
 
-                    document.dataForm.action.value="LoginDispatcher.validate";
+                    document.dataForm.action.value="LoginController.validate";
                     document.dataForm.submit();
                 });
 
                 newWorkerButton.addEventListener("click", function() {
 
-                    document.dataForm.action.value="TruckDispatcher.newTruck";
+                    document.dataForm.action.value="TruckController.newTruck";
                     document.dataForm.submit();
                 });
 
@@ -43,7 +43,7 @@
 
                     b.addEventListener("click", function() {
 
-                        document.dataForm.action.value="TruckDispatcher.removeTruck";
+                        document.dataForm.action.value="TruckController.removeTruck";
                         document.dataForm.code.value=this.id;
                         document.dataForm.submit();
                     });
@@ -53,7 +53,7 @@
 
                     b.addEventListener("click", function() {
 
-                        document.dataForm.action.value="TruckDispatcher.editTruck";
+                        document.dataForm.action.value="TruckController.editTruck";
                         document.dataForm.code.value=this.id;
                         document.dataForm.submit();
                     });

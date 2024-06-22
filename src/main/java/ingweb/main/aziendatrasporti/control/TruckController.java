@@ -1,4 +1,4 @@
-package ingweb.main.aziendatrasporti.dispatch;
+package ingweb.main.aziendatrasporti.control;
 
 import ingweb.main.aziendatrasporti.mo.License;
 import ingweb.main.aziendatrasporti.mo.Truck;
@@ -6,19 +6,18 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 
-public class TruckDispatcher implements DispatchCollector {
+public class TruckController implements Controller {
 
     private static void commonState(HttpServletRequest request, HttpServletResponse response) {
 
         request.setAttribute("viewUrl", "/admin/trucks/trucks");
         request.setAttribute("selectedTab", "trucks");
-        request.setAttribute("loggedAccount", DispatchCollector.getAccount(request, response));
-        DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
+        request.setAttribute("loggedAccount", Controller.getLoggedAccount(request, response));
     }
 
     public static void getTrucks(HttpServletRequest request, HttpServletResponse response) {
 
-        var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
+        var dao= Controller.getMySqlDAO("azienda_trasporti");
         var truckDAO=dao.getTruckDAO();
         var licenseDAO=dao.getLicenseDAO();
         var truckList=truckDAO.findAll();
@@ -26,28 +25,29 @@ public class TruckDispatcher implements DispatchCollector {
 
         dao.commit();
         dao.close();
-        request.setAttribute("truckList", truckList);
-        request.setAttribute("licenseList", licenseList);
-        commonState(request, response);
+        attributes.add(new Object[]{"truckList", truckList});
+        attributes.add(new Object[]{"licenseList", licenseList});
+        attributes.add(new Object[]{"viewUrl", "/admin/trucks/trucks"});
+        Controller.commonState(request, response, "trucks");
     }
 
     public static void newTruck(HttpServletRequest request, HttpServletResponse response) {
 
-        var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
+        var dao= Controller.getMySqlDAO("azienda_trasporti");
         var licenseDAO=dao.getLicenseDAO();
         var licenseList=licenseDAO.findAll();
 
         dao.commit();
         dao.close();
-        request.setAttribute("licenseList", licenseList);
-        request.setAttribute("viewUrl", "/admin/trucks/newTruck");
-        DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
+        attributes.add(new Object[]{"licenseList", licenseList});
+        attributes.add(new Object[]{"viewUrl", "/admin/trucks/newTruck"});
+        Controller.commonState(request, response, "trucks");
     }
 
     public static void addTruck(HttpServletRequest request, HttpServletResponse response) {
 
         //get registered account list specifying DAO database implementation
-        var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
+        var dao= Controller.getMySqlDAO("azienda_trasporti");
         var truckDAO=dao.getTruckDAO();
         var licenseDAO=dao.getLicenseDAO();
 
@@ -73,15 +73,16 @@ public class TruckDispatcher implements DispatchCollector {
 
         dao.commit();
         dao.close();
-        request.setAttribute("truckList", truckList);
-        request.setAttribute("licenseList", licenseList);
-        commonState(request, response);
+        attributes.add(new Object[]{"licenseList", licenseList});
+        attributes.add(new Object[]{"truckList", truckList});
+        attributes.add(new Object[]{"viewUrl", "/admin/trucks/trucks"});
+        Controller.commonState(request, response, "trucks");
     }
 
     public static void removeTruck(HttpServletRequest request, HttpServletResponse response) {
 
         //get registered account list specifying DAO database implementation
-        var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
+        var dao= Controller.getMySqlDAO("azienda_trasporti");
         var truckDAO=dao.getTruckDAO();
         var licenseDAO=dao.getLicenseDAO();
         var code=request.getParameter("code");
@@ -92,15 +93,16 @@ public class TruckDispatcher implements DispatchCollector {
 
         dao.commit();
         dao.close();
-        request.setAttribute("truckList", truckList);
-        request.setAttribute("licenseList", licenseList);
-        commonState(request, response);
+        attributes.add(new Object[]{"licenseList", licenseList});
+        attributes.add(new Object[]{"truckList", truckList});
+        attributes.add(new Object[]{"viewUrl", "/admin/trucks/trucks"});
+        Controller.commonState(request, response, "trucks");
     }
 
     public static void updateTruck(HttpServletRequest request, HttpServletResponse response) {
 
         //get registered account list specifying DAO database implementation
-        var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
+        var dao= Controller.getMySqlDAO("azienda_trasporti");
         var truckDAO=dao.getTruckDAO();
         var licenseDAO=dao.getLicenseDAO();
 
@@ -128,28 +130,28 @@ public class TruckDispatcher implements DispatchCollector {
 
         dao.commit();
         dao.close();
-        request.setAttribute("truckList", truckList);
-        request.setAttribute("licenseList", licenseList);
-        commonState(request, response);
+        attributes.add(new Object[]{"licenseList", licenseList});
+        attributes.add(new Object[]{"truckList", truckList});
+        attributes.add(new Object[]{"viewUrl", "/admin/trucks/trucks"});
+        Controller.commonState(request, response, "trucks");
     }
 
     public static void editTruck(HttpServletRequest request, HttpServletResponse response) {
 
         //get registered account list specifying DAO database implementation
-        var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
+        var dao= Controller.getMySqlDAO("azienda_trasporti");
         var truckDAO=dao.getTruckDAO();
         var licenseDAO=dao.getLicenseDAO();
         var licenseList=licenseDAO.findAll();
 
         var code=request.getParameter("code");
-        System.out.println(code);
         var truck=truckDAO.findByCode(Integer.parseInt(code));
 
         dao.commit();
         dao.close();
-        request.setAttribute("truck", truck); //set list as new session attribute
-        request.setAttribute("licenseList", licenseList);
-        request.setAttribute("viewUrl", "/admin/trucks/newTruck"); //set URL for forward view dispatch
-        DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
+        attributes.add(new Object[]{"truck", truck});
+        attributes.add(new Object[]{"licenseList", licenseList});
+        attributes.add(new Object[]{"viewUrl", "/admin/trucks/newTruck"});
+        Controller.commonState(request, response, "trucks");
     }
 }

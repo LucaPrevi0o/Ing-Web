@@ -22,7 +22,7 @@
 
                 let firstDriver=document.querySelector("#selectedWorker");
                 let secondDriver=document.querySelector("#secondWorker");
-                document.dataForm.action.value="ServiceDispatcher.confirmService";
+                document.dataForm.action.value="ServiceController.confirmService";
                 if (firstDriver!==secondDriver) document.dataForm.submit();
             }
 
@@ -35,7 +35,7 @@
 
                 refreshButton.addEventListener("click", function() {
 
-                    document.dataForm.action.value="ServiceDispatcher.getServiceList";
+                    document.dataForm.action.value="ServiceController.getServiceList";
                     document.dataForm.submit();
                 });
 

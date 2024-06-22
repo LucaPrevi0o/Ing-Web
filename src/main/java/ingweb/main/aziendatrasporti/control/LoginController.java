@@ -1,14 +1,13 @@
-package ingweb.main.aziendatrasporti.dispatch;
+package ingweb.main.aziendatrasporti.control;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class LoginDispatcher implements DispatchCollector {
+public class LoginController implements Controller {
 
     private static void commonState(HttpServletRequest request, HttpServletResponse response) {
 
         request.setAttribute("viewUrl", "/login"); //set URL for forward view dispatch
-        DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
     }
 
     public static void validate(HttpServletRequest request, HttpServletResponse response) {
@@ -17,10 +16,10 @@ public class LoginDispatcher implements DispatchCollector {
         var password=request.getParameter("password");
 
         //get registered account list specifying DAO database implementation
-        var mySqlDAO=DispatchCollector.getMySqlDAO("aziendatrasportidb");
-        var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
+        var mySqlDAO= Controller.getMySqlDAO("aziendatrasportidb");
+        var dao= Controller.getMySqlDAO("azienda_trasporti");
         var serviceDAO=dao.getServiceDAO();
-        var cookieDAO=DispatchCollector.getCookieDAO(request, response);
+        var cookieDAO= Controller.getCookieDAO(request, response);
         var mySqlAccountDAO=mySqlDAO.getAccountDAO(); //get account DAO implementation for the selected database
         var cookieAccountDAO=cookieDAO.getAccountDAO();
         var validatedAccount=mySqlAccountDAO.findByUsername(username);
@@ -42,7 +41,6 @@ public class LoginDispatcher implements DispatchCollector {
                 request.setAttribute("serviceList", serviceList);
             }
             request.setAttribute("loggedAccount", loggedAccount!=null ? loggedAccount : validatedAccount);
-            DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
             return; //break early for permitted login
         }
 
@@ -54,7 +52,7 @@ public class LoginDispatcher implements DispatchCollector {
 
     public static void logout(HttpServletRequest request, HttpServletResponse response) {
 
-        var cookieDAO=DispatchCollector.getCookieDAO(request, response);
+        var cookieDAO= Controller.getCookieDAO(request, response);
         var cookieAccountDAO=cookieDAO.getAccountDAO();
         var loggedAccount=cookieAccountDAO.findLoggedAccount();
         if (loggedAccount!=null) cookieAccountDAO.deleteAccount(loggedAccount);

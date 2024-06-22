@@ -1,4 +1,4 @@
-package ingweb.main.aziendatrasporti.dispatch;
+package ingweb.main.aziendatrasporti.control;
 
 import ingweb.main.aziendatrasporti.mo.Account;
 import ingweb.main.aziendatrasporti.mo.License;
@@ -8,20 +8,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Date;
 import java.util.ArrayList;
 
-public class WorkerDispatcher implements DispatchCollector {
-
-    private static void commonState(HttpServletRequest request, HttpServletResponse response) {
-
-        request.setAttribute("viewUrl", "/admin/workers/workers");
-        request.setAttribute("selectedTab", "workers");
-        request.setAttribute("loggedAccount", DispatchCollector.getAccount(request, response));
-        DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
-    }
+public class WorkerController implements Controller {
 
     public static void getWorkers(HttpServletRequest request, HttpServletResponse response) {
 
         //get registered account list specifying DAO database implementation
-        var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
+        var dao= Controller.getMySqlDAO("azienda_trasporti");
         var workerDAO=dao.getWorkerDAO(); //get worker DAO implementation for the selected database
         var licenseDAO=dao.getLicenseDAO();
         var workerList=workerDAO.findAll(); //return account list filtered by admin level
@@ -29,19 +21,21 @@ public class WorkerDispatcher implements DispatchCollector {
 
         dao.commit();
         dao.close();
-        request.setAttribute("licenseList", licenseList);
-        request.setAttribute("workerList", workerList);
-        commonState(request, response);
+
+        attributes.add(new Object[]{"licenseList", licenseList});
+        attributes.add(new Object[]{"workerList", workerList});
+        Controller.commonState(request, response, "worker");
     }
 
     public static void addWorker(HttpServletRequest request, HttpServletResponse response) {
 
         //get registered account list specifying DAO database implementation
-        var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
-        var newDao=DispatchCollector.getMySqlDAO("aziendatrasportidb");
+        var dao= Controller.getMySqlDAO("azienda_trasporti");
+        var newDao= Controller.getMySqlDAO("aziendatrasportidb");
         var accountDAO=newDao.getAccountDAO();
         var workerDAO=dao.getWorkerDAO(); //get worker DAO implementation for the selected database
         var licenseDAO=dao.getLicenseDAO();
+
         var name=request.getParameter("name");
         var surname=request.getParameter("surname");
         var fiscalCode=request.getParameter("fiscalCode");
@@ -56,7 +50,7 @@ public class WorkerDispatcher implements DispatchCollector {
         if (!name.isEmpty() && !surname.isEmpty() && !fiscalCode.isEmpty() && !birthDate.isEmpty() && !telNumber.isEmpty()) {
 
             var worker=new Worker(name, surname, fiscalCode, Date.valueOf(birthDate), telNumber, false);
-            var account=new Account(fiscalCode, name.toLowerCase()+surname.toLowerCase(), name+" "+surname, false, false);
+            var account=new Account(fiscalCode, name.toLowerCase(), name+" "+surname, false, false);
             accountDAO.addAccount(account);
             worker.setLicenses(licenseList);
             workerDAO.addWorker(worker);
@@ -70,29 +64,31 @@ public class WorkerDispatcher implements DispatchCollector {
         dao.close();
         newDao.commit();
         newDao.close();
-        request.setAttribute("licenseList", licenseList);
-        request.setAttribute("workerList", workerList);
-        commonState(request, response);
+
+        attributes.add(new Object[]{"licenseList", licenseList});
+        attributes.add(new Object[]{"workerList", workerList});
+        Controller.commonState(request, response, "worker");
     }
 
     public static void newWorker(HttpServletRequest request, HttpServletResponse response) {
 
-        var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
+        var dao= Controller.getMySqlDAO("azienda_trasporti");
         var licenseDAO=dao.getLicenseDAO();
         var licenseList=licenseDAO.findAll();
 
         dao.commit();
         dao.close();
-        request.setAttribute("licenseList", licenseList);
-        request.setAttribute("viewUrl", "/admin/workers/newWorker");
-        DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
+
+        attributes.add(new Object[]{"licenseList", licenseList});
+        attributes.add(new Object[]{"viewUrl", "/admin/workers/newWorker"});
+        Controller.commonState(request, response, null);
     }
 
     public static void removeWorker(HttpServletRequest request, HttpServletResponse response) {
 
         //get registered account list specifying DAO database implementation
-        var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
-        var newDao=DispatchCollector.getMySqlDAO("aziendatrasportidb");
+        var dao= Controller.getMySqlDAO("azienda_trasporti");
+        var newDao= Controller.getMySqlDAO("aziendatrasportidb");
         var accountDAO=newDao.getAccountDAO();
         var workerDAO=dao.getWorkerDAO(); //get worker DAO implementation for the selected database
         var licenseDAO=dao.getLicenseDAO();
@@ -108,15 +104,17 @@ public class WorkerDispatcher implements DispatchCollector {
         dao.close();
         newDao.commit();
         newDao.close();
-        request.setAttribute("licenseList", licenseList);
-        request.setAttribute("workerList", workerList);
-        commonState(request, response);
+
+        attributes.add(new Object[]{"licenseList", licenseList});
+        attributes.add(new Object[]{"workerList", workerList});
+        attributes.add(new Object[]{"viewUrl", "/admin/workers/workers"});
+        Controller.commonState(request, response, "worker");
     }
 
     public static void updateWorker(HttpServletRequest request, HttpServletResponse response) {
 
         //get registered account list specifying DAO database implementation
-        var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
+        var dao= Controller.getMySqlDAO("azienda_trasporti");
         var workerDAO=dao.getWorkerDAO(); //get worker DAO implementation for the selected database
         var licenseDAO=dao.getLicenseDAO();
 
@@ -146,16 +144,18 @@ public class WorkerDispatcher implements DispatchCollector {
 
         dao.commit();
         dao.close();
-        request.setAttribute("licenseList", licenseList);
-        request.setAttribute("workerList", workerList);
-        commonState(request, response);
+
+        attributes.add(new Object[]{"licenseList", licenseList});
+        attributes.add(new Object[]{"workerList", workerList});
+        attributes.add(new Object[]{"viewUrl", "/admin/workers/workers"});
+        Controller.commonState(request, response, "worker");
     }
 
     public static void editWorker(HttpServletRequest request, HttpServletResponse response) {
 
         //get registered account list specifying DAO database implementation
-        var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
-        var newDao=DispatchCollector.getMySqlDAO("aziendatrasportidb");
+        var dao= Controller.getMySqlDAO("azienda_trasporti");
+        var newDao= Controller.getMySqlDAO("aziendatrasportidb");
         var accountDAO=newDao.getAccountDAO();
         var workerDAO=dao.getWorkerDAO(); //get worker DAO implementation for the selected database
         var licenseDAO=dao.getLicenseDAO();
@@ -172,6 +172,10 @@ public class WorkerDispatcher implements DispatchCollector {
         request.setAttribute("worker", worker); //set list as new session attribute
         request.setAttribute("licenseList", licenseList);
         request.setAttribute("viewUrl", "/admin/workers/newWorker"); //set URL for forward view dispatch
-        DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
+
+        attributes.add(new Object[]{"licenseList", licenseList});
+        attributes.add(new Object[]{"worker", worker});
+        attributes.add(new Object[]{"viewUrl", "/admin/workers/newWorker"});
+        Controller.commonState(request, response, null);
     }
 }

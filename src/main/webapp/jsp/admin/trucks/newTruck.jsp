@@ -26,8 +26,8 @@
                 for (let l=0; l<formData.length; l++) if (formData[l].value==="") j++;
                 let submit=(i!==0 && j===0);
 
-                if (document.querySelector("#addButton").value==="Aggiungi mezzo") document.dataForm.action.value="TruckDispatcher.addTruck";
-                else document.dataForm.action.value="TruckDispatcher.updateTruck";
+                if (document.querySelector("#addButton").value==="Aggiungi mezzo") document.dataForm.action.value="TruckController.addTruck";
+                else document.dataForm.action.value="TruckController.updateTruck";
                 if (submit) document.dataForm.submit();
             }
 
@@ -40,7 +40,7 @@
 
                 refreshButton.addEventListener("click", function() {
 
-                    document.dataForm.action.value="TruckDispatcher.getTrucks";
+                    document.dataForm.action.value="TruckController.getTrucks";
                     document.dataForm.submit();
                 });
 

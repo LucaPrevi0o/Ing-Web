@@ -30,8 +30,8 @@
                 for (let l=0; l<formData.length; l++) if (formData[l].value==="") j++;
                 let submit=(i!==0 && j===0);
 
-                if (document.querySelector("#addButton").value==="Aggiungi servizio") document.dataForm.action.value="ServiceDispatcher.addService";
-                else document.dataForm.action.value="ServiceDispatcher.updateService";
+                if (document.querySelector("#addButton").value==="Aggiungi servizio") document.dataForm.action.value="ServiceController.addService";
+                else document.dataForm.action.value="ServiceController.updateService";
                 if (submit) document.dataForm.submit();
                 else console.log("wtf");
             }
@@ -45,7 +45,7 @@
 
                 refreshButton.addEventListener("click", function() {
 
-                    document.dataForm.action.value="ServiceDispatcher.getServiceList";
+                    document.dataForm.action.value="ServiceController.getServiceList";
                     document.dataForm.submit();
                 });
 

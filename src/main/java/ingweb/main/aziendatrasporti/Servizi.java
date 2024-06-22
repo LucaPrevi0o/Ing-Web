@@ -2,7 +2,7 @@ package ingweb.main.aziendatrasporti;
 
 import java.io.*;
 import java.rmi.ServerException;
-import ingweb.main.aziendatrasporti.dispatch.DispatchCollector;
+
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.*;
 import jakarta.servlet.http.*;
@@ -18,17 +18,17 @@ public class Servizi extends HttpServlet {
         try {
 
             var param=request.getParameter("action"); //get parameter for action to dispatch
-            if (param==null) param="LoginDispatcher.view"; //set default parameter for initial call
+            if (param==null) param="LoginController.view"; //set default parameter for initial call
 
             var action=param.split("\\."); //split action in tokens
             var dispClass=Class.forName("ingweb.main.aziendatrasporti.dispatch."+action[0]); //call class by action
             var dispMethod=dispClass.getMethod(action[1], HttpServletRequest.class, HttpServletResponse.class);
-            DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
+            //Controller.setAllAttributes(request, Controller.getAllAttributes(request));
             dispMethod.invoke(null, request, response); //call class static method by action
 
             var viewUrl=(String)request.getAttribute("viewUrl"); //get parameter for view to forward
             var view=request.getRequestDispatcher("jsp/"+viewUrl+".jsp"); //set view dispatch from parameter
-            DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
+            //Controller.setAllAttributes(request, Controller.getAllAttributes(request));
             view.forward(request, response); //execute forward dispatch
         } catch (Exception e) {
 

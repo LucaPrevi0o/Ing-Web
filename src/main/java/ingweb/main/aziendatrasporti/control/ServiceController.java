@@ -1,4 +1,4 @@
-package ingweb.main.aziendatrasporti.dispatch;
+package ingweb.main.aziendatrasporti.control;
 
 import ingweb.main.aziendatrasporti.mo.License;
 import ingweb.main.aziendatrasporti.mo.Service;
@@ -8,19 +8,18 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
 
-public class ServiceDispatcher implements DispatchCollector {
+public class ServiceController implements Controller {
 
     private static void commonState(HttpServletRequest request, HttpServletResponse response) {
 
         request.setAttribute("viewUrl", "/admin/services/serviceList");
         request.setAttribute("selectedTab", "services");
-        request.setAttribute("loggedAccount", DispatchCollector.getAccount(request, response));
-        DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
+        request.setAttribute("loggedAccount", Controller.getLoggedAccount(request, response));
     }
 
     public static void getServiceList(HttpServletRequest request, HttpServletResponse response) {
 
-        var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
+        var dao= Controller.getMySqlDAO("azienda_trasporti");
         var serviceDAO=dao.getServiceDAO();
         var licenseDAO=dao.getLicenseDAO();
         var licenseList=licenseDAO.findAll();
@@ -35,7 +34,7 @@ public class ServiceDispatcher implements DispatchCollector {
 
     public static void getServices(HttpServletRequest request, HttpServletResponse response) {
 
-        var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
+        var dao= Controller.getMySqlDAO("azienda_trasporti");
         var serviceDAO=dao.getServiceDAO();
         var serviceList=serviceDAO.findAllAssigned();
 
@@ -44,13 +43,12 @@ public class ServiceDispatcher implements DispatchCollector {
         request.setAttribute("serviceList", serviceList);
         request.setAttribute("selectedTab", "services");
         request.setAttribute("viewUrl", "/admin/services/assignedServices");
-        request.setAttribute("loggedAccount", DispatchCollector.getAccount(request, response));
-        DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
+        request.setAttribute("loggedAccount", Controller.getLoggedAccount(request, response));
     }
 
     public static void newService(HttpServletRequest request, HttpServletResponse response) {
 
-        var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
+        var dao= Controller.getMySqlDAO("azienda_trasporti");
         var licenseDAO=dao.getLicenseDAO();
         var clientDAO=dao.getClientDAO();
         var clientList=clientDAO.findAll();
@@ -59,13 +57,12 @@ public class ServiceDispatcher implements DispatchCollector {
         request.setAttribute("licenseList", licenseList);
         request.setAttribute("clientList", clientList);
         request.setAttribute("viewUrl", "/admin/services/newService");
-        DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
     }
 
     public static void addService(HttpServletRequest request, HttpServletResponse response) {
 
         //get registered account list specifying DAO database implementation
-        var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
+        var dao= Controller.getMySqlDAO("azienda_trasporti");
         var serviceDAO=dao.getServiceDAO(); //get worker DAO implementation for the selected database
         var clientDAO=dao.getClientDAO();
         var licenseDAO=dao.getLicenseDAO();
@@ -104,7 +101,7 @@ public class ServiceDispatcher implements DispatchCollector {
     public static void removeService(HttpServletRequest request, HttpServletResponse response) {
 
         //get registered account list specifying DAO database implementation
-        var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
+        var dao= Controller.getMySqlDAO("azienda_trasporti");
         var serviceDAO=dao.getServiceDAO(); //get worker DAO implementation for the selected database
         var licenseDAO=dao.getLicenseDAO();
         var code=request.getParameter("code");
@@ -123,7 +120,7 @@ public class ServiceDispatcher implements DispatchCollector {
     public static void updateService(HttpServletRequest request, HttpServletResponse response) {
 
         //get registered account list specifying DAO database implementation
-        var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
+        var dao= Controller.getMySqlDAO("azienda_trasporti");
         var serviceDAO=dao.getServiceDAO(); //get worker DAO implementation for the selected database
         var clientDAO=dao.getClientDAO();
         var licenseDAO=dao.getLicenseDAO();
@@ -162,7 +159,7 @@ public class ServiceDispatcher implements DispatchCollector {
     public static void editService(HttpServletRequest request, HttpServletResponse response) {
 
         //get registered account list specifying DAO database implementation
-        var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
+        var dao= Controller.getMySqlDAO("azienda_trasporti");
         var serviceDAO=dao.getServiceDAO(); //get service DAO implementation for the selected database
         var licenseDAO=dao.getLicenseDAO();
         var clientDAO=dao.getClientDAO();
@@ -178,13 +175,12 @@ public class ServiceDispatcher implements DispatchCollector {
         request.setAttribute("licenseList", licenseList);
         request.setAttribute("clientList", clientList);
         request.setAttribute("viewUrl", "/admin/services/newService"); //set URL for forward view dispatch
-        DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
     }
 
     public static void deleteAssignment(HttpServletRequest request, HttpServletResponse response) {
 
         //get registered account list specifying DAO database implementation
-        var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
+        var dao= Controller.getMySqlDAO("azienda_trasporti");
         var serviceDAO=dao.getServiceDAO(); //get service DAO implementation for the selected database
         var code=request.getParameter("code");
         var service=serviceDAO.findByCode(Integer.parseInt(code));
@@ -199,15 +195,14 @@ public class ServiceDispatcher implements DispatchCollector {
         dao.close();
         request.setAttribute("serviceList", serviceList);
         request.setAttribute("selectedTab", "services");
-        request.setAttribute("loggedAccount", DispatchCollector.getAccount(request, response));
+        request.setAttribute("loggedAccount", Controller.getLoggedAccount(request, response));
         request.setAttribute("viewUrl", "/admin/services/assignedServices"); //set URL for forward view dispatch
-        DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
     }
 
     public static void assignService(HttpServletRequest request, HttpServletResponse response) {
 
         //get registered account list specifying DAO database implementation
-        var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
+        var dao= Controller.getMySqlDAO("azienda_trasporti");
         var serviceDAO=dao.getServiceDAO(); //get service DAO implementation for the selected database
         var workerDAO=dao.getWorkerDAO();
         var truckDAO=dao.getTruckDAO();
@@ -223,13 +218,12 @@ public class ServiceDispatcher implements DispatchCollector {
         request.setAttribute("truckList", truckList);
         request.setAttribute("selectedTab", "services");
         request.setAttribute("viewUrl", "/admin/services/serviceAssignment"); //set URL for forward view dispatch
-        DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
     }
 
     public static void confirmService(HttpServletRequest request, HttpServletResponse response) {
 
         //get registered account list specifying DAO database implementation
-        var dao=DispatchCollector.getMySqlDAO("azienda_trasporti");
+        var dao= Controller.getMySqlDAO("azienda_trasporti");
         var serviceDAO=dao.getServiceDAO(); //get service DAO implementation for the selected database
         var workerDAO=dao.getWorkerDAO();
         var truckDAO=dao.getTruckDAO();
@@ -256,8 +250,7 @@ public class ServiceDispatcher implements DispatchCollector {
         dao.close();
         request.setAttribute("serviceList", serviceList);
         request.setAttribute("selectedTab", "services");
-        request.setAttribute("loggedAccount", DispatchCollector.getAccount(request, response));
+        request.setAttribute("loggedAccount", Controller.getLoggedAccount(request, response));
         request.setAttribute("viewUrl", "/admin/services/assignedServices"); //set URL for forward view dispatch
-        DispatchCollector.setAllAttributes(request, DispatchCollector.getAllAttributes(request));
     }
 }

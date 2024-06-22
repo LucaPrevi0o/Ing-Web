@@ -18,15 +18,15 @@
                 let newClientButton=document.querySelector("#newClientButton");
                 let backButton=document.querySelector("#backButton");
 
-                refreshButton.addEventListener("click", function() { document.dataForm.action.value="ClientDispatcher.getClients"; });
-                backButton.addEventListener("click", function() { document.dataForm.action.value="LoginDispatcher.validate"; });
-                newClientButton.addEventListener("click", function() { document.dataForm.action.value="ClientDispatcher.newClient"; });
+                refreshButton.addEventListener("click", function() { document.dataForm.action.value="ClientController.getClients"; });
+                backButton.addEventListener("click", function() { document.dataForm.action.value="LoginController.validate"; });
+                newClientButton.addEventListener("click", function() { document.dataForm.action.value="ClientController.newClient"; });
 
                 removeButtons.forEach(b => {
 
                     b.addEventListener("click", function() {
 
-                        document.dataForm.action.value="ClientDispatcher.removeClient";
+                        document.dataForm.action.value="ClientController.removeClient";
                         document.dataForm.code.value=this.id;
                         document.dataForm.submit();
                     });
@@ -36,7 +36,7 @@
 
                     b.addEventListener("click", function() {
 
-                        document.dataForm.action.value="ClientDispatcher.editClient";
+                        document.dataForm.action.value="ClientController.editClient";
                         document.dataForm.code.value=this.id;
                         document.dataForm.submit();
                     });

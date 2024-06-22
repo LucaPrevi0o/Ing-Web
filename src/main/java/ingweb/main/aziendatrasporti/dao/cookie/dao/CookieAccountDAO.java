@@ -1,7 +1,7 @@
 package ingweb.main.aziendatrasporti.dao.cookie.dao;
 
 import ingweb.main.aziendatrasporti.dao.AccountDAO;
-import ingweb.main.aziendatrasporti.dispatch.DispatchCollector;
+import ingweb.main.aziendatrasporti.control.Controller;
 import ingweb.main.aziendatrasporti.mo.Account;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -47,7 +47,7 @@ public class CookieAccountDAO implements AccountDAO {
 
         var cookies=request.getCookies();
         if (cookies!=null) for (var cookie: cookies)
-            if (cookie.getName().equals("loggedAccount")) return DispatchCollector.getMySqlDAO("aziendatrasportidb").getAccountDAO().findByUsername(cookie.getValue());
+            if (cookie.getName().equals("loggedAccount")) return Controller.getMySqlDAO("aziendatrasportidb").getAccountDAO().findByUsername(cookie.getValue());
         return null;
     }
 }

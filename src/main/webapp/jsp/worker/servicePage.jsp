@@ -21,13 +21,13 @@
 
                 refreshButton.addEventListener("click", function() {
 
-                    document.dataForm.action.value="LoginDispatcher.validate";
+                    document.dataForm.action.value="LoginController.validate";
                     document.dataForm.submit();
                 });
 
                 backButton.addEventListener("click", function() {
 
-                    document.dataForm.action.value="LoginDispatcher.logout";
+                    document.dataForm.action.value="LoginController.logout";
                     document.dataForm.submit();
                 });
             });
