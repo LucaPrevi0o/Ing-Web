@@ -8,11 +8,19 @@ import java.util.ArrayList;
 
 public class TruckController implements Controller {
 
-    private static void commonState(HttpServletRequest request, HttpServletResponse response) {
+    private static void listView(HttpServletRequest request, HttpServletResponse response, ArrayList<Truck> truckList, ArrayList<License> licenseList) {
 
-        request.setAttribute("viewUrl", "/admin/trucks/trucks");
-        request.setAttribute("selectedTab", "trucks");
-        request.setAttribute("loggedAccount", Controller.getLoggedAccount(request, response));
+        attributes.add(new Object[]{"truckList", truckList});
+        attributes.add(new Object[]{"licenseList", licenseList});
+        attributes.add(new Object[]{"viewUrl", "/admin/trucks/trucks"});
+        Controller.commonState(request, response, "trucks");
+    }
+
+    private static void formView(HttpServletRequest request, HttpServletResponse response, ArrayList<License> licenseList) {
+
+        attributes.add(new Object[]{"licenseList", licenseList});
+        attributes.add(new Object[]{"viewUrl", "/admin/trucks/newTruck"});
+        Controller.commonState(request, response, null);
     }
 
     public static void getTrucks(HttpServletRequest request, HttpServletResponse response) {
@@ -25,10 +33,7 @@ public class TruckController implements Controller {
 
         dao.commit();
         dao.close();
-        attributes.add(new Object[]{"truckList", truckList});
-        attributes.add(new Object[]{"licenseList", licenseList});
-        attributes.add(new Object[]{"viewUrl", "/admin/trucks/trucks"});
-        Controller.commonState(request, response, "trucks");
+        listView(request, response, truckList, licenseList);
     }
 
     public static void newTruck(HttpServletRequest request, HttpServletResponse response) {
@@ -39,9 +44,7 @@ public class TruckController implements Controller {
 
         dao.commit();
         dao.close();
-        attributes.add(new Object[]{"licenseList", licenseList});
-        attributes.add(new Object[]{"viewUrl", "/admin/trucks/newTruck"});
-        Controller.commonState(request, response, "trucks");
+        formView(request, response, licenseList);
     }
 
     public static void addTruck(HttpServletRequest request, HttpServletResponse response) {
@@ -73,10 +76,7 @@ public class TruckController implements Controller {
 
         dao.commit();
         dao.close();
-        attributes.add(new Object[]{"licenseList", licenseList});
-        attributes.add(new Object[]{"truckList", truckList});
-        attributes.add(new Object[]{"viewUrl", "/admin/trucks/trucks"});
-        Controller.commonState(request, response, "trucks");
+        listView(request, response, truckList, licenseList);
     }
 
     public static void removeTruck(HttpServletRequest request, HttpServletResponse response) {
@@ -93,10 +93,7 @@ public class TruckController implements Controller {
 
         dao.commit();
         dao.close();
-        attributes.add(new Object[]{"licenseList", licenseList});
-        attributes.add(new Object[]{"truckList", truckList});
-        attributes.add(new Object[]{"viewUrl", "/admin/trucks/trucks"});
-        Controller.commonState(request, response, "trucks");
+        listView(request, response, truckList, licenseList);
     }
 
     public static void updateTruck(HttpServletRequest request, HttpServletResponse response) {
@@ -130,10 +127,7 @@ public class TruckController implements Controller {
 
         dao.commit();
         dao.close();
-        attributes.add(new Object[]{"licenseList", licenseList});
-        attributes.add(new Object[]{"truckList", truckList});
-        attributes.add(new Object[]{"viewUrl", "/admin/trucks/trucks"});
-        Controller.commonState(request, response, "trucks");
+        listView(request, response, truckList, licenseList);
     }
 
     public static void editTruck(HttpServletRequest request, HttpServletResponse response) {
@@ -150,8 +144,6 @@ public class TruckController implements Controller {
         dao.commit();
         dao.close();
         attributes.add(new Object[]{"truck", truck});
-        attributes.add(new Object[]{"licenseList", licenseList});
-        attributes.add(new Object[]{"viewUrl", "/admin/trucks/newTruck"});
-        Controller.commonState(request, response, "trucks");
+        formView(request, response, licenseList);
     }
 }

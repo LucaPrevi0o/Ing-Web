@@ -4,32 +4,35 @@ import ingweb.main.aziendatrasporti.mo.ClientCompany;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Date;
+import java.util.ArrayList;
 
 public class ClientController implements Controller {
 
-    private static void commonState(HttpServletRequest request, HttpServletResponse response) {
+    private static void listView(HttpServletRequest request, HttpServletResponse response, ArrayList<ClientCompany> clientList) {
 
-        request.setAttribute("viewUrl", "/admin/clients/clientCompanies"); //set URL for forward view dispatch
-        request.setAttribute("loggedAccount", Controller.getLoggedAccount(request, response));
-        request.setAttribute("selectedTab", "clients");
+        attributes.add(new Object[]{"clientList", clientList});
+        attributes.add(new Object[]{"viewUrl", "/admin/clients/clientCompanies"});
+        Controller.commonState(request, response, "clients");
+    }
+
+    private static void formView(HttpServletRequest request, HttpServletResponse response) {
+
+        attributes.add(new Object[]{"viewUrl", "/admin/clients/newClientCompany"});
+        Controller.commonState(request, response, null);
     }
 
     public static void getClients(HttpServletRequest request, HttpServletResponse response) {
 
-        var dao= Controller.getMySqlDAO("azienda_trasporti");
+        var dao=Controller.getMySqlDAO("azienda_trasporti");
         var clientDAO=dao.getClientDAO();
         var clientList=clientDAO.findAll();
 
         dao.commit();
         dao.close();
-        request.setAttribute("clientList", clientList);
-        commonState(request, response);
+        listView(request, response, clientList);
     }
 
-    public static void newClient(HttpServletRequest request, HttpServletResponse response) {
-
-        request.setAttribute("viewUrl", "/admin/clients/newClientCompany");
-    }
+    public static void newClient(HttpServletRequest request, HttpServletResponse response) { formView(request, response); ;}
 
     public static void addClient(HttpServletRequest request, HttpServletResponse response) {
 
@@ -56,8 +59,7 @@ public class ClientController implements Controller {
 
         dao.commit();
         dao.close();
-        request.setAttribute("clientList", clientList);
-        commonState(request, response);
+        listView(request, response, clientList);
     }
 
     public static void removeClient(HttpServletRequest request, HttpServletResponse response) {
@@ -72,8 +74,7 @@ public class ClientController implements Controller {
 
         dao.commit();
         dao.close();
-        request.setAttribute("clientList", clientList);
-        commonState(request, response);
+        listView(request, response, clientList);
     }
 
     public static void updateClient(HttpServletRequest request, HttpServletResponse response) {
@@ -103,8 +104,7 @@ public class ClientController implements Controller {
 
         dao.commit();
         dao.close();
-        request.setAttribute("clientList", clientList);
-        commonState(request, response);
+        listView(request, response, clientList);
     }
 
     public static void editClient(HttpServletRequest request, HttpServletResponse response) {
@@ -118,7 +118,7 @@ public class ClientController implements Controller {
 
         dao.commit();
         dao.close();
-        request.setAttribute("clientCompany", clientCompany); //set list as new session attribute
-        request.setAttribute("viewUrl", "/admin/clients/newClientCompany"); //set URL for forward view dispatch
+        attributes.add(new Object[]{"clientCompany", clientCompany});
+        formView(request, response);
     }
 }

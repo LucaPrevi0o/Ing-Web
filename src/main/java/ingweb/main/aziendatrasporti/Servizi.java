@@ -2,7 +2,6 @@ package ingweb.main.aziendatrasporti;
 
 import java.io.*;
 import java.rmi.ServerException;
-
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.*;
 import jakarta.servlet.http.*;
@@ -17,19 +16,17 @@ public class Servizi extends HttpServlet {
         PrintWriter out=response.getWriter(); //reference Servlet writer
         try {
 
-            var param=request.getParameter("action"); //get parameter for action to dispatch
+            var param=request.getParameter("action"); //get parameter for action to control
             if (param==null) param="LoginController.view"; //set default parameter for initial call
 
             var action=param.split("\\."); //split action in tokens
-            var dispClass=Class.forName("ingweb.main.aziendatrasporti.dispatch."+action[0]); //call class by action
-            var dispMethod=dispClass.getMethod(action[1], HttpServletRequest.class, HttpServletResponse.class);
-            //Controller.setAllAttributes(request, Controller.getAllAttributes(request));
+            var dispClass=Class.forName("ingweb.main.aziendatrasporti.control."+action[0]); //call class by action
+            var dispMethod=dispClass.getMethod(action[1], HttpServletRequest.class, HttpServletResponse.class); //get method from called class
             dispMethod.invoke(null, request, response); //call class static method by action
 
             var viewUrl=(String)request.getAttribute("viewUrl"); //get parameter for view to forward
-            var view=request.getRequestDispatcher("jsp/"+viewUrl+".jsp"); //set view dispatch from parameter
-            //Controller.setAllAttributes(request, Controller.getAllAttributes(request));
-            view.forward(request, response); //execute forward dispatch
+            var view=request.getRequestDispatcher("jsp/"+viewUrl+".jsp"); //set view control from parameter
+            view.forward(request, response); //execute forward control
         } catch (Exception e) {
 
             e.printStackTrace(out);

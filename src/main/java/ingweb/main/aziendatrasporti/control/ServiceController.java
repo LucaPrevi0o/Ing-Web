@@ -10,13 +10,6 @@ import java.util.ArrayList;
 
 public class ServiceController implements Controller {
 
-    private static void commonState(HttpServletRequest request, HttpServletResponse response) {
-
-        request.setAttribute("viewUrl", "/admin/services/serviceList");
-        request.setAttribute("selectedTab", "services");
-        request.setAttribute("loggedAccount", Controller.getLoggedAccount(request, response));
-    }
-
     public static void getServiceList(HttpServletRequest request, HttpServletResponse response) {
 
         var dao= Controller.getMySqlDAO("azienda_trasporti");
@@ -27,9 +20,11 @@ public class ServiceController implements Controller {
 
         dao.commit();
         dao.close();
-        request.setAttribute("serviceList", serviceList);
-        request.setAttribute("licenseList", licenseList);
-        commonState(request, response);
+
+        attributes.add(new Object[]{"licenseList", licenseList});
+        attributes.add(new Object[]{"serviceList", serviceList});
+        attributes.add(new Object[]{"viewUrl", "/admin/services/serviceList"});
+        Controller.commonState(request, response, "services");
     }
 
     public static void getServices(HttpServletRequest request, HttpServletResponse response) {
@@ -40,10 +35,10 @@ public class ServiceController implements Controller {
 
         dao.commit();
         dao.close();
-        request.setAttribute("serviceList", serviceList);
-        request.setAttribute("selectedTab", "services");
-        request.setAttribute("viewUrl", "/admin/services/assignedServices");
-        request.setAttribute("loggedAccount", Controller.getLoggedAccount(request, response));
+
+        attributes.add(new Object[]{"serviceList", serviceList});
+        attributes.add(new Object[]{"viewUrl", "/admin/services/assignedServices"});
+        Controller.commonState(request, response, "services");
     }
 
     public static void newService(HttpServletRequest request, HttpServletResponse response) {
@@ -54,9 +49,13 @@ public class ServiceController implements Controller {
         var clientList=clientDAO.findAll();
         var licenseList=licenseDAO.findAll();
 
-        request.setAttribute("licenseList", licenseList);
-        request.setAttribute("clientList", clientList);
-        request.setAttribute("viewUrl", "/admin/services/newService");
+        dao.commit();
+        dao.close();
+
+        attributes.add(new Object[]{"licenseList", licenseList});
+        attributes.add(new Object[]{"clientList", clientList});
+        attributes.add(new Object[]{"viewUrl", "/admin/services/newService"});
+        Controller.commonState(request, response, null);
     }
 
     public static void addService(HttpServletRequest request, HttpServletResponse response) {
@@ -93,9 +92,11 @@ public class ServiceController implements Controller {
 
         dao.commit();
         dao.close();
-        request.setAttribute("licenseList", licenseList);
-        request.setAttribute("serviceList", serviceList);
-        commonState(request, response);
+
+        attributes.add(new Object[]{"licenseList", licenseList});
+        attributes.add(new Object[]{"serviceList", serviceList});
+        attributes.add(new Object[]{"viewUrl", "/admin/services/serviceList"});
+        Controller.commonState(request, response, "services");
     }
 
     public static void removeService(HttpServletRequest request, HttpServletResponse response) {
@@ -112,9 +113,11 @@ public class ServiceController implements Controller {
 
         dao.commit();
         dao.close();
-        request.setAttribute("licenseList", licenseList);
-        request.setAttribute("serviceList", serviceList);
-        commonState(request, response);
+
+        attributes.add(new Object[]{"licenseList", licenseList});
+        attributes.add(new Object[]{"serviceList", serviceList});
+        attributes.add(new Object[]{"viewUrl", "/admin/services/serviceList"});
+        Controller.commonState(request, response, "services");
     }
 
     public static void updateService(HttpServletRequest request, HttpServletResponse response) {
@@ -151,9 +154,11 @@ public class ServiceController implements Controller {
 
         dao.commit();
         dao.close();
-        request.setAttribute("licenseList", licenseList);
-        request.setAttribute("serviceList", serviceList);
-        commonState(request, response);
+
+        attributes.add(new Object[]{"licenseList", licenseList});
+        attributes.add(new Object[]{"serviceList", serviceList});
+        attributes.add(new Object[]{"viewUrl", "/admin/services/serviceList"});
+        Controller.commonState(request, response, "services");
     }
 
     public static void editService(HttpServletRequest request, HttpServletResponse response) {
@@ -171,10 +176,12 @@ public class ServiceController implements Controller {
 
         dao.commit();
         dao.close();
-        request.setAttribute("service", service); //set list as new session attribute
-        request.setAttribute("licenseList", licenseList);
-        request.setAttribute("clientList", clientList);
-        request.setAttribute("viewUrl", "/admin/services/newService"); //set URL for forward view dispatch
+
+        attributes.add(new Object[]{"service", service});
+        attributes.add(new Object[]{"licenseList", licenseList});
+        attributes.add(new Object[]{"clientList", clientList});
+        attributes.add(new Object[]{"viewUrl", "/admin/services/newService"});
+        Controller.commonState(request, response, null);
     }
 
     public static void deleteAssignment(HttpServletRequest request, HttpServletResponse response) {
@@ -193,10 +200,10 @@ public class ServiceController implements Controller {
 
         dao.commit();
         dao.close();
-        request.setAttribute("serviceList", serviceList);
-        request.setAttribute("selectedTab", "services");
-        request.setAttribute("loggedAccount", Controller.getLoggedAccount(request, response));
-        request.setAttribute("viewUrl", "/admin/services/assignedServices"); //set URL for forward view dispatch
+
+        attributes.add(new Object[]{"serviceList", serviceList});
+        attributes.add(new Object[]{"viewUrl", "/admin/services/assignedServices"});
+        Controller.commonState(request, response, "services");
     }
 
     public static void assignService(HttpServletRequest request, HttpServletResponse response) {
@@ -213,11 +220,12 @@ public class ServiceController implements Controller {
 
         dao.commit();
         dao.close();
-        request.setAttribute("service", service);
-        request.setAttribute("workerList", workerList);
-        request.setAttribute("truckList", truckList);
-        request.setAttribute("selectedTab", "services");
-        request.setAttribute("viewUrl", "/admin/services/serviceAssignment"); //set URL for forward view dispatch
+
+        attributes.add(new Object[]{"service", service});
+        attributes.add(new Object[]{"workerList", workerList});
+        attributes.add(new Object[]{"truckList", truckList});
+        attributes.add(new Object[]{"viewUrl", "/admin/services/serviceAssignment"});
+        Controller.commonState(request, response, "services");
     }
 
     public static void confirmService(HttpServletRequest request, HttpServletResponse response) {
@@ -248,9 +256,9 @@ public class ServiceController implements Controller {
 
         dao.commit();
         dao.close();
-        request.setAttribute("serviceList", serviceList);
-        request.setAttribute("selectedTab", "services");
-        request.setAttribute("loggedAccount", Controller.getLoggedAccount(request, response));
-        request.setAttribute("viewUrl", "/admin/services/assignedServices"); //set URL for forward view dispatch
+
+        attributes.add(new Object[]{"serviceList", serviceList});
+        attributes.add(new Object[]{"viewUrl", "/admin/services/assignedServices"});
+        Controller.commonState(request, response, "services");
     }
 }

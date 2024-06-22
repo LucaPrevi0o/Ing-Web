@@ -10,6 +10,21 @@ import java.util.ArrayList;
 
 public class WorkerController implements Controller {
 
+    private static void listView(HttpServletRequest request, HttpServletResponse response, ArrayList<Worker> workerList, ArrayList<License> licenseList) {
+
+        attributes.add(new Object[]{"licenseList", licenseList});
+        attributes.add(new Object[]{"workerList", workerList});
+        attributes.add(new Object[]{"viewUrl", "/admin/workers/workers"});
+        Controller.commonState(request, response, "workers");
+    }
+
+    private static void formView(HttpServletRequest request, HttpServletResponse response, ArrayList<License> licenseList) {
+
+        attributes.add(new Object[]{"licenseList", licenseList});
+        attributes.add(new Object[]{"viewUrl", "/admin/workers/newWorker"});
+        Controller.commonState(request, response, null);
+    }
+
     public static void getWorkers(HttpServletRequest request, HttpServletResponse response) {
 
         //get registered account list specifying DAO database implementation
@@ -21,10 +36,7 @@ public class WorkerController implements Controller {
 
         dao.commit();
         dao.close();
-
-        attributes.add(new Object[]{"licenseList", licenseList});
-        attributes.add(new Object[]{"workerList", workerList});
-        Controller.commonState(request, response, "worker");
+        listView(request, response, workerList, licenseList);
     }
 
     public static void addWorker(HttpServletRequest request, HttpServletResponse response) {
@@ -64,10 +76,7 @@ public class WorkerController implements Controller {
         dao.close();
         newDao.commit();
         newDao.close();
-
-        attributes.add(new Object[]{"licenseList", licenseList});
-        attributes.add(new Object[]{"workerList", workerList});
-        Controller.commonState(request, response, "worker");
+        listView(request, response, workerList, licenseList);
     }
 
     public static void newWorker(HttpServletRequest request, HttpServletResponse response) {
@@ -78,10 +87,7 @@ public class WorkerController implements Controller {
 
         dao.commit();
         dao.close();
-
-        attributes.add(new Object[]{"licenseList", licenseList});
-        attributes.add(new Object[]{"viewUrl", "/admin/workers/newWorker"});
-        Controller.commonState(request, response, null);
+        formView(request, response, licenseList);
     }
 
     public static void removeWorker(HttpServletRequest request, HttpServletResponse response) {
@@ -104,11 +110,7 @@ public class WorkerController implements Controller {
         dao.close();
         newDao.commit();
         newDao.close();
-
-        attributes.add(new Object[]{"licenseList", licenseList});
-        attributes.add(new Object[]{"workerList", workerList});
-        attributes.add(new Object[]{"viewUrl", "/admin/workers/workers"});
-        Controller.commonState(request, response, "worker");
+        listView(request, response, workerList, licenseList);
     }
 
     public static void updateWorker(HttpServletRequest request, HttpServletResponse response) {
@@ -144,11 +146,7 @@ public class WorkerController implements Controller {
 
         dao.commit();
         dao.close();
-
-        attributes.add(new Object[]{"licenseList", licenseList});
-        attributes.add(new Object[]{"workerList", workerList});
-        attributes.add(new Object[]{"viewUrl", "/admin/workers/workers"});
-        Controller.commonState(request, response, "worker");
+        listView(request, response, workerList, licenseList);
     }
 
     public static void editWorker(HttpServletRequest request, HttpServletResponse response) {
@@ -169,13 +167,7 @@ public class WorkerController implements Controller {
         dao.close();
         newDao.commit();
         newDao.close();
-        request.setAttribute("worker", worker); //set list as new session attribute
-        request.setAttribute("licenseList", licenseList);
-        request.setAttribute("viewUrl", "/admin/workers/newWorker"); //set URL for forward view dispatch
-
-        attributes.add(new Object[]{"licenseList", licenseList});
         attributes.add(new Object[]{"worker", worker});
-        attributes.add(new Object[]{"viewUrl", "/admin/workers/newWorker"});
-        Controller.commonState(request, response, null);
+        formView(request, response, licenseList);
     }
 }

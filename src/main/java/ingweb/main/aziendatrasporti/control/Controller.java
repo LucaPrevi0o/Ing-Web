@@ -19,10 +19,10 @@ public interface Controller {
 
     static void setAllAttributes(HttpServletRequest request) {
 
-        System.out.println("Attribute setting for request - Attributes: "+attributes.size());
+        System.out.println("\nAttribute setting for request - Attributes: "+attributes.size());
         for (var attribute : attributes) {
 
-            System.out.println("New attribute [Name: \""+attribute[0]+"\" - Value: \""+attribute[1]+"\"]");
+            System.out.println("New attribute [Name: \""+attribute[0]+"\" - Value: "+attribute[1]+"]");
             request.setAttribute((String)attribute[0], attribute[1]);
         }
 

@@ -7,7 +7,7 @@ public class LoginController implements Controller {
 
     private static void commonState(HttpServletRequest request, HttpServletResponse response) {
 
-        request.setAttribute("viewUrl", "/login"); //set URL for forward view dispatch
+        request.setAttribute("viewUrl", "/login"); //set URL for forward view control
     }
 
     public static void validate(HttpServletRequest request, HttpServletResponse response) {
@@ -16,10 +16,10 @@ public class LoginController implements Controller {
         var password=request.getParameter("password");
 
         //get registered account list specifying DAO database implementation
-        var mySqlDAO= Controller.getMySqlDAO("aziendatrasportidb");
-        var dao= Controller.getMySqlDAO("azienda_trasporti");
+        var mySqlDAO=Controller.getMySqlDAO("aziendatrasportidb");
+        var dao=Controller.getMySqlDAO("azienda_trasporti");
         var serviceDAO=dao.getServiceDAO();
-        var cookieDAO= Controller.getCookieDAO(request, response);
+        var cookieDAO=Controller.getCookieDAO(request, response);
         var mySqlAccountDAO=mySqlDAO.getAccountDAO(); //get account DAO implementation for the selected database
         var cookieAccountDAO=cookieDAO.getAccountDAO();
         var validatedAccount=mySqlAccountDAO.findByUsername(username);
@@ -32,7 +32,7 @@ public class LoginController implements Controller {
         if (loggedAccount!=null || (!accountList.isEmpty() && !adminList.isEmpty() && accountList.contains(validatedAccount) && validatedAccount.getPassword().equals(password))) {
 
             if (loggedAccount==null) cookieAccountDAO.createAccount(validatedAccount);
-            if (adminList.contains(validatedAccount) || (loggedAccount!=null && adminList.contains(loggedAccount))) request.setAttribute("viewUrl", "/admin/welcome"); //set URL for forward view dispatch
+            if (adminList.contains(validatedAccount) || (loggedAccount!=null && adminList.contains(loggedAccount))) request.setAttribute("viewUrl", "/admin/welcome"); //set URL for forward view control
             else {
 
                 request.setAttribute("viewUrl", "/worker/servicePage");
