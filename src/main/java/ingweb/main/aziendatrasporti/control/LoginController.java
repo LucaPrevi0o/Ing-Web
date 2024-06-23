@@ -43,6 +43,8 @@ public class LoginController implements Controller {
             cookieAccountDAO.createAccount(loggedAccount);
         }
 
+        mySqlDAO.confirm();
+        cookieDAO.confirm();
         if (!accountList.contains(loggedAccount)) rejectLogin(request, response, "not-registered");
         else if (!loggedAccount.getPassword().equals(password)) rejectLogin(request, response, "denied");
         else {

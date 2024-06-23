@@ -34,8 +34,7 @@ public class WorkerController implements Controller {
         var workerList=workerDAO.findAll(); //return account list filtered by admin level
         var licenseList=licenseDAO.findAll();
 
-        dao.commit();
-        dao.close();
+        dao.confirm();
         listView(request, response, workerList, licenseList);
     }
 
@@ -72,10 +71,8 @@ public class WorkerController implements Controller {
         var workerList=workerDAO.findAll(); //return account list filtered by admin level
         licenseList=licenseDAO.findAll();
 
-        dao.commit();
-        dao.close();
-        newDao.commit();
-        newDao.close();
+        dao.confirm();
+        newDao.confirm();
         listView(request, response, workerList, licenseList);
     }
 
@@ -85,8 +82,7 @@ public class WorkerController implements Controller {
         var licenseDAO=dao.getLicenseDAO();
         var licenseList=licenseDAO.findAll();
 
-        dao.commit();
-        dao.close();
+        dao.confirm();
         formView(request, response, licenseList);
     }
 
@@ -106,10 +102,8 @@ public class WorkerController implements Controller {
         var workerList=workerDAO.findAll();
         var licenseList=licenseDAO.findAll();
 
-        dao.commit();
-        dao.close();
-        newDao.commit();
-        newDao.close();
+        dao.confirm();
+        newDao.confirm();
         listView(request, response, workerList, licenseList);
     }
 
@@ -144,8 +138,7 @@ public class WorkerController implements Controller {
         var workerList=workerDAO.findAll(); //return account list filtered by admin level
         licenseList=licenseDAO.findAll();
 
-        dao.commit();
-        dao.close();
+        dao.confirm();
         listView(request, response, workerList, licenseList);
     }
 
@@ -153,7 +146,7 @@ public class WorkerController implements Controller {
 
         //get registered account list specifying DAO database implementation
         var dao= Controller.getMySqlDAO("azienda_trasporti");
-        var newDao= Controller.getMySqlDAO("aziendatrasportidb");
+        var newDao=Controller.getMySqlDAO("aziendatrasportidb");
         var accountDAO=newDao.getAccountDAO();
         var workerDAO=dao.getWorkerDAO(); //get worker DAO implementation for the selected database
         var licenseDAO=dao.getLicenseDAO();
@@ -163,10 +156,8 @@ public class WorkerController implements Controller {
         var worker=workerDAO.findByCode(Integer.parseInt(name));
         accountDAO.removeAccount(new Account(worker.getFiscalCode(), null, null, false, false));
 
-        dao.commit();
-        dao.close();
-        newDao.commit();
-        newDao.close();
+        dao.confirm();
+        newDao.confirm();
         attributes.add(new Object[]{"worker", worker});
         formView(request, response, licenseList);
     }

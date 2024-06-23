@@ -16,18 +16,7 @@ public class CookieDAOFactory extends DAOFactory {
         this.response=response;
     }
 
-    public void commit() {
-
-    }
-
-    public void rollback() {
-
-    }
-
-    public void close() {
-
-    }
-
+    public void confirm() {}
     public AccountDAO getAccountDAO() { return new CookieAccountDAO(request, response); }
     public WorkerDAO getWorkerDAO() { return null; }
     public ServiceDAO getServiceDAO() { return null; }

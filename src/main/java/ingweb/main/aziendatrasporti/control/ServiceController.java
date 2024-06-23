@@ -18,9 +18,7 @@ public class ServiceController implements Controller {
         var licenseList=licenseDAO.findAll();
         var serviceList=serviceDAO.findAllNotAssigned();
 
-        dao.commit();
-        dao.close();
-
+        dao.confirm();
         attributes.add(new Object[]{"licenseList", licenseList});
         attributes.add(new Object[]{"serviceList", serviceList});
         attributes.add(new Object[]{"selectedTab", "services"});
@@ -33,9 +31,7 @@ public class ServiceController implements Controller {
         var serviceDAO=dao.getServiceDAO();
         var serviceList=serviceDAO.findAllAssigned();
 
-        dao.commit();
-        dao.close();
-
+        dao.confirm();
         attributes.add(new Object[]{"serviceList", serviceList});
         attributes.add(new Object[]{"viewUrl", "/admin/services/assignedServices"});
         attributes.add(new Object[]{"selectedTab", "services"});
@@ -50,9 +46,7 @@ public class ServiceController implements Controller {
         var clientList=clientDAO.findAll();
         var licenseList=licenseDAO.findAll();
 
-        dao.commit();
-        dao.close();
-
+        dao.confirm();
         attributes.add(new Object[]{"licenseList", licenseList});
         attributes.add(new Object[]{"clientList", clientList});
         attributes.add(new Object[]{"viewUrl", "/admin/services/newService"});
@@ -91,9 +85,7 @@ public class ServiceController implements Controller {
         var serviceList=serviceDAO.findAllNotAssigned(); //return account list filtered by admin level
         licenseList=licenseDAO.findAll();
 
-        dao.commit();
-        dao.close();
-
+        dao.confirm();
         attributes.add(new Object[]{"licenseList", licenseList});
         attributes.add(new Object[]{"serviceList", serviceList});
         attributes.add(new Object[]{"selectedTab", "services"});
@@ -113,9 +105,7 @@ public class ServiceController implements Controller {
         var serviceList=serviceDAO.findAllNotAssigned(); //return account list filtered by admin level
         var licenseList=licenseDAO.findAll();
 
-        dao.commit();
-        dao.close();
-
+        dao.confirm();
         attributes.add(new Object[]{"licenseList", licenseList});
         attributes.add(new Object[]{"serviceList", serviceList});
         attributes.add(new Object[]{"selectedTab", "services"});
@@ -155,9 +145,7 @@ public class ServiceController implements Controller {
         var serviceList=serviceDAO.findAllNotAssigned(); //return account list filtered by admin level
         licenseList=licenseDAO.findAll();
 
-        dao.commit();
-        dao.close();
-
+        dao.confirm();
         attributes.add(new Object[]{"licenseList", licenseList});
         attributes.add(new Object[]{"serviceList", serviceList});
         attributes.add(new Object[]{"selectedTab", "services"});
@@ -178,9 +166,7 @@ public class ServiceController implements Controller {
         var code=request.getParameter("code");
         var service=serviceDAO.findByCode(Integer.parseInt(code));
 
-        dao.commit();
-        dao.close();
-
+        dao.confirm();
         attributes.add(new Object[]{"service", service});
         attributes.add(new Object[]{"licenseList", licenseList});
         attributes.add(new Object[]{"clientList", clientList});
@@ -202,9 +188,7 @@ public class ServiceController implements Controller {
         serviceDAO.updateAssignment(service);
         var serviceList=serviceDAO.findAllAssigned();
 
-        dao.commit();
-        dao.close();
-
+        dao.confirm();
         attributes.add(new Object[]{"serviceList", serviceList});
         attributes.add(new Object[]{"selectedTab", "services"});
         attributes.add(new Object[]{"viewUrl", "/admin/services/assignedServices"});
@@ -223,9 +207,7 @@ public class ServiceController implements Controller {
         var workerList=workerDAO.findAllByLicenses(service.getValidLicenses());
         var truckList=truckDAO.findAllByLicenses(service.getValidLicenses());
 
-        dao.commit();
-        dao.close();
-
+        dao.confirm();
         attributes.add(new Object[]{"service", service});
         attributes.add(new Object[]{"workerList", workerList});
         attributes.add(new Object[]{"truckList", truckList});
@@ -260,9 +242,7 @@ public class ServiceController implements Controller {
         serviceDAO.assignService(service);
         var serviceList=serviceDAO.findAllAssigned();
 
-        dao.commit();
-        dao.close();
-
+        dao.confirm();
         attributes.add(new Object[]{"serviceList", serviceList});
         attributes.add(new Object[]{"selectedTab", "services"});
         attributes.add(new Object[]{"viewUrl", "/admin/services/assignedServices"});

@@ -15,22 +15,18 @@ public class MySqlDAOFactory extends DAOFactory {
         this.connection=MySqlQueryManager.getConnection(url);
     }
 
-    public void commit() {
+    public void confirm() {
 
-        try { connection.commit(); }
-        catch (Exception e) { e.printStackTrace(); }
-    }
+        try {
 
-    public void rollback() {
+            connection.commit();
+            connection.close();
+        } catch (SQLException e) {
 
-        try { connection.rollback(); }
-        catch (Exception e) { e.printStackTrace(); }
-    }
-
-    public void close() {
-
-        try { connection.close(); }
-        catch (Exception e) { e.printStackTrace(); }
+            e.printStackTrace();
+            try { connection.rollback(); }
+            catch (Exception x) { x.printStackTrace(); }
+        }
     }
 
     //list of DAO elements implemented by MySQL database

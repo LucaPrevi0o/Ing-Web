@@ -13,9 +13,7 @@ public abstract class DAOFactory {
     //implement different methods for transaction management that follow the same logic;
     //database access can be different between different data sources (files, different DB...) and so is not set as
     //a standard abstract method to implement
-    public abstract void commit();
-    public abstract void rollback();
-    public abstract void close();
+    public abstract void confirm();
 
     //list of methods to return every DAO for different data structure
     public abstract AccountDAO getAccountDAO(); //account (for login management)

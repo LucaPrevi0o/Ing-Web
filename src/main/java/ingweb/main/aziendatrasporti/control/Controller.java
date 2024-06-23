@@ -13,7 +13,6 @@ public interface Controller {
     static void commonState(HttpServletRequest request, HttpServletResponse response) {
 
         var account=getLoggedAccount(request, response);
-        System.out.println("Logged account: "+account);
         var attribute=new Object[]{"loggedAccount", account};
         if (account!=null && !attributes.contains(attribute)) attributes.add(attribute);
         setAllAttributes(request);

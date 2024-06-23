@@ -26,8 +26,7 @@ public class ClientController implements Controller {
         var clientDAO=dao.getClientDAO();
         var clientList=clientDAO.findAll();
 
-        dao.commit();
-        dao.close();
+        dao.confirm();
         listView(request, response, clientList);
     }
 
@@ -56,8 +55,7 @@ public class ClientController implements Controller {
 
         var clientList=clientDAO.findAll();
 
-        dao.commit();
-        dao.close();
+        dao.confirm();
         listView(request, response, clientList);
     }
 
@@ -71,8 +69,7 @@ public class ClientController implements Controller {
         clientDAO.removeClient(clientDAO.findByCode(Integer.parseInt(code)));
         var clientList=clientDAO.findAll();
 
-        dao.commit();
-        dao.close();
+        dao.confirm();
         listView(request, response, clientList);
     }
 
@@ -101,8 +98,7 @@ public class ClientController implements Controller {
 
         var clientList=clientDAO.findAll(); //return account list filtered by admin level
 
-        dao.commit();
-        dao.close();
+        dao.confirm();
         listView(request, response, clientList);
     }
 
@@ -115,8 +111,7 @@ public class ClientController implements Controller {
         var name=request.getParameter("code");
         var clientCompany=clientDAO.findByCode(Integer.parseInt(name));
 
-        dao.commit();
-        dao.close();
+        dao.confirm();
         attributes.add(new Object[]{"clientCompany", clientCompany});
         formView(request, response);
     }

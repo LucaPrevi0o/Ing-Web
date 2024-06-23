@@ -30,8 +30,7 @@ public class TruckController implements Controller {
         var truckList=truckDAO.findAll();
         var licenseList=licenseDAO.findAll();
 
-        dao.commit();
-        dao.close();
+        dao.confirm();
         listView(request, response, truckList, licenseList);
     }
 
@@ -41,8 +40,7 @@ public class TruckController implements Controller {
         var licenseDAO=dao.getLicenseDAO();
         var licenseList=licenseDAO.findAll();
 
-        dao.commit();
-        dao.close();
+        dao.confirm();
         formView(request, response, licenseList);
     }
 
@@ -73,8 +71,7 @@ public class TruckController implements Controller {
         var truckList=truckDAO.findAll();
         licenseList=licenseDAO.findAll();
 
-        dao.commit();
-        dao.close();
+        dao.confirm();
         listView(request, response, truckList, licenseList);
     }
 
@@ -90,8 +87,7 @@ public class TruckController implements Controller {
         var truckList=truckDAO.findAll();
         var licenseList=licenseDAO.findAll();
 
-        dao.commit();
-        dao.close();
+        dao.confirm();
         listView(request, response, truckList, licenseList);
     }
 
@@ -124,8 +120,7 @@ public class TruckController implements Controller {
         var truckList=truckDAO.findAll();
         licenseList=licenseDAO.findAll();
 
-        dao.commit();
-        dao.close();
+        dao.confirm();
         listView(request, response, truckList, licenseList);
     }
 
@@ -140,8 +135,7 @@ public class TruckController implements Controller {
         var code=request.getParameter("code");
         var truck=truckDAO.findByCode(Integer.parseInt(code));
 
-        dao.commit();
-        dao.close();
+        dao.confirm();
         attributes.add(new Object[]{"truck", truck});
         formView(request, response, licenseList);
     }
