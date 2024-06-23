@@ -11,14 +11,13 @@ public class ClientController implements Controller {
     private static void listView(HttpServletRequest request, HttpServletResponse response, ArrayList<ClientCompany> clientList) {
 
         attributes.add(new Object[]{"clientList", clientList});
+        attributes.add(new Object[]{"selectedTab", "clients"});
         attributes.add(new Object[]{"viewUrl", "/admin/clients/clientCompanies"});
-        Controller.commonState(request, response, "clients");
     }
 
     private static void formView(HttpServletRequest request, HttpServletResponse response) {
 
         attributes.add(new Object[]{"viewUrl", "/admin/clients/newClientCompany"});
-        Controller.commonState(request, response, null);
     }
 
     public static void getClients(HttpServletRequest request, HttpServletResponse response) {

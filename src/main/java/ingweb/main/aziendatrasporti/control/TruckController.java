@@ -11,16 +11,15 @@ public class TruckController implements Controller {
     private static void listView(HttpServletRequest request, HttpServletResponse response, ArrayList<Truck> truckList, ArrayList<License> licenseList) {
 
         attributes.add(new Object[]{"truckList", truckList});
+        attributes.add(new Object[]{"selectedTab", "trucks"});
         attributes.add(new Object[]{"licenseList", licenseList});
         attributes.add(new Object[]{"viewUrl", "/admin/trucks/trucks"});
-        Controller.commonState(request, response, "trucks");
     }
 
     private static void formView(HttpServletRequest request, HttpServletResponse response, ArrayList<License> licenseList) {
 
         attributes.add(new Object[]{"licenseList", licenseList});
         attributes.add(new Object[]{"viewUrl", "/admin/trucks/newTruck"});
-        Controller.commonState(request, response, null);
     }
 
     public static void getTrucks(HttpServletRequest request, HttpServletResponse response) {

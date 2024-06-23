@@ -1,63 +1,65 @@
 package ingweb.main.aziendatrasporti.control;
 
+import ingweb.main.aziendatrasporti.mo.Account;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class LoginController implements Controller {
 
-    private static void commonState(HttpServletRequest request, HttpServletResponse response) {
+    private static void adminLogin(HttpServletRequest request, HttpServletResponse response, Account account) {
 
-        request.setAttribute("viewUrl", "/login"); //set URL for forward view control
+        attributes.add(new Object[]{"loggedAccount", account});
+        attributes.add(new Object[]{"viewUrl", "/admin/welcome"});
     }
 
-    public static void validate(HttpServletRequest request, HttpServletResponse response) {
+    private static void workerLogin(HttpServletRequest request, HttpServletResponse response, Account account) {
+
+        attributes.add(new Object[]{"loggedAccount", account});
+        attributes.add(new Object[]{"viewUrl", "/worker/welcome"});
+    }
+
+    private static void rejectLogin(HttpServletRequest request, HttpServletResponse response, String rejectReason) {
+
+        attributes.add(new Object[]{"viewUrl", "/login"});
+        attributes.add(new Object[]{"access", rejectReason});
+    }
+
+    public static void doLogin(HttpServletRequest request, HttpServletResponse response) {
 
         var username=request.getParameter("username");
         var password=request.getParameter("password");
 
-        //get registered account list specifying DAO database implementation
         var mySqlDAO=Controller.getMySqlDAO("aziendatrasportidb");
-        var dao=Controller.getMySqlDAO("azienda_trasporti");
-        var serviceDAO=dao.getServiceDAO();
         var cookieDAO=Controller.getCookieDAO(request, response);
-        var mySqlAccountDAO=mySqlDAO.getAccountDAO(); //get account DAO implementation for the selected database
+        var mySqlAccountDAO=mySqlDAO.getAccountDAO();
         var cookieAccountDAO=cookieDAO.getAccountDAO();
-        var validatedAccount=mySqlAccountDAO.findByUsername(username);
-        var loggedAccount=cookieAccountDAO.findLoggedAccount();
+
         var adminList=mySqlAccountDAO.findAll(true); //return account list filtered by admin level
         var accountList=mySqlAccountDAO.findAll(false); //return account list filtered by admin level
-        mySqlDAO.commit();
-        mySqlDAO.close();
+        var loggedAccount=cookieAccountDAO.findLoggedAccount();
+        if (loggedAccount==null) {
 
-        if (loggedAccount!=null || (!accountList.isEmpty() && !adminList.isEmpty() && accountList.contains(validatedAccount) && validatedAccount.getPassword().equals(password))) {
-
-            if (loggedAccount==null) cookieAccountDAO.createAccount(validatedAccount);
-            if (adminList.contains(validatedAccount) || (loggedAccount!=null && adminList.contains(loggedAccount))) request.setAttribute("viewUrl", "/admin/welcome"); //set URL for forward view control
-            else {
-
-                request.setAttribute("viewUrl", "/worker/servicePage");
-                var pwd=(loggedAccount!=null ? loggedAccount.getUsername() : validatedAccount.getUsername());
-                var serviceList=serviceDAO.findAllAssignedByFiscalCode(pwd);
-                request.setAttribute("serviceList", serviceList);
-            }
-            request.setAttribute("loggedAccount", loggedAccount!=null ? loggedAccount : validatedAccount);
-            return; //break early for permitted login
+            loggedAccount=mySqlAccountDAO.findByUsername(username);
+            cookieAccountDAO.createAccount(loggedAccount);
         }
 
-        //set access as denied (account has no admin permission)
-        if (validatedAccount!=null && validatedAccount.getUsername().equals(username) && !validatedAccount.getPassword().equals(password)) request.setAttribute("access", "denied");
-        else request.setAttribute("access", "not-registered"); //username/password have no account related
-        commonState(request, response);
+        if (!accountList.contains(loggedAccount)) rejectLogin(request, response, "not-registered");
+        else if (!loggedAccount.getPassword().equals(password)) rejectLogin(request, response, "denied");
+        else {
+
+            if (adminList.contains(loggedAccount)) adminLogin(request, response, loggedAccount);
+            else workerLogin(request, response, loggedAccount);
+        }
     }
 
     public static void logout(HttpServletRequest request, HttpServletResponse response) {
 
-        var cookieDAO= Controller.getCookieDAO(request, response);
+        var cookieDAO=Controller.getCookieDAO(request, response);
         var cookieAccountDAO=cookieDAO.getAccountDAO();
         var loggedAccount=cookieAccountDAO.findLoggedAccount();
         if (loggedAccount!=null) cookieAccountDAO.deleteAccount(loggedAccount);
-        commonState(request, response);
+        attributes.add(new Object[]{"viewUrl", "/login"});
     }
 
-    public static void view(HttpServletRequest request, HttpServletResponse response) { commonState(request, response); }
+    public static void view(HttpServletRequest request, HttpServletResponse response) { attributes.add(new Object[]{"viewUrl", "/login"}); }
 }

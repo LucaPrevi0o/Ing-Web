@@ -14,15 +14,15 @@ public class WorkerController implements Controller {
 
         attributes.add(new Object[]{"licenseList", licenseList});
         attributes.add(new Object[]{"workerList", workerList});
+        attributes.add(new Object[]{"selectedTab", "workers"});
         attributes.add(new Object[]{"viewUrl", "/admin/workers/workers"});
-        Controller.commonState(request, response, "workers");
     }
 
     private static void formView(HttpServletRequest request, HttpServletResponse response, ArrayList<License> licenseList) {
 
         attributes.add(new Object[]{"licenseList", licenseList});
+        attributes.add(new Object[]{"selectedTab", "workers"});
         attributes.add(new Object[]{"viewUrl", "/admin/workers/newWorker"});
-        Controller.commonState(request, response, null);
     }
 
     public static void getWorkers(HttpServletRequest request, HttpServletResponse response) {

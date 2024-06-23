@@ -8,6 +8,7 @@
     var licenseList=(ArrayList<License>)request.getAttribute("licenseList");
     if (licenseList==null) licenseList=new ArrayList<>();
 %>
+<%@ include file="/jsp/admin/welcome.jsp" %>
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/dataTable.css">
@@ -62,7 +63,6 @@
         </script>
     </head>
     <body>
-        <%@ include file="/jsp/admin/welcome.jsp" %>
         <hr/>
         <h1>Lista autisti</h1>
         <table>
@@ -87,14 +87,17 @@
                 </tr>
             <% } %>
         </table>
-        <form name="dataForm" action="<%= request.getContextPath() %>/Servizi" method="post">
-            <div class="styled">
-                <input type="button" id="newWorkerButton" value="Nuovo autista">
-                <input type="button" id="refreshButton" value="Aggiorna lista">
-                <input type="button" id="backButton" value="Chiudi tab">
-            </div>
-            <input type="hidden" name="code">
-            <input type="hidden" name="action">
-        </form>
+        <nav>
+            <form name="dataForm" action="<%= request.getContextPath() %>/Servizi" method="post">
+                <div class="styled">
+                    <input type="button" id="newWorkerButton" value="Nuovo autista">
+                    <input type="button" id="refreshButton" value="Aggiorna lista">
+                    <input type="button" id="backButton" value="Chiudi tab">
+                </div>
+                <input type="hidden" name="code">
+                <input type="hidden" name="action">
+            </form>
+        </nav>
+
     </body>
 </html>

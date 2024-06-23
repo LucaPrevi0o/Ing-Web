@@ -8,11 +8,10 @@
     var licenseList=(ArrayList<License>)request.getAttribute("licenseList");
     if (licenseList==null) licenseList=new ArrayList<>();
 %>
+<%@ include file="/jsp/admin/welcome.jsp" %>
 <html>
     <head>
         <title><%= worker==null ? "Nuovo autista" : "Modifica dati austista"%></title>
-        <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/generalStyle.css">
-        <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/navMenu.css">
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/dataTable.css">
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/dataForm.css">
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/checkbox.css">
@@ -49,6 +48,7 @@
         </script>
     </head>
     <body>
+        <hr/>
         <form name="dataForm" action="<%= request.getContextPath() %>/Servizi" method="post">
             <h1><%= worker==null ? "Nuovo autista" : "Modifica dati autista" %></h1>
             <hr/>

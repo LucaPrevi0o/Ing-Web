@@ -23,8 +23,8 @@ public class ServiceController implements Controller {
 
         attributes.add(new Object[]{"licenseList", licenseList});
         attributes.add(new Object[]{"serviceList", serviceList});
+        attributes.add(new Object[]{"selectedTab", "services"});
         attributes.add(new Object[]{"viewUrl", "/admin/services/serviceList"});
-        Controller.commonState(request, response, "services");
     }
 
     public static void getServices(HttpServletRequest request, HttpServletResponse response) {
@@ -38,7 +38,8 @@ public class ServiceController implements Controller {
 
         attributes.add(new Object[]{"serviceList", serviceList});
         attributes.add(new Object[]{"viewUrl", "/admin/services/assignedServices"});
-        Controller.commonState(request, response, "services");
+        attributes.add(new Object[]{"selectedTab", "services"});
+        Controller.commonState(request, response);
     }
 
     public static void newService(HttpServletRequest request, HttpServletResponse response) {
@@ -55,7 +56,7 @@ public class ServiceController implements Controller {
         attributes.add(new Object[]{"licenseList", licenseList});
         attributes.add(new Object[]{"clientList", clientList});
         attributes.add(new Object[]{"viewUrl", "/admin/services/newService"});
-        Controller.commonState(request, response, null);
+        Controller.commonState(request, response);
     }
 
     public static void addService(HttpServletRequest request, HttpServletResponse response) {
@@ -95,8 +96,9 @@ public class ServiceController implements Controller {
 
         attributes.add(new Object[]{"licenseList", licenseList});
         attributes.add(new Object[]{"serviceList", serviceList});
+        attributes.add(new Object[]{"selectedTab", "services"});
         attributes.add(new Object[]{"viewUrl", "/admin/services/serviceList"});
-        Controller.commonState(request, response, "services");
+        Controller.commonState(request, response);
     }
 
     public static void removeService(HttpServletRequest request, HttpServletResponse response) {
@@ -116,8 +118,9 @@ public class ServiceController implements Controller {
 
         attributes.add(new Object[]{"licenseList", licenseList});
         attributes.add(new Object[]{"serviceList", serviceList});
+        attributes.add(new Object[]{"selectedTab", "services"});
         attributes.add(new Object[]{"viewUrl", "/admin/services/serviceList"});
-        Controller.commonState(request, response, "services");
+        Controller.commonState(request, response);
     }
 
     public static void updateService(HttpServletRequest request, HttpServletResponse response) {
@@ -157,8 +160,9 @@ public class ServiceController implements Controller {
 
         attributes.add(new Object[]{"licenseList", licenseList});
         attributes.add(new Object[]{"serviceList", serviceList});
+        attributes.add(new Object[]{"selectedTab", "services"});
         attributes.add(new Object[]{"viewUrl", "/admin/services/serviceList"});
-        Controller.commonState(request, response, "services");
+        Controller.commonState(request, response);
     }
 
     public static void editService(HttpServletRequest request, HttpServletResponse response) {
@@ -181,7 +185,7 @@ public class ServiceController implements Controller {
         attributes.add(new Object[]{"licenseList", licenseList});
         attributes.add(new Object[]{"clientList", clientList});
         attributes.add(new Object[]{"viewUrl", "/admin/services/newService"});
-        Controller.commonState(request, response, null);
+        Controller.commonState(request, response);
     }
 
     public static void deleteAssignment(HttpServletRequest request, HttpServletResponse response) {
@@ -202,8 +206,9 @@ public class ServiceController implements Controller {
         dao.close();
 
         attributes.add(new Object[]{"serviceList", serviceList});
+        attributes.add(new Object[]{"selectedTab", "services"});
         attributes.add(new Object[]{"viewUrl", "/admin/services/assignedServices"});
-        Controller.commonState(request, response, "services");
+        Controller.commonState(request, response);
     }
 
     public static void assignService(HttpServletRequest request, HttpServletResponse response) {
@@ -224,8 +229,9 @@ public class ServiceController implements Controller {
         attributes.add(new Object[]{"service", service});
         attributes.add(new Object[]{"workerList", workerList});
         attributes.add(new Object[]{"truckList", truckList});
+        attributes.add(new Object[]{"selectedTab", "services"});
         attributes.add(new Object[]{"viewUrl", "/admin/services/serviceAssignment"});
-        Controller.commonState(request, response, "services");
+        Controller.commonState(request, response);
     }
 
     public static void confirmService(HttpServletRequest request, HttpServletResponse response) {
@@ -258,7 +264,8 @@ public class ServiceController implements Controller {
         dao.close();
 
         attributes.add(new Object[]{"serviceList", serviceList});
+        attributes.add(new Object[]{"selectedTab", "services"});
         attributes.add(new Object[]{"viewUrl", "/admin/services/assignedServices"});
-        Controller.commonState(request, response, "services");
+        Controller.commonState(request, response);
     }
 }

@@ -6,7 +6,6 @@ import ingweb.main.aziendatrasporti.mo.Account;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import java.util.ArrayList;
 
 public class CookieAccountDAO implements AccountDAO {
@@ -38,7 +37,6 @@ public class CookieAccountDAO implements AccountDAO {
     public void addAccount(Account account) {}
     public void removeAccount(Account account) {}
     public void updateAccount(Account account) {}
-
     public ArrayList<Account> findAll(boolean admin) { return null; }
     public Account findByUsernameAndPassword(String username, String password) { return null; }
     public Account findByUsername(String username) { return null; }
@@ -47,7 +45,12 @@ public class CookieAccountDAO implements AccountDAO {
 
         var cookies=request.getCookies();
         if (cookies!=null) for (var cookie: cookies)
-            if (cookie.getName().equals("loggedAccount")) return Controller.getMySqlDAO("aziendatrasportidb").getAccountDAO().findByUsername(cookie.getValue());
+            if (cookie.getName().equals("loggedAccount")) {
+
+                var dao=Controller.getMySqlDAO("aziendatrasportidb");
+                var accountDAO=dao.getAccountDAO();
+                return accountDAO.findByUsername(cookie.getValue());
+            }
         return null;
     }
 }

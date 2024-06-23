@@ -30,7 +30,7 @@
             <input type="text" placeholder="Username" id="username" name="username" pattern="[a-z0-9]*" required><br/>
             <input type="password" placeholder="Password" id="password" name="password" pattern="[A-Za-z0-9]*" required><br/>
             <input type="button" id="submitButton" value="Accedi"><br/>
-            <input type="hidden" name="action" value="LoginDispatcher.validate">
+            <input type="hidden" name="action" value="LoginController.doLogin">
         </form>
     </body>
 </html>

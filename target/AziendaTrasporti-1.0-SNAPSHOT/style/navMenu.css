@@ -1,29 +1,10 @@
-form {
+nav form {
 
     padding: 10px;
     border-radius: 10px;
     margin-top: 40px;
     background-color: #ffff00;
     width: 98%;
-
-    input {
-
-        border-radius: 5px;
-        height: 20px;
-        color: #ffffff;
-        font-size: 11px;
-        width: 8%;
-        min-width: 135px;
-        text-align: center;
-        background-color: #006600;
-        border: 1px solid #444444;
-    }
-
-    input.selected { background-color: #006666 }
-    input:hover { background-color: #008800 }
-    input.selected:hover { background-color: #008888 }
-    input:active { background-color: #00aa00 }
-    input.selected:active { background-color: #00aaaa }
 }
 
 .sticky {

@@ -14,3 +14,24 @@ hr {
     border: 1px solid #bb8800;
     margin-bottom: 60px;
 }
+
+.styled {
+
+    input.selected { background-color: #006666 }
+    input:hover { background-color: #008800 }
+    input.selected:hover { background-color: #008888 }
+    input:active { background-color: #00aa00 }
+    input.selected:active { background-color: #00aaaa }
+    input {
+
+        border-radius: 5px;
+        height: 20px;
+        color: #ffffff;
+        font-size: 11px;
+        width: 8%;
+        min-width: 135px;
+        text-align: center;
+        background-color: #006600;
+        border: 1px solid #444444;
+    }
+}

@@ -2,13 +2,14 @@ package ingweb.main.aziendatrasporti;
 
 import java.io.*;
 import java.rmi.ServerException;
+import ingweb.main.aziendatrasporti.control.Controller;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.*;
 import jakarta.servlet.http.*;
 
 //servlet front dispatcher: used as a logical handler for different user interactions, allows
 @WebServlet(name="Servizi", urlPatterns={"/Servizi"})
-public class Servizi extends HttpServlet {
+public class Dispatcher extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
@@ -23,6 +24,8 @@ public class Servizi extends HttpServlet {
             var dispClass=Class.forName("ingweb.main.aziendatrasporti.control."+action[0]); //call class by action
             var dispMethod=dispClass.getMethod(action[1], HttpServletRequest.class, HttpServletResponse.class); //get method from called class
             dispMethod.invoke(null, request, response); //call class static method by action
+            if (!param.equals("LoginController.logout")) Controller.commonState(request, response); //set all attributes in forwarded request
+            else Controller.setAllAttributes(request); //set attributes for logout without resetting logged account
 
             var viewUrl=(String)request.getAttribute("viewUrl"); //get parameter for view to forward
             var view=request.getRequestDispatcher("jsp/"+viewUrl+".jsp"); //set view control from parameter

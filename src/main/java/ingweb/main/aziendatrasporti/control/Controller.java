@@ -10,23 +10,25 @@ public interface Controller {
 
     ArrayList<Object[]> attributes=new ArrayList<>();
 
-    static void commonState(HttpServletRequest request, HttpServletResponse response, String selectedTab) {
+    static void commonState(HttpServletRequest request, HttpServletResponse response) {
 
-        attributes.add(new Object[]{"selectedTab", selectedTab});
-        attributes.add(new Object[]{"loggedAccount", getLoggedAccount(request, response)});
-        Controller.setAllAttributes(request);
+        var account=getLoggedAccount(request, response);
+        System.out.println("Logged account: "+account);
+        var attribute=new Object[]{"loggedAccount", account};
+        if (account!=null && !attributes.contains(attribute)) attributes.add(attribute);
+        setAllAttributes(request);
     }
 
     static void setAllAttributes(HttpServletRequest request) {
 
-        System.out.println("\nAttribute setting for request - Attributes: "+attributes.size());
-        for (var attribute : attributes) {
+        System.out.println("Attribute setting for request - Total attributes: "+attributes.size());
+        for (var attribute: attributes) {
 
-            System.out.println("New attribute [Name: \""+attribute[0]+"\" - Value: "+attribute[1]+"]");
+            System.out.println("New attribute {Name: \""+attribute[0]+"\" - Value: ["+attribute[1]+"]}");
             request.setAttribute((String)attribute[0], attribute[1]);
         }
 
-        System.out.println("Attributes set for request");
+        System.out.println("Done!\n");
         attributes.clear();
     }
 
