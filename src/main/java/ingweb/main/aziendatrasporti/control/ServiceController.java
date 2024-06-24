@@ -205,7 +205,7 @@ public class ServiceController implements Controller {
         var code=request.getParameter("code");
         var service=serviceDAO.findByCode(Integer.parseInt(code));
         var workerList=workerDAO.findAllByLicenses(service.getValidLicenses());
-        var truckList=truckDAO.findAllByLicenses(service.getValidLicenses());
+        var truckList=truckDAO.findAllAvailableByService(service);
 
         dao.confirm();
         attributes.add(new Object[]{"service", service});

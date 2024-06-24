@@ -3,6 +3,7 @@ package ingweb.main.aziendatrasporti.dao.mysql.dao;
 import ingweb.main.aziendatrasporti.dao.TruckDAO;
 import ingweb.main.aziendatrasporti.dao.mysql.MySqlQueryManager;
 import ingweb.main.aziendatrasporti.mo.License;
+import ingweb.main.aziendatrasporti.mo.Service;
 import ingweb.main.aziendatrasporti.mo.Truck;
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 public class MySqlTruckDAO implements TruckDAO {
 
     private final Connection connection;
+    private String[] data={"codice", "targa", "marca", "modello", "disponibile", "deleted"};
     private final String[] allColumns={"codice", "targa", "marca", "modello", "disponibile", "deleted", "patenti"};
 
     private String parseParams() {
@@ -29,10 +31,17 @@ public class MySqlTruckDAO implements TruckDAO {
     private Truck getTruck(String[] item) {
 
         var truck=new Truck(Integer.parseInt(item[0]), item[1], item[2], item[3], item[4].equals("1"), item[5].equals("1"));
-        var licenses=new ArrayList<License>();
-        for (var license: item[6].split(",")) licenses.add(new License(license));
-        truck.setNeededLicenses(licenses);
+        if (item.length>=6) {
+
+            var licenses=new ArrayList<License>();
+            for (var license: item[6].split(",")) licenses.add(new License(license));
+            truck.setNeededLicenses(licenses);}
         return truck;
+    }
+
+    private Truck get(String[] item) {
+
+        return new Truck(Integer.parseInt(item[0]), item[1], item[2], item[3], item[4].equals("1"), item[5].equals("1"));
     }
 
     public MySqlTruckDAO(Connection connection) { this.connection=connection; }
@@ -92,6 +101,36 @@ public class MySqlTruckDAO implements TruckDAO {
         var item=resList.get(0);
         var truck=getTruck(item);
         return (truck.isDeleted() ? null : truck);
+    }
+
+    public ArrayList<Truck> findAllAvailableByService(Service service) {
+
+        var result=new ArrayList<Truck>(); //empty list
+        var query="SELECT DISTINCT m.*, group_concat(pm.patente) as "+allColumns[allColumns.length-1]+" FROM mezzo m "+
+            "JOIN patenti_mezzo pm ON m.targa = pm.targa "+
+            "left join servizio s on s.targa_mezzo=m.targa "+
+                "AND s.data = '2024-07-12' " +
+                "AND (" +
+                    "(s.ora_inizio < '"+service.getStartTime()+"' AND ADDTIME(s.ora_inizio, s.durata) > '"+service.getStartTime()+"') " +
+                    "OR (s.ora_inizio >= '"+service.getStartTime()+"' AND s.ora_inizio <= ADDTIME('"+service.getStartTime()+"', '"+service.getDuration()+"'))" +
+                ") WHERE m.disponibile = 1 "+
+                "GROUP BY m.codice "+
+                "HAVING patenti like concat('%', "+
+                    "(select group_concat(ps.patente) "+
+                    "from patenti_servizio ps "+
+                    "where ps.servizio="+service.getCode()+"), '%')";
+
+        System.out.println(query);
+        var res=MySqlQueryManager.getResult(connection, query);
+        var resList=MySqlQueryManager.asList(res, data);
+        for (var item: resList) { //add every element of the result set as new worker
+
+            //parse obtained result as correct data type
+            var truck=get(item);
+            if (!truck.isDeleted()) result.add(truck); //add worker to the result list if not set as deleted
+        }
+
+        return result; //return list of valid trucks
     }
 
     //insert a new account in the database passing login data
