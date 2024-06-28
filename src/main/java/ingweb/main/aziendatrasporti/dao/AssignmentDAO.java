@@ -1,6 +1,4 @@
 package ingweb.main.aziendatrasporti.dao;
 
-public interface ServiceDAO {
-
-
+public interface AssignmentDAO {
 }

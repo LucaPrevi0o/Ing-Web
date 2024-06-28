@@ -110,14 +110,16 @@
                 </tr>
             <% } %>
         </table>
-        <form name="dataForm" action="<%= request.getContextPath() %>/Servizi" method="post">
-            <div class="styled">
-                <input type="button" id="newServiceButton" value="Nuovo servizio">
-                <input type="button" id="refreshButton" value="Aggiorna lista">
-                <input type="button" id="backButton" value="Chiudi tab">
-            </div>
-            <input type="hidden" name="code">
-            <input type="hidden" name="action">
-        </form>
+        <nav>
+            <form name="dataForm" action="<%= request.getContextPath() %>/Servizi" method="post">
+                <div class="styled">
+                    <input type="button" id="newServiceButton" value="Nuovo servizio">
+                    <input type="button" id="refreshButton" value="Aggiorna lista">
+                    <input type="button" id="backButton" value="Chiudi tab">
+                </div>
+                <input type="hidden" name="code">
+                <input type="hidden" name="action">
+            </form>
+        </nav>
     </body>
 </html>

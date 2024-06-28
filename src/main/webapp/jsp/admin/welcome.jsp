@@ -12,6 +12,12 @@
         <script>
             window.addEventListener("load", function() {
 
+                window.onscroll=function() {
+
+                    if (document.body.scrollTop>150 || document.documentElement.scrollTop>150) document.querySelector("#documentElement").classList.add("sticky");
+                    else if (document.querySelector("#documentElement").classList.contains("sticky")) document.querySelector("#documentElement").classList.remove("sticky");
+                };
+
                 <% if (selectedTab!=null) { %> document.querySelector("#<%= selectedTab %>").classList.add("selected"); <% } %>
                 document.querySelector("#workers").addEventListener("click", function() {
 
@@ -19,11 +25,11 @@
                     document.tabForm.submit();
                 });
 
-                document.querySelector("#services").addEventListener("click", function() {
+                /* document.querySelector("#services").addEventListener("click", function() {
 
                     document.querySelector("#action").value="ServiceController.getServiceList";
                     document.tabForm.submit();
-                });
+                }); */
 
                 document.querySelector("#trucks").addEventListener("click", function() {
 
@@ -48,10 +54,10 @@
     <body>
         <h1>Benvenuto, <%= loggedAccount.getFullName() %></h1>
         <h2>Menu di navigazione</h2>
-        <nav class="sticky">
+        <nav id="documentElement">
             <form name="tabForm" action="<%= request.getContextPath() %>/Servizi" method="post" class="styled">
                 <input type="button" id="workers" value="Visualizza lista autisti">
-                <input type="button" id="services" value="Visualizza lista servizi">
+                <input type="button" id="services" disabled value="Visualizza lista servizi">
                 <input type="button" id="trucks" value="Visualizza lista mezzi">
                 <input type="button" id="clients" value="Visualizza lista clienti">
                 <input type="button" id="logout" value="Torna al login">

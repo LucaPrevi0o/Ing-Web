@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public interface TruckDAO {
 
     public ArrayList<Truck> findAll();
+    public ArrayList<Truck> findAllAssigned();
     public Truck findByCode(int code);
     public Truck findByNumberPlate(String numberPlate);
     public ArrayList<Truck> findAllByLicenses(ArrayList<License> licenses);

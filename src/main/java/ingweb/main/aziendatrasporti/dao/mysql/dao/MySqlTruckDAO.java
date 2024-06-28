@@ -106,19 +106,29 @@ public class MySqlTruckDAO implements TruckDAO {
     public ArrayList<Truck> findAllAvailableByService(Service service) {
 
         var result=new ArrayList<Truck>(); //empty list
-        var query="SELECT DISTINCT m.*, group_concat(pm.patente) as "+allColumns[allColumns.length-1]+" FROM mezzo m "+
-            "JOIN patenti_mezzo pm ON m.targa = pm.targa "+
-            "left join servizio s on s.targa_mezzo=m.targa "+
-                "AND s.data = '2024-07-12' " +
-                "AND (" +
-                    "(s.ora_inizio < '"+service.getStartTime()+"' AND ADDTIME(s.ora_inizio, s.durata) > '"+service.getStartTime()+"') " +
-                    "OR (s.ora_inizio >= '"+service.getStartTime()+"' AND s.ora_inizio <= ADDTIME('"+service.getStartTime()+"', '"+service.getDuration()+"'))" +
-                ") WHERE m.disponibile = 1 "+
-                "GROUP BY m.codice "+
-                "HAVING patenti like concat('%', "+
-                    "(select group_concat(ps.patente) "+
-                    "from patenti_servizio ps "+
-                    "where ps.servizio="+service.getCode()+"), '%')";
+        var query="SELECT DISTINCT m.*, GROUP_CONCAT(pm.patente) AS patenti \n" +
+                "FROM mezzo m \n" +
+                "JOIN patenti_mezzo pm ON m.targa = pm.targa \n" +
+                "WHERE m.disponibile = 1 \n" +
+                "GROUP BY m.codice \n" +
+                "HAVING NOT EXISTS (\n" +
+                "    SELECT ps.patente \n" +
+                "    FROM patenti_servizio ps \n" +
+                "    WHERE ps.servizio = (\n" +
+                "        SELECT s.codice \n" +
+                "        FROM servizio s \n" +
+                "        WHERE s.data = "+service.getDate()+"\n" +
+                "        AND (\n" +
+                "            (s.ora_inizio < "+service.getStartTime()+" AND ADDTIME(s.ora_inizio, s.durata) > "+service.getStartTime()+") OR \n" +
+                "            (s.ora_inizio >= @startTime AND s.ora_inizio <= ADDTIME("+service.getStartTime()+", "+service.getDuration()+"))\n" +
+                "        )\n" +
+                "    )\n" +
+                "    AND ps.patente NOT IN (\n" +
+                "        SELECT pm2.patente \n" +
+                "        FROM patenti_mezzo pm2 \n" +
+                "        WHERE pm2.targa = m.targa\n" +
+                "    )\n" +
+                ");";
 
         System.out.println(query);
         var res=MySqlQueryManager.getResult(connection, query);
@@ -127,6 +137,22 @@ public class MySqlTruckDAO implements TruckDAO {
 
             //parse obtained result as correct data type
             var truck=get(item);
+            if (!truck.isDeleted()) result.add(truck); //add worker to the result list if not set as deleted
+        }
+
+        return result; //return list of valid trucks
+    }
+
+    public ArrayList<Truck> findAllAssigned() {
+
+        var result=new ArrayList<Truck>();
+        var query="SELECT m.*, group_concat(pm.patente) as patenti FROM mezzo m JOIN patenti_mezzo pm ON m.targa = pm.targa join servizio s on s.targa_mezzo =m.targa GROUP BY m.codice";
+        var trucks=MySqlQueryManager.getResult(connection, query); //execute query on the database
+        var trucksList=MySqlQueryManager.asList(trucks, allColumns); //parse results
+        for (var item: trucksList) { //add every element of the result set as new worker
+
+            //parse obtained result as correct data type
+            var truck=getTruck(item);
             if (!truck.isDeleted()) result.add(truck); //add worker to the result list if not set as deleted
         }
 

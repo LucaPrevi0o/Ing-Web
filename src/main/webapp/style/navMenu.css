@@ -5,6 +5,12 @@ nav form {
     margin-top: 40px;
     background-color: #ffff00;
     width: 98%;
+
+    input[disabled] {
+
+        pointer-events: none;
+        background-color: #666666;
+    }
 }
 
 .sticky {
@@ -12,4 +18,15 @@ nav form {
     position: sticky;
     top: 10px;
     width: 100%;
+    form {
+
+        background: #ffff0066;
+        input {
+
+            min-width: fit-content;
+            width: 1px;
+            font-size: 10px;
+            background: #004444;
+        }
+    }
 }
