@@ -75,11 +75,11 @@ public class ServiceController implements Controller {
         //add new record in database if parameter list is full
         if (!name.isEmpty() && !clientCompany.isEmpty() && !date.isEmpty() && !startTime.isEmpty() && !duration.isEmpty()) {
 
-            var service=new Service(name, Date.valueOf(date), Time.valueOf(startTime), Time.valueOf(duration), false);
-            service.setClientCompany(client);
+            //var service=new Service(name, Date.valueOf(date), Time.valueOf(startTime), Time.valueOf(duration), false);
+            //service.setClientCompany(client);
             //serviceDAO.addService(service);
             //service=serviceDAO.findByDateStartTimeAndDuration(service.getDate(), service.getStartTime(), service.getDuration());
-            licenseDAO.addLicensesByService(service, licenseList);
+            //licenseDAO.addLicensesByService(service, licenseList);
         }
 
         //var serviceList=serviceDAO.findAllNotAssigned(); //return account list filtered by admin level

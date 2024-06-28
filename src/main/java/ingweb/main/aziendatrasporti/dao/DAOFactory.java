@@ -12,17 +12,17 @@ public abstract class DAOFactory {
 
     //implement different methods for transaction management that follow the same logic;
     //database access can be different between different data sources (files, different DB...) and so is not set as
-    //a standard abstract method to implement
+    //a standard abstract method to implement, but it gets extended for every specific implementation
     public abstract void confirm();
 
     //list of methods to return every DAO for different data structure
     public abstract AccountDAO getAccountDAO(); //account (for login management)
     public abstract WorkerDAO getWorkerDAO(); //worker
-    public abstract ServiceDAO getServiceDAO();
-    public abstract TruckDAO getTruckDAO();
-    public abstract ClientDAO getClientDAO();
-    public abstract LicenseDAO getLicenseDAO();
-    public abstract AssignmentDAO getAssignmentDAO();
+    public abstract ServiceDAO getServiceDAO(); //service
+    public abstract TruckDAO getTruckDAO(); //truck
+    public abstract ClientDAO getClientDAO(); //client company
+    public abstract LicenseDAO getLicenseDAO(); //driving license
+    public abstract AssignmentDAO getAssignmentDAO(); //scheduled service
 
     //return a different DAOFactory implementation based on the specified package name and parameters
     public static DAOFactory getByName(String name, Object... args) {
@@ -31,9 +31,9 @@ public abstract class DAOFactory {
 
             if (args.length!=3) return null; //setup for MySQL connection requires access validation to DB schema
             else return new MySqlDAOFactory((String)args[0], (String)args[1], (String)args[2]); //MySQL database implementation
-        } else if (name.equals(impl[1])) {
+        } else if (name.equals(impl[1])) { //setup for cookie management
 
-            if (args.length!=2) return null;
+            if (args.length!=2) return null; //setup for cookie handling requires reference to the HTML request/response
             else return new CookieDAOFactory((HttpServletRequest) args[0], (HttpServletResponse) args[1]);
         }
 

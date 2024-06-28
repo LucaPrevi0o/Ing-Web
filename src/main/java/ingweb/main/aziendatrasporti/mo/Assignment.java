@@ -8,7 +8,25 @@ public class Assignment implements ModelObject {
     private Truck truck;
     private boolean deleted;
 
+    public Assignment(Service service, Worker firstDriver, Worker secondDriver, Truck truck, boolean deleted) {
+
+        this.service = service;
+        this.firstDriver = firstDriver;
+        this.secondDriver = secondDriver;
+        this.truck = truck;
+        this.deleted = deleted;
+    }
+
     public Object[] asList() { return new Object[]{service, firstDriver, secondDriver, truck, deleted}; }
+    public boolean equals(Object o) {
+
+        if (!(o instanceof Assignment)) return false;
+        if (!((Assignment)o).service.equals(this.service)) return false;
+        if (!((Assignment)o).firstDriver.equals(this.firstDriver)) return false;
+        if (!((Assignment)o).secondDriver.equals(this.secondDriver)) return false;
+        if (!((Assignment)o).truck.equals(this.truck)) return false;
+        return ((Assignment)o).deleted==this.deleted;
+    }
 
     public Service getService() { return service; }
     public void setService(Service service) { this.service = service; }

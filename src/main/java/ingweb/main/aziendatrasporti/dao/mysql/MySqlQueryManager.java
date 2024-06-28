@@ -7,9 +7,12 @@ import java.sql.*;
 import java.sql.Date;
 import java.util.*;
 
+//this class contains a list of custom methods for easier query construction and data access from the result set
+//of each execution, passing through the parameter list of the data and allowing direct access to its object
 public class MySqlQueryManager {
 
-    //return the query result as a list of String[] instead of a standard ResultSet
+    //return the query result as a list of String[] instead of a standard ResultSet, using a String[]
+    //list of column names to extract the data from the set
     public static ArrayList<String[]> asList(ResultSet res, String[] params) {
 
         try { //fill list with every element from the result set
@@ -24,8 +27,8 @@ public class MySqlQueryManager {
             return result; //return updated list
         } catch (Exception e) {
 
-            e.printStackTrace();
-            return new ArrayList<>();
+            e.printStackTrace(); //print out error message
+            return new ArrayList<>(); //return empty list
         }
     }
 
@@ -46,7 +49,7 @@ public class MySqlQueryManager {
 
             Class.forName("com.mysql.cj.jdbc.Driver"); //append Driver handler dependency
             var c=DriverManager.getConnection(url); //set up a new MySQL connection
-            c.setAutoCommit(false); //set manual commit
+            c.setAutoCommit(false); //set manual commit for transaction management
             return c; //return new connection
         } catch (Exception e) {
 
@@ -69,13 +72,18 @@ public class MySqlQueryManager {
         }
     }
 
-    //execute new update query in the DB (does not return)
+    //execute new update query in the database receiving data from the parameter list of the updated object
     public static void execute(Connection connection, String sql, Object[] params) {
 
         try { //create statement and return its execution result
 
             var statement=connection.prepareStatement(sql); //new empty statement
-            for (var index=0; index<params.length; index++)
+            for (var index=0; index<params.length; index++) //loop over every parameter in the list
+
+                //depending on the object type in the parameter list, set the SQL-specific parameter in the result set;
+                //this allows for dynamic generation of the result set depending only on the type of each attribute
+                //(the only thing to note is the ordering of the SQL parameters, that starts with an index of 1
+                //instead of the Java zero-index standard)
                 if (params[index] instanceof String) statement.setString(index+1, (String)params[index]);
                 else if (params[index] instanceof Integer) statement.setInt(index+1, (Integer)params[index]);
                 else if (params[index] instanceof Double) statement.setDouble(index+1, (Double)params[index]);
@@ -86,7 +94,7 @@ public class MySqlQueryManager {
                 else if (params[index] instanceof Truck) statement.setString(index+1, ((Truck)params[index]).getNumberPlate());
                 else if (params[index] instanceof Worker) statement.setString(index+1, ((Worker)params[index]).getFiscalCode());
                 else if (params[index]==null) statement.setNull(index+1, Types.VARCHAR);
-            statement.executeUpdate(); //execute statement by query
+            statement.executeUpdate(); //execute statement in the query with the parameters set to the corresponding values
         } catch (Exception e) { e.printStackTrace(); }
     }
 }

@@ -3,6 +3,7 @@ package ingweb.main.aziendatrasporti.mo;
 import java.sql.Date;
 import java.util.ArrayList;
 
+
 public class Worker implements ModelObject {
 
     private int code;

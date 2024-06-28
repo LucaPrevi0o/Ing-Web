@@ -7,10 +7,16 @@ import jakarta.servlet.*;
 import jakarta.servlet.annotation.*;
 import jakarta.servlet.http.*;
 
-//servlet front dispatcher: used as a logical handler for different user interactions, allows
+//Dispatcher: Java Servlet class that handles every request passed to it via URL;
+//the URL has to be in the form "http://<localhost>:<servlet-port>/<artifact-url>/<url-pattern>
+//to be a valid HTTP request handled by this Servlet
 @WebServlet(name="Servizi", urlPatterns={"/Servizi"})
 public class Dispatcher extends HttpServlet {
 
+    //main request processing: as the URL redirects to this specific page, the body is expected to contain an
+    //"action" attribute in the form of "<controller>.<action>"; the Servlet then proceeds to call the specified
+    //action as a Java function in the specified controller (defined in the Web Server file system as a Java
+    //class containing the function) and forwards the HTML view to the selected JSP file via the attribute "viewUrl"
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         response.setContentType("text/html; charset=UTF-8"); //set response content header
@@ -24,10 +30,11 @@ public class Dispatcher extends HttpServlet {
             var dispClass=Class.forName("ingweb.main.aziendatrasporti.control."+action[0]); //call class by action
             var dispMethod=dispClass.getMethod(action[1], HttpServletRequest.class, HttpServletResponse.class); //get method from called class
             dispMethod.invoke(null, request, response); //call class static method by action
-            if (!param.equals("LoginController.logout")) Controller.commonState(request, response); //set all attributes in forwarded request
-            else Controller.setAllAttributes(request); //set attributes for logout without resetting logged account
 
-            var viewUrl=(String)request.getAttribute("viewUrl"); //get parameter for view to forward
+            //apply every attribute to the request and dispatch the view
+            var viewUrl=Controller.getViewURL(); //get HTML view page to forward
+            if (!param.equals("LoginController.logout")) Controller.commonState(request, response); //set all attributes in forwarded request
+            else Controller.setAllAttributes(request); //this handles logout action without overwriting the "loggedAccount" attribute
             var view=request.getRequestDispatcher("jsp/"+viewUrl+".jsp"); //set view control from parameter
             view.forward(request, response); //execute forward control
         } catch (Exception e) {

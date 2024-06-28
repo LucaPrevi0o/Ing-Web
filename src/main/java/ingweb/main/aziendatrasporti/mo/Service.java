@@ -11,29 +11,8 @@ public class Service implements ModelObject {
     ClientCompany clientCompany;
     Date date;
     Time startTime, duration;
-    Worker firstDriver, secondDriver;
-    Truck truck;
     ArrayList<License> validLicenses;
     boolean deleted;
-
-    public Service(String name, Date date, Time startTime, Time duration, boolean deleted) {
-
-        this.name=name;
-        this.date=date;
-        this.startTime=startTime;
-        this.duration=duration;
-        this.deleted=deleted;
-    }
-
-    public Service(int code, String name, Date date, Time startTime, Time duration, boolean deleted) {
-
-        this.code=code;
-        this.name=name;
-        this.date=date;
-        this.startTime=startTime;
-        this.duration=duration;
-        this.deleted=deleted;
-    }
 
     public Service(int code, String name, ClientCompany clientCompany, Date date, Time startTime, Time duration, boolean deleted) {
 
@@ -42,20 +21,6 @@ public class Service implements ModelObject {
         this.clientCompany=clientCompany;
         this.date=date;
         this.startTime=startTime;
-        this.duration=duration;
-        this.deleted=deleted;
-    }
-
-    public Service(int code, String name, ClientCompany clientCompany, Date date, Time startTime, Time duration, Worker firstDriver, Worker secondDriver, Truck truck, boolean deleted) {
-
-        this.code=code;
-        this.name=name;
-        this.clientCompany=clientCompany;
-        this.date=date;
-        this.startTime=startTime;
-        this.firstDriver=firstDriver;
-        this.secondDriver=secondDriver;
-        this.truck=truck;
         this.duration=duration;
         this.deleted=deleted;
     }
@@ -69,16 +34,11 @@ public class Service implements ModelObject {
         if (!((Service)o).date.equals(this.date)) return false;
         if (!((Service)o).startTime.equals(this.startTime)) return false;
         if (!((Service)o).duration.equals(this.duration)) return false;
-        if (!((Service)o).firstDriver.equals(this.firstDriver)) return false;
-        if (!((Service)o).secondDriver.equals(this.secondDriver)) return false;
         return ((Service)o).deleted==this.deleted;
     }
 
-    public Object[] shortList() { return new Object[]{this.name, this.clientCompany, this.date, this.startTime, this.duration, this.truck, this.deleted}; }
-    public Object[] asList() { return new Object[]{this.name, this.clientCompany, this.date, this.startTime, this.duration, this.firstDriver.getFiscalCode(), this.secondDriver.getFiscalCode(), this.truck.getNumberPlate(), this.deleted}; }
-    public Object[] data() { return new Object[]{this.name, this.clientCompany, this.date, this.startTime, this.duration, this.deleted}; }
-
-    public String toString() { return this.name+" ("+this.code+") - ["+this.clientCompany+"] - "+this.date+" - "+this.startTime+" ("+this.duration+") - "+this.firstDriver+", "+this.secondDriver+" - "+this.truck; }
+    public Object[] asList() { return new Object[]{this.name, this.clientCompany, this.date, this.startTime, this.duration, this.deleted}; }
+    public String toString() { return this.name+" ("+this.code+") - ["+this.clientCompany+"] - "+this.date+" - "+this.startTime+" ("+this.duration+")"; }
 
     public int getCode() { return code; }
     public void setCode(int code) { this.code=code; }
@@ -97,15 +57,6 @@ public class Service implements ModelObject {
 
     public Time getDuration() { return duration; }
     public void setDuration(Time duration) { this.duration=duration; }
-
-    public Worker getFirstDriver() { return firstDriver; }
-    public void setFirstDriver(Worker firstDriver) { this.firstDriver=firstDriver; }
-
-    public Worker getSecondDriver() { return secondDriver; }
-    public void setSecondDriver(Worker secondDriver) { this.secondDriver=secondDriver; }
-
-    public Truck getTruck() { return truck; }
-    public void setTruck(Truck truck) { this.truck=truck; }
 
     public ArrayList<License> getValidLicenses() { return validLicenses; }
     public void setValidLicenses(ArrayList<License> validLicenses) { this.validLicenses=validLicenses; }
