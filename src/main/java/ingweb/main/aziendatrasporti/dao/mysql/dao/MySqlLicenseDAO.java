@@ -51,10 +51,10 @@ public class MySqlLicenseDAO implements LicenseDAO {
     public ArrayList<License> findAllByWorker(Worker worker) {
 
         ArrayList<License> licenses=new ArrayList<>();
-        var query="select * from patenti_autista where dipendente="+worker.getFiscalCode();
+        var query="select * from patenti_autista where dipendente='"+worker.getFiscalCode()+"'";
         var res=MySqlQueryManager.getResult(connection, query); //execute query on the database
-        var resList=MySqlQueryManager.asList(res, allColumns); //parse results
-        for (var item: resList) licenses.add(new License(item[0])); //add license to list
+        var resList=MySqlQueryManager.asList(res, new String[]{"dipendente", "patente"}); //parse results
+        for (var item: resList) licenses.add(new License(item[1])); //add license to list
         return licenses; //return list of valid services
     }
 
@@ -63,7 +63,7 @@ public class MySqlLicenseDAO implements LicenseDAO {
         for (var license: licenses) {
 
             var query="insert into patenti_autista (dipendente, patente) values (?, ?)";
-            var params=new Object[] {worker.getFiscalCode(), license.getCategory()};
+            var params=new Object[]{worker.getFiscalCode(), license.getCategory()};
             MySqlQueryManager.execute(connection, query, params);
         }
     }

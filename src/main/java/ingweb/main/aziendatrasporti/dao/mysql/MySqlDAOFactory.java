@@ -35,7 +35,7 @@ public class MySqlDAOFactory extends DAOFactory {
     //list of DAO elements implemented for the MySQL database; each DAO has a reference to the database connection
     //that needs to be established every time the Web Server starts a new transaction for the request processing
     public AccountDAO getAccountDAO() { return new MySqlAccountDAO(connection); }
-    public WorkerDAO getWorkerDAO() { return new MySqlWorkerDAO(connection); }
+    public WorkerDAO getWorkerDAO() { return new MySqlWorkerDAO(connection, "dipendente"); }
     public ServiceDAO getServiceDAO() { return new MySqlServiceDAO(connection, "servizio"); }
     public ClientDAO getClientDAO() { return new MySqlClientDAO(connection); }
     public TruckDAO getTruckDAO() { return new MySqlTruckDAO(connection); }

@@ -1,25 +1,43 @@
 package ingweb.main.aziendatrasporti.control;
 
+import ingweb.main.aziendatrasporti.dao.DAOFactory;
 import ingweb.main.aziendatrasporti.mo.mo.Account;
 import ingweb.main.aziendatrasporti.mo.mo.License;
+import ingweb.main.aziendatrasporti.mo.mo.Service;
 import ingweb.main.aziendatrasporti.mo.mo.Worker;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
 
 public class WorkerController implements Controller {
 
-    private static void listView(HttpServletRequest request, HttpServletResponse response, ArrayList<Worker> workerList, ArrayList<License> licenseList) {
+    private static void listView(HttpServletRequest request, HttpServletResponse response, DAOFactory dao) {
 
+        var workerDAO=dao.getWorkerDAO();
+        var licenseDAO=dao.getLicenseDAO();
+        var workerList=workerDAO.findAll();
+        var licenseList=licenseDAO.findAll();
+        for (var worker: workerList) {
+
+            worker.setLicenses(licenseDAO.findAllByWorker(worker));
+            System.out.println(worker);
+        }
+
+        dao.confirm();
         attributes.add(new Object[]{"licenseList", licenseList});
         attributes.add(new Object[]{"workerList", workerList});
         attributes.add(new Object[]{"selectedTab", "workers"});
         attributes.add(new Object[]{"viewUrl", "/admin/workers/workers"});
     }
 
-    private static void formView(HttpServletRequest request, HttpServletResponse response, ArrayList<License> licenseList) {
+    private static void formView(HttpServletRequest request, HttpServletResponse response, DAOFactory dao) {
 
+        var licenseDAO=dao.getLicenseDAO();
+        var licenseList=licenseDAO.findAll();
+
+        dao.confirm();
         attributes.add(new Object[]{"licenseList", licenseList});
         attributes.add(new Object[]{"selectedTab", "workers"});
         attributes.add(new Object[]{"viewUrl", "/admin/workers/newWorker"});
@@ -27,24 +45,16 @@ public class WorkerController implements Controller {
 
     public static void getWorkers(HttpServletRequest request, HttpServletResponse response) {
 
-        //get registered account list specifying DAO database implementation
-        var dao= Controller.getMySqlDAO("azienda_trasporti");
-        var workerDAO=dao.getWorkerDAO(); //get worker DAO implementation for the selected database
-        var licenseDAO=dao.getLicenseDAO();
-        var workerList=workerDAO.findAll(); //return account list filtered by admin level
-        var licenseList=licenseDAO.findAll();
-
-        dao.confirm();
-        listView(request, response, workerList, licenseList);
+        var dao=Controller.getMySqlDAO("azienda_trasporti");
+        listView(request, response, dao);
     }
 
     public static void addWorker(HttpServletRequest request, HttpServletResponse response) {
 
-        //get registered account list specifying DAO database implementation
-        var dao= Controller.getMySqlDAO("azienda_trasporti");
-        var newDao= Controller.getMySqlDAO("aziendatrasportidb");
+        var dao=Controller.getMySqlDAO("azienda_trasporti");
+        var newDao=Controller.getMySqlDAO("aziendatrasportidb");
         var accountDAO=newDao.getAccountDAO();
-        var workerDAO=dao.getWorkerDAO(); //get worker DAO implementation for the selected database
+        var workerDAO=dao.getWorkerDAO();
         var licenseDAO=dao.getLicenseDAO();
 
         var name=request.getParameter("name");
@@ -56,62 +66,46 @@ public class WorkerController implements Controller {
 
         var licenseList=new ArrayList<License>();
         for (var license: licenses) licenseList.add(new License(license));
+        var code=workerDAO.findLastCode()+1;
 
-        //add new record in database if parameter list is full
-        if (!name.isEmpty() && !surname.isEmpty() && !fiscalCode.isEmpty() && !birthDate.isEmpty() && !telNumber.isEmpty()) {
+        var worker=new Worker(code, name, surname, fiscalCode, Date.valueOf(birthDate), telNumber, false);
+        worker.setLicenses(licenseList);
 
-            var worker=new Worker(name, surname, fiscalCode, Date.valueOf(birthDate), telNumber, false);
-            var account=new Account(fiscalCode, name.toLowerCase(), name+" "+surname, false, false);
-            accountDAO.addAccount(account);
-            worker.setLicenses(licenseList);
-            workerDAO.addWorker(worker);
-            licenseDAO.addLicensesByWorker(worker, licenseList);
-        }
-
-        var workerList=workerDAO.findAll(); //return account list filtered by admin level
-        licenseList=licenseDAO.findAll();
-
-        dao.confirm();
+        var account=new Account(fiscalCode, name.toLowerCase(), name+" "+surname, false, false);
+        accountDAO.addAccount(account);
         newDao.confirm();
-        listView(request, response, workerList, licenseList);
+
+        workerDAO.addWorker(worker);
+        licenseDAO.addLicensesByWorker(worker, licenseList);
+        listView(request, response, dao);
     }
 
     public static void newWorker(HttpServletRequest request, HttpServletResponse response) {
 
-        var dao= Controller.getMySqlDAO("azienda_trasporti");
-        var licenseDAO=dao.getLicenseDAO();
-        var licenseList=licenseDAO.findAll();
-
-        dao.confirm();
-        formView(request, response, licenseList);
+        var dao=Controller.getMySqlDAO("azienda_trasporti");
+        formView(request, response, dao);
     }
 
     public static void removeWorker(HttpServletRequest request, HttpServletResponse response) {
 
-        //get registered account list specifying DAO database implementation
-        var dao= Controller.getMySqlDAO("azienda_trasporti");
-        var newDao= Controller.getMySqlDAO("aziendatrasportidb");
+        var dao=Controller.getMySqlDAO("azienda_trasporti");
+        var newDao=Controller.getMySqlDAO("aziendatrasportidb");
         var accountDAO=newDao.getAccountDAO();
-        var workerDAO=dao.getWorkerDAO(); //get worker DAO implementation for the selected database
-        var licenseDAO=dao.getLicenseDAO();
+        var workerDAO=dao.getWorkerDAO();
 
         var code=request.getParameter("code");
         var worker=workerDAO.findByCode(Integer.parseInt(code));
         workerDAO.removeWorker(worker);
         accountDAO.removeAccount(new Account(worker.getFiscalCode(), null, null, false, false));
-        var workerList=workerDAO.findAll();
-        var licenseList=licenseDAO.findAll();
 
-        dao.confirm();
         newDao.confirm();
-        listView(request, response, workerList, licenseList);
+        listView(request, response, dao);
     }
 
     public static void updateWorker(HttpServletRequest request, HttpServletResponse response) {
 
-        //get registered account list specifying DAO database implementation
-        var dao= Controller.getMySqlDAO("azienda_trasporti");
-        var workerDAO=dao.getWorkerDAO(); //get worker DAO implementation for the selected database
+        var dao=Controller.getMySqlDAO("azienda_trasporti");
+        var workerDAO=dao.getWorkerDAO();
         var licenseDAO=dao.getLicenseDAO();
 
         var code=request.getParameter("code");
@@ -125,40 +119,25 @@ public class WorkerController implements Controller {
         var licenseList=new ArrayList<License>();
         for (var license: licenses) licenseList.add(new License(license));
 
-        //add new record in database if parameter list is full
-        if (!name.isEmpty() && !surname.isEmpty() && !fiscalCode.isEmpty() && !birthDate.isEmpty() && !telNumber.isEmpty()) {
+        var worker=new Worker(Integer.parseInt(code), name, surname, fiscalCode, Date.valueOf(birthDate), telNumber, false);
+        worker.setLicenses(licenseList);
+        workerDAO.updateWorker(worker);
+        licenseDAO.updateLicensesByWorker(worker, licenseList);
 
-            var worker=new Worker(name, surname, fiscalCode, Date.valueOf(birthDate), telNumber, false);
-            worker.setCode(Integer.parseInt(code));
-            worker.setLicenses(licenseList);
-            workerDAO.updateWorker(worker);
-            licenseDAO.updateLicensesByWorker(worker, licenseList);
-        }
-
-        var workerList=workerDAO.findAll(); //return account list filtered by admin level
-        licenseList=licenseDAO.findAll();
-
-        dao.confirm();
-        listView(request, response, workerList, licenseList);
+        listView(request, response, dao);
     }
 
     public static void editWorker(HttpServletRequest request, HttpServletResponse response) {
 
-        //get registered account list specifying DAO database implementation
-        var dao= Controller.getMySqlDAO("azienda_trasporti");
-        var newDao=Controller.getMySqlDAO("aziendatrasportidb");
-        var accountDAO=newDao.getAccountDAO();
-        var workerDAO=dao.getWorkerDAO(); //get worker DAO implementation for the selected database
+        var dao=Controller.getMySqlDAO("azienda_trasporti");
+        var workerDAO=dao.getWorkerDAO();
         var licenseDAO=dao.getLicenseDAO();
-        var licenseList=licenseDAO.findAll();
 
         var name=request.getParameter("code");
         var worker=workerDAO.findByCode(Integer.parseInt(name));
-        accountDAO.removeAccount(new Account(worker.getFiscalCode(), null, null, false, false));
+        worker.setLicenses(licenseDAO.findAllByWorker(worker));
 
-        dao.confirm();
-        newDao.confirm();
         attributes.add(new Object[]{"worker", worker});
-        formView(request, response, licenseList);
+        formView(request, response, dao);
     }
 }

@@ -9,8 +9,34 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0bf709cf-d99c-4d00-90c1-2fc5a7108193" name="Changes" comment="updated mo and dao behaviour">
-      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/control/ServiceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/control/ServiceController.java" afterDir="false" />
+    <list default="true" id="0bf709cf-d99c-4d00-90c1-2fc5a7108193" name="Changes" comment="removed debug printlns">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/control/WorkerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/control/WorkerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/WorkerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/WorkerDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/MySqlDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/MySqlDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/MySqlDAOFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/MySqlDAOFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlAssignmentDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlAssignmentDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlLicenseDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlLicenseDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlWorkerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlWorkerDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/mo/mo/Worker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/mo/mo/Worker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/workers/workers.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/workers/workers.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/control/WorkerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/control/WorkerController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/WorkerDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/WorkerDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/mysql/MySqlDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/mysql/MySqlDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/mysql/MySqlDAOFactory.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/mysql/MySqlDAOFactory.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlAssignmentDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlAssignmentDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlLicenseDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlLicenseDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlWorkerDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlWorkerDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/mo/mo/Worker.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/mo/mo/Worker.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/admin/workers/workers.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/admin/workers/workers.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/control/WorkerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/control/WorkerController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/WorkerDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/WorkerDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/mysql/MySqlDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/mysql/MySqlDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/mysql/MySqlDAOFactory.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/mysql/MySqlDAOFactory.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlAssignmentDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlAssignmentDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlLicenseDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlLicenseDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlWorkerDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlWorkerDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/mo/mo/Worker.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/mo/mo/Worker.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -315,15 +341,7 @@
       <workItem from="1719245871791" duration="3988000" />
       <workItem from="1719560668603" duration="5739000" />
       <workItem from="1719573053565" duration="21563000" />
-      <workItem from="1719733543573" duration="18198000" />
-    </task>
-    <task id="LOCAL-00030" summary="added sticky nav menu for easier navigation">
-      <option name="closed" value="true" />
-      <created>1718546437281</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1718546437281</updated>
+      <workItem from="1719733543573" duration="22845000" />
     </task>
     <task id="LOCAL-00031" summary="added sticky nav menu for easier navigation">
       <option name="closed" value="true" />
@@ -709,7 +727,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719839500190</updated>
     </task>
-    <option name="localTasksCounter" value="79" />
+    <task id="LOCAL-00079" summary="removed debug printlns">
+      <option name="closed" value="true" />
+      <created>1719839576705</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1719839576705</updated>
+    </task>
+    <option name="localTasksCounter" value="80" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -730,7 +756,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="changed link color and renamed main path" />
     <MESSAGE value="added enter key form trigger in form submission" />
     <MESSAGE value="don't tell me im gonna lose everything bc of git" />
     <MESSAGE value="added assigned service list page" />
@@ -755,7 +780,8 @@
     <MESSAGE value="added generic dao implementation for services" />
     <MESSAGE value="updated workspace after rebuild" />
     <MESSAGE value="updated mo and dao behaviour" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated mo and dao behaviour" />
+    <MESSAGE value="removed debug printlns" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed debug printlns" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

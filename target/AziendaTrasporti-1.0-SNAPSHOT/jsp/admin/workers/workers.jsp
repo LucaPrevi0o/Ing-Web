@@ -80,7 +80,7 @@
                 var licenses=worker.getLicenses();
                 if (licenses==null) licenses=new ArrayList<>(); %>
                 <tr>
-                    <% for (var field: worker.asList()) if (!(field instanceof Boolean)) { %><td><%= field %></td><% } %>
+                    <% for (var field: worker.data()) if (!(field instanceof Boolean)) { %><td><%= field %></td><% } %>
                     <% for (var license: licenseList) { %><td><input type="checkbox" <%= licenses.contains(license) ? "checked" : "" %> disabled/></td><% } %>
                     <td><input type="button" id="<%= worker.getCode() %>" name="edit" value="Modifica"></td>
                     <td><input type="button" id="<%= worker.getCode() %>" name="remove" value="Rimuovi"></td>

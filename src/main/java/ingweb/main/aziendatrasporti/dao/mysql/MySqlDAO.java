@@ -62,6 +62,7 @@ public abstract class MySqlDAO<T extends ModelObject> {
         query+=columns[columns.length-1]+") values (";
         for (var i=0; i<columns.length-1; i++) query+="?, ";
         query+="?)";
+        System.out.println(query);
         MySqlQueryManager.execute(connection, query, data);
     }
 

@@ -1,16 +1,13 @@
 package ingweb.main.aziendatrasporti.dao;
 
-import ingweb.main.aziendatrasporti.mo.mo.License;
 import ingweb.main.aziendatrasporti.mo.mo.Worker;
 import java.util.*;
 
-//interface allows the DAO to be independent of the database-specific method implementation of every functionality
 public interface WorkerDAO {
 
     public ArrayList<Worker> findAll();
     public Worker findByCode(int code);
-    public ArrayList<Worker> findAllByLicenses(ArrayList<License> licenses);
-    public Worker findByFiscalCode(String fiscalCode);
+    public int findLastCode();
     public void addWorker(Worker worker);
     public void removeWorker(Worker worker);
     public void updateWorker(Worker worker);

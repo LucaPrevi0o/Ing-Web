@@ -1,70 +1,56 @@
 package ingweb.main.aziendatrasporti.mo.mo;
 
 import ingweb.main.aziendatrasporti.mo.ModelObject;
-
 import java.sql.Date;
 import java.util.ArrayList;
 
-
 public class Worker extends ModelObject {
 
-    private int code;
     private String name;
     private String surname;
     private String fiscalCode;
     private Date birthDate;
     private String telNumber;
     private ArrayList<License> licenses;
-    private boolean deleted;
 
     public Worker(int code, String name, String surname, String fiscalCode, Date birthDate, String telNumber, boolean deleted) {
 
-        this.code=code;
+        this.setCode(code);
         this.name=name;
         this.surname=surname;
         this.fiscalCode=fiscalCode;
         this.birthDate=birthDate;
         this.telNumber=telNumber;
-        this.deleted=deleted;
+        this.setDeleted(deleted);
     }
 
-    public Worker(String name, String surname, String fiscalCode, Date birthDate, String telNumber, boolean deleted) {
+    public Worker(String name, String surname, String fiscalCode, Date birthDate, String telNumber) {
 
         this.name=name;
         this.surname=surname;
         this.fiscalCode=fiscalCode;
         this.birthDate=birthDate;
         this.telNumber=telNumber;
-        this.deleted=deleted;
     }
 
-    public Object[] asList() { return new Object[]{name, surname, fiscalCode, birthDate, telNumber, deleted}; }
-    public Object[] data() { return asList(); }
+    public Object[] asList() { return new Object[]{this.getCode(), this.name, this.surname, this.fiscalCode, this.birthDate, this.telNumber, this.isDeleted()}; }
+    public Object[] data() { return new Object[]{this.name, this.surname, this.fiscalCode, this.birthDate, this.telNumber}; }
+    public String toString() { return this.name+" "+this.surname+" ("+this.fiscalCode+") - "+this.birthDate+" - "+this.telNumber+": "; }
 
     public boolean equals(Object o) {
 
         if (!(o instanceof Worker)) return false;
-        if (((Worker)o).code!=this.code) return false;
+        if (((Worker)o).getCode()!=this.getCode()) return false;
         if (!((Worker)o).name.equals(this.name)) return false;
         if (!((Worker)o).surname.equals(this.surname)) return false;
         if (!((Worker)o).fiscalCode.equals(this.fiscalCode)) return false;
         if (((Worker)o).birthDate.equals(this.birthDate)) return false;
         if (((Worker)o).telNumber.equals(this.telNumber)) return false;
         if (((Worker)o).licenses.equals(this.licenses)) return false;
-        return ((Worker)o).deleted==this.deleted;
-    }
-
-    public String toString() {
-
-        var res=name+" "+surname+" ("+fiscalCode+") - "+birthDate+" - "+telNumber+": ";
-        for (var license: licenses) res+="\""+license+"\" ";
-        return res;
+        return ((Worker)o).isDeleted()==this.isDeleted();
     }
 
     public String display() { return this.name+" "+this.surname+" ("+this.fiscalCode+")"; }
-
-    public int getCode() { return this.code; }
-    public void setCode(int code) { this.code=code; }
 
     public String getName() { return name; }
     public void setName(String name) { this.name=name; }
@@ -83,7 +69,4 @@ public class Worker extends ModelObject {
 
     public ArrayList<License> getLicenses() { return licenses; }
     public void setLicenses(ArrayList<License> licenses) { this.licenses = licenses; }
-
-    public boolean isDeleted() { return deleted; }
-    public void setDeleted(boolean deleted) { this.deleted=deleted; }
 }
