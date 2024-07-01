@@ -16,6 +16,6 @@ public interface LicenseDAO {
     public void updateLicensesByWorker(Worker worker, ArrayList<License> license);
     public void addLicensesByTruck(Truck truck, ArrayList<License> license);
     public void updateLicensesByTruck(Truck truck, ArrayList<License> license);
-    public void addLicensesByService(Service service, ArrayList<License> license);
+    public void addLicensesByService(Service service);
     public void updateLicensesByService(Service service, ArrayList<License> license);
 }

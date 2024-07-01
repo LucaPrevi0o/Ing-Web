@@ -7,6 +7,7 @@ public class License implements ModelObject {
     public License(String category) { this.category=category; }
 
     public Object[] asList() { return new Object[]{category}; }
+    public Object[] data() { return asList(); }
 
     public boolean equals(Object o) {
 

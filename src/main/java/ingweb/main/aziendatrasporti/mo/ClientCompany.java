@@ -44,6 +44,7 @@ public class ClientCompany implements ModelObject {
     public String display() { return this.name+" ("+this.socialReason+")"; }
 
     public Object[] asList() { return new Object[] {name, socialReason, location, managerName, managerFiscalCode, managerBirthDate, managerTelNumber, deleted}; }
+    public Object[] data() { return asList(); }
 
     public int getCode() { return this.code; }
     public void setCode(int code) { this.code=code; }

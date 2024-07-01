@@ -32,6 +32,17 @@ public class MySqlQueryManager {
         }
     }
 
+    //return the list of column names for the specific data access object, related to the implemented database
+    public static String[] getColumnNames(Connection connection, String table) {
+
+        var result=new ArrayList<String>(); //result set to store the column names
+        var query="show columns from "+table; //query on the default schema to extract the database column names
+        var res=getResult(connection, query); //execute query
+        var resList=asList(res, new String[]{"Field"}); //get result as an ArrayList
+        for (var item: resList) result.add(item[0]); //every item should have only one item because only the first column is used
+        return result.toArray(new String[0]); //return the result as an array of String
+    }
+
     //this method allows the dynamic construction of the database URL location by passing the usr/pwd parameters
     //and a database name (useful because the project is based around different schemas for data storage)
     public static String getURL(String username, String password, String dbName) {

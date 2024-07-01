@@ -5,5 +5,6 @@ package ingweb.main.aziendatrasporti.mo;
 //list of attributes that need to be extracted from each DAO via database queries
 public interface ModelObject {
 
-    public Object[] asList(); //list of every attribute to be set for the object
+    public Object[] asList(); //list of every attribute
+    public Object[] data(); //list of specific data for insertion
 }

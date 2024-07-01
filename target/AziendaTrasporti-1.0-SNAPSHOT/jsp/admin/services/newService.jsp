@@ -45,7 +45,7 @@
 
                 refreshButton.addEventListener("click", function() {
 
-                    document.dataForm.action.value="ServiceController.getServiceList";
+                    document.dataForm.action.value="ServiceController.getServices";
                     document.dataForm.submit();
                 });
 
@@ -76,11 +76,11 @@
                 </tr>
                 <tr>
                     <td><label for="startTime">Orario inizio</label></td>
-                    <td colspan="<%= licenseList.size() %>"><input type="time" id="startTime" name="startTime" value="<%= service==null ? "" : service.getStartTime() %>" required/></td>
+                    <td colspan="<%= licenseList.size() %>"><input type="time" id="startTime" name="startTime" step="1800" value="<%= service==null ? "" : service.getStartTime() %>" required/></td>
                 </tr>
                 <tr>
                     <td><label for="duration">Durata servizio</label></td>
-                    <td colspan="<%= licenseList.size() %>"><input type="time" id="duration" name="duration" value="<%= service==null ? "" : service.getDuration() %>" required/></td>
+                    <td colspan="<%= licenseList.size() %>"><input type="time" id="duration" name="duration" step="1800" value="<%= service==null ? "" : service.getDuration() %>" required/></td>
                 </tr>
                 <tr>
                     <td rowspan="2">Patenti necessarie</td>

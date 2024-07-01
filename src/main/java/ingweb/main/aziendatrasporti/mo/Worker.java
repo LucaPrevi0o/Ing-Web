@@ -37,6 +37,7 @@ public class Worker implements ModelObject {
     }
 
     public Object[] asList() { return new Object[]{name, surname, fiscalCode, birthDate, telNumber, deleted}; }
+    public Object[] data() { return asList(); }
 
     public boolean equals(Object o) {
 

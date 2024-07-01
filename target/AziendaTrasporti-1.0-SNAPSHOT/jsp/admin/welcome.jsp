@@ -25,11 +25,11 @@
                     document.tabForm.submit();
                 });
 
-                /* document.querySelector("#services").addEventListener("click", function() {
+                 document.querySelector("#services").addEventListener("click", function() {
 
-                    document.querySelector("#action").value="ServiceController.getServiceList";
+                    document.querySelector("#action").value="ServiceController.getServices";
                     document.tabForm.submit();
-                }); */
+                });
 
                 document.querySelector("#trucks").addEventListener("click", function() {
 
@@ -57,7 +57,7 @@
         <nav id="documentElement">
             <form name="tabForm" action="<%= request.getContextPath() %>/Servizi" method="post" class="styled">
                 <input type="button" id="workers" value="Visualizza lista autisti">
-                <input type="button" id="services" disabled value="Visualizza lista servizi">
+                <input type="button" id="services" value="Visualizza lista servizi">
                 <input type="button" id="trucks" value="Visualizza lista mezzi">
                 <input type="button" id="clients" value="Visualizza lista clienti">
                 <input type="button" id="logout" value="Torna al login">

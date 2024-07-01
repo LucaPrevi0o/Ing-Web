@@ -27,13 +27,13 @@
 
                 refreshButton.addEventListener("click", function() {
 
-                    document.dataForm.action.value="ServiceController.getServiceList";
+                    document.dataForm.action.value="ServiceController.getServices";
                     document.dataForm.submit();
                 });
 
                 backButton.addEventListener("click", function() {
 
-                    document.dataForm.action.value="LoginController.validate";
+                    document.dataForm.action.value="LoginController.doLogin";
                     document.dataForm.submit();
                 });
 
@@ -93,7 +93,7 @@
                 <td rowspan="2">Orario inizio</td>
                 <td rowspan="2">Durata</td>
                 <td colspan="<%= licenseList.size() %>">Patenti</td>
-                <td rowspan="2" colspan="3">Azioni - <input type="button" id="assignedList" value="Lista servizi in corso"></td>
+                <td rowspan="2" colspan="3">Azioni - <input type="button" id="assignedList" value="Lista servizi in corso" disabled></td>
             </tr>
             <tr class="firstRow"><% for (var license: licenseList) { %><td><%= license.getCategory() %></td><% } %></tr>
             <% for (var service: serviceList) {
@@ -105,7 +105,7 @@
                         <td><input type="checkbox" <%= licenses.contains(license) ? "checked" : "" %> disabled/></td>
                     <% } %>
                     <td><input type="button" id="<%= service.getCode() %>" name="edit" value="Modifica"></td>
-                    <td><input type="button" id="<%= service.getCode() %>" name="assign" value="Assegna servizio"></td>
+                    <td><input type="button" id="<%= service.getCode() %>" name="assign" value="Assegna servizio" disabled></td>
                     <td><input type="button" id="<%= service.getCode() %>" name="remove" value="Rimuovi"></td>
                 </tr>
             <% } %>

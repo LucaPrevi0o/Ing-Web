@@ -16,6 +16,7 @@ public class Assignment implements ModelObject {
         this.truck = truck;
         this.deleted = deleted;
     }
+    public Object[] data() { return asList(); }
 
     public Object[] asList() { return new Object[]{service, firstDriver, secondDriver, truck, deleted}; }
     public boolean equals(Object o) {

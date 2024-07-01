@@ -25,6 +25,15 @@ public class Service implements ModelObject {
         this.deleted=deleted;
     }
 
+    public Service(String name, ClientCompany clientCompany, Date date, Time startTime, Time duration) {
+
+        this.name=name;
+        this.clientCompany=clientCompany;
+        this.date=date;
+        this.startTime=startTime;
+        this.duration=duration;
+    }
+
     public boolean equals(Object o) {
 
         if (!(o instanceof Service)) return false;
@@ -37,7 +46,8 @@ public class Service implements ModelObject {
         return ((Service)o).deleted==this.deleted;
     }
 
-    public Object[] asList() { return new Object[]{this.name, this.clientCompany, this.date, this.startTime, this.duration, this.deleted}; }
+    public Object[] asList() { return new Object[]{this.code, this.name, this.clientCompany, this.date, this.startTime, this.duration, this.deleted}; }
+    public Object[] data() { return new Object[]{this.name, this.clientCompany, this.date, this.startTime, this.duration}; }
     public String toString() { return this.name+" ("+this.code+") - ["+this.clientCompany+"] - "+this.date+" - "+this.startTime+" ("+this.duration+")"; }
 
     public int getCode() { return code; }

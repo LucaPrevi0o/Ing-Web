@@ -36,7 +36,7 @@ public class MySqlDAOFactory extends DAOFactory {
     //that needs to be established every time the Web Server starts a new transaction for the request processing
     public AccountDAO getAccountDAO() { return new MySqlAccountDAO(connection); }
     public WorkerDAO getWorkerDAO() { return new MySqlWorkerDAO(connection); }
-    public ServiceDAO getServiceDAO() { return new MySqlServiceDAO(connection); }
+    public ServiceDAO getServiceDAO() { return new MySqlServiceDAO(connection, "servizio"); }
     public ClientDAO getClientDAO() { return new MySqlClientDAO(connection); }
     public TruckDAO getTruckDAO() { return new MySqlTruckDAO(connection); }
     public LicenseDAO getLicenseDAO() { return new MySqlLicenseDAO(connection); }

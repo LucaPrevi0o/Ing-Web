@@ -32,6 +32,7 @@ public class Truck implements ModelObject {
     }
 
     public Object[] asList() { return new Object[]{numberPlate, brand, model, available, deleted}; }
+    public Object[] data() { return asList(); }
 
     public String toString() {
 
