@@ -132,9 +132,6 @@ public class ServiceController implements Controller {
         var clientCompany=clientDAO.findByCode(Integer.parseInt(client));
         var service=new Service(Integer.parseInt(code), name, clientCompany, Date.valueOf(date), Time.valueOf(startTime), Time.valueOf(duration), false);
 
-        System.out.println(serviceDAO.findByCode(Integer.parseInt(code)));
-        System.out.println(service);
-
         var licenseList=new ArrayList<License>();
         for (var license: licenses) licenseList.add(new License(license));
         service.setValidLicenses(licenseList);
