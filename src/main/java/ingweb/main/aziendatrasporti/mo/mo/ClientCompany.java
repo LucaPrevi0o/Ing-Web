@@ -1,8 +1,10 @@
-package ingweb.main.aziendatrasporti.mo;
+package ingweb.main.aziendatrasporti.mo.mo;
+
+import ingweb.main.aziendatrasporti.mo.ModelObject;
 
 import java.sql.Date;
 
-public class ClientCompany implements ModelObject {
+public class ClientCompany extends ModelObject {
 
     int code;
     String name;

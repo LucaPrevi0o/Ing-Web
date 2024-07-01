@@ -1,6 +1,8 @@
-package ingweb.main.aziendatrasporti.mo;
+package ingweb.main.aziendatrasporti.mo.mo;
 
-public class Assignment implements ModelObject {
+import ingweb.main.aziendatrasporti.mo.ModelObject;
+
+public class Assignment extends ModelObject {
 
     private Service service;
     private Worker firstDriver;

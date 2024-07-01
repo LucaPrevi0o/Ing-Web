@@ -2,8 +2,8 @@ package ingweb.main.aziendatrasporti.dao.mysql.dao;
 
 import ingweb.main.aziendatrasporti.dao.WorkerDAO;
 import ingweb.main.aziendatrasporti.dao.mysql.MySqlQueryManager;
-import ingweb.main.aziendatrasporti.mo.License;
-import ingweb.main.aziendatrasporti.mo.Worker;
+import ingweb.main.aziendatrasporti.mo.mo.License;
+import ingweb.main.aziendatrasporti.mo.mo.Worker;
 import java.sql.*;
 import java.sql.Date;
 import java.util.*;

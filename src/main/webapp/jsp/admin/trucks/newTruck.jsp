@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="ingweb.main.aziendatrasporti.mo.License" %>
-<%@ page import="ingweb.main.aziendatrasporti.mo.Truck" %>
+<%@ page import="ingweb.main.aziendatrasporti.mo.mo.License" %>
+<%@ page import="ingweb.main.aziendatrasporti.mo.mo.Truck" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%
     var truck=(Truck)request.getAttribute("truck");

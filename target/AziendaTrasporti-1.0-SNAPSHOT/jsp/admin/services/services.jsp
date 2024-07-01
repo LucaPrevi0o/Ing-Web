@@ -1,6 +1,6 @@
-<%@ page import="ingweb.main.aziendatrasporti.mo.Service" %>
+<%@ page import="ingweb.main.aziendatrasporti.mo.mo.Service" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="ingweb.main.aziendatrasporti.mo.Worker" %>
+<%@ page import="ingweb.main.aziendatrasporti.mo.mo.Worker" %>
 <%@ page import="java.sql.Time" %>
 <% //global variables
     var serviceList=(ArrayList<Service>)request.getAttribute("serviceList");

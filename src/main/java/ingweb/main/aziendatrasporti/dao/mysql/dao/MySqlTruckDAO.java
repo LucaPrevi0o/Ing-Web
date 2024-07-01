@@ -2,9 +2,9 @@ package ingweb.main.aziendatrasporti.dao.mysql.dao;
 
 import ingweb.main.aziendatrasporti.dao.TruckDAO;
 import ingweb.main.aziendatrasporti.dao.mysql.MySqlQueryManager;
-import ingweb.main.aziendatrasporti.mo.License;
-import ingweb.main.aziendatrasporti.mo.Service;
-import ingweb.main.aziendatrasporti.mo.Truck;
+import ingweb.main.aziendatrasporti.mo.mo.License;
+import ingweb.main.aziendatrasporti.mo.mo.Service;
+import ingweb.main.aziendatrasporti.mo.mo.Truck;
 import java.sql.Connection;
 import java.util.ArrayList;
 

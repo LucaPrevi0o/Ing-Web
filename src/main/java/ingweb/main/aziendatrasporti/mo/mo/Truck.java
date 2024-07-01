@@ -1,8 +1,10 @@
-package ingweb.main.aziendatrasporti.mo;
+package ingweb.main.aziendatrasporti.mo.mo;
+
+import ingweb.main.aziendatrasporti.mo.ModelObject;
 
 import java.util.ArrayList;
 
-public class Truck implements ModelObject {
+public class Truck extends ModelObject {
 
     int code;
     String numberPlate;

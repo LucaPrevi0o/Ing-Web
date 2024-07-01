@@ -1,6 +1,6 @@
 package ingweb.main.aziendatrasporti.control;
 
-import ingweb.main.aziendatrasporti.mo.ClientCompany;
+import ingweb.main.aziendatrasporti.mo.mo.ClientCompany;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Date;

@@ -1,6 +1,6 @@
 package ingweb.main.aziendatrasporti.dao;
 
-import ingweb.main.aziendatrasporti.mo.Account;
+import ingweb.main.aziendatrasporti.mo.mo.Account;
 import java.util.ArrayList;
 
 //interface allows the DAO to be independent of the database-specific method implementation of every functionality

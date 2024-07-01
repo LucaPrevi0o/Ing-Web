@@ -1,5 +1,9 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="ingweb.main.aziendatrasporti.mo.*" %>
+<%@ page import="ingweb.main.aziendatrasporti.mo.mo.Service" %>
+<%@ page import="ingweb.main.aziendatrasporti.mo.mo.ClientCompany" %>
+<%@ page import="ingweb.main.aziendatrasporti.mo.mo.Worker" %>
+<%@ page import="ingweb.main.aziendatrasporti.mo.mo.Truck" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%
     var serviceList=(ArrayList<Service>)request.getAttribute("serviceList");

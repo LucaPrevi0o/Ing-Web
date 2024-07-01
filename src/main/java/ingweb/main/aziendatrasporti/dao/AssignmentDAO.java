@@ -1,6 +1,6 @@
 package ingweb.main.aziendatrasporti.dao;
 
-import ingweb.main.aziendatrasporti.mo.Assignment;
+import ingweb.main.aziendatrasporti.mo.mo.Assignment;
 
 import java.util.ArrayList;
 

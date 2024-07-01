@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="ingweb.main.aziendatrasporti.mo.Worker" %>
+<%@ page import="ingweb.main.aziendatrasporti.mo.mo.Worker" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="ingweb.main.aziendatrasporti.mo.License" %>
+<%@ page import="ingweb.main.aziendatrasporti.mo.mo.License" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%
     var worker=(Worker)request.getAttribute("worker");

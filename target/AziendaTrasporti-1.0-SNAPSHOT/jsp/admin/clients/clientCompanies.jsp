@@ -1,5 +1,5 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="ingweb.main.aziendatrasporti.mo.ClientCompany" %>
+<%@ page import="ingweb.main.aziendatrasporti.mo.mo.ClientCompany" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%
     var clientList=(ArrayList<ClientCompany>)request.getAttribute("clientList");

@@ -1,6 +1,6 @@
 package ingweb.main.aziendatrasporti.dao;
 
-import ingweb.main.aziendatrasporti.mo.Service;
+import ingweb.main.aziendatrasporti.mo.mo.Service;
 import java.util.ArrayList;
 
 public interface ServiceDAO {

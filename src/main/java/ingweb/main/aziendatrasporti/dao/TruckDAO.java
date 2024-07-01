@@ -1,8 +1,8 @@
 package ingweb.main.aziendatrasporti.dao;
 
-import ingweb.main.aziendatrasporti.mo.License;
-import ingweb.main.aziendatrasporti.mo.Service;
-import ingweb.main.aziendatrasporti.mo.Truck;
+import ingweb.main.aziendatrasporti.mo.mo.License;
+import ingweb.main.aziendatrasporti.mo.mo.Service;
+import ingweb.main.aziendatrasporti.mo.mo.Truck;
 import java.util.ArrayList;
 
 public interface TruckDAO {

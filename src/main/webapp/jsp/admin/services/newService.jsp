@@ -1,7 +1,7 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="ingweb.main.aziendatrasporti.mo.License" %>
-<%@ page import="ingweb.main.aziendatrasporti.mo.Service" %>
-<%@ page import="ingweb.main.aziendatrasporti.mo.ClientCompany" %>
+<%@ page import="ingweb.main.aziendatrasporti.mo.mo.License" %>
+<%@ page import="ingweb.main.aziendatrasporti.mo.mo.Service" %>
+<%@ page import="ingweb.main.aziendatrasporti.mo.mo.ClientCompany" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%
     var service=(Service)request.getAttribute("service");

@@ -1,12 +1,8 @@
 package ingweb.main.aziendatrasporti.control;
 
-import ingweb.main.aziendatrasporti.dao.ClientDAO;
 import ingweb.main.aziendatrasporti.dao.DAOFactory;
-import ingweb.main.aziendatrasporti.dao.LicenseDAO;
-import ingweb.main.aziendatrasporti.dao.ServiceDAO;
-import ingweb.main.aziendatrasporti.mo.ClientCompany;
-import ingweb.main.aziendatrasporti.mo.License;
-import ingweb.main.aziendatrasporti.mo.Service;
+import ingweb.main.aziendatrasporti.mo.mo.License;
+import ingweb.main.aziendatrasporti.mo.mo.Service;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Date;
@@ -127,18 +123,23 @@ public class ServiceController implements Controller {
         var name=request.getParameter("name");
         var client=request.getParameter("clientCompany");
         var date=request.getParameter("date");
-        var startTime=request.getParameter("startTime")+":00";
-        var duration=request.getParameter("duration")+":00";
+        var startTime=request.getParameter("startTime");
+        startTime+=(startTime.matches("[0-9]{2}:[0-9]{2}") ? ":00" : "");
+        var duration=request.getParameter("duration");
+        duration+=(duration.matches("[0-9]{2}:[0-9]{2}") ? ":00" : "");
         var licenses=request.getParameterValues("license");
 
         var clientCompany=clientDAO.findByCode(Integer.parseInt(client));
         var service=new Service(Integer.parseInt(code), name, clientCompany, Date.valueOf(date), Time.valueOf(startTime), Time.valueOf(duration), false);
 
+        System.out.println(serviceDAO.findByCode(Integer.parseInt(code)));
+        System.out.println(service);
+
         var licenseList=new ArrayList<License>();
         for (var license: licenses) licenseList.add(new License(license));
         service.setValidLicenses(licenseList);
 
-        serviceDAO.updateService(serviceDAO.findByCode(Integer.parseInt(code)));
+        serviceDAO.updateService(service);
         licenseDAO.updateLicensesByService(service, licenseList);
         listView(request, response, dao);
     }

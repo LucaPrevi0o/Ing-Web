@@ -1,6 +1,8 @@
-package ingweb.main.aziendatrasporti.mo;
+package ingweb.main.aziendatrasporti.mo.mo;
 
-public class Account implements ModelObject {
+import ingweb.main.aziendatrasporti.mo.ModelObject;
+
+public class Account extends ModelObject {
 
     private String username;
     private String password;

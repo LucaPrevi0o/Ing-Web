@@ -1,9 +1,10 @@
 package ingweb.main.aziendatrasporti.dao.mysql;
 
+import ingweb.main.aziendatrasporti.mo.ModelObject;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-public abstract class DataAccessObject {
+public abstract class MySqlDAO<T extends ModelObject> {
 
     private static String[] columns;
     private static Connection connection;
@@ -18,18 +19,32 @@ public abstract class DataAccessObject {
     public static void setTableName(String x) { tableName=x; }
     public static String getTableName() { return tableName; }
 
-    public static ArrayList<String[]> select() {
+    public abstract T get(String[] item);
 
+    public ArrayList<T> select() {
+
+        var result=new ArrayList<T>();
         var query="select * from "+tableName;
         var res=MySqlQueryManager.getResult(connection, query);
-        return MySqlQueryManager.asList(res, columns);
+        var resList=MySqlQueryManager.asList(res, columns);
+        for (var item: resList) {
+
+            var o=this.get(item);
+            if (!o.isDeleted()) result.add(o);
+        }
+
+        return result;
     }
 
-    public static ArrayList<String[]> select(int code) {
+    public T select(int code) {
 
         var query="select * from "+tableName+" where "+columns[0]+"="+code;
         var res=MySqlQueryManager.getResult(connection, query);
-        return MySqlQueryManager.asList(res, columns);
+        var resList=MySqlQueryManager.asList(res, columns);
+        if (resList.size()!=1) return null;
+        var item=resList.get(0);
+        var object=get(item);
+        return (object.isDeleted() ? null : object);
     }
 
     public static int lastCode() {
@@ -41,7 +56,7 @@ public abstract class DataAccessObject {
 
     public static void insert(Object[] data) {
 
-        if (data.length!=columns.length) System.out.println("Data and length are different");
+        if (data.length!=columns.length) System.out.println("Data and length are different for insertion");
         var query="insert into "+tableName+" (";
         for (var i=0; i<columns.length-1; i++) query+=columns[i]+", ";
         query+=columns[columns.length-1]+") values (";
@@ -58,10 +73,12 @@ public abstract class DataAccessObject {
 
     public static void update(Object[] data) {
 
-        if (data.length!=columns.length) System.out.println("Data and length are different");
+        if (data.length!=columns.length) System.out.println("Data and length are different for update");
         var query="update "+tableName+" set ";
-        for (var i=1; i<columns.length-2; i++) query+=columns[i]+"='"+data[i]+"', ";
-        query+=columns[columns.length-2]+"='"+data[data.length-2]+"' where "+columns[0]+"="+data[0];
+        for (var i=0; i<columns.length-1; i++) query+=columns[i]+"=?, ";
+        query+=columns[columns.length-1]+"=? where "+columns[0]+"="+data[0];
+        System.out.println(query);
+        for (var d: data) System.out.println(d);
         MySqlQueryManager.execute(connection, query, data);
     }
 }

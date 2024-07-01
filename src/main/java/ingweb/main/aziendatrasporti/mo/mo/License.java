@@ -1,6 +1,8 @@
-package ingweb.main.aziendatrasporti.mo;
+package ingweb.main.aziendatrasporti.mo.mo;
 
-public class License implements ModelObject {
+import ingweb.main.aziendatrasporti.mo.ModelObject;
+
+public class License extends ModelObject {
 
     String category;
 

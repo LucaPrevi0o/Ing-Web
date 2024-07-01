@@ -1,4 +1,4 @@
-<%@ page import="ingweb.main.aziendatrasporti.mo.Account" %>
+<%@ page import="ingweb.main.aziendatrasporti.mo.mo.Account" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%
     var loggedAccount=(Account)request.getAttribute("loggedAccount");

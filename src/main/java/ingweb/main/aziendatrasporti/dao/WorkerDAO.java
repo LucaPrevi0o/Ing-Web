@@ -1,7 +1,7 @@
 package ingweb.main.aziendatrasporti.dao;
 
-import ingweb.main.aziendatrasporti.mo.License;
-import ingweb.main.aziendatrasporti.mo.Worker;
+import ingweb.main.aziendatrasporti.mo.mo.License;
+import ingweb.main.aziendatrasporti.mo.mo.Worker;
 import java.util.*;
 
 //interface allows the DAO to be independent of the database-specific method implementation of every functionality

@@ -1,10 +1,12 @@
-package ingweb.main.aziendatrasporti.mo;
+package ingweb.main.aziendatrasporti.mo.mo;
+
+import ingweb.main.aziendatrasporti.mo.ModelObject;
 
 import java.sql.Date;
 import java.util.ArrayList;
 
 
-public class Worker implements ModelObject {
+public class Worker extends ModelObject {
 
     private int code;
     private String name;

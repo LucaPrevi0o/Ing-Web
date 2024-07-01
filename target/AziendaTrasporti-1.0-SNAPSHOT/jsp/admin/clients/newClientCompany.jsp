@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="ingweb.main.aziendatrasporti.mo.ClientCompany" %>
+<%@ page import="ingweb.main.aziendatrasporti.mo.mo.ClientCompany" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <% var clientCompany=(ClientCompany)request.getAttribute("clientCompany"); %>
 <html>
