@@ -1,6 +1,7 @@
 package ingweb.main.aziendatrasporti.control;
 
 import ingweb.main.aziendatrasporti.dao.DAOFactory;
+import ingweb.main.aziendatrasporti.mo.mo.Assignment;
 import ingweb.main.aziendatrasporti.mo.mo.License;
 import ingweb.main.aziendatrasporti.mo.mo.Service;
 import jakarta.servlet.http.HttpServletRequest;
@@ -144,30 +145,5 @@ public class ServiceController implements Controller {
         var licenseDAO=dao.getLicenseDAO();
         licenseDAO.updateLicensesByService(service, licenseList);
         listView(request, response, dao);
-    }
-
-    public static void assignService(HttpServletRequest request, HttpServletResponse response) {
-
-        var dao=Controller.getMySqlDAO("azienda_trasporti");
-
-        var code=request.getParameter("code");
-        var serviceDAO=dao.getServiceDAO();
-        var service=serviceDAO.findByCode(Integer.parseInt(code));
-
-        var clientDAO=dao.getClientDAO();
-        service.setClientCompany(clientDAO.findBySocialReason(service.getClientCompany().getSocialReason()));
-
-        var workerDAO=dao.getWorkerDAO();
-        var workerList=workerDAO.findAvailableByService(service);
-
-        var truckDAO=dao.getTruckDAO();
-        var truckList=truckDAO.findAvailableByService(service);
-
-        dao.confirm();
-        attributes.add(new Object[]{"service", service});
-        attributes.add(new Object[]{"workerList", workerList});
-        attributes.add(new Object[]{"truckList", truckList});
-        attributes.add(new Object[]{"selectedTab", "services"});
-        attributes.add(new Object[]{"viewUrl", "/admin/services/serviceAssignment"});
     }
 }

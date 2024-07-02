@@ -1,6 +1,7 @@
 package ingweb.main.aziendatrasporti.dao.mysql;
 
 import ingweb.main.aziendatrasporti.mo.mo.ClientCompany;
+import ingweb.main.aziendatrasporti.mo.mo.Service;
 import ingweb.main.aziendatrasporti.mo.mo.Truck;
 import ingweb.main.aziendatrasporti.mo.mo.Worker;
 import java.sql.*;
@@ -87,6 +88,8 @@ public class MySqlQueryManager {
     //execute new update query in the database receiving data from the parameter list of the updated object
     public static void execute(Connection connection, String sql, Object[] params) {
 
+        System.out.println("params in execute");
+        for (var s: params) System.out.println(s);
         try { //create statement and return its execution result
 
             var statement=connection.prepareStatement(sql); //new empty statement
@@ -105,6 +108,7 @@ public class MySqlQueryManager {
                 else if (params[index] instanceof ClientCompany) statement.setString(index+1, ((ClientCompany)params[index]).getSocialReason());
                 else if (params[index] instanceof Truck) statement.setString(index+1, ((Truck)params[index]).getNumberPlate());
                 else if (params[index] instanceof Worker) statement.setString(index+1, ((Worker)params[index]).getFiscalCode());
+                else if (params[index] instanceof Service) statement.setInt(index+1, ((Service)params[index]).getCode());
                 else if (params[index]==null) statement.setNull(index+1, Types.VARCHAR);
             statement.executeUpdate(); //execute statement in the query with the parameters set to the corresponding values
         } catch (Exception e) { e.printStackTrace(); }

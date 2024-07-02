@@ -73,7 +73,7 @@
 
                     b.addEventListener("click", function() {
 
-                        document.dataForm.action.value="ServiceController.assignService";
+                        document.dataForm.action.value="AssignmentController.newAssignment";
                         document.dataForm.code.value=this.id;
                         document.dataForm.submit();
                     });

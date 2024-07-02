@@ -40,6 +40,17 @@ public class MySqlServiceDAO extends MySqlDAO<Service> implements ServiceDAO {
         return result;
     }
 
+    public ArrayList<Service> findAllAssigned() {
+
+        var result=new ArrayList<Service>();
+        var query="select * from "+getTableName()+" where "+getColumns()[0]+" in (select servizio from assegnamento join "+getTableName()+" on "+getTableName()+"."+getColumns()[0]+" = assegnamento.servizio)";
+        System.out.println(query);
+        var res=MySqlQueryManager.getResult(getConnection(), query);
+        var resList=MySqlQueryManager.asList(res, getColumns());
+        for (var item: resList) result.add(get(item));
+        return result;
+    }
+
     public Service findByCode(int code) { return select(0, code); }
     public int findLastCode() { return lastCode(); }
     public void addService(Service service) { insert(service.asList()); }

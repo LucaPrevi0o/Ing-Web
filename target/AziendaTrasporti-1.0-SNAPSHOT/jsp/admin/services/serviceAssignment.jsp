@@ -22,7 +22,7 @@
 
                 let firstDriver=document.querySelector("#selectedWorker");
                 let secondDriver=document.querySelector("#secondWorker");
-                document.dataForm.action.value="ServiceController.confirmService";
+                document.dataForm.action.value="AssignmentController.addAssignment";
                 if (firstDriver!==secondDriver) document.dataForm.submit();
             }
 
@@ -62,9 +62,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><label for="selectedWorker">Selezione autista</label></td>
+                    <td><label for="firstWorker">Selezione autista</label></td>
                     <td>
-                        <select id="selectedWorker" name="selectedWorker" required>
+                        <select id="firstWorker" name="firstWorker" required>
                             <% for (var worker: workerList) { %><option value="<%= worker.getCode() %>"><%= worker.display() %></option><% }%>
                         </select>
                     </td>

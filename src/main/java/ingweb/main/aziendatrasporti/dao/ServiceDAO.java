@@ -7,6 +7,7 @@ public interface ServiceDAO {
 
     //public ArrayList<Service> findAll();
     public ArrayList<Service> findAllNotAssigned();
+    public ArrayList<Service> findAllAssigned();
     public Service findByCode(int code);
     public int findLastCode();
     public void addService(Service service);
