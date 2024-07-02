@@ -17,7 +17,9 @@ public class MySqlDAOFactory extends DAOFactory {
     }
 
     //database access requires transaction management in order to have a functional multi-user experience that
-    //preserves data validation and concurrent access to the Web Server without interfering
+    //preserves data validation and concurrent access to the Web Server without interfering; this function allows
+    //transaction commitment and closing, terminating the operation on the database and securing the persistent data
+    //on the DB
     public void confirm() {
 
         try { //commit and close the executed transaction after it's done
@@ -33,12 +35,15 @@ public class MySqlDAOFactory extends DAOFactory {
     }
 
     //list of DAO elements implemented for the MySQL database; each DAO has a reference to the database connection
-    //that needs to be established every time the Web Server starts a new transaction for the request processing
+    //that needs to be established every time the Web Server starts a new transaction for the request processing;
+    //each DAO also needs the name of the MySQL table referencing the object itself, in order to manage correctly the
+    //connection interface with the DB and automatically create the list of attributes and MySQL queries for the
+    //object itself
     public AccountDAO getAccountDAO() { return new MySqlAccountDAO(connection); }
     public WorkerDAO getWorkerDAO() { return new MySqlWorkerDAO(connection, "dipendente"); }
     public ServiceDAO getServiceDAO() { return new MySqlServiceDAO(connection, "servizio"); }
     public ClientDAO getClientDAO() { return new MySqlClientDAO(connection); }
-    public TruckDAO getTruckDAO() { return new MySqlTruckDAO(connection); }
+    public TruckDAO getTruckDAO() { return new MySqlTruckDAO(connection, "mezzo"); }
     public LicenseDAO getLicenseDAO() { return new MySqlLicenseDAO(connection); }
     public AssignmentDAO getAssignmentDAO() { return new MySqlAssignmentDAO(connection); }
 }

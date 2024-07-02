@@ -59,7 +59,7 @@ public class MySqlQueryManager {
         try { //construct and return new database connection
 
             Class.forName("com.mysql.cj.jdbc.Driver"); //append Driver handler dependency
-            var c=DriverManager.getConnection(url); //set up a new MySQL connection
+            var c= DriverManager.getConnection(url); //set up a new MySQL connection
             c.setAutoCommit(false); //set manual commit for transaction management
             return c; //return new connection
         } catch (Exception e) {

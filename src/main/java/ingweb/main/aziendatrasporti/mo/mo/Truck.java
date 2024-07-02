@@ -1,62 +1,49 @@
 package ingweb.main.aziendatrasporti.mo.mo;
 
 import ingweb.main.aziendatrasporti.mo.ModelObject;
-
 import java.util.ArrayList;
 
 public class Truck extends ModelObject {
 
-    int code;
     String numberPlate;
     String brand;
     String model;
     boolean available;
     ArrayList<License> neededLicenses=new ArrayList<>();
-    boolean deleted;
 
-    public Truck(String numberPlate, String brand, String model, boolean available, boolean deleted) {
+    public Truck(String numberPlate, String brand, String model, boolean available) {
 
         this.numberPlate=numberPlate;
         this.brand=brand;
         this.model=model;
         this.available=available;
-        this.deleted=deleted;
     }
 
     public Truck(int code, String numberPlate, String brand, String model, boolean available, boolean deleted) {
 
-        this.code=code;
+        this.setCode(code);
         this.numberPlate=numberPlate;
         this.brand=brand;
         this.model=model;
         this.available=available;
-        this.deleted=deleted;
+        this.setDeleted(deleted);
     }
 
-    public Object[] asList() { return new Object[]{numberPlate, brand, model, available, deleted}; }
-    public Object[] data() { return asList(); }
-
-    public String toString() {
-
-        var res=numberPlate.toUpperCase()+": "+brand+" "+model+" ("+(available ? "Y" : "N")+") - ";
-        for (var license: neededLicenses) res+="\""+license+"\" ";
-        return res;
-    }
-
+    public Object[] asList() { return new Object[]{this.getCode(), this.numberPlate, this.brand, this.model, this.available, this.isDeleted()}; }
+    public Object[] data() { return new Object[]{this.numberPlate, this.brand, this.model, this.available}; }
+    public String toString() { return this.numberPlate.toUpperCase()+": "+this.brand+" "+this.model+" ("+(this.available ? "Y" : "N")+") - "; }
     public String display() { return this.numberPlate+": "+this.brand+" "+this.model; }
 
     public boolean equals(Object o) {
 
         if (!(o instanceof Truck)) return false;
+        if (((Truck)o).getCode()!=this.getCode()) return false;
         if (!((Truck)o).numberPlate.equals(this.numberPlate)) return false;
         if (!((Truck)o).brand.equals(this.brand)) return false;
         if (!((Truck)o).model.equals(this.model)) return false;
         if (((Truck)o).available!=this.available) return false;
-        return ((Truck)o).deleted==this.deleted;
+        return ((Truck)o).isDeleted()==this.isDeleted();
     }
-
-    public int getCode() { return this.code; }
-    public void setCode(int code) { this.code=code; }
 
     public String getNumberPlate() { return numberPlate; }
     public void setNumberPlate(String numberPlate) { this.numberPlate=numberPlate; }
@@ -72,7 +59,4 @@ public class Truck extends ModelObject {
 
     public ArrayList<License> getNeededLicenses() { return neededLicenses; }
     public void setNeededLicenses(ArrayList<License> neededLicenses) { this.neededLicenses=neededLicenses; }
-
-    public boolean isDeleted() { return deleted; }
-    public void setDeleted(boolean deleted) { this.deleted=deleted; }
 }

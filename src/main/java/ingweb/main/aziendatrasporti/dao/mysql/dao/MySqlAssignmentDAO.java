@@ -20,7 +20,7 @@ public class MySqlAssignmentDAO implements AssignmentDAO {
             new Service(Integer.parseInt(item[0]), null, null, null, null, null, false),
             new Worker(null, null, item[1], null, null),
             new Worker(null, null, item[2], null, null),
-            new Truck(item[3], null, null, false, false),false
+            new Truck(item[3], null, null, false),false
         );
     }
 

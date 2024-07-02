@@ -9,12 +9,14 @@ public abstract class ModelObject {
     private int code=0; //code primary key
     private boolean deleted=false; //logical flag for deletion
 
-    public abstract Object[] asList(); //list of every attribute
-    public abstract Object[] data(); //list of specific data for insertion
+    public abstract Object[] asList(); //list of every attribute of the entity
+    public abstract Object[] data(); //list of specific data visible from list view
 
+    //getter-setter methods for code
     public void setCode(int code) { this.code=code; }
     public int getCode() { return this.code; }
 
+    //getter-setter methods for deleted
     public void setDeleted(boolean deleted) { this.deleted=deleted; }
     public boolean isDeleted() { return this.deleted; }
 }

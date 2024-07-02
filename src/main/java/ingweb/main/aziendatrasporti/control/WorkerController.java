@@ -19,11 +19,7 @@ public class WorkerController implements Controller {
         var licenseDAO=dao.getLicenseDAO();
         var workerList=workerDAO.findAll();
         var licenseList=licenseDAO.findAll();
-        for (var worker: workerList) {
-
-            worker.setLicenses(licenseDAO.findAllByWorker(worker));
-            System.out.println(worker);
-        }
+        for (var worker: workerList) worker.setLicenses(licenseDAO.findAllByWorker(worker));
 
         dao.confirm();
         attributes.add(new Object[]{"licenseList", licenseList});

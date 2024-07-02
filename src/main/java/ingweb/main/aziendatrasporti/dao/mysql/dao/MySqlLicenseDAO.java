@@ -14,8 +14,6 @@ public class MySqlLicenseDAO implements LicenseDAO {
     private final Connection connection;
     private final String[] allColumns={"categoria"};
 
-    private String parseParams() { return allColumns[0]; }
-
     public MySqlLicenseDAO(Connection connection) { this.connection=connection; }
 
     public ArrayList<License> findAll() {
@@ -41,10 +39,10 @@ public class MySqlLicenseDAO implements LicenseDAO {
     public ArrayList<License> findAllByTruck(String numberPlate) {
 
         ArrayList<License> licenses=new ArrayList<>();
-        var query="select * from patenti_mezzo where targa="+numberPlate;
+        var query="select * from patenti_mezzo where targa='"+numberPlate+"'";
         var res= MySqlQueryManager.getResult(connection, query); //execute query on the database
-        var resList=MySqlQueryManager.asList(res, allColumns); //parse results
-        for (var item: resList) licenses.add(new License(item[0])); //add license to list
+        var resList=MySqlQueryManager.asList(res, new String[]{"targa", "patente"}); //parse results
+        for (var item: resList) licenses.add(new License(item[1])); //add license to list
         return licenses; //return list of valid services
     }
 

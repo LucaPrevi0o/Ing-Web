@@ -35,7 +35,8 @@ public class Worker extends ModelObject {
 
     public Object[] asList() { return new Object[]{this.getCode(), this.name, this.surname, this.fiscalCode, this.birthDate, this.telNumber, this.isDeleted()}; }
     public Object[] data() { return new Object[]{this.name, this.surname, this.fiscalCode, this.birthDate, this.telNumber}; }
-    public String toString() { return this.name+" "+this.surname+" ("+this.fiscalCode+") - "+this.birthDate+" - "+this.telNumber+": "; }
+    public String toString() { return this.name+" "+this.surname+" ("+this.fiscalCode+"): "+this.birthDate+" - "+this.telNumber; }
+    public String display() { return this.name+" "+this.surname+" ("+this.fiscalCode+")"; }
 
     public boolean equals(Object o) {
 
@@ -49,8 +50,6 @@ public class Worker extends ModelObject {
         if (((Worker)o).licenses.equals(this.licenses)) return false;
         return ((Worker)o).isDeleted()==this.isDeleted();
     }
-
-    public String display() { return this.name+" "+this.surname+" ("+this.fiscalCode+")"; }
 
     public String getName() { return name; }
     public void setName(String name) { this.name=name; }
