@@ -31,28 +31,21 @@ public abstract class MySqlDAO<T extends ModelObject> {
     public ArrayList<T> select() { //generic select query for every field of data
 
         var result=new ArrayList<T>();
-        var query="select * from "+tableName;
+        var query="select * from "+tableName+" where "+columns[columns.length-1]+" = 0";
         var res=MySqlQueryManager.getResult(connection, query);
         var resList=MySqlQueryManager.asList(res, columns);
-        for (var item: resList) {
-
-            var o=this.get(item);
-            if (!o.isDeleted()) result.add(o);
-        }
-
+        for (var item: resList) result.add(get(item));
         return result;
     }
 
     //generic select query based on field-specific field search
     public T select(int fieldIndex, Object fieldValue) {
 
-        var query="select * from "+tableName+" where "+columns[fieldIndex]+"='"+fieldValue+"'";
+        var query="select * from "+tableName+" where "+columns[fieldIndex]+"='"+fieldValue+"'"+" and "+columns[columns.length-1]+" = 0";
         var res=MySqlQueryManager.getResult(connection, query);
         var resList=MySqlQueryManager.asList(res, columns);
         if (resList.size()!=1) return null;
-        var item=resList.get(0);
-        var object=get(item);
-        return (object.isDeleted() ? null : object);
+        return get(resList.get(0));
     }
 
     //function for automatic code key generation (field used as primary key)

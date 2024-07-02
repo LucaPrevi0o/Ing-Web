@@ -14,7 +14,7 @@ public class ServiceController implements Controller {
     private static void listView(HttpServletRequest request, HttpServletResponse response, DAOFactory dao) {
 
         var serviceDAO=dao.getServiceDAO();
-        var serviceList=serviceDAO.findAll();
+        var serviceList=serviceDAO.findAllNotAssigned();
 
         for (var service: serviceList) {
 

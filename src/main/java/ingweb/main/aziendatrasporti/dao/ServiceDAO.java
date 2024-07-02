@@ -5,7 +5,8 @@ import java.util.ArrayList;
 
 public interface ServiceDAO {
 
-    public ArrayList<Service> findAll();
+    //public ArrayList<Service> findAll();
+    public ArrayList<Service> findAllNotAssigned();
     public Service findByCode(int code);
     public int findLastCode();
     public void addService(Service service);
