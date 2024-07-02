@@ -33,7 +33,6 @@ public class MySqlServiceDAO extends MySqlDAO<Service> implements ServiceDAO {
 
         var result=new ArrayList<Service>();
         var query="select * from "+getTableName()+" where "+getColumns()[0]+" not in (select servizio from assegnamento join "+getTableName()+" on "+getTableName()+"."+getColumns()[0]+" = assegnamento.servizio)";
-        System.out.println(query);
         var res=MySqlQueryManager.getResult(getConnection(), query);
         var resList=MySqlQueryManager.asList(res, getColumns());
         for (var item: resList) result.add(get(item));
@@ -44,7 +43,6 @@ public class MySqlServiceDAO extends MySqlDAO<Service> implements ServiceDAO {
 
         var result=new ArrayList<Service>();
         var query="select * from "+getTableName()+" where "+getColumns()[0]+" in (select servizio from assegnamento join "+getTableName()+" on "+getTableName()+"."+getColumns()[0]+" = assegnamento.servizio)";
-        System.out.println(query);
         var res=MySqlQueryManager.getResult(getConnection(), query);
         var resList=MySqlQueryManager.asList(res, getColumns());
         for (var item: resList) result.add(get(item));

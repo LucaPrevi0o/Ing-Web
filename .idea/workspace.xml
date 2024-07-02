@@ -9,8 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0bf709cf-d99c-4d00-90c1-2fc5a7108193" name="Changes" comment="service selection only selects not assigned">
+    <list default="true" id="0bf709cf-d99c-4d00-90c1-2fc5a7108193" name="Changes" comment="added assignment controller">
       <change afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/control/AssignmentController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/control/AssignmentController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/control/AssignmentController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/control/ServiceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/control/ServiceController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/ServiceDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/ServiceDAO.java" afterDir="false" />
@@ -332,15 +334,7 @@
       <workItem from="1719245871791" duration="3988000" />
       <workItem from="1719560668603" duration="5739000" />
       <workItem from="1719573053565" duration="21563000" />
-      <workItem from="1719733543573" duration="48689000" />
-    </task>
-    <task id="LOCAL-00037" summary="updated attribute naming in workers management">
-      <option name="closed" value="true" />
-      <created>1718610378705</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1718610378705</updated>
+      <workItem from="1719733543573" duration="49015000" />
     </task>
     <task id="LOCAL-00038" summary="updated truck management to work with code key">
       <option name="closed" value="true" />
@@ -726,7 +720,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719931078074</updated>
     </task>
-    <option name="localTasksCounter" value="86" />
+    <task id="LOCAL-00086" summary="added assignment controller">
+      <option name="closed" value="true" />
+      <created>1719933294499</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1719933294499</updated>
+    </task>
+    <option name="localTasksCounter" value="87" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -747,7 +749,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added assignment deletion for services" />
     <MESSAGE value="added service list ordering by date" />
     <MESSAGE value="added worker login for personal service view" />
     <MESSAGE value="added profile deletion and updating in worker list" />
@@ -772,7 +773,8 @@
     <MESSAGE value="added nav menu in every insertion form view" />
     <MESSAGE value="worker and truck selection for assignment works" />
     <MESSAGE value="service selection only selects not assigned" />
-    <option name="LAST_COMMIT_MESSAGE" value="service selection only selects not assigned" />
+    <MESSAGE value="added assignment controller" />
+    <option name="LAST_COMMIT_MESSAGE" value="added assignment controller" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
