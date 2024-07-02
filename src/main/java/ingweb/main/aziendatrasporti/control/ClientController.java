@@ -5,7 +5,6 @@ import ingweb.main.aziendatrasporti.mo.mo.ClientCompany;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Date;
-import java.util.ArrayList;
 
 public class ClientController implements Controller {
 

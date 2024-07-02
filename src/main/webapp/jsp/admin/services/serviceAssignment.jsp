@@ -35,7 +35,7 @@
 
                 refreshButton.addEventListener("click", function() {
 
-                    document.dataForm.action.value="ServiceController.getServiceList";
+                    document.dataForm.action.value="ServiceController.getServices";
                     document.dataForm.submit();
                 });
 
@@ -49,8 +49,10 @@
             <hr/>
             <table>
                 <tr class="firstRow"><td colspan="2">Servizio: <%= service.getName() %></td></tr>
-                <tr><td>Data</td><td><%= service.getDate() %></td></tr>
                 <tr><td>Cliente</td><td><%= service.getClientCompany().display() %></td></tr>
+                <tr><td>Data</td><td><%= service.getDate() %></td></tr>
+                <tr><td>Ora inizio</td><td><%= service.getStartTime() %></td></tr>
+                <tr><td>Durata servizio</td><td><%= service.getDuration() %></td></tr>
                 <tr>
                     <td><label for="selectedTruck">Selezione mezzo</label></td>
                     <td>

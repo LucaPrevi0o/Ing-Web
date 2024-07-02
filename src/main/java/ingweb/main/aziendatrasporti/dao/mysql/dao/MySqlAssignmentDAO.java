@@ -1,43 +1,35 @@
 package ingweb.main.aziendatrasporti.dao.mysql.dao;
-import ingweb.main.aziendatrasporti.dao.AssignmentDAO;
-import ingweb.main.aziendatrasporti.dao.mysql.MySqlQueryManager;
-import ingweb.main.aziendatrasporti.mo.mo.Assignment;
-import ingweb.main.aziendatrasporti.mo.mo.Service;
-import ingweb.main.aziendatrasporti.mo.mo.Truck;
-import ingweb.main.aziendatrasporti.mo.mo.Worker;
 
+import ingweb.main.aziendatrasporti.dao.AssignmentDAO;
+import ingweb.main.aziendatrasporti.dao.mysql.MySqlDAO;
+import ingweb.main.aziendatrasporti.dao.mysql.MySqlQueryManager;
+import ingweb.main.aziendatrasporti.mo.mo.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-public class MySqlAssignmentDAO implements AssignmentDAO {
+public class MySqlAssignmentDAO extends MySqlDAO<Assignment> implements AssignmentDAO {
 
-    private final Connection connection;
-    private final String[] allColumns={"servizio", "primo_autista", "secondo_autista", "mezzo", "deleted"};
+    public MySqlAssignmentDAO(Connection connection, String tableName) {
 
-    public Assignment getAssignment(String[] item) {
+        MySqlDAO.setConnection(connection);
+        MySqlDAO.setTableName(tableName);
+        MySqlDAO.setColumns(MySqlQueryManager.getColumnNames(connection, tableName));
+    }
+
+    public Assignment get(String[] item) {
 
         return new Assignment(
             new Service(Integer.parseInt(item[0]), null, null, null, null, null, false),
             new Worker(null, null, item[1], null, null),
             new Worker(null, null, item[2], null, null),
-            new Truck(item[3], null, null, false),false
+            new Truck(item[3], null, null, false)
         );
     }
 
-    public MySqlAssignmentDAO(Connection connection) { this.connection=connection; }
-
-    public ArrayList<Assignment> findAll() {
-
-        var result=new ArrayList<Assignment>();
-        var query="select * from assegnamento";
-        var res= MySqlQueryManager.getResult(connection, query);
-        var resList=MySqlQueryManager.asList(res, allColumns);
-        for (var item: resList) {
-
-            var assignment=getAssignment(item);
-            if (!assignment.isDeleted()) result.add(assignment);
-        }
-
-        return result;
-    }
+    public ArrayList<Assignment> findAll() { return select(); }
+    public Assignment findByCode(int code) { return select(0, code); }
+    public int findLastCode() { return lastCode(); }
+    public void addAssignment(Assignment assignment) { insert(assignment.asList()); }
+    public void removeAssignment(Assignment assignment) { remove(assignment.getCode()); }
+    public void updateAssignment(Assignment assignment) { update(assignment.asList()); }
 }

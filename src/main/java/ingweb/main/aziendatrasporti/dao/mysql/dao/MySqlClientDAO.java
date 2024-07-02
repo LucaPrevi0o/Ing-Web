@@ -24,7 +24,7 @@ public class MySqlClientDAO extends MySqlDAO<ClientCompany> implements ClientDAO
 
     public ArrayList<ClientCompany> findAll() { return select(); }
     public ClientCompany findByCode(int code) { return select(0, code); }
-    public ClientCompany findBySocialReason(String socialReason) { return select(1, socialReason); }
+    public ClientCompany findBySocialReason(String socialReason) { return select(2, socialReason); }
     public int findLastCode() { return lastCode(); }
     public void addClient(ClientCompany service) { insert(service.asList()); }
     public void removeClient(ClientCompany service) { remove(service.getCode()); }

@@ -36,12 +36,10 @@ public abstract class MySqlDAO<T extends ModelObject> {
         var resList=MySqlQueryManager.asList(res, columns);
         for (var item: resList) {
 
-            System.out.println(Arrays.toString(item));
             var o=this.get(item);
             if (!o.isDeleted()) result.add(o);
         }
 
-        for (var item: result) System.out.println(item.toString());
         return result;
     }
 
@@ -63,13 +61,12 @@ public abstract class MySqlDAO<T extends ModelObject> {
         var query="select max("+columns[0]+") as "+columns[0]+" from "+tableName;
         var res=MySqlQueryManager.getResult(connection, query);
         var resList=MySqlQueryManager.asList(res, new String[]{columns[0]});
-        return Integer.parseInt(resList.get(0)[0]);
+        return (resList.get(0)[0]==null ? 0 : Integer.parseInt(resList.get(0)[0]));
     }
 
     //generic insert query
     public static void insert(Object[] data) {
 
-        if (data.length!=columns.length) System.out.println("Data and length are different for insertion");
         var query="insert into "+tableName+" (";
         for (var i=0; i<columns.length-1; i++) query+=columns[i]+", ";
         query+=columns[columns.length-1]+") values (";
@@ -88,11 +85,9 @@ public abstract class MySqlDAO<T extends ModelObject> {
     //generic update query based on code primary key
     public static void update(Object[] data) {
 
-        if (data.length!=columns.length) System.out.println("Data and length are different for update");
         var query="update "+tableName+" set ";
         for (var i=0; i<columns.length-1; i++) query+=columns[i]+"=?, ";
         query+=columns[columns.length-1]+"=? where "+columns[0]+"="+data[0];
-        for (var d: data) System.out.println(d);
         MySqlQueryManager.execute(connection, query, data);
     }
 }

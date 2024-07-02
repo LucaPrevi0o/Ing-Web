@@ -36,10 +36,10 @@ public class MySqlLicenseDAO implements LicenseDAO {
         return licenses; //return list of valid services
     }
 
-    public ArrayList<License> findAllByTruck(String numberPlate) {
+    public ArrayList<License> findAllByTruck(Truck truck) {
 
         ArrayList<License> licenses=new ArrayList<>();
-        var query="select * from patenti_mezzo where targa='"+numberPlate+"'";
+        var query="select * from patenti_mezzo where targa='"+truck.getNumberPlate()+"'";
         var res= MySqlQueryManager.getResult(connection, query); //execute query on the database
         var resList=MySqlQueryManager.asList(res, new String[]{"targa", "patente"}); //parse results
         for (var item: resList) licenses.add(new License(item[1])); //add license to list
@@ -92,7 +92,6 @@ public class MySqlLicenseDAO implements LicenseDAO {
 
     public void addLicensesByService(Service service) {
 
-        System.out.println(service);
         for (var license: service.getValidLicenses()) {
 
             var query="insert into patenti_servizio (servizio, patente) values (?, ?)";

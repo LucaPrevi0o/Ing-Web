@@ -16,15 +16,17 @@ public class ServiceController implements Controller {
         var serviceDAO=dao.getServiceDAO();
         var serviceList=serviceDAO.findAll();
 
-        var licenseDAO=dao.getLicenseDAO();
-        var licenseList=licenseDAO.findAll();
-
-        var clientDAO=dao.getClientDAO();
         for (var service: serviceList) {
 
+            var clientDAO=dao.getClientDAO();
             service.setClientCompany(clientDAO.findBySocialReason(service.getClientCompany().getSocialReason()));
+
+            var licenseDAO=dao.getLicenseDAO();
             service.setValidLicenses(licenseDAO.findAllByService(service));
         }
+
+        var licenseDAO=dao.getLicenseDAO();
+        var licenseList=licenseDAO.findAll();
 
         dao.confirm();
         attributes.add(new Object[]{"licenseList", licenseList});
@@ -33,7 +35,7 @@ public class ServiceController implements Controller {
         attributes.add(new Object[]{"viewUrl", "/admin/services/serviceList"});
     }
 
-    private static void formView(HttpServletRequest request, HttpServletResponse response,DAOFactory dao) {
+    private static void formView(HttpServletRequest request, HttpServletResponse response, DAOFactory dao) {
 
         var licenseDAO=dao.getLicenseDAO();
         var licenseList=licenseDAO.findAll();
@@ -142,5 +144,30 @@ public class ServiceController implements Controller {
         var licenseDAO=dao.getLicenseDAO();
         licenseDAO.updateLicensesByService(service, licenseList);
         listView(request, response, dao);
+    }
+
+    public static void assignService(HttpServletRequest request, HttpServletResponse response) {
+
+        var dao=Controller.getMySqlDAO("azienda_trasporti");
+
+        var code=request.getParameter("code");
+        var serviceDAO=dao.getServiceDAO();
+        var service=serviceDAO.findByCode(Integer.parseInt(code));
+
+        var clientDAO=dao.getClientDAO();
+        service.setClientCompany(clientDAO.findBySocialReason(service.getClientCompany().getSocialReason()));
+
+        var workerDAO=dao.getWorkerDAO();
+        var workerList=workerDAO.findAvailableByService(service);
+
+        var truckDAO=dao.getTruckDAO();
+        var truckList=truckDAO.findAvailableByService(service);
+
+        dao.confirm();
+        attributes.add(new Object[]{"service", service});
+        attributes.add(new Object[]{"workerList", workerList});
+        attributes.add(new Object[]{"truckList", truckList});
+        attributes.add(new Object[]{"selectedTab", "services"});
+        attributes.add(new Object[]{"viewUrl", "/admin/services/serviceAssignment"});
     }
 }

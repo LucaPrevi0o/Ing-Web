@@ -8,29 +8,38 @@ public class Assignment extends ModelObject {
     private Worker firstDriver;
     private Worker secondDriver;
     private Truck truck;
-    private boolean deleted;
 
-    public Assignment(Service service, Worker firstDriver, Worker secondDriver, Truck truck, boolean deleted) {
+    public Assignment(int code, Service service, Worker firstDriver, Worker secondDriver, Truck truck, boolean deleted) {
 
-        this.service = service;
-        this.firstDriver = firstDriver;
-        this.secondDriver = secondDriver;
-        this.truck = truck;
-        this.deleted = deleted;
+        this.setCode(code);
+        this.service=service;
+        this.firstDriver=firstDriver;
+        this.secondDriver=secondDriver;
+        this.truck=truck;
+        this.setDeleted(deleted);
     }
 
-    public Object[] data() { return asList(); }
-    public Object[] asList() { return new Object[]{service, firstDriver, secondDriver, truck, deleted}; }
+    public Assignment(Service service, Worker firstDriver, Worker secondDriver, Truck truck) {
+
+        this.service=service;
+        this.firstDriver=firstDriver;
+        this.secondDriver=secondDriver;
+        this.truck=truck;
+    }
+
+    public Object[] data() { return new Object[]{this.service, this.firstDriver, this.secondDriver, this.truck}; }
+    public Object[] asList() { return new Object[]{this.getCode(), this.service, this.firstDriver, this.secondDriver, this.truck, this.isDeleted()}; }
     public String display() { return toString(); }
 
     public boolean equals(Object o) {
 
         if (!(o instanceof Assignment)) return false;
+        if (((Assignment)o).getCode()!=this.getCode()) return false;
         if (!((Assignment)o).service.equals(this.service)) return false;
         if (!((Assignment)o).firstDriver.equals(this.firstDriver)) return false;
         if (!((Assignment)o).secondDriver.equals(this.secondDriver)) return false;
         if (!((Assignment)o).truck.equals(this.truck)) return false;
-        return ((Assignment)o).deleted==this.deleted;
+        return ((Assignment)o).isDeleted()==this.isDeleted();
     }
 
     public Service getService() { return service; }
@@ -44,7 +53,4 @@ public class Assignment extends ModelObject {
 
     public Truck getTruck() { return truck; }
     public void setTruck(Truck truck) { this.truck = truck; }
-
-    public boolean isDeleted() { return deleted; }
-    public void setDeleted(boolean deleted) { this.deleted = deleted; }
 }

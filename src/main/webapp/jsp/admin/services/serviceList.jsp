@@ -105,7 +105,7 @@
                         <td><input type="checkbox" <%= licenses.contains(license) ? "checked" : "" %> disabled/></td>
                     <% } %>
                     <td><input type="button" id="<%= service.getCode() %>" name="edit" value="Modifica"></td>
-                    <td><input type="button" id="<%= service.getCode() %>" name="assign" value="Assegna servizio" disabled></td>
+                    <td><input type="button" id="<%= service.getCode() %>" name="assign" value="Assegna servizio"></td>
                     <td><input type="button" id="<%= service.getCode() %>" name="remove" value="Rimuovi"></td>
                 </tr>
             <% } %>

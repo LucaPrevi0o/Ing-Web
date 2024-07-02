@@ -10,7 +10,7 @@ public interface LicenseDAO {
 
     public ArrayList<License> findAll();
     public ArrayList<License> findAllByService(Service service);
-    public ArrayList<License> findAllByTruck(String numberPlate);
+    public ArrayList<License> findAllByTruck(Truck truck);
     public ArrayList<License> findAllByWorker(Worker worker);
     public void addLicensesByWorker(Worker worker, ArrayList<License> license);
     public void updateLicensesByWorker(Worker worker, ArrayList<License> license);
