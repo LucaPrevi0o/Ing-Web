@@ -27,8 +27,6 @@ public class MySqlServiceDAO extends MySqlDAO<Service> implements ServiceDAO {
             Date.valueOf(item[3]), Time.valueOf(item[4]), Time.valueOf(item[5]), item[6].equals("1"));
     }
 
-    //public ArrayList<Service> findAll() { return select(); }
-
     public ArrayList<Service> findAllNotAssigned() {
 
         var result=new ArrayList<Service>();
