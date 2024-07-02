@@ -12,8 +12,9 @@ public class TruckController implements Controller {
     private static void listView(HttpServletRequest request, HttpServletResponse response, DAOFactory dao) {
 
         var truckDAO=dao.getTruckDAO();
-        var licenseDAO=dao.getLicenseDAO();
         var truckList=truckDAO.findAll();
+
+        var licenseDAO=dao.getLicenseDAO();
         var licenseList=licenseDAO.findAll();
         for (var truck: truckList) truck.setNeededLicenses(licenseDAO.findAllByTruck(truck.getNumberPlate()));
 
@@ -49,8 +50,6 @@ public class TruckController implements Controller {
     public static void addTruck(HttpServletRequest request, HttpServletResponse response) {
 
         var dao= Controller.getMySqlDAO("azienda_trasporti");
-        var truckDAO=dao.getTruckDAO();
-        var licenseDAO=dao.getLicenseDAO();
 
         var numberPlate=request.getParameter("numberPlate");
         var brand=request.getParameter("brand");
@@ -60,12 +59,14 @@ public class TruckController implements Controller {
 
         var licenseList=new ArrayList<License>();
         for (var license: licenses) licenseList.add(new License(license));
+        var truckDAO=dao.getTruckDAO();
         var code=truckDAO.findLastCode()+1;
 
         var truck=new Truck(code, numberPlate, brand, model, available!=null, false);
         truck.setNeededLicenses(licenseList);
-
         truckDAO.addTruck(truck);
+
+        var licenseDAO=dao.getLicenseDAO();
         licenseDAO.addLicensesByTruck(truck, licenseList);
         listView(request, response, dao);
     }
@@ -74,9 +75,9 @@ public class TruckController implements Controller {
 
         //get registered account list specifying DAO database implementation
         var dao= Controller.getMySqlDAO("azienda_trasporti");
-        var truckDAO=dao.getTruckDAO();
         var code=request.getParameter("code");
 
+        var truckDAO=dao.getTruckDAO();
         truckDAO.removeTruck(truckDAO.findByCode(Integer.parseInt(code)));
         listView(request, response, dao);
     }
@@ -84,8 +85,6 @@ public class TruckController implements Controller {
     public static void updateTruck(HttpServletRequest request, HttpServletResponse response) {
 
         var dao=Controller.getMySqlDAO("azienda_trasporti");
-        var truckDAO=dao.getTruckDAO();
-        var licenseDAO=dao.getLicenseDAO();
 
         var code=request.getParameter("code");
         var numberPlate=request.getParameter("numberPlate");
@@ -100,19 +99,23 @@ public class TruckController implements Controller {
         var truck=new Truck(Integer.parseInt(code), numberPlate, brand, model, available!=null, false);
         truck.setNeededLicenses(licenseList);
 
+        var truckDAO=dao.getTruckDAO();
         truckDAO.updateTruck(truck);
+
+        var licenseDAO=dao.getLicenseDAO();
         licenseDAO.updateLicensesByTruck(truck, licenseList);
         listView(request, response, dao);
     }
 
     public static void editTruck(HttpServletRequest request, HttpServletResponse response) {
 
-        var dao= Controller.getMySqlDAO("azienda_trasporti");
-        var truckDAO=dao.getTruckDAO();
-        var licenseDAO=dao.getLicenseDAO();
+        var dao=Controller.getMySqlDAO("azienda_trasporti");
 
         var code=request.getParameter("code");
+        var truckDAO=dao.getTruckDAO();
         var truck=truckDAO.findByCode(Integer.parseInt(code));
+
+        var licenseDAO=dao.getLicenseDAO();
         truck.setNeededLicenses(licenseDAO.findAllByTruck(truck.getNumberPlate()));
 
         attributes.add(new Object[]{"truck", truck});

@@ -64,7 +64,7 @@
             </tr>
             <% for (var client: clientList) { %>
                 <tr>
-                    <% for (var field: client.asList()) if (!(field instanceof Boolean)) { %><td><%= field %></td><% } %>
+                    <% for (var field: client.data()) if (!(field instanceof Boolean)) { %><td><%= field %></td><% } %>
                     <td><input type="button" id="<%= client.getCode() %>" name="edit" value="Modifica"></td>
                     <td><input type="button" id="<%= client.getCode() %>" name="remove" value="Rimuovi"></td>
                 </tr>

@@ -6,17 +6,15 @@ import java.sql.Date;
 
 public class ClientCompany extends ModelObject {
 
-    int code;
-    String name;
-    String socialReason;
-    String location;
-    String managerName;
-    String managerFiscalCode;
-    Date managerBirthDate;
-    String managerTelNumber;
-    boolean deleted;
+    private String name;
+    private String socialReason;
+    private String location;
+    private String managerName;
+    private String managerFiscalCode;
+    private Date managerBirthDate;
+    private String managerTelNumber;
 
-    public ClientCompany(String name, String socialReason, String location, String managerName, String managerFiscalCode, Date managerBirthDate, String managerTelNumber, boolean deleted) {
+    public ClientCompany(String name, String socialReason, String location, String managerName, String managerFiscalCode, Date managerBirthDate, String managerTelNumber) {
 
         this.name=name;
         this.socialReason=socialReason;
@@ -25,12 +23,11 @@ public class ClientCompany extends ModelObject {
         this.managerFiscalCode=managerFiscalCode;
         this.managerBirthDate=managerBirthDate;
         this.managerTelNumber=managerTelNumber;
-        this.deleted=deleted;
     }
 
     public ClientCompany(int code, String name, String socialReason, String location, String managerName, String managerFiscalCode, Date managerBirthDate, String managerTelNumber, boolean deleted) {
 
-        this.code=code;
+        this.setCode(code);
         this.name=name;
         this.socialReason=socialReason;
         this.location=location;
@@ -38,18 +35,13 @@ public class ClientCompany extends ModelObject {
         this.managerFiscalCode=managerFiscalCode;
         this.managerBirthDate=managerBirthDate;
         this.managerTelNumber=managerTelNumber;
-        this.deleted=deleted;
+        this.setDeleted(deleted);
     }
 
-    public String toString() { return name+" ("+socialReason+") - "+location+": "+managerName+" ("+managerFiscalCode+"), "+managerBirthDate+" - "+managerTelNumber; }
-
+    public String toString() { return this.name+" ("+this.socialReason+") - "+this.location+": "+this.managerName+" ("+this.managerFiscalCode+"), "+this.managerBirthDate+" - "+this.managerTelNumber; }
     public String display() { return this.name+" ("+this.socialReason+")"; }
-
-    public Object[] asList() { return new Object[] {name, socialReason, location, managerName, managerFiscalCode, managerBirthDate, managerTelNumber, deleted}; }
-    public Object[] data() { return asList(); }
-
-    public int getCode() { return this.code; }
-    public void setCode(int code) { this.code=code; }
+    public Object[] asList() { return new Object[] {this.getCode(), this.name, this.socialReason, this.location, this.managerName, this.managerFiscalCode, this.managerBirthDate, this.managerTelNumber, this.isDeleted()}; }
+    public Object[] data() { return new Object[] {this.name, this.socialReason, this.location, this.managerName, this.managerFiscalCode, this.managerBirthDate, this.managerTelNumber}; }
 
     public String getName() { return name; }
     public void setName(String name) { this.name=name; }
@@ -71,7 +63,4 @@ public class ClientCompany extends ModelObject {
 
     public String getManagerTelNumber() { return managerTelNumber; }
     public void setManagerTelNumber(String managerTelNumber) { this.managerTelNumber=managerTelNumber; }
-
-    public boolean isDeleted() { return deleted; }
-    public void setDeleted(boolean deleted) { this.deleted=deleted; }
 }

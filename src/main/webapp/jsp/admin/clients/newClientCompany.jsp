@@ -80,7 +80,7 @@
                 <input type="button" id="refreshButton" value="Torna alla lista clienti"/>
             </div>
             <input type="hidden" name="action" value=""/>
-            <input type="hidden" name="code"/>
+            <input type="hidden" name="code" value="<%= clientCompany==null ? "" : clientCompany.getCode()%>"/>
         </form>
     </body>
 </html>

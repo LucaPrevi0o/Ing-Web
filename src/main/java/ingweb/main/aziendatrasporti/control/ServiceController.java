@@ -14,11 +14,12 @@ public class ServiceController implements Controller {
     private static void listView(HttpServletRequest request, HttpServletResponse response, DAOFactory dao) {
 
         var serviceDAO=dao.getServiceDAO();
-        var licenseDAO=dao.getLicenseDAO();
-        var clientDAO=dao.getClientDAO();
-
-        var licenseList=licenseDAO.findAll();
         var serviceList=serviceDAO.findAll();
+
+        var licenseDAO=dao.getLicenseDAO();
+        var licenseList=licenseDAO.findAll();
+
+        var clientDAO=dao.getClientDAO();
         for (var service: serviceList) {
 
             service.setClientCompany(clientDAO.findBySocialReason(service.getClientCompany().getSocialReason()));
@@ -35,9 +36,9 @@ public class ServiceController implements Controller {
     private static void formView(HttpServletRequest request, HttpServletResponse response,DAOFactory dao) {
 
         var licenseDAO=dao.getLicenseDAO();
-        var clientDAO=dao.getClientDAO();
-
         var licenseList=licenseDAO.findAll();
+
+        var clientDAO=dao.getClientDAO();
         var clientList=clientDAO.findAll();
 
         dao.confirm();
@@ -62,10 +63,6 @@ public class ServiceController implements Controller {
     public static void addService(HttpServletRequest request, HttpServletResponse response) {
 
         var dao=Controller.getMySqlDAO("azienda_trasporti");
-        var serviceDAO=dao.getServiceDAO();
-        var licenseDAO=dao.getLicenseDAO();
-        var clientDAO=dao.getClientDAO();
-
         var name=request.getParameter("name");
         var client=request.getParameter("clientCompany");
         var date=request.getParameter("date");
@@ -73,15 +70,19 @@ public class ServiceController implements Controller {
         var duration=request.getParameter("duration")+":00";
         var licenses=request.getParameterValues("license");
 
+        var clientDAO=dao.getClientDAO();
         var clientCompany=clientDAO.findByCode(Integer.parseInt(client));
+
+        var serviceDAO=dao.getServiceDAO();
         var code=serviceDAO.findLastCode()+1;
         var service=new Service(code, name, clientCompany, Date.valueOf(date), Time.valueOf(startTime), Time.valueOf(duration), false);
 
         var licenseList=new ArrayList<License>();
         for (var license: licenses) licenseList.add(new License(license));
         service.setValidLicenses(licenseList);
-
         serviceDAO.addService(service);
+
+        var licenseDAO=dao.getLicenseDAO();
         licenseDAO.addLicensesByService(service);
         listView(request, response, dao);
     }
@@ -100,12 +101,14 @@ public class ServiceController implements Controller {
 
         var dao=Controller.getMySqlDAO("azienda_trasporti");
         var serviceDAO=dao.getServiceDAO();
-        var clientDAO=dao.getClientDAO();
-        var licenseDAO=dao.getLicenseDAO();
 
         var code=request.getParameter("code");
         var service=serviceDAO.findByCode(Integer.parseInt(code));
+
+        var clientDAO=dao.getClientDAO();
         service.setClientCompany(clientDAO.findBySocialReason(service.getClientCompany().getSocialReason()));
+
+        var licenseDAO=dao.getLicenseDAO();
         service.setValidLicenses(licenseDAO.findAllByService(service));
 
         attributes.add(new Object[]{"service", service});
@@ -115,10 +118,6 @@ public class ServiceController implements Controller {
     public static void updateService(HttpServletRequest request, HttpServletResponse response) {
 
         var dao=Controller.getMySqlDAO("azienda_trasporti");
-        var serviceDAO=dao.getServiceDAO();
-        var clientDAO=dao.getClientDAO();
-        var licenseDAO=dao.getLicenseDAO();
-
         var code=request.getParameter("code");
         var name=request.getParameter("name");
         var client=request.getParameter("clientCompany");
@@ -129,6 +128,7 @@ public class ServiceController implements Controller {
         duration+=(duration.matches("[0-9]{2}:[0-9]{2}") ? ":00" : "");
         var licenses=request.getParameterValues("license");
 
+        var clientDAO=dao.getClientDAO();
         var clientCompany=clientDAO.findByCode(Integer.parseInt(client));
         var service=new Service(Integer.parseInt(code), name, clientCompany, Date.valueOf(date), Time.valueOf(startTime), Time.valueOf(duration), false);
 
@@ -136,7 +136,10 @@ public class ServiceController implements Controller {
         for (var license: licenses) licenseList.add(new License(license));
         service.setValidLicenses(licenseList);
 
+        var serviceDAO=dao.getServiceDAO();
         serviceDAO.updateService(service);
+
+        var licenseDAO=dao.getLicenseDAO();
         licenseDAO.updateLicensesByService(service, licenseList);
         listView(request, response, dao);
     }

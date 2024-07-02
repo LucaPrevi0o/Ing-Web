@@ -10,6 +10,7 @@ public class License extends ModelObject {
 
     public Object[] asList() { return new Object[]{category}; }
     public Object[] data() { return asList(); }
+    public String display() { return category; }
 
     public boolean equals(Object o) {
 

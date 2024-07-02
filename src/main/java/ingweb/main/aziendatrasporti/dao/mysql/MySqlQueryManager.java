@@ -5,7 +5,8 @@ import ingweb.main.aziendatrasporti.mo.mo.Truck;
 import ingweb.main.aziendatrasporti.mo.mo.Worker;
 import java.sql.*;
 import java.sql.Date;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
 
 //this class contains a list of custom methods for easier query construction and data access from the result set
 //of each execution, passing through the parameter list of the data and allowing direct access to its object

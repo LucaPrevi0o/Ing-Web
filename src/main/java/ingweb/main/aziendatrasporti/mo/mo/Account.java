@@ -13,6 +13,7 @@ public class Account extends ModelObject {
     public String toString() { return fullName+": "+username+"@"+password+" ("+admin+", "+deleted+")"; }
     public Object[] asList() { return new Object[] {username, password, fullName, admin, deleted}; }
     public Object[] data() { return asList(); }
+    public String display() { return toString(); }
 
     public Account(String username, String password, String fullName, boolean admin, boolean deleted) {
 

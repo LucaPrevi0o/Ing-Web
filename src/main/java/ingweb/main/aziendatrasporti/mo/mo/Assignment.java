@@ -18,9 +18,11 @@ public class Assignment extends ModelObject {
         this.truck = truck;
         this.deleted = deleted;
     }
-    public Object[] data() { return asList(); }
 
+    public Object[] data() { return asList(); }
     public Object[] asList() { return new Object[]{service, firstDriver, secondDriver, truck, deleted}; }
+    public String display() { return toString(); }
+
     public boolean equals(Object o) {
 
         if (!(o instanceof Assignment)) return false;

@@ -6,9 +6,10 @@ import java.util.ArrayList;
 public interface ClientDAO {
 
     public ArrayList<ClientCompany> findAll();
-    public ClientCompany findBySocialReason(String socialReason);
     public ClientCompany findByCode(int code);
-    public void addClient(ClientCompany client);
-    public void removeClient(ClientCompany clientCompany);
-    public void updateClient(ClientCompany client);
+    public ClientCompany findBySocialReason(String socialReason);
+    public int findLastCode();
+    public void addClient(ClientCompany service);
+    public void removeClient(ClientCompany service);
+    public void updateClient(ClientCompany service);
 }

@@ -11,6 +11,7 @@ public abstract class ModelObject {
 
     public abstract Object[] asList(); //list of every attribute of the entity
     public abstract Object[] data(); //list of specific data visible from list view
+    public abstract String display(); //method for easy display of essential data in list view
 
     //getter-setter methods for code
     public void setCode(int code) { this.code=code; }

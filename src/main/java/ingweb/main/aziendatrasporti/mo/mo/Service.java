@@ -7,11 +7,11 @@ import java.util.ArrayList;
 
 public class Service extends ModelObject {
 
-    String name;
-    ClientCompany clientCompany;
-    Date date;
-    Time startTime, duration;
-    ArrayList<License> validLicenses;
+    private String name;
+    private ClientCompany clientCompany;
+    private Date date;
+    private Time startTime, duration;
+    private ArrayList<License> validLicenses;
 
     public Service(int code, String name, ClientCompany clientCompany, Date date, Time startTime, Time duration, boolean deleted) {
 
@@ -48,6 +48,7 @@ public class Service extends ModelObject {
     public Object[] asList() { return new Object[]{this.getCode(), this.name, this.clientCompany.getSocialReason(), this.date, this.startTime, this.duration, this.isDeleted()}; }
     public Object[] data() { return new Object[]{this.name, this.clientCompany, this.date, this.startTime, this.duration}; }
     public String toString() { return this.name+" ("+this.getCode()+") - ["+this.clientCompany+"] - "+this.date+" - "+this.startTime+" ("+this.duration+")"; }
+    public String display() { return this.name+" ("+this.clientCompany.getName()+" - "+this.clientCompany.getSocialReason()+")"; }
 
     public String getName() { return name; }
     public void setName(String name) { this.name=name; }
