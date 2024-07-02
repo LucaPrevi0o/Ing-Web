@@ -22,6 +22,7 @@ public class ClientController implements Controller {
 
     private static void formView(HttpServletRequest request, HttpServletResponse response) {
 
+        attributes.add(new Object[]{"selectedTab", "clients"});
         attributes.add(new Object[]{"viewUrl", "/admin/clients/newClientCompany"});
     }
 

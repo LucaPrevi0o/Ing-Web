@@ -8,6 +8,7 @@
     var licenseList=(ArrayList<License>)request.getAttribute("licenseList");
     if (licenseList==null) licenseList=new ArrayList<>();
 %>
+<%@ include file="/jsp/admin/welcome.jsp" %>
 <html>
     <head>
         <title><%= truck==null ? "Nuovo mezzo" : "Modifica dati mezzo" %></title>
@@ -49,6 +50,7 @@
         </script>
     </head>
     <body>
+    <hr/>
         <form name="dataForm" action="<%= request.getContextPath() %>/Servizi" method="post">
             <h1><%= truck==null ? "Nuovo mezzo" : "Modifica dati mezzo" %></h1>
             <hr/>

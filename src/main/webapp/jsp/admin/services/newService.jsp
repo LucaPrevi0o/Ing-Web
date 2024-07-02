@@ -10,6 +10,7 @@
     var clientList=(ArrayList<ClientCompany>)request.getAttribute("clientList");
     if (clientList==null) clientList=new ArrayList<>();
 %>
+<%@ include file="/jsp/admin/welcome.jsp" %>
 <html>
     <head>
         <title><%= service==null ? "Nuovo servizio" : "Modifica dati servizio" %></title>
@@ -54,6 +55,7 @@
         </script>
     </head>
     <body>
+        <hr/>
         <form name="dataForm" action="<%= request.getContextPath() %>/Servizi" method="post">
             <h1><%= service==null ? "Nuovo servizio" : "Modifica dati servizio" %></h1>
             <hr/>

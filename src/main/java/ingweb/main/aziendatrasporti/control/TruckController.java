@@ -32,6 +32,7 @@ public class TruckController implements Controller {
 
         dao.confirm();
         attributes.add(new Object[]{"licenseList", licenseList});
+        attributes.add(new Object[]{"selectedTab", "trucks"});
         attributes.add(new Object[]{"viewUrl", "/admin/trucks/newTruck"});
     }
 

@@ -2,6 +2,7 @@
 <%@ page import="ingweb.main.aziendatrasporti.mo.mo.ClientCompany" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <% var clientCompany=(ClientCompany)request.getAttribute("clientCompany"); %>
+<%@ include file="/jsp/admin/welcome.jsp" %>
 <html>
     <head>
         <title><%= clientCompany==null ? "Nuovo cliente" : "Modifica dati cliente" %></title>
@@ -40,6 +41,7 @@
         </script>
     </head>
     <body>
+        <hr/>
         <form name="dataForm" action="<%= request.getContextPath() %>/Servizi" method="post">
             <h1><%= clientCompany==null ? "Nuovo cliente" : "Modifica dati cliente" %></h1>
             <hr/>
