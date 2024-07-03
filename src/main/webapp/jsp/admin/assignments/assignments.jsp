@@ -13,7 +13,6 @@
         <script>
             window.addEventListener("load", function() {
 
-                let updateButtons=document.querySelectorAll("input[name='assign']");
                 let removeButtons=document.querySelectorAll("input[name='remove']");
                 let refreshButton=document.querySelector("#refreshButton");
                 let serviceListButton=document.querySelector("#newServiceButton");
@@ -37,21 +36,11 @@
                     document.dataForm.submit();
                 });
 
-                updateButtons.forEach(b => {
-
-                    b.addEventListener("click", function() {
-
-                        document.dataForm.action.value="AssignmentController.assignService";
-                        document.dataForm.code.value=this.id;
-                        document.dataForm.submit();
-                    });
-                });
-
                 removeButtons.forEach(b => {
 
                     b.addEventListener("click", function() {
 
-                        document.dataForm.action.value="ServiceController.deleteAssignment";
+                        document.dataForm.action.value="AssignmentController.removeAssignment";
                         document.dataForm.code.value=this.id;
                         document.dataForm.submit();
                     });
@@ -69,7 +58,7 @@
                 <td>Primo autista</td>
                 <td>Secondo autista</td>
                 <td>Mezzo</td>
-                <td colspan="2">Azioni</td>
+                <td>Azioni</td>
             </tr>
             <% for (var assignment: assignmentList) { %>
                 <tr>
@@ -78,7 +67,6 @@
                         (field instanceof Service ? ((Service)field).display() :
                         (field instanceof Worker ? ((Worker)field).display() :
                         (field instanceof Truck ? ((Truck)field).display() : field)))) %></td><% } %>
-                    <td><input type="button" id="<%= assignment.getCode() %>" name="assign" value="Modifica assegnamento"></td>
                     <td><input type="button" id="<%= assignment.getCode() %>" name="remove" value="Rimuovi assegnamento"></td>
                 </tr>
             <% } %>

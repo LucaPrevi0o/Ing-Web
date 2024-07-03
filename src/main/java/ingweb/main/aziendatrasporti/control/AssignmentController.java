@@ -37,7 +37,7 @@ public class AssignmentController implements Controller {
         dao.confirm();
         attributes.add(new Object[]{"assignmentList", assignmentList});
         attributes.add(new Object[]{"selectedTab", "services"});
-        attributes.add(new Object[]{"viewUrl", "/admin/services/assignedServices"});
+        attributes.add(new Object[]{"viewUrl", "/admin/assignments/assignments"});
     }
 
     private static void formView(HttpServletRequest request, HttpServletResponse response, DAOFactory dao) {
@@ -60,7 +60,7 @@ public class AssignmentController implements Controller {
         attributes.add(new Object[]{"workerList", workerList});
         attributes.add(new Object[]{"truckList", truckList});
         attributes.add(new Object[]{"selectedTab", "services"});
-        attributes.add(new Object[]{"viewUrl", "/admin/services/serviceAssignment"});
+        attributes.add(new Object[]{"viewUrl", "/admin/assignments/newAssignment"});
     }
 
     public static void getAssignments(HttpServletRequest request, HttpServletResponse response) {
@@ -97,6 +97,17 @@ public class AssignmentController implements Controller {
         var code=assignmentDAO.findLastCode()+1;
         var assignment=new Assignment(code, service, firstDriver, secondDriver, truck, false);
         assignmentDAO.addAssignment(assignment);
+        listView(request, response, dao);
+    }
+
+    public static void removeAssignment(HttpServletRequest request, HttpServletResponse response) {
+
+        var dao=Controller.getMySqlDAO("azienda_trasporti");
+        var code=request.getParameter("code");
+
+        var assignmentDAO=dao.getAssignmentDAO();
+        var assignment=assignmentDAO.findByCode(Integer.parseInt(code));
+        assignmentDAO.removeAssignment(assignment);
         listView(request, response, dao);
     }
 }

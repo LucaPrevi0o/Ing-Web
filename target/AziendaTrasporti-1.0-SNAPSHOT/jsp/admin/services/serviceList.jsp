@@ -9,6 +9,7 @@
     var licenseList=(ArrayList<License>)request.getAttribute("licenseList");
     if (licenseList==null) licenseList=new ArrayList<>();
 %>
+<%@ include file="/jsp/admin/welcome.jsp" %>
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/generalStyle.css">
@@ -82,11 +83,8 @@
         </script>
     </head>
     <body>
-        <%@ include file="/jsp/admin/welcome.jsp" %>
         <hr/>
         <h1>Lista servizi</h1>
-        <h2><a href="" id="assignedList">Vai a lista servizi in corso</a></h2>
-        <hr>
         <table>
             <tr class="firstRow">
                 <td rowspan="2">Nome</td>
@@ -95,7 +93,7 @@
                 <td rowspan="2">Orario inizio</td>
                 <td rowspan="2">Durata</td>
                 <td colspan="<%= licenseList.size() %>">Patenti</td>
-                <td colspan="3" rowspan="2">Azioni</td>
+                <td colspan="3" rowspan="2">Azioni - <input type="button" id="assignedList" value="Vedi servizi in corso"/></td>
             </tr>
             <tr class="firstRow">
                 <% for (var license: licenseList) { %><td><%= license.getCategory() %></td><% } %>

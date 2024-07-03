@@ -6,13 +6,14 @@
 <%
     var service=(Service)request.getAttribute("service");
     var workerList=(ArrayList<Worker>)request.getAttribute("workerList");
+    if (workerList==null) workerList=new ArrayList<>();
     var truckList=(ArrayList<Truck>)request.getAttribute("truckList");
+    if (truckList==null) truckList=new ArrayList<>();
 %>
+<%@ include file="/jsp/admin/welcome.jsp" %>
 <html>
     <head>
         <title>Assegnamento servizi</title>
-        <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/generalStyle.css">
-        <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/navMenu.css">
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/dataTable.css">
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/dataForm.css">
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/checkbox.css">
@@ -44,6 +45,7 @@
         </script>
     </head>
     <body>
+        <hr/>
         <form name="dataForm" action="<%= request.getContextPath() %>/Servizi" method="post">
             <h1>Assegnamento servizio</h1>
             <hr/>

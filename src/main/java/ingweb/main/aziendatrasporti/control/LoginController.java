@@ -40,7 +40,7 @@ public class LoginController implements Controller {
         if (loggedAccount==null) {
 
             loggedAccount=mySqlAccountDAO.findByUsername(username);
-            cookieAccountDAO.createAccount(loggedAccount);
+            if (loggedAccount!=null) cookieAccountDAO.createAccount(loggedAccount);
         }
 
         mySqlDAO.confirm();

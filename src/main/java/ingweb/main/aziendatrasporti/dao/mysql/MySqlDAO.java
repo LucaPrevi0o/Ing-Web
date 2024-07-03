@@ -85,6 +85,13 @@ public abstract class MySqlDAO<T extends ModelObject> {
         MySqlQueryManager.execute(connection, query, new Object[]{1});
     }
 
+    //generic remove query (only logical deletion is implemented, records do not get erased from the database)
+    public static void delete(int code) {
+
+        var query="delete from "+tableName+" where "+columns[0]+"=?";
+        MySqlQueryManager.execute(connection, query, new Object[]{code});
+    }
+
     //generic update query based on code primary key
     public static void update(Object[] data) {
 
