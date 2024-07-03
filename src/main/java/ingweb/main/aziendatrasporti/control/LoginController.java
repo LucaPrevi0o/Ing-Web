@@ -30,12 +30,14 @@ public class LoginController implements Controller {
         var password=request.getParameter("password");
 
         var mySqlDAO=Controller.getMySqlDAO("aziendatrasportidb");
+        var test=mySqlDAO.getAccountDAO().findByUsernameAndPassword(username, password);
+        System.out.println(test);
         var cookieDAO=Controller.getCookieDAO(request, response);
         var mySqlAccountDAO=mySqlDAO.getAccountDAO();
         var cookieAccountDAO=cookieDAO.getAccountDAO();
 
-        var adminList=mySqlAccountDAO.findAll(true); //return account list filtered by admin level
-        var accountList=mySqlAccountDAO.findAll(false); //return account list filtered by admin level
+        var adminList=mySqlAccountDAO.findAllByLevel(Account.ADMIN_LEVEL); //return account list filtered by admin level
+        var accountList=mySqlAccountDAO.findAll(); //return account list filtered by admin level
         var loggedAccount=cookieAccountDAO.findLoggedAccount();
         if (loggedAccount==null) {
 
@@ -61,6 +63,7 @@ public class LoginController implements Controller {
         var loggedAccount=cookieAccountDAO.findLoggedAccount();
         if (loggedAccount!=null) cookieAccountDAO.deleteAccount(loggedAccount);
         attributes.add(new Object[]{"viewUrl", "/login"});
+        cookieDAO.confirm();
     }
 
     public static void view(HttpServletRequest request, HttpServletResponse response) { attributes.add(new Object[]{"viewUrl", "/login"}); }

@@ -34,6 +34,16 @@ public class CookieAccountDAO implements AccountDAO {
         response.addCookie(cookie);
     }
 
+    @Override
+    public ArrayList<Account> findAll() {
+        return null;
+    }
+
+    @Override
+    public ArrayList<Account> findAllByLevel(int level) {
+        return null;
+    }
+
     public void addAccount(Account account) {}
     public void removeAccount(Account account) {}
     public void updateAccount(Account account) {}
@@ -49,7 +59,9 @@ public class CookieAccountDAO implements AccountDAO {
 
                 var dao=Controller.getMySqlDAO("aziendatrasportidb");
                 var accountDAO=dao.getAccountDAO();
-                return accountDAO.findByUsername(cookie.getValue());
+                var account=accountDAO.findByUsername(cookie.getValue());
+                dao.confirm();
+                return account;
             }
         return null;
     }

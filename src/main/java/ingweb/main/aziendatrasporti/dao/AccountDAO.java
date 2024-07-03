@@ -6,7 +6,8 @@ import java.util.ArrayList;
 //interface allows the DAO to be independent of the database-specific method implementation of every functionality
 public interface AccountDAO {
 
-    public ArrayList<Account> findAll(boolean admin);
+    public ArrayList<Account> findAll();
+    public ArrayList<Account> findAllByLevel(int level);
     public void addAccount(Account account);
     public void removeAccount(Account account);
     public void updateAccount(Account account);

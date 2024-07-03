@@ -27,6 +27,21 @@ public abstract class MySqlDAO<T extends ModelObject> {
 
     public abstract T get(String[] item); //abstract function that allows object construction based on query result
 
+    private String generateCompositeQuery(int[] indexes, Object[] values) {
+
+        if (indexes.length!=values.length) return ""; //break early if the arrays do not have same length
+        var query="select * from "+tableName+" where ";
+        for (var i=0; i<indexes.length-1; i++) {
+
+            if (indexes[i]>=columns.length || indexes[i]>=values.length) return ""; //break early if an index is bigger than the length of all columns
+            if (i>0) query+="and ";
+            query+=columns[indexes[i]]+" = '"+values[i]+"' ";
+        }
+        query+="and "+columns[indexes[indexes.length-1]]+" = '"+values[values.length-1]+"'";
+        System.out.println(query);
+        return query;
+    }
+
     public ArrayList<T> selectAll() { //generic select query for every field of data
 
         var result=new ArrayList<T>();
@@ -48,10 +63,33 @@ public abstract class MySqlDAO<T extends ModelObject> {
         return result;
     }
 
+    //generic select query based on field-specific field search for arbitrary number of parameters
+    public ArrayList<T> selectAll(int[] fieldIndexes, Object[] fieldValues) {
+
+        var result=new ArrayList<T>();
+        var query=generateCompositeQuery(fieldIndexes, fieldValues);
+        if (query.isEmpty()) return new ArrayList<>();
+        var res=MySqlQueryManager.getResult(connection, query);
+        var resList=MySqlQueryManager.asList(res, columns);
+        for (var item: resList) result.add(get(item));
+        return result;
+    }
+
     //generic select query based on field-specific field search
     public T select(int fieldIndex, Object fieldValue) {
 
         var query="select * from "+tableName+" where "+columns[fieldIndex]+"='"+fieldValue+"'"+" and "+columns[columns.length-1]+" = 0";
+        var res=MySqlQueryManager.getResult(connection, query);
+        var resList=MySqlQueryManager.asList(res, columns);
+        if (resList.size()!=1) return null;
+        return get(resList.get(0));
+    }
+
+    //generic select query based on field-specific field search for arbitrary number of parameters
+    public T select(int[] fieldIndexes, Object[] fieldValues) {
+
+        var query=generateCompositeQuery(fieldIndexes, fieldValues);
+        if (query.isEmpty()) return null;
         var res=MySqlQueryManager.getResult(connection, query);
         var resList=MySqlQueryManager.asList(res, columns);
         if (resList.size()!=1) return null;
@@ -78,14 +116,14 @@ public abstract class MySqlDAO<T extends ModelObject> {
         MySqlQueryManager.execute(connection, query, data);
     }
 
-    //generic remove query (only logical deletion is implemented, records do not get erased from the database)
+    //generic remove query (only logical deletion is used, records do not get deleted from the database)
     public static void remove(int code) {
 
         var query="update "+tableName+" set "+columns[columns.length-1]+"=? where "+columns[0]+"="+code;
         MySqlQueryManager.execute(connection, query, new Object[]{1});
     }
 
-    //generic remove query (only logical deletion is implemented, records do not get erased from the database)
+    //generic delete query to cancel items from the database
     public static void delete(int code) {
 
         var query="delete from "+tableName+" where "+columns[0]+"=?";

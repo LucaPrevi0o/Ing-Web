@@ -39,7 +39,7 @@ public class MySqlDAOFactory extends DAOFactory {
     //each DAO also needs the name of the MySQL table referencing the object itself, in order to manage correctly the
     //connection interface with the DB and automatically create the list of attributes and MySQL queries for the
     //object itself
-    public AccountDAO getAccountDAO() { return new MySqlAccountDAO(connection); }
+    public AccountDAO getAccountDAO() { return new MySqlAccountDAO(connection, "accounts"); }
     public WorkerDAO getWorkerDAO() { return new MySqlWorkerDAO(connection, "dipendente"); }
     public ServiceDAO getServiceDAO() { return new MySqlServiceDAO(connection, "servizio"); }
     public ClientDAO getClientDAO() { return new MySqlClientDAO(connection, "azienda_cliente"); }
