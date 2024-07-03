@@ -1,13 +1,9 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="ingweb.main.aziendatrasporti.mo.*" %>
-<%@ page import="ingweb.main.aziendatrasporti.mo.mo.Service" %>
-<%@ page import="ingweb.main.aziendatrasporti.mo.mo.ClientCompany" %>
-<%@ page import="ingweb.main.aziendatrasporti.mo.mo.Worker" %>
-<%@ page import="ingweb.main.aziendatrasporti.mo.mo.Truck" %>
+<%@ page import="ingweb.main.aziendatrasporti.mo.mo.*" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%
-    var serviceList=(ArrayList<Service>)request.getAttribute("serviceList");
-    if (serviceList==null) serviceList=new ArrayList<>();
+    var assignmentList =(ArrayList<Assignment>)request.getAttribute("assignmentList");
+    if (assignmentList ==null) assignmentList =new ArrayList<>();
 %>
 <html>
     <head>
@@ -25,7 +21,7 @@
 
                 refreshButton.addEventListener("click", function() {
 
-                    document.dataForm.action.value="ServiceController.getServices";
+                    document.dataForm.action.value="AssignmentController.getAssignments";
                     document.dataForm.submit();
                 });
 
@@ -37,7 +33,7 @@
 
                 serviceListButton.addEventListener("click", function() {
 
-                    document.dataForm.action.value="ServiceController.getServiceList";
+                    document.dataForm.action.value="ServiceController.getServices";
                     document.dataForm.submit();
                 });
 
@@ -45,7 +41,7 @@
 
                     b.addEventListener("click", function() {
 
-                        document.dataForm.action.value="ServiceController.assignService";
+                        document.dataForm.action.value="AssignmentController.assignService";
                         document.dataForm.code.value=this.id;
                         document.dataForm.submit();
                     });
@@ -69,36 +65,34 @@
         <h1>Servizi in corso</h1>
         <table>
             <tr class="firstRow">
-                <td>Nome</td>
-                <td>Cliente</td>
-                <td>Data</td>
-                <td>Orario inizio</td>
-                <td>Durata</td>
+                <td>Servizio</td>
                 <td>Primo autista</td>
                 <td>Secondo autista</td>
                 <td>Mezzo</td>
                 <td colspan="2">Azioni</td>
             </tr>
-            <% for (var service: serviceList) { %>
+            <% for (var assignment: assignmentList) { %>
                 <tr>
-                    <% for (var field: service.asList()) if (!(field instanceof Boolean)) { %><td><%=
+                    <% for (var field: assignment.data()) if (!(field instanceof Boolean)) { %><td><%=
                         (field==null ? "---" :
-                        (field instanceof ClientCompany ? ((ClientCompany)field).display() :
+                        (field instanceof Service ? ((Service)field).display() :
                         (field instanceof Worker ? ((Worker)field).display() :
                         (field instanceof Truck ? ((Truck)field).display() : field)))) %></td><% } %>
-                    <td><input type="button" id="<%= service.getCode() %>" name="assign" value="Modifica assegnamento"></td>
-                    <td><input type="button" id="<%= service.getCode() %>" name="remove" value="Rimuovi assegnamento"></td>
+                    <td><input type="button" id="<%= assignment.getCode() %>" name="assign" value="Modifica assegnamento"></td>
+                    <td><input type="button" id="<%= assignment.getCode() %>" name="remove" value="Rimuovi assegnamento"></td>
                 </tr>
             <% } %>
         </table>
-        <form name="dataForm" action="<%= request.getContextPath() %>/Servizi" method="post">
-            <div class="styled">
-                <input type="button" id="newServiceButton" value="Torna alla lista servizi">
-                <input type="button" id="refreshButton" value="Aggiorna lista">
-                <input type="button" id="backButton" value="Chiudi tab">
-            </div>
-            <input type="hidden" name="code">
-            <input type="hidden" name="action">
-        </form>
+        <nav>
+            <form name="dataForm" action="<%= request.getContextPath() %>/Servizi" method="post">
+                <div class="styled">
+                    <input type="button" id="newServiceButton" value="Torna alla lista servizi">
+                    <input type="button" id="refreshButton" value="Aggiorna lista">
+                    <input type="button" id="backButton" value="Chiudi tab">
+                </div>
+                <input type="hidden" name="code">
+                <input type="hidden" name="action">
+            </form>
+        </nav>
     </body>
 </html>

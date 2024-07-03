@@ -22,6 +22,7 @@ public class MySqlTruckDAO extends MySqlDAO<Truck> implements TruckDAO {
 
     public ArrayList<Truck> findAll() { return select(); }
     public Truck findByCode(int code) { return select(0, code); }
+    public Truck findByNumberPlate(String numberPlate) { return select(1, numberPlate); }
     public void addTruck(Truck truck) { insert(truck.asList()); }
     public int findLastCode() { return lastCode(); }
     public void removeTruck(Truck truck) { remove(truck.getCode()); }

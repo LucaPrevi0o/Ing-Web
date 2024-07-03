@@ -9,26 +9,35 @@ public class AssignmentController implements Controller {
 
     private static void listView(HttpServletRequest request, HttpServletResponse response, DAOFactory dao) {
 
-        var serviceDAO=dao.getServiceDAO();
-        var serviceList=serviceDAO.findAllNotAssigned();
+        var assignmentDAO=dao.getAssignmentDAO();
+        var assignmentList=assignmentDAO.findAll();
+        for (var assignment: assignmentList) {
 
-        for (var service: serviceList) {
+            System.out.println("New assignment");
+            var workerDAO=dao.getWorkerDAO();
+            assignment.setFirstDriver(workerDAO.findByFiscalCode(assignment.getFirstDriver().getFiscalCode()));
+            assignment.setSecondDriver(workerDAO.findByFiscalCode(assignment.getSecondDriver().getFiscalCode()));
+
+            var truckDAO=dao.getTruckDAO();
+            assignment.setTruck(truckDAO.findByNumberPlate(assignment.getTruck().getNumberPlate()));
+
+            var serviceDAO=dao.getServiceDAO();
+            var service=serviceDAO.findByCode(assignment.getService().getCode());
 
             var clientDAO=dao.getClientDAO();
             service.setClientCompany(clientDAO.findBySocialReason(service.getClientCompany().getSocialReason()));
+            assignment.setService(service);
 
-            var licenseDAO=dao.getLicenseDAO();
-            service.setValidLicenses(licenseDAO.findAllByService(service));
+            System.out.println(assignment.getFirstDriver());
+            System.out.println(assignment.getSecondDriver());
+            System.out.println(assignment.getTruck());
+            System.out.println(assignment.getService());
         }
 
-        var licenseDAO=dao.getLicenseDAO();
-        var licenseList=licenseDAO.findAll();
-
         dao.confirm();
-        attributes.add(new Object[]{"licenseList", licenseList});
-        attributes.add(new Object[]{"serviceList", serviceList});
+        attributes.add(new Object[]{"assignmentList", assignmentList});
         attributes.add(new Object[]{"selectedTab", "services"});
-        attributes.add(new Object[]{"viewUrl", "/admin/services/serviceList"});
+        attributes.add(new Object[]{"viewUrl", "/admin/services/assignedServices"});
     }
 
     private static void formView(HttpServletRequest request, HttpServletResponse response, DAOFactory dao) {
@@ -52,6 +61,12 @@ public class AssignmentController implements Controller {
         attributes.add(new Object[]{"truckList", truckList});
         attributes.add(new Object[]{"selectedTab", "services"});
         attributes.add(new Object[]{"viewUrl", "/admin/services/serviceAssignment"});
+    }
+
+    public static void getAssignments(HttpServletRequest request, HttpServletResponse response) {
+
+        var dao=Controller.getMySqlDAO("azienda_trasporti");
+        listView(request, response, dao);
     }
 
     public static void newAssignment(HttpServletRequest request, HttpServletResponse response) {

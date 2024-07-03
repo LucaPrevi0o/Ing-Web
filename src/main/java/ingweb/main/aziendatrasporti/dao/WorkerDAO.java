@@ -9,6 +9,7 @@ public interface WorkerDAO {
     public ArrayList<Worker> findAll();
     public ArrayList<Worker> findAvailableByService(Service service);
     public Worker findByCode(int code);
+    public Worker findByFiscalCode(String fiscalCode);
     public int findLastCode();
     public void addWorker(Worker worker);
     public void removeWorker(Worker worker);

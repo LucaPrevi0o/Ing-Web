@@ -9,6 +9,7 @@ public interface TruckDAO {
     public ArrayList<Truck> findAll();
     public ArrayList<Truck> findAvailableByService(Service service);
     public Truck findByCode(int code);
+    public Truck findByNumberPlate(String numberPlate);
     public int findLastCode();
     public void addTruck(Truck truck);
     public void updateTruck(Truck truck);
