@@ -1,7 +1,9 @@
 package ingweb.main.aziendatrasporti.control;
 
 import ingweb.main.aziendatrasporti.dao.DAOFactory;
+import ingweb.main.aziendatrasporti.mo.mo.Account;
 import ingweb.main.aziendatrasporti.mo.mo.Assignment;
+import ingweb.main.aziendatrasporti.mo.mo.Worker;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -9,8 +11,14 @@ public class AssignmentController implements Controller {
 
     private static void listView(HttpServletRequest request, HttpServletResponse response, DAOFactory dao) {
 
+        var cookieDAO=Controller.getCookieDAO(request, response);
+        var cookieAccountDAO=cookieDAO.getAccountDAO();
+        var loggedAccount=cookieAccountDAO.findLoggedAccount();
+        var worker=new Worker(null, null, loggedAccount.getUsername(), null, null);
+        cookieDAO.confirm();
+
         var assignmentDAO=dao.getAssignmentDAO();
-        var assignmentList=assignmentDAO.findAll();
+        var assignmentList=(loggedAccount.getLevel()==Account.ADMIN_LEVEL ? assignmentDAO.findAll() : assignmentDAO.findAllByWorker(worker));
         for (var assignment: assignmentList) {
 
             var workerDAO=dao.getWorkerDAO();
@@ -31,7 +39,7 @@ public class AssignmentController implements Controller {
         dao.confirm();
         attributes.add(new Object[]{"assignmentList", assignmentList});
         attributes.add(new Object[]{"selectedTab", "services"});
-        attributes.add(new Object[]{"viewUrl", "/admin/assignments/assignments"});
+        attributes.add(new Object[]{"viewUrl", (loggedAccount.getLevel()==Account.ADMIN_LEVEL ? "/admin/assignments/assignments" : "/worker/services/services")});
     }
 
     private static void formView(HttpServletRequest request, HttpServletResponse response, DAOFactory dao) {

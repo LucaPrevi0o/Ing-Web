@@ -30,8 +30,6 @@ public class LoginController implements Controller {
         var password=request.getParameter("password");
 
         var mySqlDAO=Controller.getMySqlDAO("aziendatrasportidb");
-        var test=mySqlDAO.getAccountDAO().findByUsernameAndPassword(username, password);
-        System.out.println(test);
         var cookieDAO=Controller.getCookieDAO(request, response);
         var mySqlAccountDAO=mySqlDAO.getAccountDAO();
         var cookieAccountDAO=cookieDAO.getAccountDAO();

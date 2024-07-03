@@ -37,7 +37,7 @@
 
                 backButton.addEventListener("click", function() {
 
-                    document.dataForm.action.value="LoginController.validate";
+                    document.dataForm.action.value="LoginController.doLogin";
                     document.dataForm.submit();
                 });
 

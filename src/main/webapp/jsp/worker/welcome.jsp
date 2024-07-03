@@ -16,7 +16,7 @@
 
                 document.querySelector("#services").addEventListener("click", function() {
 
-                    document.querySelector("#action").value="ServiceController.getServiceList";
+                    document.querySelector("#action").value="AssignmentController.getAssignments";
                     document.tabForm.submit();
                 });
 
@@ -31,14 +31,13 @@
     <body>
         <h1>Benvenuto, <%= loggedAccount.getFullName() %></h1>
         <h2>Menu di navigazione</h2>
-        <nav class="sticky">
-            <form name="tabForm" action="<%= request.getContextPath() %>/Servizi" method="post">
+        <nav id="documentElement">
+            <form name="tabForm" action="<%= request.getContextPath() %>/Servizi" method="post" class="styled">
                 <input type="button" id="services" value="Visualizza lista servizi">
                 <input type="button" id="logout" value="Torna al login">
                 <input type="hidden" id="action" name="action">
-                <input type="hidden" name="fiscalCode" value="<%= loggedAccount.getUsername() %>">
             </form>
         </nav>
         <% if (selectedTab==null) { %><h3>Seleziona una voce dal menu</h3><% } %>
-        </body>
+    </body>
 </html>

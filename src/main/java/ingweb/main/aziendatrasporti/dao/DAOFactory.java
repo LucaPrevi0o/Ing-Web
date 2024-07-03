@@ -34,7 +34,7 @@ public abstract class DAOFactory {
         } else if (name.equals(impl[1])) { //setup for cookie management
 
             if (args.length!=2) return null; //setup for cookie handling requires reference to the HTML request/response
-            else return new CookieDAOFactory((HttpServletRequest) args[0], (HttpServletResponse) args[1]);
+            else return new CookieDAOFactory((HttpServletRequest) args[0], (HttpServletResponse) args[1]); //cookie implementation
         }
 
         return null; //null value returned for non-implemented database access packages
