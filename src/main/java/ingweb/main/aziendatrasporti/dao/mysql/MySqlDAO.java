@@ -3,7 +3,6 @@ package ingweb.main.aziendatrasporti.dao.mysql;
 import ingweb.main.aziendatrasporti.mo.ModelObject;
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 //abstract MySQL DAO implementation: methods implemented as specific for every object type allow for dynamic query
 //construction based entirely on the MySQL schema, as the interface for the database communication is also dynamically
@@ -28,10 +27,21 @@ public abstract class MySqlDAO<T extends ModelObject> {
 
     public abstract T get(String[] item); //abstract function that allows object construction based on query result
 
-    public ArrayList<T> select() { //generic select query for every field of data
+    public ArrayList<T> selectAll() { //generic select query for every field of data
 
         var result=new ArrayList<T>();
         var query="select * from "+tableName+" where "+columns[columns.length-1]+" = 0";
+        var res=MySqlQueryManager.getResult(connection, query);
+        var resList=MySqlQueryManager.asList(res, columns);
+        for (var item: resList) result.add(get(item));
+        return result;
+    }
+
+    //generic select query based on field-specific field search
+    public ArrayList<T> selectAll(int fieldIndex, Object fieldValue) {
+
+        var result=new ArrayList<T>();
+        var query="select * from "+tableName+" where "+columns[fieldIndex]+"='"+fieldValue+"'"+" and "+columns[columns.length-1]+" = 0";
         var res=MySqlQueryManager.getResult(connection, query);
         var resList=MySqlQueryManager.asList(res, columns);
         for (var item: resList) result.add(get(item));

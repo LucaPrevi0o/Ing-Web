@@ -11,8 +11,9 @@ public class TruckController implements Controller {
 
     private static void listView(HttpServletRequest request, HttpServletResponse response, DAOFactory dao) {
 
+        var filter=request.getParameter("code");
         var truckDAO=dao.getTruckDAO();
-        var truckList=truckDAO.findAll();
+        var truckList=(filter!=null && filter.equals("filter") ? truckDAO.findAllAvailable() : truckDAO.findAll());
 
         var licenseDAO=dao.getLicenseDAO();
         var licenseList=licenseDAO.findAll();

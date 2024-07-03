@@ -1,9 +1,11 @@
 package ingweb.main.aziendatrasporti.mo;
 
-//ModelObject interface: every model object has to inherit from this in order to properly work;
-//this interface allows from quick access to every MO-specific list of attributes in order to quickly get the
+//ModelObject abstract class: every model object has to inherit from this in order to properly work;
+//this abstract class allows from quick access to every MO-specific list of attributes in order to quickly get the
 //list of attributes that need to be extracted from each DAO via database queries, and manage every database
-//property that is not directly connected to the object itself (its code key and its logical deletion value)
+//property that is not directly connected to the object itself (its code key and its logical deletion value); its
+//behaviour is similar to an interface, because it defines a list of properties that a MO has to have in order to
+//work properly, but it needs to stay as an abstract class in order to be type-erased in generic definitions for DAOs
 public abstract class ModelObject {
 
     private int code=0; //code primary key

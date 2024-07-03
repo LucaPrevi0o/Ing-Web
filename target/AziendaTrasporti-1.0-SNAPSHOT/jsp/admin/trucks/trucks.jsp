@@ -20,6 +20,14 @@
                 let refreshButton=document.querySelector("#refreshButton");
                 let newWorkerButton=document.querySelector("#newTruckButton");
                 let backButton=document.querySelector("#backButton");
+                let filter=document.querySelector("#filter");
+
+                filter.addEventListener("click", function() {
+
+                    document.dataForm.action.value="TruckController.getTrucks";
+                    document.dataForm.code.value="filter";
+                    document.dataForm.submit();
+                });
 
                 refreshButton.addEventListener("click", function() {
 
@@ -70,7 +78,7 @@
                 <td rowspan="2">Targa</td>
                 <td rowspan="2">Marca</td>
                 <td rowspan="2">Modello</td>
-                <td rowspan="2">Disponibilità</td>
+                <td rowspan="2">Disponibilità - <input id="filter" type="button" value="Filtra"></td>
                 <td colspan="<%= licenseList.size() %>">Patenti</td>
                 <td rowspan="2" colspan="2">Azioni</td>
             </tr>

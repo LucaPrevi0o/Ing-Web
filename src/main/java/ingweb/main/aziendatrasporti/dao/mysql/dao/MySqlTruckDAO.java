@@ -3,7 +3,6 @@ package ingweb.main.aziendatrasporti.dao.mysql.dao;
 import ingweb.main.aziendatrasporti.dao.TruckDAO;
 import ingweb.main.aziendatrasporti.dao.mysql.MySqlDAO;
 import ingweb.main.aziendatrasporti.dao.mysql.MySqlQueryManager;
-import ingweb.main.aziendatrasporti.mo.mo.License;
 import ingweb.main.aziendatrasporti.mo.mo.Service;
 import ingweb.main.aziendatrasporti.mo.mo.Truck;
 import java.sql.Connection;
@@ -20,7 +19,8 @@ public class MySqlTruckDAO extends MySqlDAO<Truck> implements TruckDAO {
 
     public Truck get(String[] item) { return new Truck(Integer.parseInt(item[0]), item[1], item[2], item[3], item[4].equals("1"), item[5].equals("1")); }
 
-    public ArrayList<Truck> findAll() { return select(); }
+    public ArrayList<Truck> findAll() { return selectAll(); }
+    public ArrayList<Truck> findAllAvailable() { return selectAll(4, "1"); }
     public Truck findByCode(int code) { return select(0, code); }
     public Truck findByNumberPlate(String numberPlate) { return select(1, numberPlate); }
     public void addTruck(Truck truck) { insert(truck.asList()); }

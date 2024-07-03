@@ -85,6 +85,8 @@
         <%@ include file="/jsp/admin/welcome.jsp" %>
         <hr/>
         <h1>Lista servizi</h1>
+        <h2><a href="" id="assignedList">Vai a lista servizi in corso</a></h2>
+        <hr>
         <table>
             <tr class="firstRow">
                 <td rowspan="2">Nome</td>
@@ -93,9 +95,11 @@
                 <td rowspan="2">Orario inizio</td>
                 <td rowspan="2">Durata</td>
                 <td colspan="<%= licenseList.size() %>">Patenti</td>
-                <td rowspan="2" colspan="3">Azioni - <input type="button" id="assignedList" value="Lista servizi in corso"></td>
+                <td colspan="3" rowspan="2">Azioni</td>
             </tr>
-            <tr class="firstRow"><% for (var license: licenseList) { %><td><%= license.getCategory() %></td><% } %></tr>
+            <tr class="firstRow">
+                <% for (var license: licenseList) { %><td><%= license.getCategory() %></td><% } %>
+            </tr>
             <% for (var service: serviceList) {
                 var licenses=service.getValidLicenses();
                 if (licenses==null) licenses=new ArrayList<>(); %>

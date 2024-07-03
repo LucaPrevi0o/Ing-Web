@@ -4,7 +4,6 @@ import ingweb.main.aziendatrasporti.dao.WorkerDAO;
 import ingweb.main.aziendatrasporti.dao.mysql.MySqlDAO;
 import ingweb.main.aziendatrasporti.dao.mysql.MySqlQueryManager;
 import ingweb.main.aziendatrasporti.mo.mo.Service;
-import ingweb.main.aziendatrasporti.mo.mo.Truck;
 import ingweb.main.aziendatrasporti.mo.mo.Worker;
 import java.sql.*;
 import java.sql.Date;
@@ -21,7 +20,7 @@ public class MySqlWorkerDAO extends MySqlDAO<Worker> implements WorkerDAO {
 
     public Worker get(String[] item) { return new Worker(Integer.parseInt(item[0]), item[1], item[2], item[3], Date.valueOf(item[4]), item[5], item[6].equals("1")); }
 
-    public ArrayList<Worker> findAll() { return select(); }
+    public ArrayList<Worker> findAll() { return selectAll(); }
     public Worker findByCode(int code) { return select(0, code); }
     public Worker findByFiscalCode(String fiscalCode) { return select(3, fiscalCode); }
     public void addWorker(Worker worker) { insert(worker.asList()); }
