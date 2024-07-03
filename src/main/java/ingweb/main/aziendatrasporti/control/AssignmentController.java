@@ -13,7 +13,6 @@ public class AssignmentController implements Controller {
         var assignmentList=assignmentDAO.findAll();
         for (var assignment: assignmentList) {
 
-            System.out.println("New assignment");
             var workerDAO=dao.getWorkerDAO();
             assignment.setFirstDriver(workerDAO.findByFiscalCode(assignment.getFirstDriver().getFiscalCode()));
             assignment.setSecondDriver(workerDAO.findByFiscalCode(assignment.getSecondDriver().getFiscalCode()));
@@ -27,11 +26,6 @@ public class AssignmentController implements Controller {
             var clientDAO=dao.getClientDAO();
             service.setClientCompany(clientDAO.findBySocialReason(service.getClientCompany().getSocialReason()));
             assignment.setService(service);
-
-            System.out.println(assignment.getFirstDriver());
-            System.out.println(assignment.getSecondDriver());
-            System.out.println(assignment.getTruck());
-            System.out.println(assignment.getService());
         }
 
         dao.confirm();
