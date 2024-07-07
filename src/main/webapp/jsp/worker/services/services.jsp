@@ -15,6 +15,7 @@
         <script>
             window.addEventListener("load", function() {
 
+                let detailsButtons=document.querySelectorAll("input[name='details']");
                 let completeButtons=document.querySelectorAll("input[name='complete']");
                 let problemButtons=document.querySelectorAll("input[name='problem']");
                 let refreshButton=document.querySelector("#refreshButton");
@@ -30,6 +31,16 @@
 
                     document.dataForm.action.value="LoginController.doLogin";
                     document.dataForm.submit();
+                });
+
+                detailsButtons.forEach(b => {
+
+                    b.addEventListener("click", function() {
+
+                        document.dataForm.action.value="AssignmentController.viewDetails";
+                        document.dataForm.code.value=this.id;
+                        document.dataForm.submit();
+                    });
                 });
 
                 completeButtons.forEach(b => {
@@ -64,7 +75,7 @@
                 <td>Secondo autista</td>
                 <td>Mezzo</td>
                 <td>Problemi rilevati</td>
-                <td colspan="2">Azioni</td>
+                <td colspan="3">Azioni</td>
             </tr>
             <% for (var assignment: assignmentList) { %>
                 <tr>
@@ -76,8 +87,9 @@
                             (field instanceof Truck ? ((Truck)field).display() : field)))) %>
                         </td>
                     <% } %>
-                    <td><input type="button" id="<%= assignment.getCode() %>" name="complete" value="Completa servizio"></td>
+                    <td><input type="button" id="<%= assignment.getCode() %>" name="details" value="Vedi dettagli"></td>
                     <td><input type="button" id="<%= assignment.getCode() %>" name="problem" value="Segnala un problema"></td>
+                    <td><input type="button" id="<%= assignment.getCode() %>" name="complete" value="Completa servizio"></td>
                 </tr>
             <% } %>
         </table>

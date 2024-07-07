@@ -75,6 +75,25 @@ public class AssignmentController implements Controller {
         attributes.add(new Object[]{"viewUrl", "/worker/services/serviceProblem"});
     }
 
+    private static void detailsView(HttpServletRequest request, HttpServletResponse response, DAOFactory dao) {
+
+        var code=request.getParameter("code");
+        var assignmentDAO=dao.getAssignmentDAO();
+        var assignment=assignmentDAO.findByCode(Integer.parseInt(code));
+        var serviceDAO=dao.getServiceDAO();
+        var service=serviceDAO.findByCode(assignment.getService().getCode());
+
+        var clientDAO=dao.getClientDAO();
+        service.setClientCompany(clientDAO.findBySocialReason(service.getClientCompany().getSocialReason()));
+        assignment.setService(service);
+
+        var truckDAO=dao.getTruckDAO();
+        assignment.setTruck(truckDAO.findByNumberPlate(assignment.getTruck().getNumberPlate()));
+        attributes.add(new Object[]{"selectedTab", "services"});
+        attributes.add(new Object[]{"assignment", assignment});
+        attributes.add(new Object[]{"viewUrl", "/worker/services/details"});
+    }
+
     public static void getAssignments(HttpServletRequest request, HttpServletResponse response) {
 
         var dao=Controller.getMySqlDAO("azienda_trasporti");
@@ -151,5 +170,11 @@ public class AssignmentController implements Controller {
         assignment.setComment(comment);
         assignmentDAO.updateAssignment(assignment);
         listView(request, response, dao);
+    }
+
+    public static void viewDetails(HttpServletRequest request, HttpServletResponse response) {
+
+        var dao=Controller.getMySqlDAO("azienda_trasporti");
+        detailsView(request, response, dao);
     }
 }

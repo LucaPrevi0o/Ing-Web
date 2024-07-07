@@ -9,25 +9,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0bf709cf-d99c-4d00-90c1-2fc5a7108193" name="Changes" comment="added assignment completion from worker list">
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/jsp/worker/services/serviceProblem.jsp" afterDir="false" />
+    <list default="true" id="0bf709cf-d99c-4d00-90c1-2fc5a7108193" name="Changes" comment="added problem signaling from worker services">
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/jsp/worker/services/details.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/control/AssignmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/control/AssignmentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/AssignmentDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/AssignmentDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlAssignmentDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlAssignmentDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/mo/mo/Assignment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/mo/mo/Assignment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/worker/services/services.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/worker/services/services.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/style/dataForm.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/style/dataForm.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/control/AssignmentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/control/AssignmentController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/AssignmentDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/AssignmentDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlAssignmentDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlAssignmentDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/mo/mo/Assignment.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/mo/mo/Assignment.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/worker/services/services.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/worker/services/services.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/style/dataForm.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/style/dataForm.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/control/AssignmentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/control/AssignmentController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/AssignmentDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/AssignmentDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlAssignmentDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlAssignmentDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/mo/mo/Assignment.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/mo/mo/Assignment.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,8 +29,8 @@
         <option value="HTML File" />
         <option value="Interface" />
         <option value="Class" />
-        <option value="Jsp File" />
         <option value="CSS File" />
+        <option value="Jsp File" />
       </list>
     </option>
   </component>
@@ -335,15 +324,7 @@
       <workItem from="1719733543573" duration="49497000" />
       <workItem from="1719997138964" duration="5222000" />
       <workItem from="1720002559658" duration="13985000" />
-      <workItem from="1720337878254" duration="6036000" />
-    </task>
-    <task id="LOCAL-00052" summary="added enter key form trigger in form submission">
-      <option name="closed" value="true" />
-      <created>1718868382023</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
-      <option name="project" value="LOCAL" />
-      <updated>1718868382023</updated>
+      <workItem from="1720337878254" duration="7815000" />
     </task>
     <task id="LOCAL-00053" summary="don't tell me im gonna lose everything bc of git">
       <option name="closed" value="true" />
@@ -729,7 +710,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720340763715</updated>
     </task>
-    <option name="localTasksCounter" value="101" />
+    <task id="LOCAL-00101" summary="added problem signaling from worker services">
+      <option name="closed" value="true" />
+      <created>1720344212198</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1720344212198</updated>
+    </task>
+    <option name="localTasksCounter" value="102" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -750,7 +739,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="changed db, now starting to rebuild" />
     <MESSAGE value="added useful comments to the architecture" />
     <MESSAGE value="added generic dao implementation for services" />
     <MESSAGE value="updated workspace after rebuild" />
@@ -775,7 +763,8 @@
     <MESSAGE value="smth bugged out on account validation" />
     <MESSAGE value="solved failure for password check after login" />
     <MESSAGE value="added assignment completion from worker list" />
-    <option name="LAST_COMMIT_MESSAGE" value="added assignment completion from worker list" />
+    <MESSAGE value="added problem signaling from worker services" />
+    <option name="LAST_COMMIT_MESSAGE" value="added problem signaling from worker services" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
