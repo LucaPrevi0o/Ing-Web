@@ -34,16 +34,8 @@ public class CookieAccountDAO implements AccountDAO {
         response.addCookie(cookie);
     }
 
-    @Override
-    public ArrayList<Account> findAll() {
-        return null;
-    }
-
-    @Override
-    public ArrayList<Account> findAllByLevel(int level) {
-        return null;
-    }
-
+    public ArrayList<Account> findAll() { return null; }
+    public ArrayList<Account> findAllByLevel(int level) { return null; }
     public void addAccount(Account account) {}
     public void removeAccount(Account account) {}
     public void updateAccount(Account account) {}

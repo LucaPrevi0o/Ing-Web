@@ -4,6 +4,8 @@ import ingweb.main.aziendatrasporti.mo.mo.Account;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import java.util.ArrayList;
+
 public class LoginController implements Controller {
 
     private static void adminLogin(HttpServletRequest request, HttpServletResponse response, Account account) {
@@ -24,33 +26,40 @@ public class LoginController implements Controller {
         attributes.add(new Object[]{"access", rejectReason});
     }
 
+    private static void accept(HttpServletRequest request, HttpServletResponse response, Account loggedAccount, ArrayList<Account> adminList) {
+
+        if (adminList.contains(loggedAccount)) adminLogin(request, response, loggedAccount);
+        else workerLogin(request, response, loggedAccount);
+    }
+
     public static void doLogin(HttpServletRequest request, HttpServletResponse response) {
 
-        var username=request.getParameter("username");
-        var password=request.getParameter("password");
-
-        var mySqlDAO=Controller.getMySqlDAO("aziendatrasportidb");
         var cookieDAO=Controller.getCookieDAO(request, response);
+        var mySqlDAO=Controller.getMySqlDAO("aziendatrasportidb");
         var mySqlAccountDAO=mySqlDAO.getAccountDAO();
         var cookieAccountDAO=cookieDAO.getAccountDAO();
+        var adminList=mySqlAccountDAO.findAllByLevel(Account.ADMIN_LEVEL); //get list of admin accounts
+        var loggedAccount=cookieAccountDAO.findLoggedAccount(); //check for already logged account (not null cookie value)
 
-        var adminList=mySqlAccountDAO.findAllByLevel(Account.ADMIN_LEVEL); //return account list filtered by admin level
-        var accountList=mySqlAccountDAO.findAll(); //return account list filtered by admin level
-        var loggedAccount=cookieAccountDAO.findLoggedAccount();
-        if (loggedAccount==null) {
+        if (loggedAccount!=null) { //if account cookie is already set, login directly with same validation
 
-            loggedAccount=mySqlAccountDAO.findByUsername(username);
-            if (loggedAccount!=null) cookieAccountDAO.createAccount(loggedAccount);
-        }
+            mySqlDAO.confirm();
+            accept(request, response, loggedAccount, adminList);
+        } else { //proceed to validate credential if account has not logged already
 
-        mySqlDAO.confirm();
-        cookieDAO.confirm();
-        if (!accountList.contains(loggedAccount)) rejectLogin(request, response, "not-registered");
-        else if (!loggedAccount.getPassword().equals(password)) rejectLogin(request, response, "denied");
-        else {
+            //get account credentials from login form
+            var username=request.getParameter("username");
+            var password=request.getParameter("password");
 
-            if (adminList.contains(loggedAccount)) adminLogin(request, response, loggedAccount);
-            else workerLogin(request, response, loggedAccount);
+            loggedAccount=mySqlAccountDAO.findByUsername(username); //find account instance from database by username
+            if (loggedAccount!=null) cookieAccountDAO.createAccount(loggedAccount); //if the account is valid, set its data as a new cookie
+            var accountList=mySqlAccountDAO.findAll(); //get list of every account in db
+            mySqlDAO.confirm();
+
+            //check for credential validation and manage login
+            if (!accountList.contains(loggedAccount)) rejectLogin(request, response, "not-registered");
+            else if (!loggedAccount.getPassword().equals(password)) rejectLogin(request, response, "denied");
+            else accept(request, response, loggedAccount, adminList);
         }
     }
 
