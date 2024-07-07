@@ -9,14 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0bf709cf-d99c-4d00-90c1-2fc5a7108193" name="Changes" comment="added problem signaling from worker services">
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/jsp/worker/services/details.jsp" afterDir="false" />
+    <list default="true" id="0bf709cf-d99c-4d00-90c1-2fc5a7108193" name="Changes" comment="added details view for worker services">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/control/AssignmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/control/AssignmentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/worker/services/services.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/worker/services/services.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/control/AssignmentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/control/AssignmentController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/worker/services/services.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/worker/services/services.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/control/AssignmentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/control/AssignmentController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/control/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/control/ClientController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -324,23 +319,7 @@
       <workItem from="1719733543573" duration="49497000" />
       <workItem from="1719997138964" duration="5222000" />
       <workItem from="1720002559658" duration="13985000" />
-      <workItem from="1720337878254" duration="7815000" />
-    </task>
-    <task id="LOCAL-00053" summary="don't tell me im gonna lose everything bc of git">
-      <option name="closed" value="true" />
-      <created>1718893741655</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1718893741655</updated>
-    </task>
-    <task id="LOCAL-00054" summary="added assigned service list page">
-      <option name="closed" value="true" />
-      <created>1718959111609</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
-      <option name="project" value="LOCAL" />
-      <updated>1718959111610</updated>
+      <workItem from="1720337878254" duration="9099000" />
     </task>
     <task id="LOCAL-00055" summary="added control for empty form submission (wip)">
       <option name="closed" value="true" />
@@ -718,7 +697,23 @@
       <option name="project" value="LOCAL" />
       <updated>1720344212198</updated>
     </task>
-    <option name="localTasksCounter" value="102" />
+    <task id="LOCAL-00102" summary="added details view for worker services">
+      <option name="closed" value="true" />
+      <created>1720345871474</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1720345871474</updated>
+    </task>
+    <task id="LOCAL-00103" summary="added details view for worker services">
+      <option name="closed" value="true" />
+      <created>1720346035496</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1720346035496</updated>
+    </task>
+    <option name="localTasksCounter" value="104" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -739,7 +734,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added useful comments to the architecture" />
     <MESSAGE value="added generic dao implementation for services" />
     <MESSAGE value="updated workspace after rebuild" />
     <MESSAGE value="updated mo and dao behaviour" />
@@ -764,7 +758,8 @@
     <MESSAGE value="solved failure for password check after login" />
     <MESSAGE value="added assignment completion from worker list" />
     <MESSAGE value="added problem signaling from worker services" />
-    <option name="LAST_COMMIT_MESSAGE" value="added problem signaling from worker services" />
+    <MESSAGE value="added details view for worker services" />
+    <option name="LAST_COMMIT_MESSAGE" value="added details view for worker services" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

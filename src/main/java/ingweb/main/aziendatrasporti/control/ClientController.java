@@ -1,6 +1,7 @@
 package ingweb.main.aziendatrasporti.control;
 
 import ingweb.main.aziendatrasporti.dao.DAOFactory;
+import ingweb.main.aziendatrasporti.mo.mo.Account;
 import ingweb.main.aziendatrasporti.mo.mo.ClientCompany;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -49,6 +50,12 @@ public class ClientController implements Controller {
         var code=clientDAO.findLastCode()+1;
         var clientCompany=new ClientCompany(code, name, socialReason, location, managerName, managerFiscalCode, Date.valueOf(managerBirthDate), managerTelNumber, false);
 
+        var account=new Account(managerFiscalCode, socialReason, managerName, 2);
+        var newDao=Controller.getMySqlDAO("aziendatrasportidb");
+        var accountDAO=newDao.getAccountDAO();
+        accountDAO.addAccount(account);
+        newDao.confirm();
+
         clientDAO.addClient(clientCompany);
         listView(request, response, dao);
     }
@@ -56,10 +63,15 @@ public class ClientController implements Controller {
     public static void removeClient(HttpServletRequest request, HttpServletResponse response) {
 
         var dao=Controller.getMySqlDAO("azienda_trasporti");
+        var newDao=Controller.getMySqlDAO("aziendatrasportidb");
         var clientDAO=dao.getClientDAO();
         var code=request.getParameter("code");
 
-        clientDAO.removeClient(clientDAO.findByCode(Integer.parseInt(code)));
+        var clientCompany=clientDAO.findByCode(Integer.parseInt(code));
+        clientDAO.removeClient(clientCompany);
+
+        var accountDAO=newDao.getAccountDAO();
+        accountDAO.removeAccount(new Account(clientCompany.getManagerFiscalCode(), null, null, 0));
         listView(request, response, dao);
     }
 
