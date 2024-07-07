@@ -2,8 +2,8 @@
 <%@ page import="ingweb.main.aziendatrasporti.mo.mo.*" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%
-    var assignmentList =(ArrayList<Assignment>)request.getAttribute("assignmentList");
-    if (assignmentList ==null) assignmentList =new ArrayList<>();
+    var assignmentList=(ArrayList<Assignment>)request.getAttribute("assignmentList");
+    if (assignmentList==null) assignmentList =new ArrayList<>();
 %>
 <%@ include file="/jsp/worker/welcome.jsp" %>
 <html>
@@ -16,6 +16,7 @@
             window.addEventListener("load", function() {
 
                 let completeButtons=document.querySelectorAll("input[name='complete']");
+                let problemButtons=document.querySelectorAll("input[name='problem']");
                 let refreshButton=document.querySelector("#refreshButton");
                 let backButton=document.querySelector("#backButton");
 
@@ -35,7 +36,17 @@
 
                     b.addEventListener("click", function() {
 
-                        document.dataForm.action.value="AssignmentController.completeAssignment";
+                        document.dataForm.action.value="AssignmentController.newProblem";
+                        document.dataForm.code.value=this.id;
+                        document.dataForm.submit();
+                    });
+                });
+
+                problemButtons.forEach(b => {
+
+                    b.addEventListener("click", function() {
+
+                        document.dataForm.action.value="AssignmentController.newProblem";
                         document.dataForm.code.value=this.id;
                         document.dataForm.submit();
                     });
@@ -52,7 +63,8 @@
                 <td>Primo autista</td>
                 <td>Secondo autista</td>
                 <td>Mezzo</td>
-                <td>Azioni</td>
+                <td>Problemi rilevati</td>
+                <td colspan="2">Azioni</td>
             </tr>
             <% for (var assignment: assignmentList) { %>
                 <tr>
@@ -65,6 +77,7 @@
                         </td>
                     <% } %>
                     <td><input type="button" id="<%= assignment.getCode() %>" name="complete" value="Completa servizio"></td>
+                    <td><input type="button" id="<%= assignment.getCode() %>" name="problem" value="Segnala un problema"></td>
                 </tr>
             <% } %>
         </table>

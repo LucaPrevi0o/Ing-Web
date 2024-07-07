@@ -65,6 +65,16 @@ public class AssignmentController implements Controller {
         attributes.add(new Object[]{"viewUrl", "/admin/assignments/newAssignment"});
     }
 
+    private static void problemView(HttpServletRequest request, HttpServletResponse response, DAOFactory dao) {
+
+        var code=request.getParameter("code");
+        var assignmentDAO=dao.getAssignmentDAO();
+        var assignment=assignmentDAO.findByCode(Integer.parseInt(code));
+        attributes.add(new Object[]{"selectedTab", "services"});
+        attributes.add(new Object[]{"assignment", assignment});
+        attributes.add(new Object[]{"viewUrl", "/worker/services/serviceProblem"});
+    }
+
     public static void getAssignments(HttpServletRequest request, HttpServletResponse response) {
 
         var dao=Controller.getMySqlDAO("azienda_trasporti");
@@ -97,7 +107,7 @@ public class AssignmentController implements Controller {
 
         var assignmentDAO=dao.getAssignmentDAO();
         var code=assignmentDAO.findLastCode()+1;
-        var assignment=new Assignment(code, service, firstDriver, secondDriver, truck, false);
+        var assignment=new Assignment(code, service, firstDriver, secondDriver, truck, null, false);
         assignmentDAO.addAssignment(assignment);
         listView(request, response, dao);
     }
@@ -121,6 +131,25 @@ public class AssignmentController implements Controller {
         var assignmentDAO=dao.getAssignmentDAO();
         var assignment=assignmentDAO.findByCode(Integer.parseInt(code));
         assignmentDAO.completeAssignment(assignment);
+        listView(request, response, dao);
+    }
+
+    public static void newProblem(HttpServletRequest request, HttpServletResponse response) {
+
+        var dao=Controller.getMySqlDAO("azienda_trasporti");
+        problemView(request, response, dao);
+    }
+
+    public static void signalAssignment(HttpServletRequest request, HttpServletResponse response) {
+
+        var dao=Controller.getMySqlDAO("azienda_trasporti");
+        var code=request.getParameter("code");
+        var comment=request.getParameter("comment");
+
+        var assignmentDAO=dao.getAssignmentDAO();
+        var assignment=assignmentDAO.findByCode(Integer.parseInt(code));
+        assignment.setComment(comment);
+        assignmentDAO.updateAssignment(assignment);
         listView(request, response, dao);
     }
 }

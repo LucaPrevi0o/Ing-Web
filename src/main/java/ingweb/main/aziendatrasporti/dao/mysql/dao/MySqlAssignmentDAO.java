@@ -22,7 +22,7 @@ public class MySqlAssignmentDAO extends MySqlDAO<Assignment> implements Assignme
             new Service(Integer.parseInt(item[1]), null, null, null, null, null, false),
             new Worker(null, null, item[2], null, null),
             new Worker(null, null, item[3], null, null),
-            new Truck(item[4], null, null, false), item[5].equals("1")
+            new Truck(item[4], null, null, false), item[5], item[6].equals("1")
         );
     }
 
@@ -31,6 +31,7 @@ public class MySqlAssignmentDAO extends MySqlDAO<Assignment> implements Assignme
     public int findLastCode() { return lastCode(); }
     public void addAssignment(Assignment assignment) { insert(assignment.asList()); }
     public void removeAssignment(Assignment assignment) { delete(assignment.getCode()); }
+    public void updateAssignment(Assignment assignment) { update(assignment.asList()); }
     public void completeAssignment(Assignment assignment) { remove(assignment.getCode()); ;}
 
     public ArrayList<Assignment> findAllByWorker(Worker worker) {

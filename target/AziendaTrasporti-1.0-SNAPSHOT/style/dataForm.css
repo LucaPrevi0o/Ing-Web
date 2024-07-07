@@ -31,6 +31,18 @@
         border: 1px solid #444444;
     }
 
+    textarea {
+
+        width: 80%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 5px;
+        border: 1px solid #444444;
+        box-sizing: border-box;
+        resize: none;
+    }
+
     input[readonly=""]:hover { background-color: #008800 }
     input[readonly=""]:active { background-color: #00aa00 }
     input:focus { background-color: #006666 }

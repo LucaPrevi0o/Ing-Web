@@ -13,5 +13,6 @@ public interface AssignmentDAO {
     public int findLastCode();
     public void addAssignment(Assignment assignment);
     public void removeAssignment(Assignment assignment);
+    public void updateAssignment(Assignment assignment);
     public void completeAssignment(Assignment assignment);
 }

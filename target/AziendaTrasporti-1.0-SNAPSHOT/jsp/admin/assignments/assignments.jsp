@@ -58,7 +58,8 @@
                 <td>Primo autista</td>
                 <td>Secondo autista</td>
                 <td>Mezzo</td>
-                <td>Azioni</td>
+                <td>Problemi rilevati</td>
+                <td>Azioni</td>7
             </tr>
             <% for (var assignment: assignmentList) { %>
                 <tr>

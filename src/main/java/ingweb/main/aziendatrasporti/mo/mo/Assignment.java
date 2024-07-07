@@ -8,27 +8,30 @@ public class Assignment extends ModelObject {
     private Worker firstDriver;
     private Worker secondDriver;
     private Truck truck;
+    private String comment;
 
-    public Assignment(int code, Service service, Worker firstDriver, Worker secondDriver, Truck truck, boolean deleted) {
+    public Assignment(int code, Service service, Worker firstDriver, Worker secondDriver, Truck truck, String comment, boolean deleted) {
 
         this.setCode(code);
         this.service=service;
         this.firstDriver=firstDriver;
         this.secondDriver=secondDriver;
         this.truck=truck;
+        this.comment=comment;
         this.setDeleted(deleted);
     }
 
-    public Assignment(Service service, Worker firstDriver, Worker secondDriver, Truck truck) {
+    public Assignment(Service service, Worker firstDriver, Worker secondDriver, Truck truck, String comment) {
 
         this.service=service;
         this.firstDriver=firstDriver;
         this.secondDriver=secondDriver;
         this.truck=truck;
+        this.comment=comment;
     }
 
-    public Object[] data() { return new Object[]{this.service, this.firstDriver, this.secondDriver, this.truck}; }
-    public Object[] asList() { return new Object[]{this.getCode(), this.service, this.firstDriver, this.secondDriver, this.truck, this.isDeleted()}; }
+    public Object[] data() { return new Object[]{this.service, this.firstDriver, this.secondDriver, this.truck, this.comment}; }
+    public Object[] asList() { return new Object[]{this.getCode(), this.service, this.firstDriver, this.secondDriver, this.truck, this.comment, this.isDeleted()}; }
     public String display() { return toString(); }
     public String toString() { return "["+this.service+"]: {"+this.firstDriver+", "+this.secondDriver+"} - "+this.truck; }
 
@@ -40,6 +43,7 @@ public class Assignment extends ModelObject {
         if (!((Assignment)o).firstDriver.equals(this.firstDriver)) return false;
         if (!((Assignment)o).secondDriver.equals(this.secondDriver)) return false;
         if (!((Assignment)o).truck.equals(this.truck)) return false;
+        if (!((Assignment)o).comment.equals(this.comment)) return false;
         return ((Assignment)o).isDeleted()==this.isDeleted();
     }
 
@@ -54,4 +58,7 @@ public class Assignment extends ModelObject {
 
     public Truck getTruck() { return truck; }
     public void setTruck(Truck truck) { this.truck = truck; }
+
+    public String getComment() { return comment; }
+    public void setComment(String comment) { this.comment=comment; }
 }
