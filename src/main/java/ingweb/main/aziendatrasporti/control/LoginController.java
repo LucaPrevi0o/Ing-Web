@@ -20,15 +20,22 @@ public class LoginController implements Controller {
         attributes.add(new Object[]{"viewUrl", "/worker/welcome"});
     }
 
+    private static void managerLogin(HttpServletRequest request, HttpServletResponse response, Account account) {
+
+        attributes.add(new Object[]{"loggedAccount", account});
+        attributes.add(new Object[]{"viewUrl", "/clientManager/welcome"});
+    }
+
     private static void rejectLogin(HttpServletRequest request, HttpServletResponse response, String rejectReason) {
 
         attributes.add(new Object[]{"viewUrl", "/login"});
         attributes.add(new Object[]{"access", rejectReason});
     }
 
-    private static void accept(HttpServletRequest request, HttpServletResponse response, Account loggedAccount, ArrayList<Account> adminList) {
+    private static void accept(HttpServletRequest request, HttpServletResponse response, Account loggedAccount, ArrayList<Account> adminList, ArrayList<Account> managerList) {
 
         if (adminList.contains(loggedAccount)) adminLogin(request, response, loggedAccount);
+        else if (managerList.contains(loggedAccount)) managerLogin(request, response, loggedAccount);
         else workerLogin(request, response, loggedAccount);
     }
 
@@ -39,12 +46,13 @@ public class LoginController implements Controller {
         var mySqlAccountDAO=mySqlDAO.getAccountDAO();
         var cookieAccountDAO=cookieDAO.getAccountDAO();
         var adminList=mySqlAccountDAO.findAllByLevel(Account.ADMIN_LEVEL); //get list of admin accounts
+        var managerList=mySqlAccountDAO.findAllByLevel(Account.MANAGER_LEVEL); //get list of client company manager accounts
         var loggedAccount=cookieAccountDAO.findLoggedAccount(); //check for already logged account (not null cookie value)
 
         if (loggedAccount!=null) { //if account cookie is already set, login directly with same validation
 
             mySqlDAO.confirm();
-            accept(request, response, loggedAccount, adminList);
+            accept(request, response, loggedAccount, adminList, managerList);
         } else { //proceed to validate credential if account has not logged already
 
             //get account credentials from login form
@@ -59,7 +67,7 @@ public class LoginController implements Controller {
             //check for credential validation and manage login
             if (!accountList.contains(loggedAccount)) rejectLogin(request, response, "not-registered");
             else if (!loggedAccount.getPassword().equals(password)) rejectLogin(request, response, "denied");
-            else accept(request, response, loggedAccount, adminList);
+            else accept(request, response, loggedAccount, adminList, managerList);
         }
     }
 

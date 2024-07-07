@@ -53,7 +53,7 @@
     </head>
     <body>
         <h1>Benvenuto, <%= loggedAccount.getFullName() %></h1>
-        <h2>Menu di navigazione</h2>
+        <h2>Menu di navigazione - Accesso amministratori</h2>
         <nav id="documentElement">
             <form name="tabForm" action="<%= request.getContextPath() %>/Servizi" method="post" class="styled">
                 <input type="button" id="workers" value="Visualizza lista autisti">

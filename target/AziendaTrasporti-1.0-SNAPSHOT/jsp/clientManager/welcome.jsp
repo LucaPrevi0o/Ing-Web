@@ -14,12 +14,6 @@
 
                 <% if (selectedTab!=null) { %> document.querySelector("#<%= selectedTab %>").classList.add("selected"); <% } %>
 
-                document.querySelector("#services").addEventListener("click", function() {
-
-                    document.querySelector("#action").value="AssignmentController.getAssignments";
-                    document.tabForm.submit();
-                });
-
                 document.querySelector("#logout").addEventListener("click", function() {
 
                     document.querySelector("#action").value="LoginController.logout";
@@ -30,10 +24,9 @@
     </head>
     <body>
         <h1>Benvenuto, <%= loggedAccount.getFullName() %></h1>
-        <h2>Menu di navigazione - Accesso dipendenti</h2>
+        <h2>Menu di navigazione - Accesso clienti</h2>
         <nav id="documentElement">
             <form name="tabForm" action="<%= request.getContextPath() %>/Servizi" method="post" class="styled">
-                <input type="button" id="services" value="Visualizza lista servizi">
                 <input type="button" id="logout" value="Torna al login">
                 <input type="hidden" id="action" name="action">
             </form>

@@ -11,7 +11,7 @@ public class Account extends ModelObject {
 
     //static values for account levels
     public final static int ADMIN_LEVEL=1;
-    public final static int WORKER_LEVEL=2;
+    public final static int MANAGER_LEVEL=2;
 
     public String toString() { return this.fullName+": "+this.username+"@"+this.password+" ("+this.level+", "+this.isDeleted()+")"; }
     public Object[] asList() { return new Object[] {this.username, this.password, this.fullName, this.level, this.isDeleted()}; }
