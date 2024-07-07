@@ -31,6 +31,7 @@ public class MySqlAssignmentDAO extends MySqlDAO<Assignment> implements Assignme
     public int findLastCode() { return lastCode(); }
     public void addAssignment(Assignment assignment) { insert(assignment.asList()); }
     public void removeAssignment(Assignment assignment) { delete(assignment.getCode()); }
+    public void completeAssignment(Assignment assignment) { remove(assignment.getCode()); ;}
 
     public ArrayList<Assignment> findAllByWorker(Worker worker) {
 

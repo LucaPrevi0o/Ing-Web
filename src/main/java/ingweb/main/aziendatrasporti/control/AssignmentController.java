@@ -112,4 +112,15 @@ public class AssignmentController implements Controller {
         assignmentDAO.removeAssignment(assignment);
         listView(request, response, dao);
     }
+
+    public static void completeAssignment(HttpServletRequest request, HttpServletResponse response) {
+
+        var dao=Controller.getMySqlDAO("azienda_trasporti");
+        var code=request.getParameter("code");
+
+        var assignmentDAO=dao.getAssignmentDAO();
+        var assignment=assignmentDAO.findByCode(Integer.parseInt(code));
+        assignmentDAO.completeAssignment(assignment);
+        listView(request, response, dao);
+    }
 }

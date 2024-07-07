@@ -15,6 +15,7 @@
         <script>
             window.addEventListener("load", function() {
 
+                let completeButtons=document.querySelectorAll("input[name='complete']");
                 let refreshButton=document.querySelector("#refreshButton");
                 let backButton=document.querySelector("#backButton");
 
@@ -29,12 +30,20 @@
                     document.dataForm.action.value="LoginController.doLogin";
                     document.dataForm.submit();
                 });
+
+                completeButtons.forEach(b => {
+
+                    b.addEventListener("click", function() {
+
+                        document.dataForm.action.value="AssignmentController.completeAssignment";
+                        document.dataForm.code.value=this.id;
+                        document.dataForm.submit();
+                    });
+                });
             });
         </script>
     </head>
     <body>
-        <hr/>
-        <h2>Visualizzazione programma di lavoro</h2>
         <hr/>
         <h1>Servizi in programma</h1>
         <table>
@@ -43,16 +52,19 @@
                 <td>Primo autista</td>
                 <td>Secondo autista</td>
                 <td>Mezzo</td>
+                <td>Azioni</td>
             </tr>
-            <% for (var service: assignmentList) { %>
+            <% for (var assignment: assignmentList) { %>
                 <tr>
-                    <% for (var field: service.data()) if (!(field instanceof Boolean)) { %>
+                    <% for (var field: assignment.data()) if (!(field instanceof Boolean)) { %>
                         <td>
                             <%= (field==null ? "---" :
                             (field instanceof Service ? ((Service)field).display() :
                             (field instanceof Worker ? ((Worker)field).display() :
                             (field instanceof Truck ? ((Truck)field).display() : field)))) %>
-                        </td><% } %>
+                        </td>
+                    <% } %>
+                    <td><input type="button" id="<%= assignment.getCode() %>" name="complete" value="Completa servizio"></td>
                 </tr>
             <% } %>
         </table>
@@ -62,6 +74,7 @@
                     <input type="button" id="refreshButton" value="Aggiorna lista">
                     <input type="button" id="backButton" value="Chiudi tab">
                 </div>
+                <input type="hidden" name="code">
                 <input type="hidden" name="action">
             </form>
         </nav>
