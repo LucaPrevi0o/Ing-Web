@@ -14,6 +14,7 @@ public interface AccountDAO {
     public Account findByUsernameAndPassword(String username, String password);
     public Account findLoggedAccount();
     public Account findByUsername(String username);
+    public Account findByCode(int code);
 
     public void createAccount(Account account);
     public void deleteAccount(Account account);

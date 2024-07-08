@@ -14,12 +14,13 @@ public class Account extends ModelObject {
     public final static int MANAGER_LEVEL=2;
 
     public String toString() { return this.fullName+": "+this.username+"@"+this.password+" ("+this.level+", "+this.isDeleted()+")"; }
-    public Object[] asList() { return new Object[] {this.username, this.password, this.fullName, this.level, this.isDeleted()}; }
+    public Object[] asList() { return new Object[] {this.getCode(), this.username, this.password, this.fullName, this.level, this.isDeleted()}; }
     public Object[] data() { return new Object[] {this.username, this.password, this.fullName, this.level}; }
     public String display() { return this.fullName+" ("+this.username+"): "+this.level; }
 
-    public Account(String username, String password, String fullName, int admin, boolean deleted) {
+    public Account(int code, String username, String password, String fullName, int admin, boolean deleted) {
 
+        this.setCode(code);
         this.username=username;
         this.password=password;
         this.fullName=fullName;

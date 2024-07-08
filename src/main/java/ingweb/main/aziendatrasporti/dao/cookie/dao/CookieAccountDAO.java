@@ -42,6 +42,7 @@ public class CookieAccountDAO implements AccountDAO {
     public ArrayList<Account> findAll(boolean admin) { return null; }
     public Account findByUsernameAndPassword(String username, String password) { return null; }
     public Account findByUsername(String username) { return null; }
+    public Account findByCode(int code) { return null; }
 
     public Account findLoggedAccount() {
 

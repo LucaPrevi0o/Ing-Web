@@ -88,8 +88,6 @@ public class MySqlQueryManager {
     //execute new update query in the database receiving data from the parameter list of the updated object
     public static void execute(Connection connection, String sql, Object[] params) {
 
-        System.out.println("params in execute");
-        for (var s: params) System.out.println(s);
         try { //create statement and return its execution result
 
             var statement=connection.prepareStatement(sql); //new empty statement

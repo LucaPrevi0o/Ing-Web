@@ -81,5 +81,34 @@ public class LoginController implements Controller {
         cookieDAO.confirm();
     }
 
+    public static void manageProfile(HttpServletRequest request, HttpServletResponse response) {
+
+        attributes.add(new Object[]{"viewUrl", "/account"});
+    }
+
+    public static void editAccount(HttpServletRequest request, HttpServletResponse response) {
+
+        var cookieDAO=Controller.getCookieDAO(request, response);
+        var cookieAccountDAO=cookieDAO.getAccountDAO();
+        var loggedAccount=cookieAccountDAO.findLoggedAccount();
+        cookieAccountDAO.deleteAccount(loggedAccount);
+
+        var mySqlDAO=Controller.getMySqlDAO("aziendatrasportidb");
+        var mySqlAccountDAO=mySqlDAO.getAccountDAO();
+
+        var username=request.getParameter("username");
+        var password=request.getParameter("password");
+        var name=request.getParameter("name");
+        var account=new Account(loggedAccount.getCode(), username, password, name, loggedAccount.getLevel(), false);
+        mySqlAccountDAO.updateAccount(account);
+        cookieAccountDAO.createAccount(account);
+        mySqlDAO.confirm();
+
+        attributes.add(new Object[]{"loggedAccount", account});
+        if (loggedAccount.getLevel()==Account.ADMIN_LEVEL) attributes.add(new Object[]{"viewUrl", "/admin/welcome"});
+        else if (loggedAccount.getLevel()==Account.MANAGER_LEVEL) attributes.add(new Object[]{"viewUrl", "/clientManager/welcome"});
+        else attributes.add(new Object[]{"viewUrl", "/worker/welcome"});
+    }
+
     public static void view(HttpServletRequest request, HttpServletResponse response) { attributes.add(new Object[]{"viewUrl", "/login"}); }
 }

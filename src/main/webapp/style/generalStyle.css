@@ -35,3 +35,9 @@ hr {
         border: 1px solid #444444;
     }
 }
+
+.rightbutton {
+
+    margin-left: 70%;
+    margin-right: 0;
+}

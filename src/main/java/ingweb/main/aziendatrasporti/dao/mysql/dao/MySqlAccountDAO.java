@@ -16,29 +16,18 @@ public class MySqlAccountDAO extends MySqlDAO<Account> implements AccountDAO {
         MySqlDAO.setColumns(MySqlQueryManager.getColumnNames(connection, tableName));
     }
 
-    public Account get(String[] item) { return new Account(item[0], item[1], item[2], Integer.parseInt(item[3]), item[4].equals("1")); }
+    public Account get(String[] item) { return new Account(Integer.parseInt(item[0]), item[1], item[2], item[3], Integer.parseInt(item[4]), item[5].equals("1")); }
 
     public ArrayList<Account> findAll() { return selectAll(); }
-    public ArrayList<Account> findAllByLevel(int level) { return selectAll(3, level); }
-    public Account findByUsernameAndPassword(String username, String password) { return select(new int[]{0, 1}, new Object[]{username, password}); }
-    public Account findByUsername(String username) { return select(0, username); }
+    public ArrayList<Account> findAllByLevel(int level) { return selectAll(4, level); }
+    public Account findByUsernameAndPassword(String username, String password) { return select(new int[]{1, 2}, new Object[]{username, password}); }
+    public Account findByUsername(String username) { return select(1, username); }
+    public Account findByCode(int code) { return select(0, code); }
     public void addAccount(Account account) { insert(account.asList()); }
-
-    public Account findLoggedAccount() { return null; }
-
-    //remove account from database (setting the logic deletion true)
-    public void removeAccount(Account account) {
-
-        var query="update accounts set deleted=1 where (usr = ?)"; //empty query
-        MySqlQueryManager.execute(getConnection(), query, new String[]{account.getUsername()}); //execute update with parameters
-    }
-
-    public void updateAccount(Account account) {
-
-        var query="update accounts set usr=?, pwd=?, fullname=?, admin=?, deleted=? where usr='"+account.getUsername()+"'";
-        MySqlQueryManager.execute(getConnection(), query, account.asList());
-    }
+    public void updateAccount(Account account) { update(account.asList()); }
+    public void removeAccount(Account account) { remove(account.getCode()); }
 
     public void createAccount(Account account) {}
     public void deleteAccount(Account account) {}
+    public Account findLoggedAccount() { return null; }
 }
