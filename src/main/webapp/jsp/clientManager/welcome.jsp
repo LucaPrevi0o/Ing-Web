@@ -25,6 +25,12 @@
                     document.querySelector("#action").value="LoginController.logout";
                     document.tabForm.submit();
                 });
+
+                document.querySelector("#settings").addEventListener("click", function() {
+
+                    document.querySelector("#action").value="LoginController.manageProfile";
+                    document.tabForm.submit();
+                });
             });
         </script>
     </head>
@@ -32,8 +38,11 @@
         <h1>Benvenuto, <%= loggedAccount.getFullName() %></h1>
         <h2>Menu di navigazione - Accesso clienti</h2>
         <nav id="documentElement">
-            <form name="tabForm" action="<%= request.getContextPath() %>/Servizi" method="post" class="styled">
-                <input type="button" id="logout" value="Torna al login">
+            <form name="tabForm" action="<%= request.getContextPath() %>/Servizi" method="post">
+                <div class="styled">
+                    <input type="button" id="logout" value="Torna al login">
+                    <input class="rightbutton" type="button" id="settings" value="Modifica profilo">
+                </div>
                 <input type="hidden" id="action" name="action">
             </form>
         </nav>
