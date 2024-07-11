@@ -38,6 +38,5 @@ hr {
 
 .rightbutton {
 
-    margin-left: 70%;
-    margin-right: 0;
+    float: right;
 }

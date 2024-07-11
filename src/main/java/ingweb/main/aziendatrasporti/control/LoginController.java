@@ -3,7 +3,6 @@ package ingweb.main.aziendatrasporti.control;
 import ingweb.main.aziendatrasporti.mo.mo.Account;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import java.util.ArrayList;
 
 public class LoginController implements Controller {
@@ -59,7 +58,10 @@ public class LoginController implements Controller {
             var username=request.getParameter("username");
             var password=request.getParameter("password");
 
+            System.out.println("Username: "+username+" - Password: "+password);
+
             loggedAccount=mySqlAccountDAO.findByUsername(username); //find account instance from database by username
+            System.out.println("Account: "+loggedAccount);
             if (loggedAccount!=null) cookieAccountDAO.createAccount(loggedAccount); //if the account is valid, set its data as a new cookie
             var accountList=mySqlAccountDAO.findAll(); //get list of every account in db
             mySqlDAO.confirm();
@@ -101,8 +103,8 @@ public class LoginController implements Controller {
         var name=request.getParameter("name");
         var account=new Account(loggedAccount.getCode(), username, password, name, loggedAccount.getLevel(), false);
         mySqlAccountDAO.updateAccount(account);
-        cookieAccountDAO.createAccount(account);
         mySqlDAO.confirm();
+        cookieAccountDAO.createAccount(account);
 
         attributes.add(new Object[]{"loggedAccount", account});
         if (loggedAccount.getLevel()==Account.ADMIN_LEVEL) attributes.add(new Object[]{"viewUrl", "/admin/welcome"});
