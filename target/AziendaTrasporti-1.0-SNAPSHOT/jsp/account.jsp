@@ -12,7 +12,7 @@
         <script>
             window.addEventListener("load", function() {
 
-                document.querySelector("#logout").addEventListener("click", function() {
+                document.querySelector("#backButton").addEventListener("click", function() {
 
                     document.querySelector("#action").value="LoginController.doLogin";
                     document.dataForm.submit();
@@ -52,7 +52,7 @@
             <br/>
             <div class="styled">
                 <input type="button" id="confirmSettings" value="Conferma">
-                <input type="button" id="logout" value="Torna alla home">
+                <input type="button" id="backButton" value="Torna alla home">
             </div>
             <input type="hidden" id="action" name="action">
         </form>

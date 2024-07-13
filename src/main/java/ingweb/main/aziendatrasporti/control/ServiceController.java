@@ -1,7 +1,7 @@
 package ingweb.main.aziendatrasporti.control;
 
 import ingweb.main.aziendatrasporti.dao.DAOFactory;
-import ingweb.main.aziendatrasporti.mo.mo.Assignment;
+import ingweb.main.aziendatrasporti.mo.mo.Account;
 import ingweb.main.aziendatrasporti.mo.mo.License;
 import ingweb.main.aziendatrasporti.mo.mo.Service;
 import jakarta.servlet.http.HttpServletRequest;
@@ -145,5 +145,54 @@ public class ServiceController implements Controller {
         var licenseDAO=dao.getLicenseDAO();
         licenseDAO.updateLicensesByService(service, licenseList);
         listView(request, response, dao);
+    }
+
+    public static void requestService(HttpServletRequest request, HttpServletResponse response) {
+
+        var mySqlDAO=Controller.getMySqlDAO("azienda_trasporti");
+        var cookieDAO=Controller.getCookieDAO(request, response);
+        var cookieAccountDAO=cookieDAO.getAccountDAO();
+        var loggedAccount=cookieAccountDAO.findLoggedAccount();
+
+        var clientDAO=mySqlDAO.getClientDAO();
+        var client=clientDAO.findBySocialReason(loggedAccount.getPassword());
+
+        var serviceDAO=mySqlDAO.getServiceDAO();
+        var name=request.getParameter("name");
+        var date=request.getParameter("date");
+        var duration=request.getParameter("duration");
+        var licenses=request.getParameterValues("license");
+
+        var code=serviceDAO.findLastCode()+1;
+        var service=new Service(code, name, client, Date.valueOf(date), null, Time.valueOf(duration), false);
+
+        var licenseList=new ArrayList<License>();
+        for (var license: licenses) licenseList.add(new License(license));
+        service.setValidLicenses(licenseList);
+        serviceDAO.addService(service);
+
+        var assignmentDAO=mySqlDAO.getAssignmentDAO();
+        var assignmentList=assignmentDAO.findAllByClientCompany(client);
+        for (var assignment: assignmentList) {
+
+            var workerDAO=mySqlDAO.getWorkerDAO();
+            assignment.setFirstDriver(workerDAO.findByFiscalCode(assignment.getFirstDriver().getFiscalCode()));
+            assignment.setSecondDriver(workerDAO.findByFiscalCode(assignment.getSecondDriver().getFiscalCode()));
+
+            var truckDAO=mySqlDAO.getTruckDAO();
+            assignment.setTruck(truckDAO.findByNumberPlate(assignment.getTruck().getNumberPlate()));
+
+            serviceDAO=mySqlDAO.getServiceDAO();
+            service=serviceDAO.findByCode(assignment.getService().getCode());
+
+            clientDAO=mySqlDAO.getClientDAO();
+            service.setClientCompany(clientDAO.findBySocialReason(service.getClientCompany().getSocialReason()));
+            assignment.setService(service);
+        }
+
+        mySqlDAO.confirm();
+        attributes.add(new Object[]{"assignmentList", assignmentList});
+        attributes.add(new Object[]{"selectedTab", "services"});
+        attributes.add(new Object[]{"viewUrl", "/admin/assignments/assignments"});
     }
 }

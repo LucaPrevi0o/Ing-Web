@@ -26,6 +26,12 @@
                     document.tabForm.submit();
                 });
 
+                document.querySelector("#assignments").addEventListener("click", function() {
+
+                    document.querySelector("#action").value="AssignmentController.getAssignments";
+                    document.tabForm.submit();
+                });
+
                 document.querySelector("#settings").addEventListener("click", function() {
 
                     document.querySelector("#action").value="LoginController.manageProfile";
@@ -41,6 +47,8 @@
             <form name="tabForm" action="<%= request.getContextPath() %>/Servizi" method="post">
                 <div class="styled">
                     <input type="button" id="logout" value="Torna al login">
+                    <input type="button" id="assignments" value="Lista servizi">
+
                     <input class="rightbutton" type="button" id="settings" value="Modifica profilo">
                 </div>
                 <input type="hidden" id="action" name="action">

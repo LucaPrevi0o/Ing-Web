@@ -3,22 +3,17 @@ package ingweb.main.aziendatrasporti.control;
 import ingweb.main.aziendatrasporti.dao.DAOFactory;
 import ingweb.main.aziendatrasporti.mo.mo.Account;
 import ingweb.main.aziendatrasporti.mo.mo.Assignment;
+import ingweb.main.aziendatrasporti.mo.mo.ClientCompany;
 import ingweb.main.aziendatrasporti.mo.mo.Worker;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 
 public class AssignmentController implements Controller {
 
-    private static void listView(HttpServletRequest request, HttpServletResponse response, DAOFactory dao) {
+    private static ArrayList<Assignment> getAssignmentList(DAOFactory dao, Account loggedAccount) {
 
-        var cookieDAO=Controller.getCookieDAO(request, response);
-        var cookieAccountDAO=cookieDAO.getAccountDAO();
-        var loggedAccount=cookieAccountDAO.findLoggedAccount();
-        var worker=new Worker(null, null, loggedAccount.getUsername(), null, null);
-        cookieDAO.confirm();
-
-        var assignmentDAO=dao.getAssignmentDAO();
-        var assignmentList=(loggedAccount.getLevel()==Account.ADMIN_LEVEL ? assignmentDAO.findAll() : assignmentDAO.findAllByWorker(worker));
+        var assignmentList=getAssignments(dao, loggedAccount);
         for (var assignment: assignmentList) {
 
             var workerDAO=dao.getWorkerDAO();
@@ -36,10 +31,48 @@ public class AssignmentController implements Controller {
             assignment.setService(service);
         }
 
+        return assignmentList;
+    }
+
+    private static ArrayList<Assignment> getAssignments(DAOFactory dao, Account loggedAccount) {
+
+        var worker=new Worker(null, null, loggedAccount.getUsername(), null, null);
+        var client=new ClientCompany(null, loggedAccount.getPassword(), null, null, null, null, null);
+
+        var assignmentDAO=dao.getAssignmentDAO();
+        return (loggedAccount.getLevel()==Account.ADMIN_LEVEL ? assignmentDAO.findAll() :
+            (loggedAccount.getLevel()==Account.MANAGER_LEVEL ? assignmentDAO.findAllByClientCompany(client) :
+            assignmentDAO.findAllByWorker(worker)));
+    }
+
+    private static String getViewURL(Account loggedAccount, String urlName) {
+
+        var url="/";
+        url+=(loggedAccount.getLevel()==Account.ADMIN_LEVEL ? "admin/" : (loggedAccount.getLevel()==Account.MANAGER_LEVEL ? "clientManager/" : "worker/"));
+        return url+"assignments/"+urlName;
+    }
+
+    private static void commonAttributes(HttpServletRequest request, HttpServletResponse response, String viewUrl) {
+
+        var cookieDAO=Controller.getCookieDAO(request, response);
+        var cookieAccountDAO=cookieDAO.getAccountDAO();
+        var loggedAccount=cookieAccountDAO.findLoggedAccount();
+        attributes.add(new Object[]{"selectedTab", "services"});
+        attributes.add(new Object[]{"viewUrl", getViewURL(loggedAccount, viewUrl)});
+    }
+
+    private static void listView(HttpServletRequest request, HttpServletResponse response, DAOFactory dao) {
+
+        var cookieDAO=Controller.getCookieDAO(request, response);
+        var cookieAccountDAO=cookieDAO.getAccountDAO();
+        var loggedAccount=cookieAccountDAO.findLoggedAccount();
+        cookieDAO.confirm();
+
+        var assignmentList=getAssignmentList(dao, loggedAccount);
         dao.confirm();
         attributes.add(new Object[]{"assignmentList", assignmentList});
         attributes.add(new Object[]{"selectedTab", "services"});
-        attributes.add(new Object[]{"viewUrl", (loggedAccount.getLevel()==Account.ADMIN_LEVEL ? "/admin/assignments/assignments" : "/worker/services/services")});
+        attributes.add(new Object[]{"viewUrl", getViewURL(loggedAccount, "assignments")});
     }
 
     private static void formView(HttpServletRequest request, HttpServletResponse response, DAOFactory dao) {
@@ -56,13 +89,12 @@ public class AssignmentController implements Controller {
 
         var truckDAO=dao.getTruckDAO();
         var truckList=truckDAO.findAvailableByService(service);
-
         dao.confirm();
+
         attributes.add(new Object[]{"service", service});
         attributes.add(new Object[]{"workerList", workerList});
         attributes.add(new Object[]{"truckList", truckList});
-        attributes.add(new Object[]{"selectedTab", "services"});
-        attributes.add(new Object[]{"viewUrl", "/admin/assignments/newAssignment"});
+        commonAttributes(request, response, "newAssignment");
     }
 
     private static void problemView(HttpServletRequest request, HttpServletResponse response, DAOFactory dao) {
@@ -70,9 +102,10 @@ public class AssignmentController implements Controller {
         var code=request.getParameter("code");
         var assignmentDAO=dao.getAssignmentDAO();
         var assignment=assignmentDAO.findByCode(Integer.parseInt(code));
-        attributes.add(new Object[]{"selectedTab", "services"});
+        dao.confirm();
+
         attributes.add(new Object[]{"assignment", assignment});
-        attributes.add(new Object[]{"viewUrl", "/worker/services/serviceProblem"});
+        commonAttributes(request, response, "serviceProblem");
     }
 
     private static void detailsView(HttpServletRequest request, HttpServletResponse response, DAOFactory dao) {
@@ -89,9 +122,8 @@ public class AssignmentController implements Controller {
 
         var truckDAO=dao.getTruckDAO();
         assignment.setTruck(truckDAO.findByNumberPlate(assignment.getTruck().getNumberPlate()));
-        attributes.add(new Object[]{"selectedTab", "services"});
         attributes.add(new Object[]{"assignment", assignment});
-        attributes.add(new Object[]{"viewUrl", "/worker/services/details"});
+        commonAttributes(request, response, "details");
     }
 
     public static void getAssignments(HttpServletRequest request, HttpServletResponse response) {
