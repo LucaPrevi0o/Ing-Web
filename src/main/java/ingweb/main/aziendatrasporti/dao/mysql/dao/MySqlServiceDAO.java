@@ -36,29 +36,10 @@ public class MySqlServiceDAO extends MySqlDAO<Service> implements ServiceDAO {
         return result;
     }
 
-    public ArrayList<Service> findAllRequested() {
-
-        var result=new ArrayList<Service>();
-        var query="select * from "+getTableName()+" where "+getColumns()[4]+" is null and "+getColumns()[getColumns().length-1]+" = 0";
-        var res=MySqlQueryManager.getResult(getConnection(), query);
-        var resList=MySqlQueryManager.asList(res, getColumns());
-        for (var item: resList) result.add(get(item));
-        return result;
-    }
-
-    public ArrayList<Service> findAllAssigned() {
-
-        var result=new ArrayList<Service>();
-        var query="select * from "+getTableName()+" where "+getColumns()[0]+" in (select servizio from assegnamento join "+getTableName()+" on "+getTableName()+"."+getColumns()[0]+" = assegnamento.servizio) and "+getColumns()[4]+" is not null";
-        var res=MySqlQueryManager.getResult(getConnection(), query);
-        var resList=MySqlQueryManager.asList(res, getColumns());
-        for (var item: resList) result.add(get(item));
-        return result;
-    }
-
-    public Service findByCode(int code) { return select(0, code); }
+    public Service findByCode(int code) { return select(new int[]{0}, new Object[]{code}); }
     public int findLastCode() { return lastCode(); }
     public void addService(Service service) { insert(service.asList()); }
     public void removeService(Service service) { remove(service.getCode()); }
     public void updateService(Service service) { update(service.asList()); }
+    public ArrayList<Service> findAllRequested() { return selectAll(new int[]{4}, new Object[]{IS_NULL}); }
 }

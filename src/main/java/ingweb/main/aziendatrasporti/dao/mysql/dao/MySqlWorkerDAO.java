@@ -21,8 +21,8 @@ public class MySqlWorkerDAO extends MySqlDAO<Worker> implements WorkerDAO {
     public Worker get(String[] item) { return new Worker(Integer.parseInt(item[0]), item[1], item[2], item[3], Date.valueOf(item[4]), item[5], item[6].equals("1")); }
 
     public ArrayList<Worker> findAll() { return selectAll(); }
-    public Worker findByCode(int code) { return select(0, code); }
-    public Worker findByFiscalCode(String fiscalCode) { return select(3, fiscalCode); }
+    public Worker findByCode(int code) { return select(new int[]{0}, new Object[]{code}); }
+    public Worker findByFiscalCode(String fiscalCode) { return select(new int[]{3}, new Object[]{fiscalCode}); }
     public void addWorker(Worker worker) { insert(worker.asList()); }
     public int findLastCode() { return lastCode(); }
     public void removeWorker(Worker worker) { remove(worker.getCode()); }

@@ -18,11 +18,12 @@ public class MySqlClientDAO extends MySqlDAO<ClientCompany> implements ClientDAO
         MySqlDAO.setColumns(MySqlQueryManager.getColumnNames(connection, tableName));
     }
 
-    public ClientCompany get(String[] item) { return new ClientCompany(Integer.parseInt(item[0]), item[1], item[2], item[3], item[4], item[5], Date.valueOf(item[6]), item[7], item[8].equals("1")); }
+    public ClientCompany get(String[] item) { return new ClientCompany(Integer.parseInt(item[0]), item[1], item[2], item[3], item[4], item[5],
+        (item[6]==null ? null : Date.valueOf(item[6])), item[7], item[8].equals("1")); }
 
     public ArrayList<ClientCompany> findAll() { return selectAll(); }
-    public ClientCompany findByCode(int code) { return select(0, code); }
-    public ClientCompany findBySocialReason(String socialReason) { return select(2, socialReason); }
+    public ClientCompany findByCode(int code) { return select(new int[]{0}, new Object[]{code}); }
+    public ClientCompany findBySocialReason(String socialReason) { return select(new int[]{2}, new Object[]{socialReason}); }
     public int findLastCode() { return lastCode(); }
     public void addClient(ClientCompany service) { insert(service.asList()); }
     public void removeClient(ClientCompany service) { remove(service.getCode()); }

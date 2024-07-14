@@ -16,6 +16,9 @@ public abstract class MySqlDAO<T extends ModelObject> {
     private static Connection connection; //reference to the established MySQL database connection
     private static String tableName; //table name (this is not dynamic, and has to be specified in code)
 
+    public final static Object IS_NULL =new Object(); //static reference for null column
+    public final static Object IS_NOT_NULL =new Object(); //static reference for not null column
+
     public static void setColumns(String[] x) { columns=x; }
     public static String[] getColumns() { return columns; }
 
@@ -27,18 +30,22 @@ public abstract class MySqlDAO<T extends ModelObject> {
 
     public abstract T get(String[] item); //abstract function that allows object construction based on query result
 
+    //generation of a composite query with multiple filter clauses
     private String generateCompositeQuery(int[] indexes, Object[] values) {
 
         if (indexes.length!=values.length) return ""; //break early if the arrays do not have same length
-        var query="select * from "+tableName+" where ";
-        for (var i=0; i<indexes.length-1; i++) {
+        var query="select * from "+tableName+" where "; //table selection
+        for (var i=0; i<indexes.length; i++) {
 
-            if (indexes[i]>=columns.length || indexes[i]>=values.length) return ""; //break early if an index is bigger than the length of all columns
-            if (i>0) query+="and ";
-            query+=columns[indexes[i]]+" = '"+values[i]+"' ";
+            if (indexes[i]>=columns.length) return ""; //break early if an index is bigger than the length of all columns
+            if (i>0) query+="and "; //chain every filter clause
+            query+=columns[indexes[i]];
+            if (values[i]== IS_NULL) query+=" is null "; //filter by null column
+            else if (values[i]== IS_NOT_NULL) query+=" is not null "; //filter by not null column
+            else query+=" = '"+values[i]+"' "; //filter by value
         }
-        query+="and "+columns[indexes[indexes.length-1]]+" = '"+values[values.length-1]+"'";
-        System.out.println(query);
+
+        query+=" and "+columns[columns.length-1]+" = '0'"; //only select elements flagged as not deleted
         return query;
     }
 
@@ -46,17 +53,6 @@ public abstract class MySqlDAO<T extends ModelObject> {
 
         var result=new ArrayList<T>();
         var query="select * from "+tableName+" where "+columns[columns.length-1]+" = 0";
-        var res=MySqlQueryManager.getResult(connection, query);
-        var resList=MySqlQueryManager.asList(res, columns);
-        for (var item: resList) result.add(get(item));
-        return result;
-    }
-
-    //generic select query based on field-specific field search
-    public ArrayList<T> selectAll(int fieldIndex, Object fieldValue) {
-
-        var result=new ArrayList<T>();
-        var query="select * from "+tableName+" where "+columns[fieldIndex]+"='"+fieldValue+"'"+" and "+columns[columns.length-1]+" = 0";
         var res=MySqlQueryManager.getResult(connection, query);
         var resList=MySqlQueryManager.asList(res, columns);
         for (var item: resList) result.add(get(item));
@@ -73,16 +69,6 @@ public abstract class MySqlDAO<T extends ModelObject> {
         var resList=MySqlQueryManager.asList(res, columns);
         for (var item: resList) result.add(get(item));
         return result;
-    }
-
-    //generic select query based on field-specific field search
-    public T select(int fieldIndex, Object fieldValue) {
-
-        var query="select * from "+tableName+" where "+columns[fieldIndex]+"='"+fieldValue+"'"+" and "+columns[columns.length-1]+" = 0";
-        var res=MySqlQueryManager.getResult(connection, query);
-        var resList=MySqlQueryManager.asList(res, columns);
-        if (resList.size()!=1) return null;
-        return get(resList.get(0));
     }
 
     //generic select query based on field-specific field search for arbitrary number of parameters
@@ -105,7 +91,7 @@ public abstract class MySqlDAO<T extends ModelObject> {
         return (resList.get(0)[0]==null ? 0 : Integer.parseInt(resList.get(0)[0]));
     }
 
-    //generic insert query
+    //generic insert query for every field of the table
     public static void insert(Object[] data) {
 
         var query="insert into "+tableName+" (";
@@ -119,14 +105,14 @@ public abstract class MySqlDAO<T extends ModelObject> {
     //generic remove query (only logical deletion is used, records do not get deleted from the database)
     public static void remove(int code) {
 
-        var query="update "+tableName+" set "+columns[columns.length-1]+"=? where "+columns[0]+"="+code;
+        var query="update "+tableName+" set "+columns[columns.length-1]+" = ? where "+columns[0]+" = '"+code+"'";
         MySqlQueryManager.execute(connection, query, new Object[]{1});
     }
 
     //generic delete query to cancel items from the database
     public static void delete(int code) {
 
-        var query="delete from "+tableName+" where "+columns[0]+"=?";
+        var query="delete from "+tableName+" where "+columns[0]+" = ?";
         MySqlQueryManager.execute(connection, query, new Object[]{code});
     }
 
@@ -134,8 +120,8 @@ public abstract class MySqlDAO<T extends ModelObject> {
     public static void update(Object[] data) {
 
         var query="update "+tableName+" set ";
-        for (var i=0; i<columns.length-1; i++) query+=columns[i]+"=?, ";
-        query+=columns[columns.length-1]+"=? where "+columns[0]+"="+data[0];
+        for (var i=1; i<columns.length-1; i++) query+=columns[i]+" = ?, "; //first column (primary key) is never updated
+        query+=columns[columns.length-1]+"=? where "+columns[0]+" = '"+data[0]+"'";
         MySqlQueryManager.execute(connection, query, data);
     }
 }

@@ -27,7 +27,7 @@ public class MySqlAssignmentDAO extends MySqlDAO<Assignment> implements Assignme
     }
 
     public ArrayList<Assignment> findAll() { return selectAll(); }
-    public Assignment findByCode(int code) { return select(0, code); }
+    public Assignment findByCode(int code) { return select(new int[]{0}, new Object[]{code}); }
     public int findLastCode() { return lastCode(); }
     public void addAssignment(Assignment assignment) { insert(assignment.asList()); }
     public void removeAssignment(Assignment assignment) { delete(assignment.getCode()); }
