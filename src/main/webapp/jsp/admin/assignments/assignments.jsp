@@ -5,6 +5,7 @@
     var assignmentList =(ArrayList<Assignment>)request.getAttribute("assignmentList");
     if (assignmentList ==null) assignmentList =new ArrayList<>();
 %>
+<%@ include file="/jsp/admin/welcome.jsp" %>
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/generalStyle.css">
@@ -49,7 +50,6 @@
         </script>
     </head>
     <body>
-        <%@ include file="/jsp/admin/welcome.jsp" %>
         <hr/>
         <h1>Servizi in corso</h1>
         <table>
@@ -59,7 +59,7 @@
                 <td>Secondo autista</td>
                 <td>Mezzo</td>
                 <td>Problemi rilevati</td>
-                <td>Azioni</td>7
+                <td>Azioni</td>
             </tr>
             <% for (var assignment: assignmentList) { %>
                 <tr>

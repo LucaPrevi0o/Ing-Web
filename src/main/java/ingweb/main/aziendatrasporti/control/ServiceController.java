@@ -107,6 +107,16 @@ public class ServiceController implements Controller {
         listView(request, response, dao, false);
     }
 
+    public static void deleteService(HttpServletRequest request, HttpServletResponse response) {
+
+        var dao=Controller.getMySqlDAO("azienda_trasporti");
+        var serviceDAO=dao.getServiceDAO();
+
+        var code=request.getParameter("code");
+        serviceDAO.deleteService(serviceDAO.findByCode(Integer.parseInt(code)));
+        listView(request, response, dao, true);
+    }
+
     public static void editService(HttpServletRequest request, HttpServletResponse response) {
 
         var dao=Controller.getMySqlDAO("azienda_trasporti");

@@ -11,5 +11,6 @@ public interface ServiceDAO {
     public int findLastCode();
     public void addService(Service service);
     public void removeService(Service service);
+    public void deleteService(Service service);
     public void updateService(Service service);
 }

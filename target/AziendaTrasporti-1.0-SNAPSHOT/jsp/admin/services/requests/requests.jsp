@@ -53,7 +53,7 @@
 
                     b.addEventListener("click", function() {
 
-                        document.dataForm.action.value="ServiceController.removeService";
+                        document.dataForm.action.value="ServiceController.deleteService";
                         document.dataForm.code.value=this.id;
                         document.dataForm.submit();
                     });
