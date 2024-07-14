@@ -31,7 +31,7 @@ public class Truck extends ModelObject {
 
     public Object[] asList() { return new Object[]{this.getCode(), this.numberPlate, this.brand, this.model, this.available, this.isDeleted()}; }
     public Object[] data() { return new Object[]{this.numberPlate, this.brand, this.model, this.available}; }
-    public String toString() { return this.numberPlate.toUpperCase()+": "+this.brand+" "+this.model+" ("+(this.available ? "Y" : "N")+") - "; }
+    public String toString() { return this.numberPlate.toUpperCase()+": "+this.brand+" "+this.model+" ("+(this.available ? "Y" : "N")+")"; }
     public String display() { return this.numberPlate+": "+this.brand+" "+this.model; }
 
     public boolean equals(Object o) {

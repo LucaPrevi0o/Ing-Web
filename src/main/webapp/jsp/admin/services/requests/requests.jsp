@@ -18,16 +18,20 @@
         <script>
             window.addEventListener("load", function() {
 
-                let removeButtons=document.querySelectorAll("input[name='remove']");
-                let updateButtons=document.querySelectorAll("input[name='edit']");
-                let assignButtons=document.querySelectorAll("input[name='assign']");
+                let removeButtons=document.querySelectorAll("input[name='decline']");
+                let assignButtons=document.querySelectorAll("input[name='accept']");
                 let assignedButton=document.querySelector("#assignedList");
-                let requestedButton=document.querySelector("#requestList");
                 let refreshButton=document.querySelector("#refreshButton");
-                let newServiceButton=document.querySelector("#newServiceButton");
                 let backButton=document.querySelector("#backButton");
+                let serviceButton=document.querySelector("#serviceButton");
 
                 refreshButton.addEventListener("click", function() {
+
+                    document.dataForm.action.value="ServiceController.getRequests";
+                    document.dataForm.submit();
+                });
+
+                serviceButton.addEventListener("click", function() {
 
                     document.dataForm.action.value="ServiceController.getServices";
                     document.dataForm.submit();
@@ -39,21 +43,9 @@
                     document.dataForm.submit();
                 });
 
-                newServiceButton.addEventListener("click", function() {
-
-                    document.dataForm.action.value="ServiceController.newService";
-                    document.dataForm.submit();
-                });
-
                 assignedButton.addEventListener("click", function() {
 
                     document.dataForm.action.value="AssignmentController.getAssignments";
-                    document.dataForm.submit();
-                });
-
-                requestedButton.addEventListener("click", function() {
-
-                    document.dataForm.action.value="ServiceController.getRequests";
                     document.dataForm.submit();
                 });
 
@@ -62,16 +54,6 @@
                     b.addEventListener("click", function() {
 
                         document.dataForm.action.value="ServiceController.removeService";
-                        document.dataForm.code.value=this.id;
-                        document.dataForm.submit();
-                    });
-                });
-
-                updateButtons.forEach(b => {
-
-                    b.addEventListener("click", function() {
-
-                        document.dataForm.action.value="ServiceController.editService";
                         document.dataForm.code.value=this.id;
                         document.dataForm.submit();
                     });
@@ -109,24 +91,25 @@
                 var licenses=service.getValidLicenses();
                 if (licenses==null) licenses=new ArrayList<>(); %>
                 <tr>
-                    <% for (var field: service.data()) if (!(field instanceof Boolean)) { %><td><%= field instanceof ClientCompany ? ((ClientCompany)field).display() : field %></td><% } %>
+                    <% for (var field: service.data()) if (!(field instanceof Boolean)) { %>
+                        <td><%= field instanceof ClientCompany ? ((ClientCompany)field).display() :
+                                (field==null ? "---" : field) %></td>
+                    <% } %>
                     <% for (var license: licenseList) { %>
                         <td><input type="checkbox" <%= licenses.contains(license) ? "checked" : "" %> disabled/></td>
                     <% } %>
-                    <td><input type="button" id="<%= service.getCode() %>" name="edit" value="Modifica"></td>
-                    <td><input type="button" id="<%= service.getCode() %>" name="assign" value="Assegna servizio"></td>
-                    <td><input type="button" id="<%= service.getCode() %>" name="remove" value="Rimuovi"></td>
+                    <td><input type="button" id="<%= service.getCode() %>" name="accept" value="Procedi"></td>
+                    <td><input type="button" id="<%= service.getCode() %>" name="decline" value="Rifiuta"></td>
                 </tr>
             <% } %>
         </table>
         <nav>
             <form name="dataForm" action="<%= request.getContextPath() %>/Servizi" method="post">
                 <div class="styled">
-                    <input type="button" id="newServiceButton" value="Nuovo servizio">
+                    <input type="button" id="serviceButton" value="Torna a lista servizi">
                     <input type="button" id="refreshButton" value="Aggiorna lista">
                     <input type="button" id="backButton" value="Chiudi tab">
                     <input class="rightbutton" type="button" id="assignedList" value="Vedi servizi in corso"/>
-                    <input class="rightbutton" type="button" id="requestList" value="Vedi richieste"/>
                 </div>
                 <input type="hidden" name="code">
                 <input type="hidden" name="action">

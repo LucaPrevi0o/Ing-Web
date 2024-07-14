@@ -1,19 +1,19 @@
 package ingweb.main.aziendatrasporti.control;
 
 import ingweb.main.aziendatrasporti.dao.DAOFactory;
-import ingweb.main.aziendatrasporti.mo.mo.Account;
-import ingweb.main.aziendatrasporti.mo.mo.Assignment;
-import ingweb.main.aziendatrasporti.mo.mo.ClientCompany;
-import ingweb.main.aziendatrasporti.mo.mo.Worker;
+import ingweb.main.aziendatrasporti.mo.mo.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
+import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
 
 public class AssignmentController implements Controller {
 
     private static ArrayList<Assignment> getAssignmentList(DAOFactory dao, Account loggedAccount) {
 
-        var assignmentList=getAssignments(dao, loggedAccount);
+        var assignmentList=getAssignmentListByAccount(dao, loggedAccount);
         for (var assignment: assignmentList) {
 
             var workerDAO=dao.getWorkerDAO();
@@ -34,7 +34,7 @@ public class AssignmentController implements Controller {
         return assignmentList;
     }
 
-    private static ArrayList<Assignment> getAssignments(DAOFactory dao, Account loggedAccount) {
+    private static ArrayList<Assignment> getAssignmentListByAccount(DAOFactory dao, Account loggedAccount) {
 
         var worker=new Worker(null, null, loggedAccount.getUsername(), null, null);
         var client=new ClientCompany(null, loggedAccount.getPassword(), null, null, null, null, null);
@@ -66,7 +66,6 @@ public class AssignmentController implements Controller {
         var cookieDAO=Controller.getCookieDAO(request, response);
         var cookieAccountDAO=cookieDAO.getAccountDAO();
         var loggedAccount=cookieAccountDAO.findLoggedAccount();
-        cookieDAO.confirm();
 
         var assignmentList=getAssignmentList(dao, loggedAccount);
         dao.confirm();
@@ -122,6 +121,8 @@ public class AssignmentController implements Controller {
 
         var truckDAO=dao.getTruckDAO();
         assignment.setTruck(truckDAO.findByNumberPlate(assignment.getTruck().getNumberPlate()));
+
+        dao.confirm();
         attributes.add(new Object[]{"assignment", assignment});
         commonAttributes(request, response, "details");
     }
@@ -208,5 +209,55 @@ public class AssignmentController implements Controller {
 
         var dao=Controller.getMySqlDAO("azienda_trasporti");
         detailsView(request, response, dao);
+    }
+
+    public static void openRequest(HttpServletRequest request, HttpServletResponse response) {
+
+        var dao=Controller.getMySqlDAO("azienda_trasporti");
+        var licenseDAO=dao.getLicenseDAO();
+        var licenseList=licenseDAO.findAll();
+
+        dao.confirm();
+
+        var cookieDAO=Controller.getCookieDAO(request, response);
+        var cookieAccountDAO=cookieDAO.getAccountDAO();
+        var loggedAccount=cookieAccountDAO.findLoggedAccount();
+        attributes.add(new Object[]{"licenseList", licenseList});
+        attributes.add(new Object[]{"selectedTab", "request"});
+        attributes.add(new Object[]{"viewUrl", getViewURL(loggedAccount, "requestService")});
+    }
+
+    public static void requestService(HttpServletRequest request, HttpServletResponse response) {
+
+        var mySqlDAO=Controller.getMySqlDAO("azienda_trasporti");
+        var cookieDAO=Controller.getCookieDAO(request, response);
+        var cookieAccountDAO=cookieDAO.getAccountDAO();
+        var loggedAccount=cookieAccountDAO.findLoggedAccount();
+
+        var clientDAO=mySqlDAO.getClientDAO();
+        var client=clientDAO.findBySocialReason(loggedAccount.getPassword());
+
+        var serviceDAO=mySqlDAO.getServiceDAO();
+        var name=request.getParameter("name");
+        var duration=request.getParameter("duration");
+        duration+=(duration.matches("[0-9]{2}:[0-9]{2}") ? ":00" : "");
+        var licenses=request.getParameterValues("license");
+
+        var code=serviceDAO.findLastCode()+1;
+        var service=new Service(code, name, client, null, null, Time.valueOf(duration), false);
+
+        var licenseList=new ArrayList<License>();
+        for (var license: licenses) licenseList.add(new License(license));
+        service.setValidLicenses(licenseList);
+        serviceDAO.addService(service);
+
+        var licenseDAO=mySqlDAO.getLicenseDAO();
+        licenseDAO.addLicensesByService(service);
+
+        var assignmentList=getAssignmentList(mySqlDAO, loggedAccount);
+        mySqlDAO.confirm();
+        attributes.add(new Object[]{"assignmentList", assignmentList});
+        attributes.add(new Object[]{"selectedTab", "services"});
+        attributes.add(new Object[]{"viewUrl", getViewURL(loggedAccount, "assignments")});
     }
 }

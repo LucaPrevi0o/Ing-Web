@@ -1,7 +1,7 @@
 <%@ page import="ingweb.main.aziendatrasporti.mo.mo.*" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <% var assignment=(Assignment)request.getAttribute("assignment"); %>
-<%@ include file="/jsp/worker/welcome.jsp" %>
+<%@ include file="/jsp/clientManager/welcome.jsp" %>
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/dataTable.css">

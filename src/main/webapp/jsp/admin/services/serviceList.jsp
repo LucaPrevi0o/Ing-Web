@@ -22,6 +22,7 @@
                 let updateButtons=document.querySelectorAll("input[name='edit']");
                 let assignButtons=document.querySelectorAll("input[name='assign']");
                 let assignedButton=document.querySelector("#assignedList");
+                let requestedButton=document.querySelector("#requestList");
                 let refreshButton=document.querySelector("#refreshButton");
                 let newServiceButton=document.querySelector("#newServiceButton");
                 let backButton=document.querySelector("#backButton");
@@ -47,6 +48,12 @@
                 assignedButton.addEventListener("click", function() {
 
                     document.dataForm.action.value="AssignmentController.getAssignments";
+                    document.dataForm.submit();
+                });
+
+                requestedButton.addEventListener("click", function() {
+
+                    document.dataForm.action.value="ServiceController.getRequests";
                     document.dataForm.submit();
                 });
 
@@ -93,7 +100,7 @@
                 <td rowspan="2">Orario inizio</td>
                 <td rowspan="2">Durata</td>
                 <td colspan="<%= licenseList.size() %>">Patenti</td>
-                <td colspan="3" rowspan="2">Azioni - <input type="button" id="assignedList" value="Vedi servizi in corso"/></td>
+                <td colspan="3" rowspan="2">Azioni</td>
             </tr>
             <tr class="firstRow">
                 <% for (var license: licenseList) { %><td><%= license.getCategory() %></td><% } %>
@@ -118,6 +125,8 @@
                     <input type="button" id="newServiceButton" value="Nuovo servizio">
                     <input type="button" id="refreshButton" value="Aggiorna lista">
                     <input type="button" id="backButton" value="Chiudi tab">
+                    <input class="rightbutton" type="button" id="assignedList" value="Vedi servizi in corso"/>
+                    <input class="rightbutton" type="button" id="requestList" value="Vedi richieste"/>
                 </div>
                 <input type="hidden" name="code">
                 <input type="hidden" name="action">

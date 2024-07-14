@@ -32,8 +32,8 @@ public class Assignment extends ModelObject {
 
     public Object[] data() { return new Object[]{this.service, this.firstDriver, this.secondDriver, this.truck, this.comment}; }
     public Object[] asList() { return new Object[]{this.getCode(), this.service, this.firstDriver, this.secondDriver, this.truck, this.comment, this.isDeleted()}; }
-    public String display() { return toString(); }
-    public String toString() { return "["+this.service+"]: {"+this.firstDriver+", "+this.secondDriver+"} - "+this.truck; }
+    public String display() { return "["+this.service.display()+"]: (["+this.firstDriver.display()+"], ["+this.secondDriver.display()+"]) - ["+this.truck.display()+"]"; }
+    public String toString() { return "["+this.service+"]: (["+this.firstDriver+"], ["+this.secondDriver+"]) - ["+this.truck+"] - "+this.comment; }
 
     public boolean equals(Object o) {
 

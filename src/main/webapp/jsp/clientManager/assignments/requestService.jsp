@@ -5,7 +5,7 @@
     var licenseList=(ArrayList<License>)request.getAttribute("licenseList");
     if (licenseList==null) licenseList=new ArrayList<>();
 %>
-<%@ include file="/jsp/admin/welcome.jsp" %>
+<%@ include file="/jsp/clientManager/welcome.jsp" %>
 <html>
     <head>
         <title>Richiesta servizio</title>
@@ -26,7 +26,8 @@
                 for (let l=0; l<formData.length; l++) if (formData[l].value==="") j++;
                 let submit=(i!==0 && j===0);
 
-                document.dataForm.action.value="ServiceController.requestService";
+                console.log(i+" - "+j);
+                document.dataForm.action.value="AssignmentController.requestService";
                 if (submit) document.dataForm.submit();
                 else console.log("wtf");
             }
@@ -49,10 +50,6 @@
                 <tr>
                     <td><label for="name">Nome</label></td>
                     <td colspan="<%= licenseList.size() %>"><input type="text" id="name" name="name" placeholder="Nome servizio" required/></td>
-                </tr>
-                <tr>
-                    <td><label for="date">Data</label></td>
-                    <td colspan="<%= licenseList.size() %>"><input type="date" id="date" name="date" required/></td>
                 </tr>
                 <tr>
                     <td><label for="duration">Durata servizio</label></td>

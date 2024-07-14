@@ -26,9 +26,15 @@
                     document.tabForm.submit();
                 });
 
-                document.querySelector("#assignments").addEventListener("click", function() {
+                document.querySelector("#services").addEventListener("click", function() {
 
                     document.querySelector("#action").value="AssignmentController.getAssignments";
+                    document.tabForm.submit();
+                });
+
+                document.querySelector("#request").addEventListener("click", function() {
+
+                    document.querySelector("#action").value="AssignmentController.openRequest";
                     document.tabForm.submit();
                 });
 
@@ -47,8 +53,8 @@
             <form name="tabForm" action="<%= request.getContextPath() %>/Servizi" method="post">
                 <div class="styled">
                     <input type="button" id="logout" value="Torna al login">
-                    <input type="button" id="assignments" value="Lista servizi">
-
+                    <input type="button" id="services" value="Lista servizi">
+                    <input type="button" id="request" value="Richiedi servizio">
                     <input class="rightbutton" type="button" id="settings" value="Modifica profilo">
                 </div>
                 <input type="hidden" id="action" name="action">
