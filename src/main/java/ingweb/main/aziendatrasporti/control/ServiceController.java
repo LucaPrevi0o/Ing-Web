@@ -163,4 +163,42 @@ public class ServiceController implements Controller {
         licenseDAO.updateLicensesByService(service, licenseList);
         listView(request, response, dao, false);
     }
+
+    public static void assignRequest(HttpServletRequest request, HttpServletResponse response) {
+
+        var dao=Controller.getMySqlDAO("azienda_trasporti");
+        var serviceDAO=dao.getServiceDAO();
+        var code=request.getParameter("code");
+        var service=serviceDAO.findByCode(Integer.parseInt(code));
+
+        var clientDAO=dao.getClientDAO();
+        var clientCompany=clientDAO.findBySocialReason(service.getClientCompany().getSocialReason());
+        service.setClientCompany(clientCompany);
+
+        var licenseDAO=dao.getLicenseDAO();
+        var licenseList=licenseDAO.findAllByService(service);
+        service.setValidLicenses(licenseList);
+
+        dao.confirm();
+        attributes.add(new Object[]{"service", service});
+        attributes.add(new Object[]{"selectedTab", "services"});
+        attributes.add(new Object[]{"viewUrl", "/admin/assignments/serviceAcceptance"});
+    }
+
+    public static void acceptRequest(HttpServletRequest request, HttpServletResponse response) {
+
+        var dao=Controller.getMySqlDAO("azienda_trasporti");
+        var code=request.getParameter("code");
+        var serviceDAO=dao.getServiceDAO();
+        var service=serviceDAO.findByCode(Integer.parseInt(code));
+
+        var date=request.getParameter("date");
+        var startTime=request.getParameter("startTime");
+        startTime+=(startTime.matches("[0-9]{2}:[0-9]{2}") ? ":00" : "");
+
+        service.setDate(Date.valueOf(date));
+        service.setStartTime(Time.valueOf(startTime));
+        serviceDAO.updateService(service);
+        listView(request, response, dao, false);
+    }
 }

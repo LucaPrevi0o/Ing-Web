@@ -3,6 +3,7 @@ package ingweb.main.aziendatrasporti.dao.mysql;
 import ingweb.main.aziendatrasporti.mo.ModelObject;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 //abstract MySQL DAO implementation: methods implemented as specific for every object type allow for dynamic query
 //construction based entirely on the MySQL schema, as the interface for the database communication is also dynamically
@@ -16,8 +17,8 @@ public abstract class MySqlDAO<T extends ModelObject> {
     private static Connection connection; //reference to the established MySQL database connection
     private static String tableName; //table name (this is not dynamic, and has to be specified in code)
 
-    public final static Object IS_NULL =new Object(); //static reference for null column
-    public final static Object IS_NOT_NULL =new Object(); //static reference for not null column
+    public final static Object IS_NULL=new Object(); //static reference for null column
+    public final static Object IS_NOT_NULL=new Object(); //static reference for not null column
 
     public static void setColumns(String[] x) { columns=x; }
     public static String[] getColumns() { return columns; }
@@ -120,8 +121,8 @@ public abstract class MySqlDAO<T extends ModelObject> {
     public static void update(Object[] data) {
 
         var query="update "+tableName+" set ";
-        for (var i=1; i<columns.length-1; i++) query+=columns[i]+" = ?, "; //first column (primary key) is never updated
-        query+=columns[columns.length-1]+"=? where "+columns[0]+" = '"+data[0]+"'";
-        MySqlQueryManager.execute(connection, query, data);
+        for (var i=0; i<columns.length-1; i++) query+=columns[i]+" = ?, "; //first column (primary key) is not updated, but necessary in the query
+        query+=columns[columns.length-1]+" = ? where "+columns[0]+" = '"+data[0]+"'"; //specify record to update based on first column
+        MySqlQueryManager.execute(connection, query, data); //array always contains first column as update, even if it's not updated
     }
 }

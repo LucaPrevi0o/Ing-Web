@@ -18,8 +18,8 @@
         <script>
             window.addEventListener("load", function() {
 
-                let removeButtons=document.querySelectorAll("input[name='decline']");
-                let assignButtons=document.querySelectorAll("input[name='accept']");
+                let declineButtons=document.querySelectorAll("input[name='decline']");
+                let acceptButtons=document.querySelectorAll("input[name='accept']");
                 let assignedButton=document.querySelector("#assignedList");
                 let refreshButton=document.querySelector("#refreshButton");
                 let backButton=document.querySelector("#backButton");
@@ -49,7 +49,7 @@
                     document.dataForm.submit();
                 });
 
-                removeButtons.forEach(b => {
+                declineButtons.forEach(b => {
 
                     b.addEventListener("click", function() {
 
@@ -59,11 +59,11 @@
                     });
                 });
 
-                assignButtons.forEach(b => {
+                acceptButtons.forEach(b => {
 
                     b.addEventListener("click", function() {
 
-                        document.dataForm.action.value="AssignmentController.newAssignment";
+                        document.dataForm.action.value="ServiceController.assignRequest";
                         document.dataForm.code.value=this.id;
                         document.dataForm.submit();
                     });

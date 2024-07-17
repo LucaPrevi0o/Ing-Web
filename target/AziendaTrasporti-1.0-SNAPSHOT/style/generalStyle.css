@@ -36,7 +36,10 @@ hr {
     }
 }
 
-.rightbutton {
+.divhr {
 
-    float: right;
+    display: inline-block;
+    margin-top: 0;
+    margin-bottom: 3px;
+    height: 0;
 }

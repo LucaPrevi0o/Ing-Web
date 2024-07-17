@@ -85,7 +85,7 @@
                     <td colspan="<%= licenseList.size() %>"><input type="time" id="duration" name="duration" step="1800" value="<%= service==null ? "" : service.getDuration() %>" required/></td>
                 </tr>
                 <tr>
-                    <td rowspan="2">Patenti necessarie</td>
+                    <td>Patenti necessarie</td>
                     <% for (var license: licenseList) { %><td>
                         <label for="<%= license.getCategory() %>"><%= license.getCategory() %></label>
                         <input type="checkbox" name="license" id="<%= license.getCategory() %>" value="<%= license.getCategory() %>" <%= service==null || !service.getValidLicenses().contains(license) ? "" : "checked" %>/>

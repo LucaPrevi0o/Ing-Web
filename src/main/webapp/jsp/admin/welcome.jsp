@@ -68,7 +68,8 @@
                     <input type="button" id="trucks" value="Visualizza lista mezzi">
                     <input type="button" id="clients" value="Visualizza lista clienti">
                     <input type="button" id="logout" value="Torna al login">
-                    <input class="rightbutton" type="button" id="settings" value="Modifica profilo">
+                    <hr class="divhr" style="width: 50%">
+                    <input type="button" id="settings" value="Modifica profilo">
                 </div>
                 <input type="hidden" id="action" name="action">
             </form>

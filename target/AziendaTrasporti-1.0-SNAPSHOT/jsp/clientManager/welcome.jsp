@@ -55,7 +55,8 @@
                     <input type="button" id="logout" value="Torna al login">
                     <input type="button" id="services" value="Lista servizi">
                     <input type="button" id="request" value="Richiedi servizio">
-                    <input class="rightbutton" type="button" id="settings" value="Modifica profilo">
+                    <hr class="divhr" style="width: 67%">
+                    <input type="button" id="settings" value="Modifica profilo">
                 </div>
                 <input type="hidden" id="action" name="action">
             </form>

@@ -48,7 +48,8 @@
                 <div class="styled">
                     <input type="button" id="services" value="Visualizza lista servizi">
                     <input type="button" id="logout" value="Torna al login">
-                    <input class="rightbutton" type="button" id="settings" value="Modifica profilo">
+                    <hr class="divhr" style="width: 76%">
+                    <input type="button" id="settings" value="Modifica profilo">
                 </div>
                 <input type="hidden" id="action" name="action">
             </form>

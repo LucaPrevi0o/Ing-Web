@@ -125,8 +125,9 @@
                     <input type="button" id="newServiceButton" value="Nuovo servizio">
                     <input type="button" id="refreshButton" value="Aggiorna lista">
                     <input type="button" id="backButton" value="Chiudi tab">
-                    <input class="rightbutton" type="button" id="assignedList" value="Vedi servizi in corso"/>
-                    <input class="rightbutton" type="button" id="requestList" value="Vedi richieste"/>
+                    <hr class="divhr" style="width: 50%">
+                    <input type="button" id="assignedList" value="Vedi servizi in corso"/>
+                    <input type="button" id="requestList" value="Vedi richieste"/>
                 </div>
                 <input type="hidden" name="code">
                 <input type="hidden" name="action">
