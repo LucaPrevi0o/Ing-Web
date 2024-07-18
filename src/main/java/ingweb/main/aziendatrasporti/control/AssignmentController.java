@@ -11,9 +11,8 @@ import java.util.ArrayList;
 
 public class AssignmentController implements Controller {
 
-    private static ArrayList<Assignment> getAssignmentList(DAOFactory dao, Account loggedAccount) {
+    private static ArrayList<Assignment> fillAssignments(DAOFactory dao, ArrayList<Assignment> assignmentList) {
 
-        var assignmentList=getAssignmentListByAccount(dao, loggedAccount);
         for (var assignment: assignmentList) {
 
             var workerDAO=dao.getWorkerDAO();
@@ -34,21 +33,29 @@ public class AssignmentController implements Controller {
         return assignmentList;
     }
 
-    private static ArrayList<Assignment> getAssignmentListByAccount(DAOFactory dao, Account loggedAccount) {
+    private static ArrayList<Assignment> getAssignmentList(DAOFactory dao, Account loggedAccount, boolean completed) {
+
+        var assignmentList=getAssignmentListByAccount(dao, loggedAccount, completed);
+        return fillAssignments(dao, assignmentList);
+    }
+
+    private static ArrayList<Assignment> getAssignmentListByAccount(DAOFactory dao, Account loggedAccount, boolean completed) {
 
         var worker=new Worker(null, null, loggedAccount.getUsername(), null, null);
         var client=new ClientCompany(null, loggedAccount.getPassword(), null, null, null, null, null);
 
         var assignmentDAO=dao.getAssignmentDAO();
-        return (loggedAccount.getLevel()==Account.ADMIN_LEVEL ? assignmentDAO.findAll() :
+        return (loggedAccount.getLevel()==Account.ADMIN_LEVEL ? (completed ? assignmentDAO.findAllCompleted() : assignmentDAO.findAll()) :
             (loggedAccount.getLevel()==Account.MANAGER_LEVEL ? assignmentDAO.findAllByClientCompany(client) :
-            assignmentDAO.findAllByWorker(worker)));
+            (loggedAccount.getLevel()==Account.WORKER_LEVEL ? assignmentDAO.findAllByWorker(worker) : null)));
     }
 
     private static String getViewURL(Account loggedAccount, String urlName) {
 
         var url="/";
-        url+=(loggedAccount.getLevel()==Account.ADMIN_LEVEL ? "admin/" : (loggedAccount.getLevel()==Account.MANAGER_LEVEL ? "clientManager/" : "worker/"));
+        url+=(loggedAccount.getLevel()==Account.ADMIN_LEVEL ? "admin/" :
+            (loggedAccount.getLevel()==Account.MANAGER_LEVEL ? "clientManager/" :
+            (loggedAccount.getLevel()==Account.WORKER_LEVEL ? "worker/" : "")));
         return url+"assignments/"+urlName;
     }
 
@@ -61,13 +68,13 @@ public class AssignmentController implements Controller {
         attributes.add(new Object[]{"viewUrl", getViewURL(loggedAccount, viewUrl)});
     }
 
-    private static void listView(HttpServletRequest request, HttpServletResponse response, DAOFactory dao) {
+    private static void listView(HttpServletRequest request, HttpServletResponse response, DAOFactory dao, boolean completed) {
 
         var cookieDAO=Controller.getCookieDAO(request, response);
         var cookieAccountDAO=cookieDAO.getAccountDAO();
         var loggedAccount=cookieAccountDAO.findLoggedAccount();
 
-        var assignmentList=getAssignmentList(dao, loggedAccount);
+        var assignmentList=getAssignmentList(dao, loggedAccount, completed);
         dao.confirm();
         attributes.add(new Object[]{"assignmentList", assignmentList});
         attributes.add(new Object[]{"selectedTab", "services"});
@@ -130,7 +137,13 @@ public class AssignmentController implements Controller {
     public static void getAssignments(HttpServletRequest request, HttpServletResponse response) {
 
         var dao=Controller.getMySqlDAO("azienda_trasporti");
-        listView(request, response, dao);
+        listView(request, response, dao, false);
+    }
+
+    public static void getCompleted(HttpServletRequest request, HttpServletResponse response) {
+
+        var dao=Controller.getMySqlDAO("azienda_trasporti");
+        listView(request, response, dao, true);
     }
 
     public static void newAssignment(HttpServletRequest request, HttpServletResponse response) {
@@ -161,7 +174,7 @@ public class AssignmentController implements Controller {
         var code=assignmentDAO.findLastCode()+1;
         var assignment=new Assignment(code, service, firstDriver, secondDriver, truck, null, false);
         assignmentDAO.addAssignment(assignment);
-        listView(request, response, dao);
+        listView(request, response, dao, false);
     }
 
     public static void removeAssignment(HttpServletRequest request, HttpServletResponse response) {
@@ -172,7 +185,7 @@ public class AssignmentController implements Controller {
         var assignmentDAO=dao.getAssignmentDAO();
         var assignment=assignmentDAO.findByCode(Integer.parseInt(code));
         assignmentDAO.removeAssignment(assignment);
-        listView(request, response, dao);
+        listView(request, response, dao, false);
     }
 
     public static void completeAssignment(HttpServletRequest request, HttpServletResponse response) {
@@ -183,7 +196,7 @@ public class AssignmentController implements Controller {
         var assignmentDAO=dao.getAssignmentDAO();
         var assignment=assignmentDAO.findByCode(Integer.parseInt(code));
         assignmentDAO.completeAssignment(assignment);
-        listView(request, response, dao);
+        listView(request, response, dao, false);
     }
 
     public static void newProblem(HttpServletRequest request, HttpServletResponse response) {
@@ -202,7 +215,7 @@ public class AssignmentController implements Controller {
         var assignment=assignmentDAO.findByCode(Integer.parseInt(code));
         assignment.setComment(comment);
         assignmentDAO.updateAssignment(assignment);
-        listView(request, response, dao);
+        listView(request, response, dao, false);
     }
 
     public static void viewDetails(HttpServletRequest request, HttpServletResponse response) {
@@ -254,7 +267,7 @@ public class AssignmentController implements Controller {
         var licenseDAO=mySqlDAO.getLicenseDAO();
         licenseDAO.addLicensesByService(service);
 
-        var assignmentList=getAssignmentList(mySqlDAO, loggedAccount);
+        var assignmentList=getAssignmentList(mySqlDAO, loggedAccount, false);
         mySqlDAO.confirm();
         attributes.add(new Object[]{"assignmentList", assignmentList});
         attributes.add(new Object[]{"selectedTab", "services"});

@@ -29,4 +29,5 @@ public class CookieDAOFactory extends DAOFactory {
     public ClientDAO getClientDAO() { return null; }
     public LicenseDAO getLicenseDAO() { return null; }
     public AssignmentDAO getAssignmentDAO() { return null; }
+    public BillDAO getBillDAO() { return null; }
 }

@@ -9,10 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0bf709cf-d99c-4d00-90c1-2fc5a7108193" name="Changes" comment="added service decline from admin request list">
-      <change afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/BillDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlBillDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/mo/mo/ServiceBill.java" afterDir="false" />
+    <list default="true" id="0bf709cf-d99c-4d00-90c1-2fc5a7108193" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/control/AssignmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/control/AssignmentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/AssignmentDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/AssignmentDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlAssignmentDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlAssignmentDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/services/services.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/services/services.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -329,23 +330,7 @@
       <workItem from="1720941637036" duration="8602000" />
       <workItem from="1720951420114" duration="3346000" />
       <workItem from="1721205047051" duration="5542000" />
-      <workItem from="1721285579622" duration="6720000" />
-    </task>
-    <task id="LOCAL-00067" summary="removed unused imports from various classes">
-      <option name="closed" value="true" />
-      <created>1719050915293</created>
-      <option name="number" value="00067" />
-      <option name="presentableId" value="LOCAL-00067" />
-      <option name="project" value="LOCAL" />
-      <updated>1719050915293</updated>
-    </task>
-    <task id="LOCAL-00068" summary="starting major rework for next release">
-      <option name="closed" value="true" />
-      <created>1719061396803</created>
-      <option name="number" value="00068" />
-      <option name="presentableId" value="LOCAL-00068" />
-      <option name="project" value="LOCAL" />
-      <updated>1719061396804</updated>
+      <workItem from="1721285579622" duration="7692000" />
     </task>
     <task id="LOCAL-00069" summary="updated attribute setting between pages">
       <option name="closed" value="true" />
@@ -723,7 +708,23 @@
       <option name="project" value="LOCAL" />
       <updated>1721293271954</updated>
     </task>
-    <option name="localTasksCounter" value="116" />
+    <task id="LOCAL-00116" summary="setup for service bill management">
+      <option name="closed" value="true" />
+      <created>1721293394713</created>
+      <option name="number" value="00116" />
+      <option name="presentableId" value="LOCAL-00116" />
+      <option name="project" value="LOCAL" />
+      <updated>1721293394713</updated>
+    </task>
+    <task id="LOCAL-00117" summary="implemented service bill MO and DAO">
+      <option name="closed" value="true" />
+      <created>1721293537999</created>
+      <option name="number" value="00117" />
+      <option name="presentableId" value="LOCAL-00117" />
+      <option name="project" value="LOCAL" />
+      <updated>1721293537999</updated>
+    </task>
+    <option name="localTasksCounter" value="118" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -745,8 +746,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="false" />
-    <MESSAGE value="added assignment controller" />
-    <MESSAGE value="removed a few debug lines" />
     <MESSAGE value="removed unused methods" />
     <MESSAGE value="updated workspace.xml" />
     <MESSAGE value="added assigned services list view" />
@@ -768,9 +767,11 @@
     <MESSAGE value="improved assignment view based on account" />
     <MESSAGE value="added requested services view for admin" />
     <MESSAGE value="updated dynamic query generation for select" />
-    <MESSAGE value="added service decline from admin request list" />
     <MESSAGE value="re-implemented project on new db" />
-    <option name="LAST_COMMIT_MESSAGE" value="re-implemented project on new db" />
+    <MESSAGE value="added service decline from admin request list" />
+    <MESSAGE value="setup for service bill management" />
+    <MESSAGE value="implemented service bill MO and DAO" />
+    <option name="LAST_COMMIT_MESSAGE" value="implemented service bill MO and DAO" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -34,6 +34,16 @@ public class MySqlAssignmentDAO extends MySqlDAO<Assignment> implements Assignme
     public void updateAssignment(Assignment assignment) { update(assignment.asList()); }
     public void completeAssignment(Assignment assignment) { remove(assignment.getCode()); }
 
+    public ArrayList<Assignment> findAllCompleted() {
+
+        var result=new ArrayList<Assignment>();
+        var query="select * from "+getTableName()+" where "+getColumns()[getColumns().length-1]+" = 1";
+        var res=MySqlQueryManager.getResult(getConnection(), query);
+        var resList=MySqlQueryManager.asList(res, getColumns());
+        for (var item: resList) result.add(get(item));
+        return result;
+    }
+
     public ArrayList<Assignment> findAllByWorker(Worker worker) {
 
         var result=new ArrayList<Assignment>();

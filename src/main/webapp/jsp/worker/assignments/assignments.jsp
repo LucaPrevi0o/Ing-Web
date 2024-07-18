@@ -47,7 +47,7 @@
 
                     b.addEventListener("click", function() {
 
-                        document.dataForm.action.value="AssignmentController.newProblem";
+                        document.dataForm.action.value="AssignmentController.completeAssignment";
                         document.dataForm.code.value=this.id;
                         document.dataForm.submit();
                     });

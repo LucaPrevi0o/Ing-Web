@@ -23,6 +23,7 @@
                 let assignButtons=document.querySelectorAll("input[name='assign']");
                 let assignedButton=document.querySelector("#assignedList");
                 let requestedButton=document.querySelector("#requestList");
+                let completedButton=document.querySelector("#completedList");
                 let refreshButton=document.querySelector("#refreshButton");
                 let newServiceButton=document.querySelector("#addButton");
                 let backButton=document.querySelector("#backButton");
@@ -54,6 +55,12 @@
                 requestedButton.addEventListener("click", function() {
 
                     document.dataForm.action.value="ServiceController.getRequests";
+                    document.dataForm.submit();
+                });
+
+                completedButton.addEventListener("click", function() {
+
+                    document.dataForm.action.value="AssignmentController.getCompleted";
                     document.dataForm.submit();
                 });
 
@@ -123,6 +130,7 @@
             <tr>
                 <td><input type="button" id="assignedList" value="Vedi servizi in corso"/></td>
                 <td><input type="button" id="requestList" value="Vedi richieste"/></td>
+                <td><input type="button" id="completedList" value="Servizi completati"/></td>
             </tr>
         </table>
         <%@include file="/jsp/admin/footer.jsp"%>
