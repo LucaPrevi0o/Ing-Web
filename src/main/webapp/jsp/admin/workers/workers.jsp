@@ -19,7 +19,7 @@
                 let removeButtons=document.querySelectorAll("input[name='remove']");
                 let updateButtons=document.querySelectorAll("input[name='edit']");
                 let refreshButton=document.querySelector("#refreshButton");
-                let newWorkerButton=document.querySelector("#newWorkerButton");
+                let newWorkerButton=document.querySelector("#addButton");
                 let backButton=document.querySelector("#backButton");
 
                 refreshButton.addEventListener("click", function() {
@@ -87,16 +87,6 @@
                 </tr>
             <% } %>
         </table>
-        <nav>
-            <form name="dataForm" action="<%= request.getContextPath() %>/Servizi" method="post">
-                <div class="styled">
-                    <input type="button" id="newWorkerButton" value="Nuovo autista">
-                    <input type="button" id="refreshButton" value="Aggiorna lista">
-                    <input type="button" id="backButton" value="Chiudi tab">
-                </div>
-                <input type="hidden" name="code">
-                <input type="hidden" name="action">
-            </form>
-        </nav>
+    <%@include file="/jsp/admin/footer.jsp"%>
     </body>
 </html>

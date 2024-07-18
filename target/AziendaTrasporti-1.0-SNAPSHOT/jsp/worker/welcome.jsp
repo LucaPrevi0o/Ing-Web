@@ -47,9 +47,8 @@
             <form name="tabForm" action="<%= request.getContextPath() %>/Servizi" method="post">
                 <div class="styled">
                     <input type="button" id="services" value="Visualizza lista servizi">
+                    <hr class="divhr" style="width: 83%">
                     <input type="button" id="logout" value="Torna al login">
-                    <hr class="divhr" style="width: 76%">
-                    <input type="button" id="settings" value="Modifica profilo">
                 </div>
                 <input type="hidden" id="action" name="action">
             </form>

@@ -34,7 +34,7 @@ public class MySqlTruckDAO extends MySqlDAO<Truck> implements TruckDAO {
         var query=
             "SELECT m.* " +
             "FROM mezzo m " +
-            "JOIN patenti_mezzo pm ON m.targa = pm.targa " +
+            "JOIN patenti_mezzo pm ON m.targa = pm.mezzo " +
             "WHERE m.disponibile = 1 " +
             "AND NOT EXISTS (" +
             "    SELECT 1 " +
@@ -62,7 +62,7 @@ public class MySqlTruckDAO extends MySqlDAO<Truck> implements TruckDAO {
             "    AND ps.patente NOT IN ( " +
             "        SELECT pm2.patente  " +
             "        FROM patenti_mezzo pm2  " +
-            "        WHERE pm2.targa = m.targa " +
+            "        WHERE pm2.mezzo = m.targa " +
             "    ) " +
             ")";
 

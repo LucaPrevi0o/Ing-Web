@@ -32,7 +32,7 @@ public class ServiceController implements Controller {
         attributes.add(new Object[]{"licenseList", licenseList});
         attributes.add(new Object[]{"serviceList", serviceList});
         attributes.add(new Object[]{"selectedTab", "services"});
-        attributes.add(new Object[]{"viewUrl", (requested ? "/admin/services/requests/requests" : "/admin/services/serviceList")});
+        attributes.add(new Object[]{"viewUrl", (requested ? "/admin/services/requests/requests" : "/admin/services/services")});
     }
 
     private static void formView(HttpServletRequest request, HttpServletResponse response, DAOFactory dao) {

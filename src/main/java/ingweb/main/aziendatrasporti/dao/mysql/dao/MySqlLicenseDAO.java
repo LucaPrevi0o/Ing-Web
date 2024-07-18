@@ -39,9 +39,9 @@ public class MySqlLicenseDAO implements LicenseDAO {
     public ArrayList<License> findAllByTruck(Truck truck) {
 
         ArrayList<License> licenses=new ArrayList<>();
-        var query="select * from patenti_mezzo where targa='"+truck.getNumberPlate()+"'";
+        var query="select * from patenti_mezzo where mezzo='"+truck.getNumberPlate()+"'";
         var res= MySqlQueryManager.getResult(connection, query); //execute query on the database
-        var resList=MySqlQueryManager.asList(res, new String[]{"targa", "patente"}); //parse results
+        var resList=MySqlQueryManager.asList(res, new String[]{"mezzo", "patente"}); //parse results
         for (var item: resList) licenses.add(new License(item[1])); //add license to list
         return licenses; //return list of valid services
     }
@@ -77,7 +77,7 @@ public class MySqlLicenseDAO implements LicenseDAO {
 
         for (var license: licenses) {
 
-            var query="insert into patenti_mezzo (targa, patente) values (?, ?)";
+            var query="insert into patenti_mezzo (mezzo, patente) values (?, ?)";
             var params=new Object[]{truck.getNumberPlate(), license.getCategory()};
             MySqlQueryManager.execute(connection, query, params);
         }
@@ -85,7 +85,7 @@ public class MySqlLicenseDAO implements LicenseDAO {
 
     public void updateLicensesByTruck(Truck truck, ArrayList<License> licenses) {
 
-        var query="delete from patenti_mezzo where targa=?";
+        var query="delete from patenti_mezzo where mezzo=?";
         MySqlQueryManager.execute(connection, query, new Object[]{truck.getNumberPlate()});
         addLicensesByTruck(truck, licenses);
     }

@@ -10,6 +10,7 @@ public class Account extends ModelObject {
     private int level;
 
     //static values for account levels
+    public final static int WORKER_LEVEL=0;
     public final static int ADMIN_LEVEL=1;
     public final static int MANAGER_LEVEL=2;
 
@@ -18,13 +19,13 @@ public class Account extends ModelObject {
     public Object[] data() { return new Object[] {this.username, this.password, this.fullName, this.level}; }
     public String display() { return this.fullName+" ("+this.username+"): "+this.level; }
 
-    public Account(int code, String username, String password, String fullName, int admin, boolean deleted) {
+    public Account(int code, String username, String password, String fullName, int level, boolean deleted) {
 
         this.setCode(code);
         this.username=username;
         this.password=password;
         this.fullName=fullName;
-        this.level=admin;
+        this.level=level;
         this.setDeleted(deleted);
     }
 
@@ -39,6 +40,7 @@ public class Account extends ModelObject {
     public boolean equals(Object o) {
 
         if (!(o instanceof Account)) return false;
+        if (((Account)o).getCode()!=this.getCode()) return false;
         if (!((Account)o).username.equals(this.username)) return false;
         if (!((Account)o).password.equals(this.password)) return false;
         if (!((Account)o).fullName.equals(this.fullName)) return false;

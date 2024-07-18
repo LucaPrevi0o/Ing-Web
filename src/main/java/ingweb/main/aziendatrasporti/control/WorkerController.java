@@ -64,7 +64,7 @@ public class WorkerController implements Controller {
         var worker=new Worker(code, name, surname, fiscalCode, Date.valueOf(birthDate), telNumber, false);
         worker.setLicenses(licenseList);
 
-        var account=new Account(fiscalCode, name.toLowerCase(), name+" "+surname, 1);
+        var account=new Account(code, fiscalCode, name.toLowerCase(), name+" "+surname, Account.WORKER_LEVEL, false);
         workerDAO.addWorker(worker);
         var accountDAO=newDao.getAccountDAO();
         accountDAO.addAccount(account);

@@ -20,10 +20,9 @@
 
                 let declineButtons=document.querySelectorAll("input[name='decline']");
                 let acceptButtons=document.querySelectorAll("input[name='accept']");
-                let assignedButton=document.querySelector("#assignedList");
                 let refreshButton=document.querySelector("#refreshButton");
                 let backButton=document.querySelector("#backButton");
-                let serviceButton=document.querySelector("#serviceButton");
+                let serviceButton=document.querySelector("#addButton");
 
                 refreshButton.addEventListener("click", function() {
 
@@ -40,12 +39,6 @@
                 backButton.addEventListener("click", function() {
 
                     document.dataForm.action.value="LoginController.doLogin";
-                    document.dataForm.submit();
-                });
-
-                assignedButton.addEventListener("click", function() {
-
-                    document.dataForm.action.value="AssignmentController.getAssignments";
                     document.dataForm.submit();
                 });
 
@@ -73,7 +66,7 @@
     </head>
     <body>
         <hr/>
-        <h1>Lista servizi</h1>
+        <h1>Lista richieste servizio</h1>
         <table>
             <tr class="firstRow">
                 <td rowspan="2">Nome</td>
@@ -103,13 +96,14 @@
                 </tr>
             <% } %>
         </table>
-        <nav>
+        <nav class="footer">
             <form name="dataForm" action="<%= request.getContextPath() %>/Servizi" method="post">
                 <div class="styled">
-                    <input type="button" id="serviceButton" value="Torna a lista servizi">
+                    <input type="button" id="addButton" value="Torna a lista servizi">
                     <input type="button" id="refreshButton" value="Aggiorna lista">
                     <input type="button" id="backButton" value="Chiudi tab">
-                    <input class="rightbutton" type="button" id="assignedList" value="Vedi servizi in corso"/>
+                    <hr class="divhr" style="width: 67%">
+                    <input type="button" id="settings" value="Modifica profilo">
                 </div>
                 <input type="hidden" name="code">
                 <input type="hidden" name="action">

@@ -10,6 +10,7 @@ public class ClientCompany extends ModelObject {
     private String socialReason;
     private String location;
     private String managerName;
+    private String managerSurname; //still need to implement
     private String managerFiscalCode;
     private Date managerBirthDate;
     private String managerTelNumber;

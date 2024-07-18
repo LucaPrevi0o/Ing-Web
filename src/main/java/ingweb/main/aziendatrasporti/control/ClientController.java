@@ -37,6 +37,7 @@ public class ClientController implements Controller {
     public static void addClient(HttpServletRequest request, HttpServletResponse response) {
 
         var dao=Controller.getMySqlDAO("azienda_trasporti");
+        var newDao=Controller.getMySqlDAO("aziendatrasportidb");
         var clientDAO=dao.getClientDAO(); //get worker DAO implementation for the selected database
 
         var name=request.getParameter("name");
@@ -49,14 +50,13 @@ public class ClientController implements Controller {
 
         var code=clientDAO.findLastCode()+1;
         var clientCompany=new ClientCompany(code, name, socialReason, location, managerName, managerFiscalCode, Date.valueOf(managerBirthDate), managerTelNumber, false);
+        clientDAO.addClient(clientCompany);
 
-        var account=new Account(managerFiscalCode, socialReason, managerName, 2);
-        var newDao=Controller.getMySqlDAO("aziendatrasportidb");
+        var account=new Account(code, managerFiscalCode, socialReason, managerName, Account.MANAGER_LEVEL, false);
         var accountDAO=newDao.getAccountDAO();
         accountDAO.addAccount(account);
         newDao.confirm();
 
-        clientDAO.addClient(clientCompany);
         listView(request, response, dao);
     }
 

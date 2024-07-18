@@ -18,15 +18,16 @@ nav form {
     position: sticky;
     top: 10px;
     width: 100%;
+    hr { display: none }
     form {
 
         background: #ffff0066;
-        input {
-
-            min-width: fit-content;
-            width: 1px;
-            font-size: 10px;
-            background: #004444;
-        }
+        input { background: #004444; }
     }
+}
+
+.footer {
+
+    position: sticky;
+    bottom: 10px;
 }

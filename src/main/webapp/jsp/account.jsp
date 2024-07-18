@@ -46,7 +46,7 @@
                 </tr>
                 <tr>
                     <td>Livello di accesso</td>
-                    <td><%= loggedAccount.getLevel() %> - <%= loggedAccount.getLevel()==Account.ADMIN_LEVEL ? "Amministratore" : (loggedAccount.getLevel()==Account.MANAGER_LEVEL ? "Cliente" : "Dipendente") %></td>
+                    <td><%= loggedAccount.getLevel()==Account.ADMIN_LEVEL ? "Amministratore" : (loggedAccount.getLevel()==Account.MANAGER_LEVEL ? "Cliente" : (loggedAccount.getLevel()==Account.WORKER_LEVEL ? "Dipendente" : "---")) %></td>
                 </tr>
             </table>
             <br/>

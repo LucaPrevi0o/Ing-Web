@@ -52,11 +52,10 @@
         <nav id="documentElement">
             <form name="tabForm" action="<%= request.getContextPath() %>/Servizi" method="post">
                 <div class="styled">
-                    <input type="button" id="logout" value="Torna al login">
                     <input type="button" id="services" value="Lista servizi">
                     <input type="button" id="request" value="Richiedi servizio">
-                    <hr class="divhr" style="width: 67%">
-                    <input type="button" id="settings" value="Modifica profilo">
+                    <hr class="divhr" style="width: 75%">
+                    <input type="button" id="logout" value="Torna al login">
                 </div>
                 <input type="hidden" id="action" name="action">
             </form>

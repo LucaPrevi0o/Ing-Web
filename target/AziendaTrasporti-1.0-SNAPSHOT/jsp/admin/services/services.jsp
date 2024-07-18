@@ -1,58 +1,130 @@
-<%@ page import="ingweb.main.aziendatrasporti.mo.mo.Service" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="ingweb.main.aziendatrasporti.mo.mo.Worker" %>
-<%@ page import="java.sql.Time" %>
-<% //global variables
+<%@ page import="ingweb.main.aziendatrasporti.mo.mo.Service" %>
+<%@ page import="ingweb.main.aziendatrasporti.mo.mo.License" %>
+<%@ page import="ingweb.main.aziendatrasporti.mo.mo.ClientCompany" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%
     var serviceList=(ArrayList<Service>)request.getAttribute("serviceList");
-    var workerList=(ArrayList<Worker>)request.getAttribute("workerList");
-    var startHour=5;
-    var startMinute=0;
-    var endHour=18;
-    var endMinute=0;
-    var timeStep=30;
+    if (serviceList==null) serviceList=new ArrayList<>();
+    var licenseList=(ArrayList<License>)request.getAttribute("licenseList");
+    if (licenseList==null) licenseList=new ArrayList<>();
 %>
+<%@ include file="/jsp/admin/welcome.jsp" %>
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/generalStyle.css">
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/dataTable.css">
+        <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/checkbox.css">
         <script>
+            window.addEventListener("load", function() {
 
+                let removeButtons=document.querySelectorAll("input[name='remove']");
+                let updateButtons=document.querySelectorAll("input[name='edit']");
+                let assignButtons=document.querySelectorAll("input[name='assign']");
+                let assignedButton=document.querySelector("#assignedList");
+                let requestedButton=document.querySelector("#requestList");
+                let refreshButton=document.querySelector("#refreshButton");
+                let newServiceButton=document.querySelector("#addButton");
+                let backButton=document.querySelector("#backButton");
+
+                refreshButton.addEventListener("click", function() {
+
+                    document.dataForm.action.value="ServiceController.getServices";
+                    document.dataForm.submit();
+                });
+
+                backButton.addEventListener("click", function() {
+
+                    document.dataForm.action.value="LoginController.doLogin";
+                    document.dataForm.submit();
+                });
+
+                newServiceButton.addEventListener("click", function() {
+
+                    document.dataForm.action.value="ServiceController.newService";
+                    document.dataForm.submit();
+                });
+
+                assignedButton.addEventListener("click", function() {
+
+                    document.dataForm.action.value="AssignmentController.getAssignments";
+                    document.dataForm.submit();
+                });
+
+                requestedButton.addEventListener("click", function() {
+
+                    document.dataForm.action.value="ServiceController.getRequests";
+                    document.dataForm.submit();
+                });
+
+                removeButtons.forEach(b => {
+
+                    b.addEventListener("click", function() {
+
+                        document.dataForm.action.value="ServiceController.removeService";
+                        document.dataForm.code.value=this.id;
+                        document.dataForm.submit();
+                    });
+                });
+
+                updateButtons.forEach(b => {
+
+                    b.addEventListener("click", function() {
+
+                        document.dataForm.action.value="ServiceController.editService";
+                        document.dataForm.code.value=this.id;
+                        document.dataForm.submit();
+                    });
+                });
+
+                assignButtons.forEach(b => {
+
+                    b.addEventListener("click", function() {
+
+                        document.dataForm.action.value="AssignmentController.newAssignment";
+                        document.dataForm.code.value=this.id;
+                        document.dataForm.submit();
+                    });
+                });
+            });
         </script>
     </head>
     <body>
-        <%@ include file="/jsp/admin/welcome.jsp" %>
         <hr/>
-        <h1>Lista clienti</h1>
+        <h1>Lista servizi</h1>
         <table>
-            <tr>
-                <td colspan="<%= workerList.size()+1 %>">
-                    <form name="dateForm">
-                        <label for="weekDay">Selezionare il giorno: </label>
-                        <input type="date" id="weekDay">
-                        <input type="button" id="searchDate" name="searchDate" value="Ricerca servizi">
-                    </form>
-                </td>
+            <tr class="firstRow">
+                <td rowspan="2">Nome</td>
+                <td rowspan="2">Cliente</td>
+                <td rowspan="2">Data</td>
+                <td rowspan="2">Orario inizio</td>
+                <td rowspan="2">Durata</td>
+                <td colspan="<%= licenseList.size() %>">Patenti</td>
+                <td colspan="3" rowspan="2">Azioni</td>
             </tr>
-            <tr>
-                <td>Orario</td>
-                <% for (var worker: workerList) { %><td><%= worker.getName() %></td><% } %>
+            <tr class="firstRow">
+                <% for (var license: licenseList) { %><td><%= license.getCategory() %></td><% } %>
             </tr>
-            <% for (var minute=(startHour*60+startMinute); minute<=(endHour*60+endMinute); minute+=timeStep) { %>
-            <tr>
-                <td><%=minute/60%>:<%=minute%60%><%=(minute%60)==0 ? "0" : ""%></td>
-                <% for (var worker: workerList) { %>
-                    <% var isAssigned=false; %>
-                    <% var name=""; %>
-                    <% for (var service: serviceList) { %>
-                        <% if (service.getFirstDriver().equals(worker) && service.getStartTime().equals(Time.valueOf(minute/60+":"+minute%60))) { %>
-                            <% isAssigned=true; %>
-                            <% name=service.getName(); %>
-                        <% } %>
+            <% for (var service: serviceList) {
+                var licenses=service.getValidLicenses();
+                if (licenses==null) licenses=new ArrayList<>(); %>
+                <tr>
+                    <% for (var field: service.data()) if (!(field instanceof Boolean)) { %><td><%= field instanceof ClientCompany ? ((ClientCompany)field).display() : field %></td><% } %>
+                    <% for (var license: licenseList) { %>
+                        <td><input type="checkbox" <%= licenses.contains(license) ? "checked" : "" %> disabled/></td>
                     <% } %>
-                    <td><%= isAssigned ? name : "---"%></td>
-                <% } %>
-            </tr>
+                    <td><input type="button" id="<%= service.getCode() %>" name="edit" value="Modifica"></td>
+                    <td><input type="button" id="<%= service.getCode() %>" name="assign" value="Assegna servizio"></td>
+                    <td><input type="button" id="<%= service.getCode() %>" name="remove" value="Rimuovi"></td>
+                </tr>
             <% } %>
         </table>
+        <table>
+            <tr>
+                <td><input type="button" id="assignedList" value="Vedi servizi in corso"/></td>
+                <td><input type="button" id="requestList" value="Vedi richieste"/></td>
+            </tr>
+        </table>
+        <%@include file="/jsp/admin/footer.jsp"%>
     </body>
 </html>

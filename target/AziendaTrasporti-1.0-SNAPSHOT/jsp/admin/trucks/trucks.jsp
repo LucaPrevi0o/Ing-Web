@@ -97,16 +97,6 @@
                 </tr>
             <% } %>
         </table>
-        <nav>
-            <form name="dataForm" action="<%= request.getContextPath() %>/Servizi" method="post">
-                <div class="styled">
-                    <input type="button" id="newTruckButton" value="Nuovo mezzo">
-                    <input type="button" id="refreshButton" value="Aggiorna lista">
-                    <input type="button" id="backButton" value="Chiudi tab">
-                </div>
-                <input type="hidden" name="code">
-                <input type="hidden" name="action">
-            </form>
-        </nav>
+        <%@include file="/jsp/admin/footer.jsp"%>
     </body>
 </html>
