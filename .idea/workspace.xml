@@ -9,7 +9,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0bf709cf-d99c-4d00-90c1-2fc5a7108193" name="Changes" comment="" />
+    <list default="true" id="0bf709cf-d99c-4d00-90c1-2fc5a7108193" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/altFooter.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/assignments/completed.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/control/AssignmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/control/AssignmentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/assignments/assignments.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/assignments/assignments.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/services/requests.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/services/requests.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/control/AssignmentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/control/AssignmentController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/control/AssignmentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/control/AssignmentController.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,9 +29,9 @@
       <list>
         <option value="HTML File" />
         <option value="CSS File" />
-        <option value="Jsp File" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="Jsp File" />
       </list>
     </option>
   </component>
@@ -116,11 +125,11 @@
       <recent name="$PROJECT_DIR$/src/main/webapp" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/webapp/jsp/admin/assignments" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/jsp/admin/services" />
       <recent name="$PROJECT_DIR$/src/main/webapp/jsp/admin/services/requests" />
       <recent name="$PROJECT_DIR$/src/main/webapp/jsp/clientManager/assignments" />
       <recent name="$PROJECT_DIR$/src/main/webapp/jsp/worker/services" />
-      <recent name="$PROJECT_DIR$/src/main/webapp/jsp/admin/assignments" />
-      <recent name="$PROJECT_DIR$/src/main/webapp/style/ui" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="ingweb.main.aziendatrasporti" />
@@ -325,15 +334,7 @@
       <workItem from="1720941637036" duration="8602000" />
       <workItem from="1720951420114" duration="3346000" />
       <workItem from="1721205047051" duration="5542000" />
-      <workItem from="1721285579622" duration="8023000" />
-    </task>
-    <task id="LOCAL-00070" summary="fixed attribute setting from dispatcher, started css fixing">
-      <option name="closed" value="true" />
-      <created>1719135176967</created>
-      <option name="number" value="00070" />
-      <option name="presentableId" value="LOCAL-00070" />
-      <option name="project" value="LOCAL" />
-      <updated>1719135176968</updated>
+      <workItem from="1721285579622" duration="8364000" />
     </task>
     <task id="LOCAL-00071" summary="updated transaction commit management">
       <option name="closed" value="true" />
@@ -719,7 +720,15 @@
       <option name="project" value="LOCAL" />
       <updated>1721294663086</updated>
     </task>
-    <option name="localTasksCounter" value="119" />
+    <task id="LOCAL-00119" summary="added completed service view for admin account">
+      <option name="closed" value="true" />
+      <created>1721294681653</created>
+      <option name="number" value="00119" />
+      <option name="presentableId" value="LOCAL-00119" />
+      <option name="project" value="LOCAL" />
+      <updated>1721294681653</updated>
+    </task>
+    <option name="localTasksCounter" value="120" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

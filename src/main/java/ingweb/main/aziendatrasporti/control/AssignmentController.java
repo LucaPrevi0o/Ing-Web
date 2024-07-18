@@ -78,7 +78,7 @@ public class AssignmentController implements Controller {
         dao.confirm();
         attributes.add(new Object[]{"assignmentList", assignmentList});
         attributes.add(new Object[]{"selectedTab", "services"});
-        attributes.add(new Object[]{"viewUrl", getViewURL(loggedAccount, "assignments")});
+        attributes.add(new Object[]{"viewUrl", getViewURL(loggedAccount, (completed ? "completed" : "assignments"))});
     }
 
     private static void formView(HttpServletRequest request, HttpServletResponse response, DAOFactory dao) {

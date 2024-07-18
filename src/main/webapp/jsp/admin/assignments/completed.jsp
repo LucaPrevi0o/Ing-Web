@@ -21,7 +21,7 @@
 
                 refreshButton.addEventListener("click", function() {
 
-                    document.dataForm.action.value="AssignmentController.getAssignments";
+                    document.dataForm.action.value="AssignmentController.getCompleted";
                     document.dataForm.submit();
                 });
 
@@ -51,7 +51,7 @@
     </head>
     <body>
         <hr/>
-        <h1>Servizi in corso</h1>
+        <h1>Servizi completati</h1>
         <table>
             <tr class="firstRow">
                 <td>Servizio</td>
@@ -62,16 +62,16 @@
                 <td>Azioni</td>
             </tr>
             <% for (var assignment: assignmentList) { %>
-                <tr>
-                    <% for (var field: assignment.data()) if (!(field instanceof Boolean)) { %><td><%=
-                        (field==null ? "---" :
-                        (field instanceof Service ? ((Service)field).display() :
-                        (field instanceof Worker ? ((Worker)field).display() :
-                        (field instanceof Truck ? ((Truck)field).display() : field)))) %></td><% } %>
-                    <td><input type="button" id="<%= assignment.getCode() %>" name="remove" value="Rimuovi assegnamento"></td>
-                </tr>
+            <tr>
+                <% for (var field: assignment.data()) if (!(field instanceof Boolean)) { %><td><%=
+            (field==null ? "---" :
+                    (field instanceof Service ? ((Service)field).display() :
+                            (field instanceof Worker ? ((Worker)field).display() :
+                                    (field instanceof Truck ? ((Truck)field).display() : field)))) %></td><% } %>
+                <td><input type="button" id="<%= assignment.getCode() %>" name="remove" value="Richiedi pagamento"></td>
+            </tr>
             <% } %>
         </table>
-        <%@include file="/jsp/admin/altFooter.jsp"%>
+    <%@include file="/jsp/admin/altFooter.jsp"%>
     </body>
 </html>
