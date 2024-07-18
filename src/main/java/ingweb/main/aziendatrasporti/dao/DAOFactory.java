@@ -23,6 +23,7 @@ public abstract class DAOFactory {
     public abstract ClientDAO getClientDAO(); //client company
     public abstract LicenseDAO getLicenseDAO(); //driving license
     public abstract AssignmentDAO getAssignmentDAO(); //scheduled service
+    public abstract BillDAO getBillDAO(); //service payment bill
 
     //return a different DAOFactory implementation based on the specified package name and parameters
     public static DAOFactory getByName(String name, Object... args) {
