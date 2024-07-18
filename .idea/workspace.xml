@@ -9,12 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0bf709cf-d99c-4d00-90c1-2fc5a7108193" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/control/AssignmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/control/AssignmentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/AssignmentDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/AssignmentDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlAssignmentDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlAssignmentDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/services/services.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/services/services.jsp" afterDir="false" />
-    </list>
+    <list default="true" id="0bf709cf-d99c-4d00-90c1-2fc5a7108193" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -330,15 +325,7 @@
       <workItem from="1720941637036" duration="8602000" />
       <workItem from="1720951420114" duration="3346000" />
       <workItem from="1721205047051" duration="5542000" />
-      <workItem from="1721285579622" duration="7692000" />
-    </task>
-    <task id="LOCAL-00069" summary="updated attribute setting between pages">
-      <option name="closed" value="true" />
-      <created>1719070240513</created>
-      <option name="number" value="00069" />
-      <option name="presentableId" value="LOCAL-00069" />
-      <option name="project" value="LOCAL" />
-      <updated>1719070240513</updated>
+      <workItem from="1721285579622" duration="8023000" />
     </task>
     <task id="LOCAL-00070" summary="fixed attribute setting from dispatcher, started css fixing">
       <option name="closed" value="true" />
@@ -724,7 +711,15 @@
       <option name="project" value="LOCAL" />
       <updated>1721293537999</updated>
     </task>
-    <option name="localTasksCounter" value="118" />
+    <task id="LOCAL-00118" summary="added completed service view for admin account">
+      <option name="closed" value="true" />
+      <created>1721294663086</created>
+      <option name="number" value="00118" />
+      <option name="presentableId" value="LOCAL-00118" />
+      <option name="project" value="LOCAL" />
+      <updated>1721294663086</updated>
+    </task>
+    <option name="localTasksCounter" value="119" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -746,7 +741,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="false" />
-    <MESSAGE value="removed unused methods" />
     <MESSAGE value="updated workspace.xml" />
     <MESSAGE value="added assigned services list view" />
     <MESSAGE value="added filter view for trucks on availables" />
@@ -771,7 +765,8 @@
     <MESSAGE value="added service decline from admin request list" />
     <MESSAGE value="setup for service bill management" />
     <MESSAGE value="implemented service bill MO and DAO" />
-    <option name="LAST_COMMIT_MESSAGE" value="implemented service bill MO and DAO" />
+    <MESSAGE value="added completed service view for admin account" />
+    <option name="LAST_COMMIT_MESSAGE" value="added completed service view for admin account" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
