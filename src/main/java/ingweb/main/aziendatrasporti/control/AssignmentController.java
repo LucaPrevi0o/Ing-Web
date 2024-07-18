@@ -5,7 +5,6 @@ import ingweb.main.aziendatrasporti.mo.mo.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
 
@@ -172,7 +171,7 @@ public class AssignmentController implements Controller {
 
         var assignmentDAO=dao.getAssignmentDAO();
         var code=assignmentDAO.findLastCode()+1;
-        var assignment=new Assignment(code, service, firstDriver, secondDriver, truck, null, false);
+        var assignment=new Assignment(code, service, firstDriver, secondDriver, truck, null, false, false);
         assignmentDAO.addAssignment(assignment);
         listView(request, response, dao, false);
     }
@@ -184,7 +183,7 @@ public class AssignmentController implements Controller {
 
         var assignmentDAO=dao.getAssignmentDAO();
         var assignment=assignmentDAO.findByCode(Integer.parseInt(code));
-        assignmentDAO.removeAssignment(assignment);
+        assignmentDAO.deleteAssignment(assignment);
         listView(request, response, dao, false);
     }
 
@@ -195,7 +194,8 @@ public class AssignmentController implements Controller {
 
         var assignmentDAO=dao.getAssignmentDAO();
         var assignment=assignmentDAO.findByCode(Integer.parseInt(code));
-        assignmentDAO.completeAssignment(assignment);
+        assignment.setCompleted(true);
+        assignmentDAO.updateAssignment(assignment);
         listView(request, response, dao, false);
     }
 

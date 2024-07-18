@@ -41,7 +41,7 @@
 
                     b.addEventListener("click", function() {
 
-                        document.dataForm.action.value="AssignmentController.removeAssignment";
+                        document.dataForm.action.value="AssignmentController.deleteAssignment";
                         document.dataForm.code.value=this.id;
                         document.dataForm.submit();
                     });

@@ -17,7 +17,7 @@ public interface AssignmentDAO {
     public Assignment findByService(Service service);
     public int findLastCode();
     public void addAssignment(Assignment assignment);
+    public void deleteAssignment(Assignment assignment);
     public void removeAssignment(Assignment assignment);
     public void updateAssignment(Assignment assignment);
-    public void completeAssignment(Assignment assignment);
 }

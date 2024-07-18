@@ -9,8 +9,9 @@ public class Assignment extends ModelObject {
     private Worker secondDriver;
     private Truck truck;
     private String comment;
+    boolean completed;
 
-    public Assignment(int code, Service service, Worker firstDriver, Worker secondDriver, Truck truck, String comment, boolean deleted) {
+    public Assignment(int code, Service service, Worker firstDriver, Worker secondDriver, Truck truck, String comment, boolean completed, boolean deleted) {
 
         this.setCode(code);
         this.service=service;
@@ -18,22 +19,24 @@ public class Assignment extends ModelObject {
         this.secondDriver=secondDriver;
         this.truck=truck;
         this.comment=comment;
+        this.completed=completed;
         this.setDeleted(deleted);
     }
 
-    public Assignment(Service service, Worker firstDriver, Worker secondDriver, Truck truck, String comment) {
+    public Assignment(Service service, Worker firstDriver, Worker secondDriver, Truck truck, String comment, boolean completed) {
 
         this.service=service;
         this.firstDriver=firstDriver;
         this.secondDriver=secondDriver;
         this.truck=truck;
         this.comment=comment;
+        this.completed=completed;
     }
 
-    public Object[] data() { return new Object[]{this.service, this.firstDriver, this.secondDriver, this.truck, this.comment}; }
-    public Object[] asList() { return new Object[]{this.getCode(), this.service, this.firstDriver, this.secondDriver, this.truck, this.comment, this.isDeleted()}; }
-    public String display() { return "["+this.service.display()+"]: (["+this.firstDriver.display()+"], ["+this.secondDriver.display()+"]) - ["+this.truck.display()+"]"; }
-    public String toString() { return "["+this.service+"]: (["+this.firstDriver+"], ["+this.secondDriver+"]) - ["+this.truck+"] - "+this.comment; }
+    public Object[] data() { return new Object[]{this.service, this.firstDriver, this.secondDriver, this.truck, this.comment, this.completed}; }
+    public Object[] asList() { return new Object[]{this.getCode(), this.service, this.firstDriver, this.secondDriver, this.truck, this.comment, this.completed, this.isDeleted()}; }
+    public String display() { return "["+this.service.display()+"]: (["+this.firstDriver.display()+"], ["+this.secondDriver.display()+"]) - ["+this.truck.display()+"] - "+this.comment+" ("+this.completed+")"; }
+    public String toString() { return "["+this.service+"]: (["+this.firstDriver+"], ["+this.secondDriver+"]) - ["+this.truck+"] - "+this.comment+" ("+this.completed+")"; }
 
     public boolean equals(Object o) {
 
@@ -44,7 +47,7 @@ public class Assignment extends ModelObject {
         if (!((Assignment)o).secondDriver.equals(this.secondDriver)) return false;
         if (!((Assignment)o).truck.equals(this.truck)) return false;
         if (!((Assignment)o).comment.equals(this.comment)) return false;
-        return ((Assignment)o).isDeleted()==this.isDeleted();
+        return (((Assignment)o).isDeleted()==this.isDeleted() && ((Assignment)o).completed==this.completed);
     }
 
     public Service getService() { return service; }
@@ -61,4 +64,7 @@ public class Assignment extends ModelObject {
 
     public String getComment() { return comment; }
     public void setComment(String comment) { this.comment=comment; }
+
+    public boolean isCompleted() { return completed; }
+    public void setCompleted(boolean completed) { this.completed=completed; }
 }
