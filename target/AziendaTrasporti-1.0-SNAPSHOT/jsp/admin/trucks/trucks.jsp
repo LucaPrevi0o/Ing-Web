@@ -18,7 +18,7 @@
                 let removeButtons=document.querySelectorAll("input[name='remove']");
                 let updateButtons=document.querySelectorAll("input[name='edit']");
                 let refreshButton=document.querySelector("#refreshButton");
-                let newWorkerButton=document.querySelector("#newTruckButton");
+                let newWorkerButton=document.querySelector("#addButton");
                 let backButton=document.querySelector("#backButton");
                 let filter=document.querySelector("#filter");
 

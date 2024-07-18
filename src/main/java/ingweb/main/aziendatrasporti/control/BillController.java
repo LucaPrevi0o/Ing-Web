@@ -1,5 +1,6 @@
 package ingweb.main.aziendatrasporti.control;
 
+import ingweb.main.aziendatrasporti.mo.mo.Account;
 import ingweb.main.aziendatrasporti.mo.mo.ServiceBill;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -67,6 +68,10 @@ public class BillController implements Controller {
 
         var dao=Controller.getMySqlDAO("aziendatrasportidb");
         var newDao=Controller.getMySqlDAO("azienda_trasporti");
+        var cookieDao=Controller.getCookieDAO(request, response);
+        var accountDAO=cookieDao.getAccountDAO();
+        var account=accountDAO.findLoggedAccount();
+
         var billDAO=dao.getBillDAO();
         var billList=billDAO.findAll();
         for (var bill: billList) {
@@ -84,6 +89,8 @@ public class BillController implements Controller {
         newDao.confirm();
         attributes.add(new Object[]{"billList", billList});
         attributes.add(new Object[]{"selectedTab", "bills"});
-        attributes.add(new Object[]{"viewUrl", "/admin/bills/bills"});
+        attributes.add(new Object[]{"viewUrl", (account.getLevel()==Account.MANAGER_LEVEL ? "/clientManager/" :
+            (account.getLevel()==Account.ADMIN_LEVEL ? "/admin/" :
+            (account.getLevel()==Account.WORKER_LEVEL ? "/worker/" : "")))+"bills/bills"});
     }
 }

@@ -38,6 +38,12 @@
                     document.tabForm.submit();
                 });
 
+                document.querySelector("#bills").addEventListener("click", function() {
+
+                    document.querySelector("#action").value="BillController.getBills";
+                    document.tabForm.submit();
+                });
+
                 document.querySelector("#settings").addEventListener("click", function() {
 
                     document.querySelector("#action").value="LoginController.manageProfile";
@@ -49,15 +55,17 @@
     <body>
         <h1>Benvenuto, <%= loggedAccount.getFullName() %></h1>
         <h2>Menu di navigazione - Accesso clienti</h2>
-        <% if (loggedAccount.getBankCoordinates()==null) { %>
+        <% if (loggedAccount.getBankCoordinates()==null || loggedAccount.getBankCoordinates().isEmpty()) { %>
             <h3>ATTENZIONE: Coordinate bancarie personali (IBAN) non impostate.</h3>
+            <h3>Procedere all'inserimento dei dati dal menu "Modifica profilo".</h3>
         <% } %>
         <nav id="documentElement">
             <form name="tabForm" action="<%= request.getContextPath() %>/Servizi" method="post">
                 <div class="styled">
                     <input type="button" id="services" value="Lista servizi">
                     <input type="button" id="request" value="Richiedi servizio">
-                    <hr class="divhr" style="width: 75%">
+                    <input type="button" id="bills" value="Richieste pagamento">
+                    <hr class="divhr" style="width: 67%">
                     <input type="button" id="logout" value="Torna al login">
                 </div>
                 <input type="hidden" id="action" name="action">

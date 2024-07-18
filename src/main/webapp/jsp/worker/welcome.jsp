@@ -43,8 +43,9 @@
     <body>
         <h1>Benvenuto, <%= loggedAccount.getFullName() %></h1>
         <h2>Menu di navigazione - Accesso dipendenti</h2>
-        <% if (loggedAccount.getBankCoordinates()==null) { %>
+        <% if (loggedAccount.getBankCoordinates()==null || loggedAccount.getBankCoordinates().isEmpty()) { %>
             <h3>ATTENZIONE: Coordinate bancarie personali (IBAN) non impostate.</h3>
+            <h3>Procedere all'inserimento dei dati dal menu "Modifica profilo".</h3>
         <% } %>
         <nav id="documentElement">
             <form name="tabForm" action="<%= request.getContextPath() %>/Servizi" method="post">
