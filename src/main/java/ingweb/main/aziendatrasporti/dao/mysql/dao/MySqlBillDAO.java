@@ -5,8 +5,8 @@ import ingweb.main.aziendatrasporti.dao.mysql.MySqlDAO;
 import ingweb.main.aziendatrasporti.dao.mysql.MySqlQueryManager;
 import ingweb.main.aziendatrasporti.mo.mo.Service;
 import ingweb.main.aziendatrasporti.mo.mo.ServiceBill;
-
 import java.sql.Connection;
+import java.util.ArrayList;
 
 public class MySqlBillDAO extends MySqlDAO<ServiceBill> implements BillDAO {
 
@@ -21,9 +21,10 @@ public class MySqlBillDAO extends MySqlDAO<ServiceBill> implements BillDAO {
 
         return new ServiceBill(Integer.parseInt(item[0]),
             new Service(Integer.parseInt(item[1]), null, null, null, null, null, false),
-            item[2], item[3], item[4], Float.parseFloat(item[5]), item[6].equals("1"));
+            item[2], item[3], Float.parseFloat(item[4]), item[5].equals("1"));
     }
 
     public int findLastCode() { return lastCode(); }
+    public ArrayList<ServiceBill> findAll() { return selectAll(); }
     public void addBill(ServiceBill serviceBill) { insert(serviceBill.asList()); }
 }

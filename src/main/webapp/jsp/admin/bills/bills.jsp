@@ -2,8 +2,8 @@
 <%@ page import="ingweb.main.aziendatrasporti.mo.mo.*" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%
-    var assignmentList=(ArrayList<Assignment>)request.getAttribute("assignmentList");
-    if (assignmentList==null) assignmentList=new ArrayList<>();
+    var bilList=(ArrayList<ServiceBill>)request.getAttribute("billList");
+    if (bilList==null) bilList=new ArrayList<>();
 %>
 <%@ include file="/jsp/admin/welcome.jsp" %>
 <html>
@@ -14,14 +14,13 @@
         <script>
             window.addEventListener("load", function() {
 
-                let removeButtons=document.querySelectorAll("input[name='remove']");
                 let refreshButton=document.querySelector("#refreshButton");
                 let serviceListButton=document.querySelector("#addButton");
                 let backButton=document.querySelector("#backButton");
 
                 refreshButton.addEventListener("click", function() {
 
-                    document.dataForm.action.value="AssignmentController.getAssignments";
+                    document.dataForm.action.value="BillController.getBills";
                     document.dataForm.submit();
                 });
 
@@ -36,39 +35,35 @@
                     document.dataForm.action.value="ServiceController.getServices";
                     document.dataForm.submit();
                 });
-
-                removeButtons.forEach(b => {
-
-                    b.addEventListener("click", function() {
-
-                        document.dataForm.action.value="AssignmentController.deleteAssignment";
-                        document.dataForm.code.value=this.id;
-                        document.dataForm.submit();
-                    });
-                });
             });
         </script>
     </head>
     <body>
         <hr/>
-        <h1>Servizi in corso</h1>
+        <h1>Fatture di pagamento</h1>
         <table>
             <tr class="firstRow">
-                <td>Servizio</td>
-                <td>Primo autista</td>
-                <td>Secondo autista</td>
-                <td>Mezzo</td>
-                <td>Problemi rilevati</td>
-                <td>Azioni</td>
+                <td colspan="3">Resoconto servizio</td>
+                <td colspan="3">Dettagli cliente</td>
+                <td rowspan="2">Importo totale</td>
             </tr>
-            <% for (var assignment: assignmentList) { %>
+            <tr class="firstRow">
+                <td>Nome</td>
+                <td>Data</td>
+                <td>Ora</td>
+                <td>Nome azienda</td>
+                <td>Sede</td>
+                <td>Responsabile</td>
+            </tr>
+            <% for (var bill: bilList) { %>
                 <tr>
-                    <% for (var field: assignment.data()) if (!(field instanceof Boolean)) { %><td><%=
-                        (field==null ? "---" :
-                        (field instanceof Service ? ((Service)field).display() :
-                        (field instanceof Worker ? ((Worker)field).display() :
-                        (field instanceof Truck ? ((Truck)field).display() : field)))) %></td><% } %>
-                    <td><input type="button" id="<%= assignment.getCode() %>" name="remove" value="Rimuovi assegnamento"></td>
+                    <td><%= bill.getService().getName() %></td>
+                    <td><%= bill.getService().getDate() %></td>
+                    <td><%= bill.getService().getStartTime() %></td>
+                    <td><%= bill.getService().getClientCompany().getName() %> (<%= bill.getService().getClientCompany().getSocialReason() %>)</td>
+                    <td><%= bill.getService().getClientCompany().getLocation() %></td>
+                    <td><%= bill.getService().getClientCompany().getManagerName() %> (<%= bill.getService().getClientCompany().getManagerFiscalCode() %>)</td>
+                    <td>€ <%= bill.getAmount() %></td>
                 </tr>
             <% } %>
         </table>

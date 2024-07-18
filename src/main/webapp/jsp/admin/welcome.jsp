@@ -43,6 +43,12 @@
                     document.tabForm.submit();
                 });
 
+                document.querySelector("#bills").addEventListener("click", function() {
+
+                    document.querySelector("#action").value="BillController.getBills";
+                    document.tabForm.submit();
+                });
+
                 document.querySelector("#logout").addEventListener("click", function() {
 
                     document.querySelector("#action").value="LoginController.logout";
@@ -70,7 +76,8 @@
                     <input type="button" id="services" value="Visualizza lista servizi">
                     <input type="button" id="trucks" value="Visualizza lista mezzi">
                     <input type="button" id="clients" value="Visualizza lista clienti">
-                    <hr class="divhr" style="width: 58%">
+                    <input type="button" id="bills" value="Resoconto fatture">
+                    <hr class="divhr" style="width: 50%">
                     <input type="button" id="logout" value="Torna al login">
                 </div>
                 <input type="hidden" id="action" name="action">

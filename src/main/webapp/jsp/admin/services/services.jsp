@@ -126,6 +126,7 @@
                 </tr>
             <% } %>
         </table>
+        <br/>
         <table>
             <tr>
                 <td><input type="button" id="assignedList" value="Vedi servizi in corso"/></td>

@@ -2,8 +2,8 @@
 <%@ page import="ingweb.main.aziendatrasporti.mo.mo.*" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%
-    var assignmentList =(ArrayList<Assignment>)request.getAttribute("assignmentList");
-    if (assignmentList ==null) assignmentList =new ArrayList<>();
+    var assignmentList=(ArrayList<Assignment>)request.getAttribute("assignmentList");
+    if (assignmentList==null) assignmentList=new ArrayList<>();
 %>
 <%@ include file="/jsp/admin/welcome.jsp" %>
 <html>

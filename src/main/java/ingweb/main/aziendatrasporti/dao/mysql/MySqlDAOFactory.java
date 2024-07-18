@@ -46,5 +46,5 @@ public class MySqlDAOFactory extends DAOFactory {
     public TruckDAO getTruckDAO() { return new MySqlTruckDAO(connection, "mezzo"); }
     public AssignmentDAO getAssignmentDAO() { return new MySqlAssignmentDAO(connection, "assegnamento"); }
     public LicenseDAO getLicenseDAO() { return new MySqlLicenseDAO(connection); }
-    public BillDAO getBillDAO() { return new MySqlBillDAO(connection, "service_bill"); }
+    public BillDAO getBillDAO() { return new MySqlBillDAO(connection, "service_bills"); }
 }

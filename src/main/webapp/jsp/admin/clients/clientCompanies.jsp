@@ -15,7 +15,7 @@
                 let removeButtons=document.querySelectorAll("input[name='remove']");
                 let updateButtons=document.querySelectorAll("input[name='edit']");
                 let refreshButton=document.querySelector("#refreshButton");
-                let newClientButton=document.querySelector("#newClientButton");
+                let newClientButton=document.querySelector("#addButton");
                 let backButton=document.querySelector("#backButton");
 
                 refreshButton.addEventListener("click", function() { document.dataForm.action.value="ClientController.getClients"; });

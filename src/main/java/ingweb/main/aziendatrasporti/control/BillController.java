@@ -49,7 +49,7 @@ public class BillController implements Controller {
         var billCode=billDAO.findLastCode();
         var amount=request.getParameter("amount");
         var bankCoordinates=request.getParameter("bankCoordinates");
-        var bill=new ServiceBill(billCode, service, null, null, bankCoordinates, Float.parseFloat(amount), false);
+        var bill=new ServiceBill(billCode, service, null, bankCoordinates, Float.parseFloat(amount), false);
         billDAO.addBill(bill);
 
         var assignmentDAO=newDao.getAssignmentDAO();
@@ -61,5 +61,29 @@ public class BillController implements Controller {
         attributes.add(new Object[]{"licenseList", licenseList});
         attributes.add(new Object[]{"selectedTab", "services"});
         attributes.add(new Object[]{"viewUrl", "/admin/services/services"});
+    }
+
+    public static void getBills(HttpServletRequest request, HttpServletResponse response) {
+
+        var dao=Controller.getMySqlDAO("aziendatrasportidb");
+        var newDao=Controller.getMySqlDAO("azienda_trasporti");
+        var billDAO=dao.getBillDAO();
+        var billList=billDAO.findAll();
+        for (var bill: billList) {
+
+            var serviceDAO=newDao.getServiceDAO();
+            var service=serviceDAO.findByCode(bill.getService().getCode());
+
+            var clientDAO=newDao.getClientDAO();
+            var client=clientDAO.findBySocialReason(service.getClientCompany().getSocialReason());
+            service.setClientCompany(client);
+            bill.setService(service);
+        }
+
+        dao.confirm();
+        newDao.confirm();
+        attributes.add(new Object[]{"billList", billList});
+        attributes.add(new Object[]{"selectedTab", "bills"});
+        attributes.add(new Object[]{"viewUrl", "/admin/bills/bills"});
     }
 }
