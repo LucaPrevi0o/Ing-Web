@@ -52,8 +52,9 @@ public class ClientController implements Controller {
         var clientCompany=new ClientCompany(code, name, socialReason, location, managerName, managerFiscalCode, Date.valueOf(managerBirthDate), managerTelNumber, false);
         clientDAO.addClient(clientCompany);
 
-        var account=new Account(code, managerFiscalCode, socialReason, managerName, Account.MANAGER_LEVEL, false);
         var accountDAO=newDao.getAccountDAO();
+        code=accountDAO.findLastCode()+1;
+        var account=new Account(code, managerFiscalCode, socialReason, managerName, null, Account.MANAGER_LEVEL, false);
         accountDAO.addAccount(account);
         newDao.confirm();
 
@@ -71,7 +72,7 @@ public class ClientController implements Controller {
         clientDAO.removeClient(clientCompany);
 
         var accountDAO=newDao.getAccountDAO();
-        accountDAO.removeAccount(new Account(clientCompany.getManagerFiscalCode(), null, null, 0));
+        accountDAO.removeAccount(new Account(clientCompany.getManagerFiscalCode(), null, null, null, 0));
         listView(request, response, dao);
     }
 

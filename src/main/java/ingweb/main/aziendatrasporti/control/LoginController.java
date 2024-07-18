@@ -3,39 +3,24 @@ package ingweb.main.aziendatrasporti.control;
 import ingweb.main.aziendatrasporti.mo.mo.Account;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 
 public class LoginController implements Controller {
 
-    private static void adminLogin(HttpServletRequest request, HttpServletResponse response, Account account) {
-
-        attributes.add(new Object[]{"loggedAccount", account});
-        attributes.add(new Object[]{"viewUrl", "/admin/welcome"});
-    }
-
-    private static void workerLogin(HttpServletRequest request, HttpServletResponse response, Account account) {
-
-        attributes.add(new Object[]{"loggedAccount", account});
-        attributes.add(new Object[]{"viewUrl", "/worker/welcome"});
-    }
-
-    private static void managerLogin(HttpServletRequest request, HttpServletResponse response, Account account) {
-
-        attributes.add(new Object[]{"loggedAccount", account});
-        attributes.add(new Object[]{"viewUrl", "/clientManager/welcome"});
-    }
-
-    private static void rejectLogin(HttpServletRequest request, HttpServletResponse response, String rejectReason) {
+    private static void rejectLogin(HttpServletRequest request, HttpServletResponse response) {
 
         attributes.add(new Object[]{"viewUrl", "/login"});
-        attributes.add(new Object[]{"access", rejectReason});
+        attributes.add(new Object[]{"access", "not-registered"});
     }
 
-    private static void accept(HttpServletRequest request, HttpServletResponse response, Account loggedAccount, ArrayList<Account> adminList, ArrayList<Account> managerList) {
+    private static void accept(HttpServletRequest request, HttpServletResponse response, Account loggedAccount) {
 
-        if (adminList.contains(loggedAccount)) adminLogin(request, response, loggedAccount);
-        else if (managerList.contains(loggedAccount)) managerLogin(request, response, loggedAccount);
-        else workerLogin(request, response, loggedAccount);
+        attributes.add(new Object[]{"loggedAccount", loggedAccount});
+        var viewUrl="/";
+        viewUrl+=(loggedAccount.getLevel()==Account.WORKER_LEVEL ? "worker" :
+            (loggedAccount.getLevel()==Account.MANAGER_LEVEL ? "clientManager" :
+            (loggedAccount.getLevel()==Account.ADMIN_LEVEL ? "admin" : "")));
+        viewUrl+="/welcome";
+        attributes.add(new Object[]{"viewUrl", viewUrl});
     }
 
     public static void doLogin(HttpServletRequest request, HttpServletResponse response) {
@@ -44,32 +29,25 @@ public class LoginController implements Controller {
         var mySqlDAO=Controller.getMySqlDAO("aziendatrasportidb");
         var mySqlAccountDAO=mySqlDAO.getAccountDAO();
         var cookieAccountDAO=cookieDAO.getAccountDAO();
-        var adminList=mySqlAccountDAO.findAllByLevel(Account.ADMIN_LEVEL); //get list of admin accounts
-        var managerList=mySqlAccountDAO.findAllByLevel(Account.MANAGER_LEVEL); //get list of client company manager accounts
         var loggedAccount=cookieAccountDAO.findLoggedAccount(); //check for already logged account (not null cookie value)
 
         if (loggedAccount!=null) { //if account cookie is already set, login directly with same validation
 
             mySqlDAO.confirm();
-            accept(request, response, loggedAccount, adminList, managerList);
+            accept(request, response, loggedAccount);
         } else { //proceed to validate credential if account has not logged already
 
             //get account credentials from login form
             var username=request.getParameter("username");
             var password=request.getParameter("password");
 
-            System.out.println("Username: "+username+" - Password: "+password);
+            loggedAccount=mySqlAccountDAO.findByUsernameAndPassword(username, password); //find account instance from database by username
+            if (loggedAccount==null) rejectLogin(request, response);
+            else {
 
-            loggedAccount=mySqlAccountDAO.findByUsername(username); //find account instance from database by username
-            System.out.println("Account: "+loggedAccount);
-            if (loggedAccount!=null) cookieAccountDAO.createAccount(loggedAccount); //if the account is valid, set its data as a new cookie
-            var accountList=mySqlAccountDAO.findAll(); //get list of every account in db
-            mySqlDAO.confirm();
-
-            //check for credential validation and manage login
-            if (!accountList.contains(loggedAccount)) rejectLogin(request, response, "not-registered");
-            else if (!loggedAccount.getPassword().equals(password)) rejectLogin(request, response, "denied");
-            else accept(request, response, loggedAccount, adminList, managerList);
+                cookieAccountDAO.createAccount(loggedAccount); //if the account is valid, set its data as a new cookie
+                accept(request, response, loggedAccount); //proceed to account validation by level
+            }
         }
     }
 
@@ -93,7 +71,7 @@ public class LoginController implements Controller {
         var cookieDAO=Controller.getCookieDAO(request, response);
         var cookieAccountDAO=cookieDAO.getAccountDAO();
         var loggedAccount=cookieAccountDAO.findLoggedAccount();
-        cookieAccountDAO.deleteAccount(loggedAccount);
+        cookieAccountDAO.deleteAccount(loggedAccount); //delete cookie for current account
 
         var mySqlDAO=Controller.getMySqlDAO("aziendatrasportidb");
         var mySqlAccountDAO=mySqlDAO.getAccountDAO();
@@ -101,15 +79,13 @@ public class LoginController implements Controller {
         var username=request.getParameter("username");
         var password=request.getParameter("password");
         var name=request.getParameter("name");
-        var account=new Account(loggedAccount.getCode(), username, password, name, loggedAccount.getLevel(), false);
-        mySqlAccountDAO.updateAccount(account);
+        var bankCoordinates=request.getParameter("bankCoordinates");
+        var account=new Account(loggedAccount.getCode(), username, password, name, bankCoordinates, loggedAccount.getLevel(), false);
+        mySqlAccountDAO.updateAccount(account); //update account in database
         mySqlDAO.confirm();
-        cookieAccountDAO.createAccount(account);
 
-        attributes.add(new Object[]{"loggedAccount", account});
-        if (loggedAccount.getLevel()==Account.ADMIN_LEVEL) attributes.add(new Object[]{"viewUrl", "/admin/welcome"});
-        else if (loggedAccount.getLevel()==Account.MANAGER_LEVEL) attributes.add(new Object[]{"viewUrl", "/clientManager/welcome"});
-        else attributes.add(new Object[]{"viewUrl", "/worker/welcome"});
+        cookieAccountDAO.createAccount(account); //set new cookie from updated data
+        accept(request, response, account); //redo login with new account
     }
 
     public static void view(HttpServletRequest request, HttpServletResponse response) { attributes.add(new Object[]{"viewUrl", "/login"}); }

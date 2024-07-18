@@ -40,9 +40,13 @@
                     <td><input type="password" id="password" name="password" placeholder="Modifica password" value="<%= loggedAccount.getPassword() %>" required></td>
                 </tr>
                 <tr>
-                    <td rowspan="2">Informazioni personali</td>
+                    <td rowspan="3">Informazioni personali</td>
                     <td><label for="name">Nome completo</label></td>
                     <td><input type="text" id="name" name="name" placeholder="Nome" value="<%= loggedAccount.getFullName() %>" required></td>
+                </tr>
+                <tr>
+                    <td>Coordinate IBAN</td>
+                    <td><input type="text" id="bankCoordinates" name="bankCoordinates" placeholder="Coordinate bancarie (IBAN)" value="<%= loggedAccount.getBankCoordinates()==null ? "" : loggedAccount.getBankCoordinates() %>"></td>
                 </tr>
                 <tr>
                     <td>Livello di accesso</td>

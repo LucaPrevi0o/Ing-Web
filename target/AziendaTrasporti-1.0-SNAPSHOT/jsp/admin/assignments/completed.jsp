@@ -41,7 +41,7 @@
 
                     b.addEventListener("click", function() {
 
-                        document.dataForm.action.value="AssignmentController.removeAssignment";
+                        document.dataForm.action.value="BillController.newBill";
                         document.dataForm.code.value=this.id;
                         document.dataForm.submit();
                     });
@@ -64,10 +64,10 @@
             <% for (var assignment: assignmentList) { %>
             <tr>
                 <% for (var field: assignment.data()) if (!(field instanceof Boolean)) { %><td><%=
-            (field==null ? "---" :
+                    (field==null ? "---" :
                     (field instanceof Service ? ((Service)field).display() :
-                            (field instanceof Worker ? ((Worker)field).display() :
-                                    (field instanceof Truck ? ((Truck)field).display() : field)))) %></td><% } %>
+                    (field instanceof Worker ? ((Worker)field).display() :
+                    (field instanceof Truck ? ((Truck)field).display() : field)))) %></td><% } %>
                 <td><input type="button" id="<%= assignment.getCode() %>" name="remove" value="Richiedi pagamento"></td>
             </tr>
             <% } %>

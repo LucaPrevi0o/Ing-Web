@@ -63,10 +63,11 @@ public class WorkerController implements Controller {
 
         var worker=new Worker(code, name, surname, fiscalCode, Date.valueOf(birthDate), telNumber, false);
         worker.setLicenses(licenseList);
-
-        var account=new Account(code, fiscalCode, name.toLowerCase(), name+" "+surname, Account.WORKER_LEVEL, false);
         workerDAO.addWorker(worker);
+
         var accountDAO=newDao.getAccountDAO();
+        code=accountDAO.findLastCode()+1;
+        var account=new Account(code, fiscalCode, name.toLowerCase(), name+" "+surname, null, Account.WORKER_LEVEL, false);
         accountDAO.addAccount(account);
         newDao.confirm();
 
@@ -92,7 +93,7 @@ public class WorkerController implements Controller {
         workerDAO.removeWorker(worker);
 
         var accountDAO=newDao.getAccountDAO();
-        accountDAO.removeAccount(new Account(worker.getFiscalCode(), null, null, 0));
+        accountDAO.removeAccount(new Account(worker.getFiscalCode(), null, null, null, 0));
 
         newDao.confirm();
         listView(request, response, dao);

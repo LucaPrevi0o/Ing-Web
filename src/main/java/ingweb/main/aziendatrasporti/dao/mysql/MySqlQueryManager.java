@@ -99,6 +99,7 @@ public class MySqlQueryManager {
                 //instead of the Java zero-index standard)
                 if (params[index] instanceof String) statement.setString(index+1, (String)params[index]);
                 else if (params[index] instanceof Integer) statement.setInt(index+1, (Integer)params[index]);
+                else if (params[index] instanceof Float) statement.setFloat(index+1, (Float)params[index]);
                 else if (params[index] instanceof Double) statement.setDouble(index+1, (Double)params[index]);
                 else if (params[index] instanceof Boolean) statement.setBoolean(index+1, (Boolean)params[index]);
                 else if (params[index] instanceof Date) statement.setDate(index+1, (Date)params[index]);

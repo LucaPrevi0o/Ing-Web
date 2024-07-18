@@ -40,7 +40,7 @@ public class MySqlServiceDAO extends MySqlDAO<Service> implements ServiceDAO {
     public int findLastCode() { return lastCode(); }
     public void addService(Service service) { insert(service.asList()); }
     public void removeService(Service service) { remove(service.getCode()); }
-    public void deleteService(Service service) { delete(service.getCode()); }
+    public void deleteService(Service service) { delete(0, service.getCode()); }
     public void updateService(Service service) { update(service.asList()); }
     public ArrayList<Service> findAllRequested() { return selectAll(new int[]{4}, new Object[]{IS_NULL}); }
 }

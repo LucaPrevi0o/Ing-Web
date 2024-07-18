@@ -30,7 +30,7 @@ public class MySqlAssignmentDAO extends MySqlDAO<Assignment> implements Assignme
     public Assignment findByCode(int code) { return select(new int[]{0}, new Object[]{code}); }
     public int findLastCode() { return lastCode(); }
     public void addAssignment(Assignment assignment) { insert(assignment.asList()); }
-    public void removeAssignment(Assignment assignment) { delete(assignment.getCode()); }
+    public void removeAssignment(Assignment assignment) { delete(0, assignment.getCode()); }
     public void updateAssignment(Assignment assignment) { update(assignment.asList()); }
     public void completeAssignment(Assignment assignment) { remove(assignment.getCode()); }
 
@@ -42,6 +42,15 @@ public class MySqlAssignmentDAO extends MySqlDAO<Assignment> implements Assignme
         var resList=MySqlQueryManager.asList(res, getColumns());
         for (var item: resList) result.add(get(item));
         return result;
+    }
+
+    public Assignment findByService(Service service) {
+
+        var query="select * from "+getTableName()+" where "+getColumns()[1]+" = '"+service.getCode()+"' and "+getColumns()[getColumns().length-1]+" = 1";
+        var res=MySqlQueryManager.getResult(getConnection(), query);
+        var resList=MySqlQueryManager.asList(res, getColumns());
+        if (resList.size()!=1) return null;
+        return get(resList.get(0));
     }
 
     public ArrayList<Assignment> findAllByWorker(Worker worker) {
