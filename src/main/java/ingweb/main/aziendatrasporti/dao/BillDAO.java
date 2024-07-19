@@ -7,5 +7,7 @@ public interface BillDAO {
 
     public int findLastCode();
     public void addBill(ServiceBill serviceBill);
+    public void removeBill(ServiceBill serviceBill);
+    public ServiceBill findByCode(int code);
     public ArrayList<ServiceBill> findAll();
 }

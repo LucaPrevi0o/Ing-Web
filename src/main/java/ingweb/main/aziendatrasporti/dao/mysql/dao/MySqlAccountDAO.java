@@ -23,6 +23,7 @@ public class MySqlAccountDAO extends MySqlDAO<Account> implements AccountDAO {
     public Account findByUsernameAndPassword(String username, String password) { return select(new int[]{1, 2}, new Object[]{username, password}); }
     public Account findByUsername(String username) { return select(new int[]{1}, new Object[]{username}); }
     public Account findByCode(int code) { return select(new int[]{0}, new Object[]{code}); }
+    public Account findByBankCoordinates(String bankCoordinates) { return select(new int[]{4}, new Object[]{bankCoordinates}); }
     public int findLastCode() { return lastCode(); }
     public void addAccount(Account account) { insert(account.asList()); }
     public void updateAccount(Account account) { update(account.asList()); }

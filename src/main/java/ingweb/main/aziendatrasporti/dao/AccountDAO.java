@@ -14,6 +14,7 @@ public interface AccountDAO {
     public int findLastCode();
     public Account findByUsernameAndPassword(String username, String password);
     public Account findLoggedAccount();
+    public Account findByBankCoordinates(String bankCoordinates);
     public Account findByUsername(String username);
     public Account findByCode(int code);
 

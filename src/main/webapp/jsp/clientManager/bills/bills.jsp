@@ -14,6 +14,7 @@
         <script>
             window.addEventListener("load", function() {
 
+                let detailsButtons=document.querySelectorAll("input[name='payBill']");
                 let refreshButton=document.querySelector("#refreshButton");
                 let backButton=document.querySelector("#backButton");
 
@@ -27,6 +28,16 @@
 
                     document.dataForm.action.value="LoginController.doLogin";
                     document.dataForm.submit();
+                });
+
+                detailsButtons.forEach(b => {
+
+                    b.addEventListener("click", function() {
+
+                        document.dataForm.action.value="BillController.commitPayment";
+                        document.dataForm.code.value=this.id;
+                        document.dataForm.submit();
+                    });
                 });
             });
         </script>

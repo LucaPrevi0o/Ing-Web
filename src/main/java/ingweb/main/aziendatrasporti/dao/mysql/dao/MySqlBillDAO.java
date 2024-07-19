@@ -26,5 +26,7 @@ public class MySqlBillDAO extends MySqlDAO<ServiceBill> implements BillDAO {
 
     public int findLastCode() { return lastCode(); }
     public ArrayList<ServiceBill> findAll() { return selectAll(); }
+    public ServiceBill findByCode(int code) { return select(new int[]{0}, new Object[]{code}); }
     public void addBill(ServiceBill serviceBill) { insert(serviceBill.asList()); }
+    public void removeBill(ServiceBill serviceBill) { remove(serviceBill.getCode()); }
 }

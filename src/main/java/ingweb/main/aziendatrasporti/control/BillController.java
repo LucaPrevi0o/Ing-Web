@@ -1,11 +1,40 @@
 package ingweb.main.aziendatrasporti.control;
 
+import ingweb.main.aziendatrasporti.dao.DAOFactory;
 import ingweb.main.aziendatrasporti.mo.mo.Account;
 import ingweb.main.aziendatrasporti.mo.mo.ServiceBill;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class BillController implements Controller {
+
+    private static void listView(HttpServletRequest request, HttpServletResponse response, DAOFactory dao, DAOFactory newDao) {
+
+        var cookieDao=Controller.getCookieDAO(request, response);
+        var accountDAO=cookieDao.getAccountDAO();
+        var account=accountDAO.findLoggedAccount();
+
+        var billDAO=dao.getBillDAO();
+        var billList=billDAO.findAll();
+        for (var bill: billList) {
+
+            var serviceDAO=newDao.getServiceDAO();
+            var service=serviceDAO.findByCode(bill.getService().getCode());
+
+            var clientDAO=newDao.getClientDAO();
+            var client=clientDAO.findBySocialReason(service.getClientCompany().getSocialReason());
+            service.setClientCompany(client);
+            bill.setService(service);
+        }
+
+        dao.confirm();
+        newDao.confirm();
+        attributes.add(new Object[]{"billList", billList});
+        attributes.add(new Object[]{"selectedTab", "bills"});
+        attributes.add(new Object[]{"viewUrl", (account.getLevel()==Account.MANAGER_LEVEL ? "/clientManager/" :
+            (account.getLevel()==Account.ADMIN_LEVEL ? "/admin/" :
+            (account.getLevel()==Account.WORKER_LEVEL ? "/worker/" : "")))+"bills/bills"});
+    }
 
     public static void newBill(HttpServletRequest request, HttpServletResponse response) {
 
@@ -68,29 +97,47 @@ public class BillController implements Controller {
 
         var dao=Controller.getMySqlDAO("aziendatrasportidb");
         var newDao=Controller.getMySqlDAO("azienda_trasporti");
-        var cookieDao=Controller.getCookieDAO(request, response);
-        var accountDAO=cookieDao.getAccountDAO();
-        var account=accountDAO.findLoggedAccount();
+        listView(request, response, dao, newDao);
+    }
 
+    public static void commitPayment(HttpServletRequest request, HttpServletResponse response) {
+
+        var dao=Controller.getMySqlDAO("aziendatrasportidb");
+        var newDao=Controller.getMySqlDAO("azienda_trasporti");
         var billDAO=dao.getBillDAO();
-        var billList=billDAO.findAll();
-        for (var bill: billList) {
 
-            var serviceDAO=newDao.getServiceDAO();
-            var service=serviceDAO.findByCode(bill.getService().getCode());
+        var code=request.getParameter("code");
+        var serviceBill=billDAO.findByCode(Integer.parseInt(code));
 
-            var clientDAO=newDao.getClientDAO();
-            var client=clientDAO.findBySocialReason(service.getClientCompany().getSocialReason());
-            service.setClientCompany(client);
-            bill.setService(service);
-        }
+        var accountDAO=dao.getAccountDAO();
+        var account=accountDAO.findByBankCoordinates(serviceBill.getDestinationBankCoords());
+
+        var serviceDAO=newDao.getServiceDAO();
+        var service=serviceDAO.findByCode(serviceBill.getService().getCode());
+
+        var clientDAO=newDao.getClientDAO();
+        var client=clientDAO.findBySocialReason(service.getClientCompany().getSocialReason());
+        service.setClientCompany(client);
+        serviceBill.setService(service);
 
         dao.confirm();
         newDao.confirm();
-        attributes.add(new Object[]{"billList", billList});
+        attributes.add(new Object[]{"serviceBill", serviceBill});
+        attributes.add(new Object[]{"destAccount", account});
         attributes.add(new Object[]{"selectedTab", "bills"});
-        attributes.add(new Object[]{"viewUrl", (account.getLevel()==Account.MANAGER_LEVEL ? "/clientManager/" :
-            (account.getLevel()==Account.ADMIN_LEVEL ? "/admin/" :
-            (account.getLevel()==Account.WORKER_LEVEL ? "/worker/" : "")))+"bills/bills"});
+        attributes.add(new Object[]{"viewUrl", "/clientManager/bills/billPayment"});
+    }
+
+    public static void confirmPayment(HttpServletRequest request, HttpServletResponse response) {
+
+        var dao=Controller.getMySqlDAO("aziendatrasportidb");
+        var newDao=Controller.getMySqlDAO("azienda_trasporti");
+        var billDAO=dao.getBillDAO();
+
+        var code=request.getParameter("code");
+        var serviceBill=billDAO.findByCode(Integer.parseInt(code));
+        billDAO.removeBill(serviceBill);
+
+        listView(request, response, dao, newDao);
     }
 }
