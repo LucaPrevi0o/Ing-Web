@@ -66,8 +66,8 @@ public class WorkerController implements Controller {
         workerDAO.addWorker(worker);
 
         var accountDAO=newDao.getAccountDAO();
-        code=accountDAO.findLastCode()+1;
-        var account=new Account(code, fiscalCode, name.toLowerCase(), name+" "+surname, null, Account.WORKER_LEVEL, false);
+        var accountCode=accountDAO.findLastCode()+1;
+        var account=new Account(accountCode, fiscalCode, name.toLowerCase(), name+" "+surname, code, null, Account.WORKER_LEVEL, false);
         accountDAO.addAccount(account);
         newDao.confirm();
 
@@ -93,7 +93,7 @@ public class WorkerController implements Controller {
         workerDAO.removeWorker(worker);
 
         var accountDAO=newDao.getAccountDAO();
-        accountDAO.removeAccount(new Account(worker.getFiscalCode(), null, null, null, 0));
+        accountDAO.removeAccount(new Account(worker.getFiscalCode(), null, null, 0, null, 0));
 
         newDao.confirm();
         listView(request, response, dao);
@@ -102,6 +102,7 @@ public class WorkerController implements Controller {
     public static void updateWorker(HttpServletRequest request, HttpServletResponse response) {
 
         var dao=Controller.getMySqlDAO("azienda_trasporti");
+        var newDao=Controller.getMySqlDAO("aziendatrasportidb");
 
         var code=request.getParameter("code");
         var name=request.getParameter("name");
@@ -118,10 +119,18 @@ public class WorkerController implements Controller {
         worker.setLicenses(licenseList);
 
         var workerDAO=dao.getWorkerDAO();
+        var oldWorker=workerDAO.findByCode(Integer.parseInt(code));
         workerDAO.updateWorker(worker);
 
         var licenseDAO=dao.getLicenseDAO();
         licenseDAO.updateLicensesByWorker(worker, licenseList);
+
+        var accountDAO=newDao.getAccountDAO();
+        var account=accountDAO.findByProfile(oldWorker.getCode());
+        account.setUsername(fiscalCode);
+        account.setPassword(name.toLowerCase());
+        accountDAO.updateAccount(account);
+        newDao.confirm();
 
         listView(request, response, dao);
     }

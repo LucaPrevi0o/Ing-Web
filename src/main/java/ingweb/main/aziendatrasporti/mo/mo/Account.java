@@ -7,6 +7,7 @@ public class Account extends ModelObject {
     private String username;
     private String password;
     private String fullName;
+    private int profile;
     private String bankCoordinates;
     private int level;
 
@@ -16,26 +17,28 @@ public class Account extends ModelObject {
     public final static int MANAGER_LEVEL=2;
 
     public String toString() { return this.fullName+": "+this.username+"@"+this.password+" ("+this.level+", "+this.isDeleted()+") - "+this.bankCoordinates; }
-    public Object[] asList() { return new Object[] {this.getCode(), this.username, this.password, this.fullName, this.bankCoordinates, this.level, this.isDeleted()}; }
-    public Object[] data() { return new Object[] {this.username, this.password, this.fullName, this.bankCoordinates, this.level}; }
+    public Object[] asList() { return new Object[] {this.getCode(), this.username, this.password, this.fullName, this.profile, this.bankCoordinates, this.level, this.isDeleted()}; }
+    public Object[] data() { return new Object[] {this.username, this.password, this.fullName, this.bankCoordinates, this.profile, this.level}; }
     public String display() { return this.fullName+" ("+this.username+"): "+this.level; }
 
-    public Account(int code, String username, String password, String fullName, String bankCoordinates, int level, boolean deleted) {
+    public Account(int code, String username, String password, String fullName, int profile, String bankCoordinates, int level, boolean deleted) {
 
         this.setCode(code);
         this.username=username;
         this.password=password;
         this.fullName=fullName;
+        this.profile=profile;
         this.bankCoordinates=bankCoordinates;
         this.level=level;
         this.setDeleted(deleted);
     }
 
-    public Account(String username, String password, String fullName, String bankCoordinates, int level) {
+    public Account(String username, String password, String fullName, int profile, String bankCoordinates, int level) {
 
         this.username=username;
         this.password=password;
         this.fullName=fullName;
+        this.profile=profile;
         this.bankCoordinates=bankCoordinates;
         this.level=level;
     }
@@ -46,6 +49,7 @@ public class Account extends ModelObject {
         if (((Account)o).getCode()!=this.getCode()) return false;
         if (!((Account)o).username.equals(this.username)) return false;
         if (!((Account)o).password.equals(this.password)) return false;
+        if (((Account)o).profile!=this.profile) return false;
         if (!((Account)o).fullName.equals(this.fullName)) return false;
         if (!((Account)o).bankCoordinates.equals(this.bankCoordinates)) return false;
         if (((Account)o).level!=this.level) return false;
@@ -60,6 +64,9 @@ public class Account extends ModelObject {
 
     public String getFullName() { return fullName; }
     public void setFullName(String fullName) { this.fullName=fullName; }
+
+    public int getProfile() { return this.profile; }
+    public void setProfile(int profile) { this.profile=profile; }
 
     public String getBankCoordinates() { return bankCoordinates; }
     public void setBankCoordinates(String bankCoordinates) { this.bankCoordinates=bankCoordinates; }

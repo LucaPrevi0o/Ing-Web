@@ -53,8 +53,8 @@ public class ClientController implements Controller {
         clientDAO.addClient(clientCompany);
 
         var accountDAO=newDao.getAccountDAO();
-        code=accountDAO.findLastCode()+1;
-        var account=new Account(code, managerFiscalCode, socialReason, managerName, null, Account.MANAGER_LEVEL, false);
+        var accountCode=accountDAO.findLastCode()+1;
+        var account=new Account(accountCode, managerFiscalCode, socialReason, managerName, code, null, Account.MANAGER_LEVEL, false);
         accountDAO.addAccount(account);
         newDao.confirm();
 
@@ -72,14 +72,14 @@ public class ClientController implements Controller {
         clientDAO.removeClient(clientCompany);
 
         var accountDAO=newDao.getAccountDAO();
-        accountDAO.removeAccount(new Account(clientCompany.getManagerFiscalCode(), null, null, null, 0));
+        accountDAO.removeAccount(new Account(clientCompany.getManagerFiscalCode(), null, null, 0, null, 0));
         listView(request, response, dao);
     }
 
     public static void updateClient(HttpServletRequest request, HttpServletResponse response) {
 
         var dao=Controller.getMySqlDAO("azienda_trasporti");
-        var clientDAO=dao.getClientDAO();
+        var newDao=Controller.getMySqlDAO("aziendatrasportidb");
 
         var code=request.getParameter("code");
         var name=request.getParameter("name");
@@ -92,7 +92,17 @@ public class ClientController implements Controller {
 
         var clientCompany=new ClientCompany(Integer.parseInt(code), name, socialReason, location, managerName, managerFiscalCode, Date.valueOf(managerBirthDate), managerTelNumber, false);
 
+        var clientDAO=dao.getClientDAO();
+        var oldClient=clientDAO.findByCode(Integer.parseInt(code));
         clientDAO.updateClient(clientCompany);
+
+        var accountDAO=newDao.getAccountDAO();
+        var account=accountDAO.findByProfile(oldClient.getCode());
+        account.setUsername(managerFiscalCode);
+        account.setPassword(socialReason);
+        accountDAO.updateAccount(account);
+        newDao.confirm();
+
         listView(request, response, dao);
     }
 

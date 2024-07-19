@@ -14,7 +14,6 @@ public class LoginController implements Controller {
 
     private static void accept(HttpServletRequest request, HttpServletResponse response, Account loggedAccount) {
 
-        attributes.add(new Object[]{"loggedAccount", loggedAccount});
         var viewUrl="/";
         viewUrl+=(loggedAccount.getLevel()==Account.WORKER_LEVEL ? "worker" :
             (loggedAccount.getLevel()==Account.MANAGER_LEVEL ? "clientManager" :
@@ -80,11 +79,14 @@ public class LoginController implements Controller {
         var password=request.getParameter("password");
         var name=request.getParameter("name");
         var bankCoordinates=request.getParameter("bankCoordinates");
-        var account=new Account(loggedAccount.getCode(), username, password, name, bankCoordinates, loggedAccount.getLevel(), false);
-        mySqlAccountDAO.updateAccount(account); //update account in database
+        var account=new Account(loggedAccount.getCode(), username, password, name, loggedAccount.getProfile(), bankCoordinates, loggedAccount.getLevel(), false);
+        if (!username.isEmpty() && !password.isEmpty() && !name.isEmpty()){
+
+            mySqlAccountDAO.updateAccount(account); //update account in database
+            cookieAccountDAO.createAccount(account); //set new cookie from updated data
+        }
         mySqlDAO.confirm();
 
-        cookieAccountDAO.createAccount(account); //set new cookie from updated data
         accept(request, response, account); //redo login with new account
     }
 

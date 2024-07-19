@@ -76,6 +76,7 @@ public abstract class MySqlDAO<T extends ModelObject> {
     public T select(int[] fieldIndexes, Object[] fieldValues) {
 
         var query=generateCompositeQuery(fieldIndexes, fieldValues);
+        System.out.println(query);
         if (query.isEmpty()) return null;
         var res=MySqlQueryManager.getResult(connection, query);
         var resList=MySqlQueryManager.asList(res, columns);
@@ -100,7 +101,6 @@ public abstract class MySqlDAO<T extends ModelObject> {
         query+=columns[columns.length-1]+") values (";
         for (var i=0; i<columns.length-1; i++) query+="?, ";
         query+="?)";
-        System.out.println(query);
         MySqlQueryManager.execute(connection, query, data);
     }
 
@@ -124,7 +124,6 @@ public abstract class MySqlDAO<T extends ModelObject> {
         var query="update "+tableName+" set ";
         for (var i=0; i<columns.length-1; i++) query+=columns[i]+" = ?, "; //first column (primary key) is not updated, but necessary in the query
         query+=columns[columns.length-1]+" = ? where "+columns[0]+" = '"+data[0]+"'"; //specify record to update based on first column
-        System.out.println(query);
         MySqlQueryManager.execute(connection, query, data); //array always contains first column as update, even if it's not updated
     }
 }

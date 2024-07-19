@@ -16,14 +16,16 @@ public class MySqlAccountDAO extends MySqlDAO<Account> implements AccountDAO {
         MySqlDAO.setColumns(MySqlQueryManager.getColumnNames(connection, tableName));
     }
 
-    public Account get(String[] item) { return new Account(Integer.parseInt(item[0]), item[1], item[2], item[3], item[4], Integer.parseInt(item[5]), item[6].equals("1")); }
+    public Account get(String[] item) { return new Account(Integer.parseInt(item[0]), item[1], item[2], item[3], Integer.parseInt(item[4]), item[5], Integer.parseInt(item[6]), item[7].equals("1")); }
 
     public ArrayList<Account> findAll() { return selectAll(); }
-    public ArrayList<Account> findAllByLevel(int level) { return selectAll(new int[]{4}, new Object[]{level}); }
+    public ArrayList<Account> findAllByLevel(int level) { return selectAll(new int[]{6}, new Object[]{level}); }
     public Account findByUsernameAndPassword(String username, String password) { return select(new int[]{1, 2}, new Object[]{username, password}); }
     public Account findByUsername(String username) { return select(new int[]{1}, new Object[]{username}); }
     public Account findByCode(int code) { return select(new int[]{0}, new Object[]{code}); }
-    public Account findByBankCoordinates(String bankCoordinates) { return select(new int[]{4}, new Object[]{bankCoordinates}); }
+    public Account findByBankCoordinates(String bankCoordinates) { return select(new int[]{5}, new Object[]{bankCoordinates}); }
+    public Account findByProfile(int profile) { return select(new int[]{4}, new Object[]{profile}); }
+
     public int findLastCode() { return lastCode(); }
     public void addAccount(Account account) { insert(account.asList()); }
     public void updateAccount(Account account) { update(account.asList()); }
