@@ -44,10 +44,12 @@
                     <td><label for="name">Nome completo</label></td>
                     <td><input type="text" id="name" name="name" placeholder="Nome" value="<%= loggedAccount.getFullName() %>" required></td>
                 </tr>
-                <tr>
-                    <td>Coordinate IBAN</td>
-                    <td><input type="text" id="bankCoordinates" name="bankCoordinates" placeholder="Coordinate bancarie (IBAN)" value="<%= loggedAccount.getBankCoordinates()==null ? "" : loggedAccount.getBankCoordinates() %>"></td>
-                </tr>
+                <% if (loggedAccount.getLevel()!=Account.WORKER_LEVEL) { %>
+                    <tr>
+                        <td>Coordinate IBAN</td>
+                        <td><input type="text" id="bankCoordinates" name="bankCoordinates" placeholder="Coordinate bancarie (IBAN)" value="<%= loggedAccount.getBankCoordinates()==null ? "" : loggedAccount.getBankCoordinates() %>"></td>
+                    </tr>
+                <% } %>
                 <tr>
                     <td>Livello di accesso</td>
                     <td><%= loggedAccount.getLevel()==Account.ADMIN_LEVEL ? "Amministratore" : (loggedAccount.getLevel()==Account.MANAGER_LEVEL ? "Cliente" : (loggedAccount.getLevel()==Account.WORKER_LEVEL ? "Dipendente" : "---")) %></td>
