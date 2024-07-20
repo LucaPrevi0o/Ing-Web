@@ -9,7 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0bf709cf-d99c-4d00-90c1-2fc5a7108193" name="Changes" comment="bug fixing">
+    <list default="true" id="0bf709cf-d99c-4d00-90c1-2fc5a7108193" name="Changes" comment="bug fixing - final">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/Dispatcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/Dispatcher.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/control/AssignmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/control/AssignmentController.java" afterDir="false" />
@@ -27,16 +27,39 @@
       <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/assignments/completed.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/assignments/completed.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/assignments/serviceAcceptance.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/assignments/serviceAcceptance.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/assignments/serviceBill.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/assignments/serviceBill.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/clientManager/bills/billPayment.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/clientManager/bills/billPayment.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/clientManager/bills/bills.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/clientManager/bills/bills.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/Dispatcher.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/Dispatcher.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/control/AssignmentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/control/AssignmentController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/control/BillController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/control/BillController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/control/ClientController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/control/ClientController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/control/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/control/LoginController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/control/WorkerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/control/WorkerController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/AccountDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/AccountDAO.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/cookie/dao/CookieAccountDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/cookie/dao/CookieAccountDAO.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlAccountDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlAccountDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlAssignmentDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlAssignmentDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlServiceDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlServiceDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlTruckDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlTruckDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlWorkerDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/WEB-INF/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlWorkerDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/admin/assignments/completed.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/admin/assignments/completed.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/admin/assignments/serviceAcceptance.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/admin/assignments/serviceAcceptance.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/admin/assignments/serviceBill.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/admin/assignments/serviceBill.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/clientManager/bills/billPayment.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/clientManager/bills/billPayment.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/clientManager/bills/bills.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/clientManager/bills/bills.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/Dispatcher.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/Dispatcher.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/control/AssignmentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/control/AssignmentController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/control/BillController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/control/BillController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/control/ClientController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/control/ClientController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/control/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/control/LoginController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/control/WorkerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/control/WorkerController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/AccountDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/AccountDAO.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/cookie/dao/CookieAccountDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/cookie/dao/CookieAccountDAO.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlAccountDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlAccountDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlAssignmentDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlAssignmentDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlServiceDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlServiceDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlTruckDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlTruckDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlWorkerDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlWorkerDAO.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -358,15 +381,7 @@
       <workItem from="1721370340164" duration="2854000" />
       <workItem from="1721397243304" duration="57000" />
       <workItem from="1721397886548" duration="8495000" />
-      <workItem from="1721460197574" duration="7152000" />
-    </task>
-    <task id="LOCAL-00080" summary="updated worker management with new dao-mo">
-      <option name="closed" value="true" />
-      <created>1719844761831</created>
-      <option name="number" value="00080" />
-      <option name="presentableId" value="LOCAL-00080" />
-      <option name="project" value="LOCAL" />
-      <updated>1719844761831</updated>
+      <workItem from="1721460197574" duration="7528000" />
     </task>
     <task id="LOCAL-00081" summary="updated truck management with new dao-mo">
       <option name="closed" value="true" />
@@ -752,7 +767,15 @@
       <option name="project" value="LOCAL" />
       <updated>1721404055396</updated>
     </task>
-    <option name="localTasksCounter" value="129" />
+    <task id="LOCAL-00129" summary="bug fixing - final">
+      <option name="closed" value="true" />
+      <created>1721467726698</created>
+      <option name="number" value="00129" />
+      <option name="presentableId" value="LOCAL-00129" />
+      <option name="project" value="LOCAL" />
+      <updated>1721467726699</updated>
+    </task>
+    <option name="localTasksCounter" value="130" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -774,7 +797,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="false" />
-    <MESSAGE value="smth bugged out on account validation" />
     <MESSAGE value="solved failure for password check after login" />
     <MESSAGE value="added assignment completion from worker list" />
     <MESSAGE value="added problem signaling from worker services" />
@@ -799,7 +821,8 @@
     <MESSAGE value="added pending payment bills from client account page" />
     <MESSAGE value="setup for service bill payment view in client account" />
     <MESSAGE value="bug fixing" />
-    <option name="LAST_COMMIT_MESSAGE" value="bug fixing" />
+    <MESSAGE value="bug fixing - final" />
+    <option name="LAST_COMMIT_MESSAGE" value="bug fixing - final" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
