@@ -43,7 +43,7 @@
 
                         document.dataForm.action.value="BillController.newBill";
                         document.dataForm.code.value=this.id;
-                        document.dataForm.submit();
+                        <% if (loggedAccount.getBankCoordinates()!=null) { %>document.dataForm.submit();<% } %>
                     });
                 });
             });

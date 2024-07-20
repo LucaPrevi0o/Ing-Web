@@ -63,7 +63,7 @@
             </table>
             <br/>
             <div class="styled">
-                <input type="button" id="assignService" name="assignService" value="Assegna servizio"/>
+                <input type="button" id="assignService" name="assignService" value="Accetta servizio"/>
                 <input type="button" id="backButton" name="backButton" value="Torna alla lista servizi"/>
             </div>
             <input type="hidden" name="code" value="<%= service.getCode() %>"/>

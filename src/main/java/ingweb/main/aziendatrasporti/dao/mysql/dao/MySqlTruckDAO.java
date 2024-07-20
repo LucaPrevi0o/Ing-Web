@@ -44,14 +44,26 @@ public class MySqlTruckDAO extends MySqlDAO<Truck> implements TruckDAO {
             "       select s2.data from servizio s2" +
             "       where s2.codice = '"+service.getCode()+"'" +
             "    )" +
-            "    AND s.ora_inizio = (" +
-            "       select s2.ora_inizio from servizio s2" +
-            "       where s2.codice = '"+service.getCode()+"'" +
-            "    )" +
-            "    AND s.durata = (" +
-            "       select s2.durata from servizio s2" +
-            "       where s2.codice = '"+service.getCode()+"'" +
-            "    )" +
+            "    AND ("+
+            "       s.ora_inizio > (" +
+            "          select s2.ora_inizio from servizio s2" +
+            "          where s2.codice = '"+service.getCode()+"'" +
+            "       ) AND s.ora_inizio < ADDTIME("+
+            "          (" +
+            "              select s2.ora_inizio from servizio s2" +
+            "              where s2.codice = '"+service.getCode()+"'" +
+            "          ), (" +
+            "              select s2.durata from servizio s2" +
+            "              where s2.codice = '"+service.getCode()+"'" +
+            "          )"+
+            "       ) OR s.ora_inizio < (" +
+            "          select s2.ora_inizio from servizio s2" +
+            "          where s2.codice = '"+service.getCode()+"'" +
+            "       ) AND ("+
+            "          select s2.ora_inizio from servizio s2" +
+            "          where s2.codice = '"+service.getCode()+"'" +
+            "       ) < ADDTIME(s.ora_inizio, s.durata)"+
+            "    )"+
             "    AND a.mezzo = m.targa" +
             ")" +
             "GROUP BY m.codice " +

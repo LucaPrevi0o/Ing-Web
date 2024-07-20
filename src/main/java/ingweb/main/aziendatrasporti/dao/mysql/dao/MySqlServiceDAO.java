@@ -42,5 +42,13 @@ public class MySqlServiceDAO extends MySqlDAO<Service> implements ServiceDAO {
     public void removeService(Service service) { remove(service.getCode()); }
     public void deleteService(Service service) { delete(0, service.getCode()); }
     public void updateService(Service service) { update(service.asList()); }
-    public ArrayList<Service> findAllRequested() { return selectAll(new int[]{4}, new Object[]{IS_NULL}); }
+    public ArrayList<Service> findAllRequested() {
+
+        var result=new ArrayList<Service>();
+        var query="select * from "+getTableName()+" where "+getColumns()[3]+" is null and "+getColumns()[4]+" is null and "+getColumns()[2]+" in (select ragione_sociale from azienda_cliente where eliminato = '0')";
+        var res=MySqlQueryManager.getResult(getConnection(), query);
+        var resList=MySqlQueryManager.asList(res, getColumns());
+        for (var item: resList) result.add(get(item));
+        return result;
+    }
 }

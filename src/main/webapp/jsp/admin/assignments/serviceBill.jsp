@@ -88,8 +88,8 @@
                     <td><input id="amount" name="amount" type="number" placeholder="€ 100.00" step="0.01" min="0.0" required></td>
                 </tr>
                 <tr>
-                    <td><label for="bankCoordinates">Coordinate bancarie di destinazione</label></td>
-                    <td><input id="bankCoordinates" name="bankCoordinates" type="text" placeholder="Coordinate (IBAN)" value="<%= loggedAccount.getBankCoordinates()==null ? null : loggedAccount.getBankCoordinates() %>" required></td>
+                    <td>Coordinate bancarie di destinazione</td>
+                    <td><%= loggedAccount.getBankCoordinates() %></td>
                 </tr>
             </table>
             <br>
@@ -99,6 +99,7 @@
             </div>
             <input type="hidden" name="action" value=""/>
             <input type="hidden" name="code" value="<%= service.getCode() %>"/>
+            <input type="hidden" name="bankCoordinates" value=" <%= loggedAccount.getBankCoordinates() %>">
         </form>
     </body>
 </html>

@@ -176,7 +176,7 @@ public class AssignmentController implements Controller {
         listView(request, response, dao, false);
     }
 
-    public static void removeAssignment(HttpServletRequest request, HttpServletResponse response) {
+    public static void deleteAssignment(HttpServletRequest request, HttpServletResponse response) {
 
         var dao=Controller.getMySqlDAO("azienda_trasporti");
         var code=request.getParameter("code");

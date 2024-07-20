@@ -39,13 +39,16 @@ public class BillController implements Controller {
     public static void newBill(HttpServletRequest request, HttpServletResponse response) {
 
         var dao=Controller.getMySqlDAO("azienda_trasporti");
-        var serviceDAO=dao.getServiceDAO();
 
         var licenseDAO=dao.getLicenseDAO();
         var licenseList=licenseDAO.findAll();
 
         var code=request.getParameter("code");
-        var service=serviceDAO.findByCode(Integer.parseInt(code));
+        var assignmentDAO=dao.getAssignmentDAO();
+        var assignment=assignmentDAO.findByCode(Integer.parseInt(code));
+
+        var serviceDAO=dao.getServiceDAO();
+        var service=serviceDAO.findByCode(assignment.getService().getCode());
 
         var clientDAO=dao.getClientDAO();
         var client=clientDAO.findBySocialReason(service.getClientCompany().getSocialReason());
@@ -70,13 +73,14 @@ public class BillController implements Controller {
 
         var serviceCode=request.getParameter("code");
         var service=serviceDAO.findByCode(Integer.parseInt(serviceCode));
+        System.out.println("Service: "+service);
 
         var clientDAO=newDao.getClientDAO();
         var client=clientDAO.findBySocialReason(service.getClientCompany().getSocialReason());
         service.setClientCompany(client);
 
         var billDAO=dao.getBillDAO();
-        var billCode=billDAO.findLastCode();
+        var billCode=billDAO.findLastCode()+1;
         var amount=request.getParameter("amount");
         var bankCoordinates=request.getParameter("bankCoordinates");
         var bill=new ServiceBill(billCode, service, null, bankCoordinates, Float.parseFloat(amount), false);
@@ -109,9 +113,6 @@ public class BillController implements Controller {
         var code=request.getParameter("code");
         var serviceBill=billDAO.findByCode(Integer.parseInt(code));
 
-        var accountDAO=dao.getAccountDAO();
-        var account=accountDAO.findByBankCoordinates(serviceBill.getDestinationBankCoords());
-
         var serviceDAO=newDao.getServiceDAO();
         var service=serviceDAO.findByCode(serviceBill.getService().getCode());
 
@@ -123,7 +124,6 @@ public class BillController implements Controller {
         dao.confirm();
         newDao.confirm();
         attributes.add(new Object[]{"serviceBill", serviceBill});
-        attributes.add(new Object[]{"destAccount", account});
         attributes.add(new Object[]{"selectedTab", "bills"});
         attributes.add(new Object[]{"viewUrl", "/clientManager/bills/billPayment"});
     }

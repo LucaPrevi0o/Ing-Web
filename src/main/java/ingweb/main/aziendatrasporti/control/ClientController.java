@@ -72,7 +72,8 @@ public class ClientController implements Controller {
         clientDAO.removeClient(clientCompany);
 
         var accountDAO=newDao.getAccountDAO();
-        accountDAO.removeAccount(new Account(clientCompany.getManagerFiscalCode(), null, null, 0, null, 0));
+        accountDAO.removeAccount(new Account(null, null, null, Integer.parseInt(code), null, Account.MANAGER_LEVEL));
+        newDao.confirm();
         listView(request, response, dao);
     }
 
@@ -97,7 +98,7 @@ public class ClientController implements Controller {
         clientDAO.updateClient(clientCompany);
 
         var accountDAO=newDao.getAccountDAO();
-        var account=accountDAO.findByProfile(oldClient.getCode());
+        var account=accountDAO.findByProfile(oldClient.getCode(), Account.MANAGER_LEVEL);
         account.setUsername(managerFiscalCode);
         account.setPassword(socialReason);
         accountDAO.updateAccount(account);

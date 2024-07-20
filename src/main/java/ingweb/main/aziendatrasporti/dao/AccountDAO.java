@@ -17,7 +17,7 @@ public interface AccountDAO {
     public Account findByBankCoordinates(String bankCoordinates);
     public Account findByUsername(String username);
     public Account findByCode(int code);
-    public Account findByProfile(int profile);
+    public Account findByProfile(int profile, int level);
 
     public void createAccount(Account account);
     public void deleteAccount(Account account);

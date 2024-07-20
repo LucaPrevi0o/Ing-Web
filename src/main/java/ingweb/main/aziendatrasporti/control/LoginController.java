@@ -33,6 +33,7 @@ public class LoginController implements Controller {
         if (loggedAccount!=null) { //if account cookie is already set, login directly with same validation
 
             mySqlDAO.confirm();
+            attributes.add(new Object[]{"loggedAccount", loggedAccount});
             accept(request, response, loggedAccount);
         } else { //proceed to validate credential if account has not logged already
 
@@ -41,9 +42,11 @@ public class LoginController implements Controller {
             var password=request.getParameter("password");
 
             loggedAccount=mySqlAccountDAO.findByUsernameAndPassword(username, password); //find account instance from database by username
+            mySqlDAO.confirm();
             if (loggedAccount==null) rejectLogin(request, response);
             else {
 
+                attributes.add(new Object[]{"loggedAccount", loggedAccount});
                 cookieAccountDAO.createAccount(loggedAccount); //if the account is valid, set its data as a new cookie
                 accept(request, response, loggedAccount); //proceed to account validation by level
             }

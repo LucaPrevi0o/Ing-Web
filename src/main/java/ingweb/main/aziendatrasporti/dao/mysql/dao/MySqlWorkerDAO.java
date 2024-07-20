@@ -43,16 +43,28 @@ public class MySqlWorkerDAO extends MySqlDAO<Worker> implements WorkerDAO {
                 "       select s2.data from servizio s2" +
                 "       where s2.codice = '"+service.getCode()+"'" +
                 "    )" +
-                "    AND s.ora_inizio = (" +
-                "       select s2.ora_inizio from servizio s2" +
-                "       where s2.codice = '"+service.getCode()+"'" +
-                "    )" +
-                "    AND s.durata = (" +
-                "       select s2.durata from servizio s2" +
-                "       where s2.codice = '"+service.getCode()+"'" +
-                "    )" +
-                "    AND a.primo_autista = m.codice_fiscale" +
-                "    OR a.secondo_autista = m.codice_fiscale" +
+                "    AND ("+
+                "       s.ora_inizio > (" +
+                "          select s2.ora_inizio from servizio s2" +
+                "          where s2.codice = '"+service.getCode()+"'" +
+                "       ) AND s.ora_inizio < ADDTIME("+
+                "          (" +
+                "              select s2.ora_inizio from servizio s2" +
+                "              where s2.codice = '"+service.getCode()+"'" +
+                "          ), (" +
+                "              select s2.durata from servizio s2" +
+                "              where s2.codice = '"+service.getCode()+"'" +
+                "          )"+
+                "       ) OR s.ora_inizio < (" +
+                "          select s2.ora_inizio from servizio s2" +
+                "          where s2.codice = '"+service.getCode()+"'" +
+                "       ) AND ("+
+                "          select s2.ora_inizio from servizio s2" +
+                "          where s2.codice = '"+service.getCode()+"'" +
+                "       ) < ADDTIME(s.ora_inizio, s.durata)"+
+                "    )"+
+                "    AND (a.primo_autista = m.codice_fiscale" +
+                "    OR a.secondo_autista = m.codice_fiscale)" +
                 ")" +
                 "GROUP BY m.codice " +
                 "HAVING NOT EXISTS ( " +

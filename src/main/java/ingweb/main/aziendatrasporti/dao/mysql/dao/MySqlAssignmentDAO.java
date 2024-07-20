@@ -26,7 +26,6 @@ public class MySqlAssignmentDAO extends MySqlDAO<Assignment> implements Assignme
         );
     }
 
-    public ArrayList<Assignment> findAll() { return selectAll(new int[]{6}, new Object[]{"0"}); }
     public ArrayList<Assignment> findAllCompleted() { return selectAll(new int[]{6}, new Object[]{"1"}); }
     public Assignment findByCode(int code) { return select(new int[]{0}, new Object[]{code}); }
     public Assignment findByService(Service service) { return select(new int[]{1, 6}, new Object[]{service.getCode(), "1"}); }
@@ -36,10 +35,20 @@ public class MySqlAssignmentDAO extends MySqlDAO<Assignment> implements Assignme
     public void removeAssignment(Assignment assignment) { remove(assignment.getCode()); }
     public void updateAssignment(Assignment assignment) { update(assignment.asList()); }
 
+    public ArrayList<Assignment> findAll() {
+
+        var result=new ArrayList<Assignment>();
+        var query="select * from "+getTableName()+" where "+getColumns()[1]+" in (select codice from servizio where cliente in (select ragione_sociale from azienda_cliente where eliminato = '0') and eliminato = '0') and "+getColumns()[2]+" in (select codice_fiscale from dipendente where eliminato = '0') and "+getColumns()[4]+" in (select targa from mezzo where eliminato = '0') and "+getColumns()[6]+" = 0 and "+getColumns()[getColumns().length-1]+" = 0";
+        var res=MySqlQueryManager.getResult(getConnection(), query);
+        var resList=MySqlQueryManager.asList(res, getColumns());
+        for (var item: resList) result.add(get(item));
+        return result;
+    }
+
     public ArrayList<Assignment> findAllByWorker(Worker worker) {
 
         var result=new ArrayList<Assignment>();
-        var query="select * from "+getTableName()+" where ("+getColumns()[2]+" = '"+worker.getFiscalCode()+"' or "+getColumns()[3]+" = '"+worker.getFiscalCode()+"') and "+getColumns()[6]+" = 0 and "+getColumns()[getColumns().length-1]+" = 0";
+        var query="select * from "+getTableName()+" where ("+getColumns()[2]+" in (select codice_fiscale from dipendente where codice_fiscale = '"+worker.getFiscalCode()+"') or "+getColumns()[3]+" = (select codice_fiscale from dipendente where codice_fiscale = '"+worker.getFiscalCode()+"')) and "+getColumns()[6]+" = 0 and "+getColumns()[getColumns().length-1]+" = 0";
         var res=MySqlQueryManager.getResult(getConnection(), query);
         var resList=MySqlQueryManager.asList(res, getColumns());
         for (var item: resList) result.add(get(item));

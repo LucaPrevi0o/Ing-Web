@@ -93,7 +93,7 @@ public class WorkerController implements Controller {
         workerDAO.removeWorker(worker);
 
         var accountDAO=newDao.getAccountDAO();
-        accountDAO.removeAccount(new Account(worker.getFiscalCode(), null, null, 0, null, 0));
+        accountDAO.removeAccount(new Account(null, null, null, Integer.parseInt(code), null, Account.WORKER_LEVEL));
 
         newDao.confirm();
         listView(request, response, dao);
@@ -126,7 +126,7 @@ public class WorkerController implements Controller {
         licenseDAO.updateLicensesByWorker(worker, licenseList);
 
         var accountDAO=newDao.getAccountDAO();
-        var account=accountDAO.findByProfile(oldWorker.getCode());
+        var account=accountDAO.findByProfile(oldWorker.getCode(), Account.WORKER_LEVEL);
         account.setUsername(fiscalCode);
         account.setPassword(name.toLowerCase());
         accountDAO.updateAccount(account);

@@ -36,7 +36,7 @@
 
                         document.dataForm.action.value="BillController.commitPayment";
                         document.dataForm.code.value=this.id;
-                        document.dataForm.submit();
+                        <% if (loggedAccount.getBankCoordinates()!=null ) { %>document.dataForm.submit();<% } %>
                     });
                 });
             });

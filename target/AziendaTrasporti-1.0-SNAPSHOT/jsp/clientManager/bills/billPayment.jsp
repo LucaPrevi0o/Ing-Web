@@ -1,10 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="ingweb.main.aziendatrasporti.mo.mo.ServiceBill" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%
-    var serviceBill=(ServiceBill)request.getAttribute("serviceBill");
-    var destAccount=(Account)request.getAttribute("destAccount");
-%>
+<% var serviceBill=(ServiceBill)request.getAttribute("serviceBill"); %>
 <%@ include file="/jsp/clientManager/welcome.jsp" %>
 <html>
     <head>
@@ -92,11 +89,11 @@
                 </tr>
                 <tr>
                     <td>Cordinate bancarie di destinazione</td>
-                    <td><%= serviceBill.getDestinationBankCoords() %> - <%= destAccount.getFullName() %></td>
+                    <td><%= serviceBill.getDestinationBankCoords() %></td>
                 </tr>
                 <tr>
-                    <td><label for="bankCoordinates">Coordinate bancarie di pagamento</label></td>
-                    <td><input id="bankCoordinates" name="bankCoordinates" type="text" placeholder="Coordinate (IBAN)" value="<%= loggedAccount.getBankCoordinates()==null ? null : loggedAccount.getBankCoordinates() %>" required></td>
+                    <td>Coordinate bancarie di pagamento</td>
+                    <td><%= loggedAccount.getBankCoordinates()==null ? null : loggedAccount.getBankCoordinates() %></td>
                 </tr>
             </table>
             <br/>

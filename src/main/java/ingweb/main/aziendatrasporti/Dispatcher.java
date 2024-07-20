@@ -33,7 +33,7 @@ public class Dispatcher extends HttpServlet {
 
             //apply every attribute to the request and dispatch the view
             var viewUrl=Controller.getViewURL(); //get HTML view page to forward
-            if (!param.equals("LoginController.logout")) Controller.commonState(request, response); //set all attributes in forwarded request
+            if (!param.equals("LoginController.logout") && !param.equals("LoginController.doLogin")) Controller.commonState(request, response); //set all attributes in forwarded request
             else Controller.setAllAttributes(request); //this handles logout action without overwriting the "loggedAccount" attribute
             var view=request.getRequestDispatcher("jsp/"+viewUrl+".jsp"); //set view control from parameter
             view.forward(request, response); //execute forward control
