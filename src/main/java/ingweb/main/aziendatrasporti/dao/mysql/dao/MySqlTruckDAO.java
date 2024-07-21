@@ -30,41 +30,21 @@ public class MySqlTruckDAO extends MySqlDAO<Truck> implements TruckDAO {
 
     public ArrayList<Truck> findAvailableByService(Service service) {
 
+        System.out.println(service);
         var result=new ArrayList<Truck>();
-        var query=
-            "SELECT m.* " +
+        var query="SELECT m.* " +
             "FROM mezzo m " +
             "JOIN patenti_mezzo pm ON m.targa = pm.mezzo " +
-            "WHERE m.disponibile = 1 " +
-            "AND NOT EXISTS (" +
+            "WHERE m.disponibile = '1' AND "+
+            "NOT EXISTS (" +
             "    SELECT 1 " +
             "    FROM assegnamento a " +
             "    JOIN servizio s ON s.codice = a.servizio" +
-            "    WHERE s.data = (" +
-            "       select s2.data from servizio s2" +
-            "       where s2.codice = '"+service.getCode()+"'" +
-            "    )" +
-            "    AND ("+
-            "       s.ora_inizio > (" +
-            "          select s2.ora_inizio from servizio s2" +
-            "          where s2.codice = '"+service.getCode()+"'" +
-            "       ) AND s.ora_inizio < ADDTIME("+
-            "          (" +
-            "              select s2.ora_inizio from servizio s2" +
-            "              where s2.codice = '"+service.getCode()+"'" +
-            "          ), (" +
-            "              select s2.durata from servizio s2" +
-            "              where s2.codice = '"+service.getCode()+"'" +
-            "          )"+
-            "       ) OR s.ora_inizio < (" +
-            "          select s2.ora_inizio from servizio s2" +
-            "          where s2.codice = '"+service.getCode()+"'" +
-            "       ) AND ("+
-            "          select s2.ora_inizio from servizio s2" +
-            "          where s2.codice = '"+service.getCode()+"'" +
-            "       ) < ADDTIME(s.ora_inizio, s.durata)"+
-            "    )"+
-            "    AND a.mezzo = m.targa" +
+            "    WHERE s.data = '"+service.getDate()+"' AND (("+
+            "       s.ora_inizio > '"+service.getStartTime()+"' AND s.ora_inizio < ADDTIME('"+service.getStartTime()+"', '"+service.getDuration()+"')"+
+            "    ) OR ("+
+            "       s.ora_inizio < '" +service.getStartTime()+"' AND '"+service.getStartTime()+"' < ADDTIME(s.ora_inizio, s.durata)"+
+            "    )) AND a.mezzo = m.targa" +
             ")" +
             "GROUP BY m.codice " +
             "HAVING NOT EXISTS ( " +
@@ -77,7 +57,7 @@ public class MySqlTruckDAO extends MySqlDAO<Truck> implements TruckDAO {
             "        WHERE pm2.mezzo = m.targa " +
             "    ) " +
             ")";
-
+        System.out.println(query);
         var res=MySqlQueryManager.getResult(getConnection(), query);
         var resList=MySqlQueryManager.asList(res, getColumns());
         for (var item: resList) {

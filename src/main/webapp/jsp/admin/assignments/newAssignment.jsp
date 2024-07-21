@@ -21,10 +21,12 @@
         <script>
             function submitForm() {
 
-                let firstDriver=document.querySelector("#selectedWorker");
+                let firstDriver=document.querySelector("#firstWorker");
                 let secondDriver=document.querySelector("#secondWorker");
+                let selectedTruck=document.querySelector("#selectedTruck");
+                console.log(firstDriver+" - "+secondDriver+" - "+selectedTruck);
                 document.dataForm.action.value="AssignmentController.addAssignment";
-                if (firstDriver!==secondDriver) document.dataForm.submit();
+                if (firstDriver!==null && secondDriver!==null && selectedTruck!==null && firstDriver!==secondDriver) document.dataForm.submit();
             }
 
             window.addEventListener("load", function() {

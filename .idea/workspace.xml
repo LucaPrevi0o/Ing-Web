@@ -9,10 +9,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0bf709cf-d99c-4d00-90c1-2fc5a7108193" name="Changes" comment="bug fixing - final">
+    <list default="true" id="0bf709cf-d99c-4d00-90c1-2fc5a7108193" name="Changes" comment="latest little final change">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/account.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/account.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/worker/welcome.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/worker/welcome.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlTruckDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlTruckDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlWorkerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlWorkerDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/assignments/newAssignment.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/assignments/newAssignment.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/admin/assignments/newAssignment.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/admin/assignments/newAssignment.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,7 +104,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15410273&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.26835042&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;liveEdit&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -336,30 +338,8 @@
       <workItem from="1721397886548" duration="8495000" />
       <workItem from="1721460197574" duration="7548000" />
       <workItem from="1721475598632" duration="183000" />
-    </task>
-    <task id="LOCAL-00082" summary="updated service management with new dao-mo">
-      <option name="closed" value="true" />
-      <created>1719909955960</created>
-      <option name="number" value="00082" />
-      <option name="presentableId" value="LOCAL-00082" />
-      <option name="project" value="LOCAL" />
-      <updated>1719909955960</updated>
-    </task>
-    <task id="LOCAL-00083" summary="added nav menu in every insertion form view">
-      <option name="closed" value="true" />
-      <created>1719910185632</created>
-      <option name="number" value="00083" />
-      <option name="presentableId" value="LOCAL-00083" />
-      <option name="project" value="LOCAL" />
-      <updated>1719910185632</updated>
-    </task>
-    <task id="LOCAL-00084" summary="worker and truck selection for assignment works">
-      <option name="closed" value="true" />
-      <created>1719929348901</created>
-      <option name="number" value="00084" />
-      <option name="presentableId" value="LOCAL-00084" />
-      <option name="project" value="LOCAL" />
-      <updated>1719929348901</updated>
+      <workItem from="1721478254760" duration="7983000" />
+      <workItem from="1721547368880" duration="1684000" />
     </task>
     <task id="LOCAL-00085" summary="service selection only selects not assigned">
       <option name="closed" value="true" />
@@ -729,7 +709,31 @@
       <option name="project" value="LOCAL" />
       <updated>1721467736282</updated>
     </task>
-    <option name="localTasksCounter" value="131" />
+    <task id="LOCAL-00131" summary="latest little final change">
+      <option name="closed" value="true" />
+      <created>1721478281673</created>
+      <option name="number" value="00131" />
+      <option name="presentableId" value="LOCAL-00131" />
+      <option name="project" value="LOCAL" />
+      <updated>1721478281673</updated>
+    </task>
+    <task id="LOCAL-00132" summary="latest little final change">
+      <option name="closed" value="true" />
+      <created>1721478289291</created>
+      <option name="number" value="00132" />
+      <option name="presentableId" value="LOCAL-00132" />
+      <option name="project" value="LOCAL" />
+      <updated>1721478289291</updated>
+    </task>
+    <task id="LOCAL-00133" summary="latest little final change">
+      <option name="closed" value="true" />
+      <created>1721478333015</created>
+      <option name="number" value="00133" />
+      <option name="presentableId" value="LOCAL-00133" />
+      <option name="project" value="LOCAL" />
+      <updated>1721478333015</updated>
+    </task>
+    <option name="localTasksCounter" value="134" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -751,7 +755,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="false" />
-    <MESSAGE value="solved failure for password check after login" />
     <MESSAGE value="added assignment completion from worker list" />
     <MESSAGE value="added problem signaling from worker services" />
     <MESSAGE value="added details view for worker services" />
@@ -776,7 +779,8 @@
     <MESSAGE value="setup for service bill payment view in client account" />
     <MESSAGE value="bug fixing" />
     <MESSAGE value="bug fixing - final" />
-    <option name="LAST_COMMIT_MESSAGE" value="bug fixing - final" />
+    <MESSAGE value="latest little final change" />
+    <option name="LAST_COMMIT_MESSAGE" value="latest little final change" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -787,5 +791,9 @@
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
