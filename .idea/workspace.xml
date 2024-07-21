@@ -9,12 +9,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0bf709cf-d99c-4d00-90c1-2fc5a7108193" name="Changes" comment="latest little final change">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="0bf709cf-d99c-4d00-90c1-2fc5a7108193" name="Changes" comment="reduced truck/worker query complexity">
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/MySqlDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/MySqlDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlAccountDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlAccountDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlAssignmentDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlAssignmentDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlServiceDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlServiceDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlTruckDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlTruckDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlWorkerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ingweb/main/aziendatrasporti/dao/mysql/dao/MySqlWorkerDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/assignments/newAssignment.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/assignments/newAssignment.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/admin/assignments/newAssignment.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/AziendaTrasporti-1.0-SNAPSHOT/jsp/admin/assignments/newAssignment.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -339,15 +340,7 @@
       <workItem from="1721460197574" duration="7548000" />
       <workItem from="1721475598632" duration="183000" />
       <workItem from="1721478254760" duration="7983000" />
-      <workItem from="1721547368880" duration="1684000" />
-    </task>
-    <task id="LOCAL-00085" summary="service selection only selects not assigned">
-      <option name="closed" value="true" />
-      <created>1719931078074</created>
-      <option name="number" value="00085" />
-      <option name="presentableId" value="LOCAL-00085" />
-      <option name="project" value="LOCAL" />
-      <updated>1719931078074</updated>
+      <workItem from="1721547368880" duration="2430000" />
     </task>
     <task id="LOCAL-00086" summary="added assignment controller">
       <option name="closed" value="true" />
@@ -733,7 +726,15 @@
       <option name="project" value="LOCAL" />
       <updated>1721478333015</updated>
     </task>
-    <option name="localTasksCounter" value="134" />
+    <task id="LOCAL-00134" summary="reduced truck/worker query complexity">
+      <option name="closed" value="true" />
+      <created>1721549114515</created>
+      <option name="number" value="00134" />
+      <option name="presentableId" value="LOCAL-00134" />
+      <option name="project" value="LOCAL" />
+      <updated>1721549114516</updated>
+    </task>
+    <option name="localTasksCounter" value="135" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -755,7 +756,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="false" />
-    <MESSAGE value="added assignment completion from worker list" />
     <MESSAGE value="added problem signaling from worker services" />
     <MESSAGE value="added details view for worker services" />
     <MESSAGE value="(hopefully) added client company manager accounts" />
@@ -780,7 +780,8 @@
     <MESSAGE value="bug fixing" />
     <MESSAGE value="bug fixing - final" />
     <MESSAGE value="latest little final change" />
-    <option name="LAST_COMMIT_MESSAGE" value="latest little final change" />
+    <MESSAGE value="reduced truck/worker query complexity" />
+    <option name="LAST_COMMIT_MESSAGE" value="reduced truck/worker query complexity" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

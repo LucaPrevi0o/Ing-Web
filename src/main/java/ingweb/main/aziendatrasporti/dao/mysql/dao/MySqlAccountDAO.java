@@ -18,6 +18,12 @@ public class MySqlAccountDAO extends MySqlDAO<Account> implements AccountDAO {
 
     public Account get(String[] item) { return new Account(Integer.parseInt(item[0]), item[1], item[2], item[3], Integer.parseInt(item[4]), item[5], Integer.parseInt(item[6]), item[7].equals("1")); }
 
+    public void removeAccount(Account account) {
+
+        var query="update accounts set deleted = '1' where profile = ? and level = ?";
+        MySqlQueryManager.execute(getConnection(), query, new Object[]{account.getProfile(), account.getLevel()});
+    }
+
     public ArrayList<Account> findAll() { return selectAll(); }
     public ArrayList<Account> findAllByLevel(int level) { return selectAll(new int[]{6}, new Object[]{level}); }
     public Account findByUsernameAndPassword(String username, String password) { return select(new int[]{1, 2}, new Object[]{username, password}); }
@@ -25,15 +31,9 @@ public class MySqlAccountDAO extends MySqlDAO<Account> implements AccountDAO {
     public Account findByCode(int code) { return select(new int[]{0}, new Object[]{code}); }
     public Account findByBankCoordinates(String bankCoordinates) { return select(new int[]{5}, new Object[]{bankCoordinates}); }
     public Account findByProfile(int profile, int level) { return select(new int[]{4, 6}, new Object[]{profile, level}); }
-
     public int findLastCode() { return lastCode(); }
     public void addAccount(Account account) { insert(account.asList()); }
     public void updateAccount(Account account) { update(account.asList()); }
-    public void removeAccount(Account account) {
-
-        var query="update accounts set deleted = '1' where profile = ? and level = ?";
-        MySqlQueryManager.execute(getConnection(), query, new Object[]{account.getProfile(), account.getLevel()});
-    }
 
     public void createAccount(Account account) {}
     public void deleteAccount(Account account) {}

@@ -30,7 +30,6 @@ public class MySqlWorkerDAO extends MySqlDAO<Worker> implements WorkerDAO {
 
     public ArrayList<Worker> findAvailableByService(Service service) {
 
-        var result=new ArrayList<Worker>();
         var query="SELECT m.* " +
             "FROM dipendente m " +
             "JOIN patenti_autista pm ON m.codice_fiscale = pm.dipendente " +
@@ -58,14 +57,6 @@ public class MySqlWorkerDAO extends MySqlDAO<Worker> implements WorkerDAO {
             "        WHERE pm2.dipendente = m.codice_fiscale " +
             "    ) " +
             ")";
-        var res=MySqlQueryManager.getResult(getConnection(), query);
-        var resList=MySqlQueryManager.asList(res, getColumns());
-        for (var item: resList) {
-
-            var truck=get(item);
-            if (!truck.isDeleted()) result.add(truck);
-        }
-
-        return result;
+        return findList(query);
     }
 }

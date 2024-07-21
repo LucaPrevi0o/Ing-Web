@@ -30,8 +30,6 @@ public class MySqlTruckDAO extends MySqlDAO<Truck> implements TruckDAO {
 
     public ArrayList<Truck> findAvailableByService(Service service) {
 
-        System.out.println(service);
-        var result=new ArrayList<Truck>();
         var query="SELECT m.* " +
             "FROM mezzo m " +
             "JOIN patenti_mezzo pm ON m.targa = pm.mezzo " +
@@ -57,15 +55,6 @@ public class MySqlTruckDAO extends MySqlDAO<Truck> implements TruckDAO {
             "        WHERE pm2.mezzo = m.targa " +
             "    ) " +
             ")";
-        System.out.println(query);
-        var res=MySqlQueryManager.getResult(getConnection(), query);
-        var resList=MySqlQueryManager.asList(res, getColumns());
-        for (var item: resList) {
-
-            var truck=get(item);
-            if (!truck.isDeleted()) result.add(truck);
-        }
-
-        return result;
+        return findList(query);
     }
 }
